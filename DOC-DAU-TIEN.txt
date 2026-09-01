@@ -1,0 +1,33 @@
+================================================================
+  SugarChills - Website quan ly mat hang an uong (ASP.NET MVC 5)
+================================================================
+
+CACH CHAY (3 buoc):
+
+  1. Giai nen thu muc nay ra o dia bat ky.
+       Vi du: D:\DoAn\SugarChills
+
+  2. Mo file  QL_MatHangAnUong.sln  bang Visual Studio 2022.
+       (Neu VS cua ban dung dinh dang moi, co the mo QL_MatHangAnUong.slnx)
+
+  3. Bam chuot phai vao Solution -> Restore NuGet Packages
+     (hoac cu Build -> Visual Studio se tu tai thu vien ve).
+     Sau do bam F5.
+
+     * Buoc restore chi mat vai giay vi may ban da co san cac goi nay
+       trong bo nho cache cua NuGet. Can co mang o lan restore dau tien.
+
+TAI KHOAN DUNG THU:
+
+  Nguoi ban (Seller):  seller@sugarchills.vn  /  123456
+  Khach hang        :  khach@gmail.com       /  123456
+
+  Khach chua dang nhap van xem duoc trang chu, thuc don, chi tiet san pham
+  va them vao gio hang. Chi khi dat hang moi bat buoc dang nhap.
+
+LUU Y:
+
+  - Du lieu dang luu trong bo nho (file Models/KhoDuLieu.cs), chua dung
+    SQL Server. Restart project thi du lieu tro lai nhu ban dau.
+  - Xem file HUONG_DAN_SUGARCHILLS.md de biet cau truc project, doi chieu
+    thang diem va cac buoc noi Entity Framework 6 + SQL Server.
