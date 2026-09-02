@@ -1,0 +1,112 @@
+﻿@using QL_MatHangAnUong.Models
+@{
+    var nguoiBan = ViewBag.NguoiDungHienTai as NguoiDung;
+    string ctl = ViewContext.RouteData.Values["controller"] as string;
+
+    Func<string, string> active = c => ctl == c ? "active" : "";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Quản trị SugarChills</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/sugarchills.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="sc-admin">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sc-sidebar" id="sidebarQuanTri">
+            <a href="@Url.Action("Index", "Home")" class="sc-logo">
+                <span class="sc-logo-mark"><i class="bi bi-cup-straw"></i></span>
+                <span>SugarChills<small>Trang quản trị</small></span>
+            </a>
+
+            <div class="sc-sidebar-label">Tổng quan</div>
+            <a class="sc-menu-item @active("ThongKe")" href="@Url.Action("Index", "ThongKe")">
+                <i class="bi bi-speedometer2"></i> Thống kê doanh thu
+            </a>
+
+            <div class="sc-sidebar-label">Bán hàng</div>
+            <a class="sc-menu-item @active("QuanLyDonHang")" href="@Url.Action("Index", "QuanLyDonHang")">
+                <i class="bi bi-receipt-cutoff"></i> Quản lý đơn hàng
+            </a>
+            <a class="sc-menu-item @active("QuanLyKhuyenMai")" href="@Url.Action("Index", "QuanLyKhuyenMai")">
+                <i class="bi bi-ticket-perforated"></i> Quản lý khuyến mãi
+            </a>
+
+            <div class="sc-sidebar-label">Danh mục</div>
+            <a class="sc-menu-item @active("QuanLySanPham")" href="@Url.Action("Index", "QuanLySanPham")">
+                <i class="bi bi-cup-hot"></i> Quản lý sản phẩm
+            </a>
+            <a class="sc-menu-item @active("QuanLyLoai")" href="@Url.Action("Index", "QuanLyLoai")">
+                <i class="bi bi-tags"></i> Quản lý loại
+            </a>
+
+            <div class="sc-sidebar-label">Khác</div>
+            <a class="sc-menu-item" href="@Url.Action("Index", "Home")" target="_blank">
+                <i class="bi bi-shop"></i> Xem website
+            </a>
+        </aside>
+
+        <!-- ============ NỘI DUNG ============ -->
+        <div class="sc-admin-main">
+            <div class="sc-admin-top">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-sc-soft d-lg-none" id="nutMoSidebar" type="button">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div>
+                        <h5 class="mb-0">@ViewBag.Title</h5>
+                        <small class="sc-text-muted">Xin chào, @(nguoiBan != null ? nguoiBan.HoTen : "Người bán")</small>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="btn btn-sc-soft dropdown-toggle" data-bs-toggle="dropdown" type="button">
+                        <i class="bi bi-person-circle"></i>
+                        <span class="d-none d-sm-inline">@(nguoiBan != null ? nguoiBan.Email : "")</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="@Url.Action("Index", "Home")"><i class="bi bi-shop me-2"></i>Về trang bán hàng</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li>
+                            @using (Html.BeginForm("DangXuat", "TaiKhoan", FormMethod.Post, new { @class = "px-2" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sc-outline btn-sm w-100">
+                                    <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                                </button>
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sc-admin-body">
+                @if (TempData["ThongBao"] != null)
+                {
+                    <div class="sc-alert sc-alert-@(TempData["LoaiThongBao"] ?? "success") mb-3">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <span>@TempData["ThongBao"]</span>
+                    </div>
+                }
+
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/sugarchills.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

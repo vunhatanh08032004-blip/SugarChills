@@ -1,0 +1,126 @@
+﻿@using QL_MatHangAnUong.Helpers
+@using QL_MatHangAnUong.Models
+@model QL_MatHangAnUong.Models.DonHang
+@{
+    // Xác định bước hiện tại trên thanh tiến trình
+    var cacBuoc = new[] { DonHang.ChoXacNhan, DonHang.DaXacNhan, DonHang.DangGiao, DonHang.HoanThanh };
+    int buocHienTai = Array.IndexOf(cacBuoc, Model.TrangThai);
+    bool daHuy = Model.TrangThai == DonHang.DaHuy;
+}
+
+<div class="container pb-5">
+    <div class="sc-breadcrumb">
+        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <a href="@Url.Action("Index", "DonHang")">Đơn hàng của tôi</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <span>#@Model.MaDH</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="sc-panel">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <h4 class="mb-0">Đơn hàng #@Model.MaDH</h4>
+                    <span class="sc-badge @Model.CssTrangThai">@Model.TrangThai</span>
+                </div>
+                <div class="sc-text-muted small mt-1">Đặt lúc @DinhDang.NgayGio(Model.NgayDat)</div>
+
+                @if (daHuy)
+                {
+                    <div class="sc-alert sc-alert-danger mt-3">
+                        <i class="bi bi-x-circle"></i> Đơn hàng này đã bị hủy.
+                    </div>
+                }
+                else
+                {
+                    <div class="sc-timeline mt-4">
+                        @for (int i = 0; i < cacBuoc.Length; i++)
+                        {
+                            <div class="sc-timeline-step @(i <= buocHienTai ? "done" : "")">@cacBuoc[i]</div>
+                        }
+                    </div>
+                }
+
+                <hr style="border-color:var(--sc-line)" />
+
+                <div class="table-responsive">
+                    <table class="table sc-table">
+                        <thead>
+                            <tr>
+                                <th>Món</th>
+                                <th class="text-center">Đơn giá</th>
+                                <th class="text-center">SL</th>
+                                <th class="text-end">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ct in Model.ChiTietDonHangs)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("ChiTiet", "SanPham", new { id = ct.MaSP })" class="fw-bold">@ct.TenSP</a>
+                                        <div class="small sc-text-muted">@ct.TuyChon</div>
+                                    </td>
+                                    <td class="text-center">@DinhDang.Tien(ct.DonGia)</td>
+                                    <td class="text-center">@ct.SoLuong</td>
+                                    <td class="text-end fw-bold">@DinhDang.Tien(ct.ThanhTien)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sc-summary">
+                <h5 class="mb-3">Thông tin giao hàng</h5>
+                <div class="mb-1"><strong>@Model.TenNguoiNhan</strong></div>
+                <div class="sc-text-muted">@Model.DienThoai</div>
+                <div class="sc-text-muted">@Model.DiaChi</div>
+                @if (!string.IsNullOrWhiteSpace(Model.GhiChu))
+                {
+                    <div class="mt-2 small"><em>Ghi chú: @Model.GhiChu</em></div>
+                }
+
+                <hr style="border-color:var(--sc-line)" />
+
+                <div class="sc-summary-row">
+                    <span class="sc-text-muted">Tạm tính</span>
+                    <span>@DinhDang.Tien(Model.TamTinh)</span>
+                </div>
+                <div class="sc-summary-row">
+                    <span class="sc-text-muted">Giảm giá</span>
+                    <span class="sc-text-primary">- @DinhDang.Tien(Model.TienGiam)</span>
+                </div>
+                <div class="sc-summary-row">
+                    <span class="sc-text-muted">Phí giao hàng</span>
+                    <span>@DinhDang.Tien(Model.PhiGiaoHang)</span>
+                </div>
+                <div class="sc-summary-row">
+                    <span class="sc-text-muted">Thanh toán</span>
+                    <span>@Model.HinhThucThanhToan</span>
+                </div>
+
+                <div class="sc-summary-total">
+                    <span>Tổng cộng</span>
+                    <span>@DinhDang.Tien(Model.TongTien)</span>
+                </div>
+
+                @if (Model.TrangThai == DonHang.ChoXacNhan)
+                {
+                    using (Html.BeginForm("HuyDon", "DonHang", FormMethod.Post,
+                        new { @class = "can-xac-nhan", data_hoi = "Bạn chắc chắn muốn hủy đơn này?" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.MaDH" />
+                        <button type="submit" class="btn btn-sc-outline w-100 mt-3">Hủy đơn hàng</button>
+                    }
+                }
+
+                <a href="@Url.Action("Index", "DonHang")" class="btn btn-sc-soft w-100 mt-2">Về danh sách đơn</a>
+            </div>
+        </div>
+    </div>
+</div>

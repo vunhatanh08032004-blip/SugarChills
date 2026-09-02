@@ -1,0 +1,85 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\SugarChills\\SugarChills\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|d:\\sugarchills\\sugarchills\\ql_mathanganuong\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\SugarChills\\SugarChills\\ql_mathanganuong\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\SugarChills\\SugarChills\\ql_mathanganuong\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\SugarChills\\SugarChills\\ql_mathanganuong\\app_start\\bundleconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\app_start\\bundleconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAACYAAAAAAAAAAAAqwEIAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-25T05:34:11.416Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RouteConfig.cs",
+              "DocumentMoniker": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
+              "RelativeDocumentMoniker": "QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
+              "ToolTip": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
+              "RelativeToolTip": "QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-25T05:28:00.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FilterConfig.cs",
+              "DocumentMoniker": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
+              "RelativeDocumentMoniker": "QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
+              "ToolTip": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
+              "RelativeToolTip": "QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-25T05:27:59.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BundleConfig.cs",
+              "DocumentMoniker": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
+              "RelativeDocumentMoniker": "QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
+              "ToolTip": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
+              "RelativeToolTip": "QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-25T05:27:56.409Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

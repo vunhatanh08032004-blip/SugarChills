@@ -1,0 +1,50 @@
+﻿@model QL_MatHangAnUong.Models.LoaiSanPham
+
+@Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+@Html.HiddenFor(m => m.MaLoai)
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="sc-panel">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    @Html.LabelFor(m => m.TenLoai, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.TenLoai, new { @class = "form-control", placeholder = "Ví dụ: Trà sữa" })
+                    @Html.ValidationMessageFor(m => m.TenLoai)
+                </div>
+
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.ThuTu, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.ThuTu, new { @class = "form-control", type = "number", min = 0 })
+                    <small class="sc-text-muted">Số nhỏ hiển thị trước trên menu.</small>
+                </div>
+
+                <div class="col-12">
+                    @Html.LabelFor(m => m.MoTa, new { @class = "form-label" })
+                    @Html.TextAreaFor(m => m.MoTa, new { @class = "form-control", rows = 3, placeholder = "Mô tả ngắn về nhóm sản phẩm này" })
+                    @Html.ValidationMessageFor(m => m.MoTa)
+                </div>
+
+                <div class="col-12">
+                    <label class="sc-topping">
+                        @Html.CheckBoxFor(m => m.HienThi)
+                        <span>Hiển thị loại này trên menu của khách hàng</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="sc-panel">
+            <h5 class="mb-3">Hình đại diện</h5>
+            <img id="xemTruocAnh"
+                 src="@(string.IsNullOrWhiteSpace(Model.HinhAnh) ? "https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills" : Model.HinhAnh)"
+                 class="w-100 mb-2" style="border-radius:14px;aspect-ratio:1/1;object-fit:cover"
+                 onerror="this.onerror=null;this.src='https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills';" />
+
+            @Html.LabelFor(m => m.HinhAnh, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", id = "HinhAnh", placeholder = "Dán link ảnh (https://...)" })
+        </div>
+    </div>
+</div>

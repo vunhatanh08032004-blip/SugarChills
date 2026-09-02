@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Giới thiệu SugarChills";
+}
+
+<div class="container pb-5">
+    <div class="sc-breadcrumb">
+        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <span>Giới thiệu</span>
+    </div>
+
+    <div class="sc-hero mb-4">
+        <span class="sc-blob sc-blob-1"></span>
+        <div class="row align-items-center g-4 position-relative">
+            <div class="col-lg-7">
+                <span class="sc-hero-tag">TỪ 2023</span>
+                <h1>Câu chuyện của SugarChills</h1>
+                <p>
+                    Bắt đầu từ một quầy trà sữa nhỏ trước cổng trường, SugarChills lớn lên cùng những buổi chiều
+                    tan học và những ly nước "ít đường, nhiều đá" quen thuộc.
+                </p>
+            </div>
+            <div class="col-lg-5">
+                <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80"
+                     class="sc-hero-img" alt="Không gian quán"
+                     onerror="this.onerror=null;this.src='https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills';" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="sc-panel">
+                <h4>Chúng mình làm gì mỗi ngày?</h4>
+                <p class="sc-text-muted">
+                    Trà được ủ mới mỗi 4 tiếng, trân châu nấu theo mẻ nhỏ 2 tiếng một lần, trái cây cắt trong ngày.
+                    Mỗi ly nước ra khỏi quầy đều được pha theo đúng tùy chọn đường - đá mà bạn đã chọn, vì tụi mình tin
+                    "ngọt vừa đủ" là mức ngọt do chính bạn quyết định.
+                </p>
+
+                <h4 class="mt-4">Giá trị SugarChills theo đuổi</h4>
+                <div class="row g-3 mt-1">
+                    <div class="col-md-6">
+                        <div class="sc-feature">
+                            <div class="sc-feature-icon"><i class="bi bi-basket"></i></div>
+                            <div><strong>Nguyên liệu minh bạch</strong><div class="small sc-text-muted">Nguồn gốc rõ ràng, không phẩm màu</div></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="sc-feature">
+                            <div class="sc-feature-icon"><i class="bi bi-emoji-smile"></i></div>
+                            <div><strong>Phục vụ tử tế</strong><div class="small sc-text-muted">Sai món là đổi ly mới ngay</div></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="sc-feature">
+                            <div class="sc-feature-icon"><i class="bi bi-recycle"></i></div>
+                            <div><strong>Ly thân thiện</strong><div class="small sc-text-muted">Ống hút giấy, ly tái chế</div></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="sc-feature">
+                            <div class="sc-feature-icon"><i class="bi bi-piggy-bank"></i></div>
+                            <div><strong>Giá sinh viên</strong><div class="small sc-text-muted">Đa số món dưới 50.000đ</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sc-panel">
+                <h5>SugarChills trong con số</h5>
+                <div class="d-flex justify-content-between py-2" style="border-bottom:1px solid var(--sc-line)">
+                    <span class="sc-text-muted">Cửa hàng</span><strong>3 chi nhánh</strong>
+                </div>
+                <div class="d-flex justify-content-between py-2" style="border-bottom:1px solid var(--sc-line)">
+                    <span class="sc-text-muted">Món trong menu</span><strong>26 món</strong>
+                </div>
+                <div class="d-flex justify-content-between py-2" style="border-bottom:1px solid var(--sc-line)">
+                    <span class="sc-text-muted">Khách mỗi ngày</span><strong>~400 lượt</strong>
+                </div>
+                <div class="d-flex justify-content-between py-2">
+                    <span class="sc-text-muted">Thời gian giao</span><strong>30 phút</strong>
+                </div>
+
+                <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc w-100 mt-3">Xem thực đơn</a>
+            </div>
+        </div>
+    </div>
+</div>

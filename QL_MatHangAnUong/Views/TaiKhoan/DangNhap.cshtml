@@ -1,0 +1,66 @@
+﻿@model QL_MatHangAnUong.Models.ViewModels.DangNhapViewModel
+
+<div class="container sc-auth-wrap">
+    <div class="sc-auth-card w-100" style="max-width:920px;margin:0 auto">
+        <div class="row g-0">
+            <div class="col-lg-5 sc-auth-side">
+                <h3>Chào mừng trở lại!</h3>
+                <p>Đăng nhập để đặt món nhanh hơn, theo dõi đơn hàng và nhận ưu đãi riêng của SugarChills.</p>
+                <div class="mt-4 small">
+                    <div class="mb-2"><i class="bi bi-check-circle"></i> Lưu địa chỉ giao hàng</div>
+                    <div class="mb-2"><i class="bi bi-check-circle"></i> Theo dõi trạng thái đơn</div>
+                    <div><i class="bi bi-check-circle"></i> Nhận mã giảm giá mỗi tuần</div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 p-4 p-lg-5">
+                <h4 class="mb-1">Đăng nhập</h4>
+                <p class="sc-text-muted small mb-4">Chưa có tài khoản?
+                    <a href="@Url.Action("DangKy", new { returnUrl = ViewBag.ReturnUrl })">Đăng ký ngay</a>
+                </p>
+
+                @using (Html.BeginForm("DangNhap", "TaiKhoan", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "ban@email.com" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.MatKhau, new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "••••••" })
+                        @Html.ValidationMessageFor(m => m.MatKhau)
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <label class="d-flex align-items-center gap-2 small">
+                            @Html.CheckBoxFor(m => m.GhiNho)
+                            <span>Ghi nhớ đăng nhập</span>
+                        </label>
+                        <a href="#" class="small">Quên mật khẩu?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-sc btn-lg w-100">Đăng nhập</button>
+                }
+
+                <div class="sc-alert sc-alert-info mt-4" style="font-size:13px">
+                    <i class="bi bi-info-circle"></i>
+                    <div>
+                        <strong>Tài khoản dùng thử:</strong><br />
+                        Người bán: seller@sugarchills.vn / 123456<br />
+                        Khách hàng: khach@gmail.com / 123456
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

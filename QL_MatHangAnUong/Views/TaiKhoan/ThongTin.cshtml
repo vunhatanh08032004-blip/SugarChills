@@ -1,0 +1,128 @@
+﻿@using QL_MatHangAnUong.Helpers
+@using QL_MatHangAnUong.Models
+@model QL_MatHangAnUong.Models.NguoiDung
+@{
+    var donHangs = ViewBag.DonHangs as List<DonHang> ?? new List<DonHang>();
+}
+
+<div class="container pb-5">
+    <div class="sc-breadcrumb">
+        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <span>Tài khoản của tôi</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="sc-panel text-center">
+                <div class="sc-logo-mark mx-auto mb-3" style="width:72px;height:72px;font-size:30px">
+                    <i class="bi bi-person"></i>
+                </div>
+                <h4 class="mb-1">@Model.HoTen</h4>
+                <div class="sc-text-muted">@Model.Email</div>
+                <span class="sc-chip mt-2">
+                    @(Model.LaNguoiBan ? "Người bán" : "Khách hàng")
+                </span>
+
+                <hr style="border-color:var(--sc-line)" />
+
+                <div class="text-start small">
+                    <div class="mb-2"><i class="bi bi-telephone"></i> @Model.DienThoai</div>
+                    <div class="mb-2"><i class="bi bi-geo-alt"></i> @(string.IsNullOrWhiteSpace(Model.DiaChi) ? "Chưa cập nhật địa chỉ" : Model.DiaChi)</div>
+                    <div><i class="bi bi-calendar-check"></i> Tham gia @DinhDang.Ngay(Model.NgayDangKy)</div>
+                </div>
+
+                @if (Model.LaNguoiBan)
+                {
+                    <a href="@Url.Action("Index", "ThongKe")" class="btn btn-sc w-100 mt-3">
+                        <i class="bi bi-speedometer2"></i> Vào khu quản trị
+                    </a>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="row g-3 mb-3">
+                <div class="col-6 col-md-4">
+                    <div class="sc-stat">
+                        <div class="sc-stat-icon bg-soft-pink"><i class="bi bi-receipt"></i></div>
+                        <div>
+                            <div class="sc-stat-value">@donHangs.Count</div>
+                            <div class="sc-stat-label">Tổng đơn hàng</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="sc-stat">
+                        <div class="sc-stat-icon bg-soft-mint"><i class="bi bi-check2-circle"></i></div>
+                        <div>
+                            <div class="sc-stat-value">@donHangs.Count(d => d.TrangThai == DonHang.HoanThanh)</div>
+                            <div class="sc-stat-label">Đã hoàn thành</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="sc-stat">
+                        <div class="sc-stat-icon bg-soft-yellow"><i class="bi bi-cash-coin"></i></div>
+                        <div>
+                            <div class="sc-stat-value" style="font-size:19px">
+                                @DinhDang.Tien(donHangs.Where(d => d.TrangThai == DonHang.HoanThanh).Sum(d => d.TongTien))
+                            </div>
+                            <div class="sc-stat-label">Đã chi tiêu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sc-table-card">
+                <div class="sc-table-head">
+                    <h5>Đơn hàng gần đây</h5>
+                    <a href="@Url.Action("Index", "DonHang")" class="btn btn-sc-soft btn-sm">Xem tất cả</a>
+                </div>
+
+                @if (donHangs.Count == 0)
+                {
+                    <div class="sc-empty">
+                        <i class="bi bi-receipt"></i>
+                        <p>Bạn chưa có đơn hàng nào.</p>
+                        <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc">Đặt món ngay</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table sc-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn</th>
+                                    <th>Ngày đặt</th>
+                                    <th class="text-center">Số món</th>
+                                    <th class="text-end">Tổng tiền</th>
+                                    <th class="text-center">Trạng thái</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var dh in donHangs.Take(6))
+                                {
+                                    <tr>
+                                        <td class="fw-bold">#@dh.MaDH</td>
+                                        <td>@DinhDang.NgayGio(dh.NgayDat)</td>
+                                        <td class="text-center">@dh.ChiTietDonHangs.Sum(c => c.SoLuong)</td>
+                                        <td class="text-end fw-bold">@DinhDang.Tien(dh.TongTien)</td>
+                                        <td class="text-center"><span class="sc-badge @dh.CssTrangThai">@dh.TrangThai</span></td>
+                                        <td class="text-end">
+                                            <a href="@Url.Action("ChiTiet", "DonHang", new { id = dh.MaDH })" class="btn btn-sm btn-sc-soft">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

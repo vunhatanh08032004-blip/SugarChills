@@ -1,0 +1,27 @@
+﻿/*
+    Site.css — file mặc định của template ASP.NET MVC.
+    Toàn bộ giao diện SugarChills được viết trong Content/sugarchills.css,
+    file này chỉ giữ vài chỉnh sửa nhỏ để không đè lên thiết kế chính.
+*/
+
+/* Không dùng padding-top mặc định của template vì header đã tự xử lý khoảng cách */
+body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Bảo đảm ảnh không tràn khung trên màn hình nhỏ */
+img {
+    max-width: 100%;
+}
+
+/* Ẩn mũi tên tăng/giảm mặc định của input number cho gọn giao diện */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

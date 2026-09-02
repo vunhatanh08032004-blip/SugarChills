@@ -1,0 +1,51 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model QL_MatHangAnUong.Models.SanPham
+@*
+    Partial view dùng lại ở: trang chủ, danh sách sản phẩm, sản phẩm liên quan.
+    Nhờ vậy chỉ cần sửa 1 chỗ là toàn bộ card sản phẩm trên web đổi theo.
+*@
+<div class="sc-product">
+    <a href="@Url.Action("ChiTiet", "SanPham", new { id = Model.MaSP })" class="sc-product-img">
+        @if (Model.PhanTramGiam > 0)
+        {
+            <span class="sc-badge-sale">-@Model.PhanTramGiam%</span>
+        }
+        @if (Model.NoiBat)
+        {
+            <span class="sc-badge-hot"><i class="bi bi-fire"></i> HOT</span>
+        }
+        <img src="@Model.HinhAnh" alt="@Model.TenSP"
+             onerror="this.onerror=null;this.src='https://placehold.co/600x600/FFE6EE/E8517F?text=SugarChills';" />
+    </a>
+
+    <div class="sc-product-body">
+        <div class="sc-product-cat">
+            @(Model.LoaiSanPham != null ? Model.LoaiSanPham.TenLoai : "SugarChills")
+        </div>
+
+        <a href="@Url.Action("ChiTiet", "SanPham", new { id = Model.MaSP })" class="sc-product-name">
+            @Model.TenSP
+        </a>
+
+        <div class="sc-product-desc">@Model.MoTa</div>
+
+        <div class="sc-product-foot">
+            <div>
+                <span class="sc-price">@DinhDang.Tien(Model.GiaBanThucTe)</span>
+                @if (Model.PhanTramGiam > 0)
+                {
+                    <span class="sc-price-old">@DinhDang.Tien(Model.Gia)</span>
+                }
+            </div>
+
+            @using (Html.BeginForm("ThemNhanh", "GioHang", FormMethod.Post, new { @class = "form-them-nhanh d-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="maSP" value="@Model.MaSP" />
+                <button type="submit" class="sc-add-btn" title="Thêm nhanh vào giỏ">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            }
+        </div>
+    </div>
+</div>

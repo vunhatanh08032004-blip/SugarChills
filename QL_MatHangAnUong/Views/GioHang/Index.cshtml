@@ -1,0 +1,189 @@
+﻿@using QL_MatHangAnUong.Helpers
+@using QL_MatHangAnUong.Models
+@model QL_MatHangAnUong.Models.GioHang
+@{
+    decimal tienGiam = ViewBag.TienGiam != null ? (decimal)ViewBag.TienGiam : 0;
+    decimal phiGiao = ViewBag.PhiGiaoHang != null ? (decimal)ViewBag.PhiGiaoHang : 0;
+    decimal tongTien = ViewBag.TongTien != null ? (decimal)ViewBag.TongTien : 0;
+    decimal mucFreeship = ViewBag.MucMienPhiGiaoHang != null ? (decimal)ViewBag.MucMienPhiGiaoHang : 150000;
+    var goiY = ViewBag.KhuyenMaiGoiY as List<KhuyenMai> ?? new List<KhuyenMai>();
+}
+
+<div class="container pb-5">
+    <div class="sc-breadcrumb">
+        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <span>Giỏ hàng</span>
+    </div>
+
+    <h2 class="mb-4">Giỏ hàng của bạn</h2>
+
+    @if (Model.Items.Count == 0)
+    {
+        <div class="sc-panel sc-empty">
+            <i class="bi bi-bag-heart"></i>
+            <h5>Giỏ hàng đang trống</h5>
+            <p>Chọn vài món ngọt mát để bắt đầu nhé!</p>
+            <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc btn-lg">
+                <i class="bi bi-cup-straw"></i> Xem thực đơn
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            <!-- ============ DANH SÁCH MÓN TRONG GIỎ ============ -->
+            <div class="col-lg-8">
+                <div class="sc-panel">
+                    <div class="table-responsive">
+                        <table class="sc-cart-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:44%">Sản phẩm</th>
+                                    <th class="text-center">Đơn giá</th>
+                                    <th class="text-center" style="width:170px">Số lượng</th>
+                                    <th class="text-end">Thành tiền</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex gap-3">
+                                                <img src="@item.HinhAnh" class="sc-cart-img" alt="@item.TenSP"
+                                                     onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFE6EE/E8517F?text=SC';" />
+                                                <div>
+                                                    <a href="@Url.Action("ChiTiet", "SanPham", new { id = item.MaSP })"
+                                                       class="fw-bold" style="color:var(--sc-brown)">@item.TenSP</a>
+                                                    <div class="small sc-text-muted mt-1">@item.MoTaTuyChon</div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="text-center">@DinhDang.Tien(item.DonGia)</td>
+
+                                        <td class="text-center">
+                                            @using (Html.BeginForm("CapNhat", "GioHang", FormMethod.Post))
+                                            {
+                                                <input type="hidden" name="khoa" value="@item.Khoa" />
+                                                <div class="sc-qty">
+                                                    <button type="button" data-buoc="giam">−</button>
+                                                    <input type="number" name="soLuong" class="o-so-luong-gio"
+                                                           value="@item.SoLuong" min="1" max="100" />
+                                                    <button type="button" data-buoc="tang">+</button>
+                                                </div>
+                                            }
+                                        </td>
+
+                                        <td class="text-end fw-bold sc-text-primary">@DinhDang.Tien(item.ThanhTien)</td>
+
+                                        <td class="text-end">
+                                            @using (Html.BeginForm("Xoa", "GioHang", FormMethod.Post,
+                                                new { @class = "can-xac-nhan", data_hoi = "Xóa món này khỏi giỏ hàng?" }))
+                                            {
+                                                <input type="hidden" name="khoa" value="@item.Khoa" />
+                                                <button type="submit" class="btn btn-sm btn-sc-soft" title="Xóa">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-between gap-2 mt-3">
+                        <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-outline">
+                            <i class="bi bi-arrow-left"></i> Tiếp tục chọn món
+                        </a>
+
+                        @using (Html.BeginForm("XoaTatCa", "GioHang", FormMethod.Post,
+                            new { @class = "can-xac-nhan", data_hoi = "Xóa toàn bộ giỏ hàng?" }))
+                        {
+                            <button type="submit" class="btn btn-sc-soft">
+                                <i class="bi bi-trash3"></i> Xóa toàn bộ giỏ
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <!-- ---- Mã giảm giá ---- -->
+                <div class="sc-panel mt-3">
+                    <h5 class="mb-3"><i class="bi bi-ticket-perforated"></i> Mã giảm giá</h5>
+
+                    @if (string.IsNullOrEmpty(Model.MaGiamGia))
+                    {
+                        using (Html.BeginForm("ApDungMa", "GioHang", FormMethod.Post, new { @class = "d-flex gap-2" }))
+                        {
+                            <input type="text" name="maGiamGia" class="form-control" placeholder="Nhập mã, ví dụ SUGAR10" />
+                            <button type="submit" class="btn btn-sc text-nowrap">Áp dụng</button>
+                        }
+
+                        <div class="mt-3">
+                            @foreach (var km in goiY)
+                            {
+                                <span class="sc-chip" title="@km.MoTa">
+                                    <i class="bi bi-tag"></i> @km.MaGiamGia.ToUpper() — giảm @km.PhanTramGiam%
+                                </span>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="sc-chip"><i class="bi bi-check-circle"></i> Đang dùng mã @Model.MaGiamGia.ToUpper()</span>
+                            @using (Html.BeginForm("BoMa", "GioHang", FormMethod.Post))
+                            {
+                                <button type="submit" class="btn btn-sm btn-sc-outline">Bỏ mã</button>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- ============ TÓM TẮT ĐƠN ============ -->
+            <div class="col-lg-4">
+                <div class="sc-summary">
+                    <h5 class="mb-3">Tóm tắt đơn hàng</h5>
+
+                    <div class="sc-summary-row">
+                        <span class="sc-text-muted">Tạm tính (@Model.TongSoLuong món)</span>
+                        <span>@DinhDang.Tien(Model.TamTinh)</span>
+                    </div>
+                    <div class="sc-summary-row">
+                        <span class="sc-text-muted">Giảm giá</span>
+                        <span class="sc-text-primary">- @DinhDang.Tien(tienGiam)</span>
+                    </div>
+                    <div class="sc-summary-row">
+                        <span class="sc-text-muted">Phí giao hàng</span>
+                        <span>@(phiGiao == 0 ? "Miễn phí" : DinhDang.Tien(phiGiao))</span>
+                    </div>
+
+                    @if (Model.TamTinh < mucFreeship)
+                    {
+                        <div class="sc-alert sc-alert-info mt-2" style="font-size:13px">
+                            <i class="bi bi-truck"></i>
+                            Mua thêm @DinhDang.Tien(mucFreeship - Model.TamTinh) để được miễn phí giao hàng.
+                        </div>
+                    }
+
+                    <div class="sc-summary-total">
+                        <span>Tổng cộng</span>
+                        <span>@DinhDang.Tien(tongTien)</span>
+                    </div>
+
+                    <a href="@Url.Action("ThanhToan", "GioHang")" class="btn btn-sc btn-lg w-100 mt-3">
+                        <i class="bi bi-bag-check"></i> Tiến hành đặt hàng
+                    </a>
+
+                    <div class="text-center small sc-text-muted mt-2">
+                        Bạn cần đăng nhập để hoàn tất đặt hàng
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

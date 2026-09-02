@@ -1,0 +1,44 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model QL_MatHangAnUong.Models.SanPham
+@{
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    ViewBag.Title = "Xóa sản phẩm";
+}
+
+<div class="sc-panel" style="max-width:640px;margin:0 auto">
+    <div class="text-center mb-3">
+        <div class="sc-feature-icon mx-auto mb-2"
+             style="width:66px;height:66px;font-size:28px;background:#FFECF1;color:#C0345C">
+            <i class="bi bi-exclamation-triangle"></i>
+        </div>
+        <h4>Xác nhận xóa sản phẩm</h4>
+        <p class="sc-text-muted">Thao tác này không thể hoàn tác. Bạn chắc chắn muốn xóa sản phẩm dưới đây?</p>
+    </div>
+
+    <div class="d-flex gap-3 align-items-center p-3" style="background:var(--sc-primary-softer);border-radius:14px">
+        <img src="@Model.HinhAnh" class="sc-thumb" style="width:80px;height:80px" alt="@Model.TenSP"
+             onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFE6EE/E8517F?text=SC';" />
+        <div>
+            <div class="fw-bold" style="font-size:17px">@Model.TenSP</div>
+            <div class="sc-text-muted small">
+                @(Model.LoaiSanPham != null ? Model.LoaiSanPham.TenLoai : "-") •
+                @DinhDang.Tien(Model.GiaBanThucTe) • Tồn @Model.SoLuongTon
+            </div>
+        </div>
+    </div>
+
+    <div class="sc-alert sc-alert-warning mt-3">
+        <i class="bi bi-lightbulb"></i>
+        <span>Nếu sản phẩm đã từng được đặt, bạn nên chuyển sang <strong>Ngừng bán</strong> thay vì xóa để giữ lịch sử đơn hàng.</span>
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+        @using (Html.BeginForm("XacNhanXoa", "QuanLySanPham", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.MaSP" />
+            <button type="submit" class="btn btn-sc btn-lg"><i class="bi bi-trash"></i> Xác nhận xóa</button>
+        }
+        <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">Quay lại</a>
+    </div>
+</div>

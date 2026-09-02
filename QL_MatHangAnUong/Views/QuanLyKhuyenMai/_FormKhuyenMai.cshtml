@@ -1,0 +1,93 @@
+﻿@model QL_MatHangAnUong.Models.KhuyenMai
+
+@Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+@Html.HiddenFor(m => m.MaKM)
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="sc-panel">
+            <div class="row g-3">
+                <div class="col-md-7">
+                    @Html.LabelFor(m => m.TenKM, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.TenKM, new { @class = "form-control", placeholder = "Ví dụ: Chào bạn mới" })
+                    @Html.ValidationMessageFor(m => m.TenKM)
+                </div>
+
+                <div class="col-md-5">
+                    @Html.LabelFor(m => m.MaGiamGia, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.MaGiamGia, new { @class = "form-control text-uppercase", placeholder = "SUGAR10" })
+                    @Html.ValidationMessageFor(m => m.MaGiamGia)
+                    <small class="sc-text-muted">Chỉ chữ và số, không dấu, không khoảng trắng.</small>
+                </div>
+
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.PhanTramGiam, new { @class = "form-label" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.PhanTramGiam, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                        <span class="input-group-text">%</span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.PhanTramGiam)
+                </div>
+
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.GiamToiDa, new { @class = "form-label" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.GiamToiDa, new { @class = "form-control", type = "number", min = 0, step = 1000 })
+                        <span class="input-group-text">đ</span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.GiamToiDa)
+                </div>
+
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.DonToiThieu, new { @class = "form-label" })
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.DonToiThieu, new { @class = "form-control", type = "number", min = 0, step = 1000 })
+                        <span class="input-group-text">đ</span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.DonToiThieu)
+                </div>
+
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.NgayBatDau, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.NgayBatDau, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.NgayBatDau)
+                </div>
+
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.NgayKetThuc, new { @class = "form-label" })
+                    @Html.TextBoxFor(m => m.NgayKetThuc, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(m => m.NgayKetThuc)
+                </div>
+
+                <div class="col-12">
+                    @Html.LabelFor(m => m.MoTa, new { @class = "form-label" })
+                    @Html.TextAreaFor(m => m.MoTa, new { @class = "form-control", rows = 3, placeholder = "Mô tả hiển thị cho khách hàng" })
+                </div>
+
+                <div class="col-12">
+                    <label class="sc-topping">
+                        @Html.CheckBoxFor(m => m.KichHoat)
+                        <span>Kích hoạt chương trình này</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="sc-panel">
+            <h5 class="mb-3">Cách khuyến mãi hoạt động</h5>
+            <ol class="sc-text-muted" style="font-size:14px;padding-left:18px">
+                <li class="mb-2">Khách nhập mã ở trang giỏ hàng.</li>
+                <li class="mb-2">Hệ thống kiểm tra mã còn hiệu lực và đơn hàng có đạt giá trị tối thiểu không.</li>
+                <li class="mb-2">Tiền giảm = tạm tính × phần trăm giảm, nhưng không vượt quá "Giảm tối đa".</li>
+                <li>Số tiền giảm được lưu vào đơn hàng để phục vụ thống kê.</li>
+            </ol>
+
+            <div class="sc-alert sc-alert-warning" style="font-size:13px">
+                <i class="bi bi-exclamation-circle"></i>
+                <span>Mỗi mã giảm giá phải là duy nhất trong hệ thống.</span>
+            </div>
+        </div>
+    </div>
+</div>

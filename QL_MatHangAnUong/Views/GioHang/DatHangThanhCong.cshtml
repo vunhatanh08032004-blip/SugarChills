@@ -1,0 +1,86 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model QL_MatHangAnUong.Models.DonHang
+
+<div class="container pb-5">
+    <div class="sc-panel text-center mt-4" style="max-width:760px;margin:0 auto">
+        <div class="sc-feature-icon mx-auto mb-3"
+             style="width:76px;height:76px;font-size:34px;background:#E1F7F1;color:#2FA98A">
+            <i class="bi bi-check-lg"></i>
+        </div>
+
+        <h2>Đặt hàng thành công!</h2>
+        <p class="sc-text-muted">
+            Cảm ơn bạn đã đặt món tại SugarChills. Đơn hàng <strong>#@Model.MaDH</strong> đang chờ quán xác nhận,
+            tụi mình sẽ gọi cho bạn trong ít phút nữa.
+        </p>
+
+        <div class="row g-3 text-start mt-3">
+            <div class="col-md-6">
+                <div class="sc-panel h-100" style="box-shadow:none;background:var(--sc-primary-softer)">
+                    <div class="sc-option-title">Người nhận</div>
+                    <div>@Model.TenNguoiNhan</div>
+                    <div class="sc-text-muted">@Model.DienThoai</div>
+                    <div class="sc-text-muted">@Model.DiaChi</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="sc-panel h-100" style="box-shadow:none;background:var(--sc-primary-softer)">
+                    <div class="sc-option-title">Đơn hàng</div>
+                    <div>Ngày đặt: @DinhDang.NgayGio(Model.NgayDat)</div>
+                    <div>Thanh toán: @Model.HinhThucThanhToan</div>
+                    <div>Trạng thái: <span class="sc-badge @Model.CssTrangThai">@Model.TrangThai</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-4 text-start">
+            <table class="table sc-table">
+                <thead>
+                    <tr>
+                        <th>Món</th>
+                        <th class="text-center">SL</th>
+                        <th class="text-end">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ct in Model.ChiTietDonHangs)
+                    {
+                        <tr>
+                            <td>
+                                <div class="fw-bold">@ct.TenSP</div>
+                                <div class="small sc-text-muted">@ct.TuyChon</div>
+                            </td>
+                            <td class="text-center">@ct.SoLuong</td>
+                            <td class="text-end">@DinhDang.Tien(ct.ThanhTien)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" class="text-end sc-text-muted">Tạm tính</td>
+                        <td class="text-end">@DinhDang.Tien(Model.TamTinh)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-end sc-text-muted">Giảm giá</td>
+                        <td class="text-end">- @DinhDang.Tien(Model.TienGiam)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-end sc-text-muted">Phí giao hàng</td>
+                        <td class="text-end">@DinhDang.Tien(Model.PhiGiaoHang)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-end fw-bold">Tổng cộng</td>
+                        <td class="text-end fw-bold sc-text-primary" style="font-size:18px">@DinhDang.Tien(Model.TongTien)</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+            <a href="@Url.Action("ChiTiet", "DonHang", new { id = Model.MaDH })" class="btn btn-sc">
+                <i class="bi bi-receipt"></i> Theo dõi đơn hàng
+            </a>
+            <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-outline">Tiếp tục mua sắm</a>
+        </div>
+    </div>
+</div>

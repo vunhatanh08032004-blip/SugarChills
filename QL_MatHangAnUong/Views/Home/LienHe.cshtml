@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Liên hệ";
+}
+
+<div class="container pb-5">
+    <div class="sc-breadcrumb">
+        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <span>Liên hệ</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <div class="sc-panel h-100">
+                <h4 class="mb-3">Liên hệ SugarChills</h4>
+
+                <div class="d-flex gap-3 mb-3">
+                    <div class="sc-feature-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div>
+                        <strong>Cửa hàng chính</strong>
+                        <div class="sc-text-muted small">12 Nguyễn Văn Bảo, P.4, Gò Vấp, TP.HCM</div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 mb-3">
+                    <div class="sc-feature-icon"><i class="bi bi-telephone-fill"></i></div>
+                    <div>
+                        <strong>Hotline đặt hàng</strong>
+                        <div class="sc-text-muted small">1900 6789 (07:00 - 22:00)</div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 mb-3">
+                    <div class="sc-feature-icon"><i class="bi bi-envelope-fill"></i></div>
+                    <div>
+                        <strong>Email</strong>
+                        <div class="sc-text-muted small">hello@sugarchills.vn</div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3">
+                    <div class="sc-feature-icon"><i class="bi bi-clock-fill"></i></div>
+                    <div>
+                        <strong>Giờ mở cửa</strong>
+                        <div class="sc-text-muted small">T2 - T6: 07:00 - 22:00<br />T7 - CN: 08:00 - 23:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="sc-panel">
+                <h4 class="mb-3">Gửi lời nhắn cho tụi mình</h4>
+                <p class="sc-text-muted small">
+                    Góp ý về món, về phục vụ hay muốn hợp tác — cứ để lại lời nhắn, SugarChills sẽ phản hồi trong 24 giờ.
+                </p>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" placeholder="Nguyễn Văn A" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Số điện thoại</label>
+                        <input type="text" class="form-control" placeholder="09xxxxxxxx" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="ban@email.com" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Nội dung</label>
+                        <textarea class="form-control" rows="4" placeholder="Bạn muốn nhắn gì cho SugarChills?"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button type="button" class="btn btn-sc btn-lg"
+                                onclick="alert('Cảm ơn bạn! Đây là form demo của đồ án, chưa lưu vào cơ sở dữ liệu.');">
+                            <i class="bi bi-send"></i> Gửi lời nhắn
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

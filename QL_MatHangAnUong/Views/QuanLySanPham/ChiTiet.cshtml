@@ -1,0 +1,73 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model QL_MatHangAnUong.Models.SanPham
+@{
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    ViewBag.Title = "Chi tiết sản phẩm";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Chi tiết sản phẩm SC@(Model.MaSP.ToString("D3"))</h4>
+    <div class="d-flex gap-2">
+        <a href="@Url.Action("Sua", new { id = Model.MaSP })" class="btn btn-sc"><i class="bi bi-pencil"></i> Sửa</a>
+        <a href="@Url.Action("Index")" class="btn btn-sc-soft"><i class="bi bi-arrow-left"></i> Danh sách</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="sc-panel">
+            <img src="@Model.HinhAnh" class="w-100" style="border-radius:14px;aspect-ratio:1/1;object-fit:cover"
+                 alt="@Model.TenSP"
+                 onerror="this.onerror=null;this.src='https://placehold.co/400x400/FFE6EE/E8517F?text=SugarChills';" />
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="sc-panel">
+            <h4>@Model.TenSP</h4>
+            <p class="sc-text-muted">@Model.MoTa</p>
+
+            <table class="table sc-table">
+                <tbody>
+                    <tr><th style="width:200px">Loại sản phẩm</th><td>@(Model.LoaiSanPham != null ? Model.LoaiSanPham.TenLoai : "-")</td></tr>
+                    <tr><th>Giá niêm yết</th><td>@DinhDang.Tien(Model.Gia)</td></tr>
+                    <tr>
+                        <th>Giá khuyến mãi</th>
+                        <td>
+                            @if (Model.GiaKhuyenMai.HasValue && Model.GiaKhuyenMai > 0)
+                            {
+                                <span class="fw-bold sc-text-primary">@DinhDang.Tien(Model.GiaKhuyenMai)</span>
+                                <span class="sc-badge badge-danger ms-2">-@Model.PhanTramGiam%</span>
+                            }
+                            else
+                            {
+                                <span class="sc-text-muted">Không áp dụng</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr><th>Số lượng tồn</th><td>@Model.SoLuongTon</td></tr>
+                    <tr><th>Đã bán</th><td>@Model.LuotBan</td></tr>
+                    <tr>
+                        <th>Trạng thái</th>
+                        <td>
+                            @if (Model.DangBan)
+                            {
+                                <span class="sc-badge badge-success">Đang bán</span>
+                            }
+                            else
+                            {
+                                <span class="sc-badge badge-muted">Ngừng bán</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr><th>Nổi bật</th><td>@(Model.NoiBat ? "Có" : "Không")</td></tr>
+                    <tr><th>Ngày tạo</th><td>@DinhDang.NgayGio(Model.NgayTao)</td></tr>
+                </tbody>
+            </table>
+
+            <a href="@Url.Action("ChiTiet", "SanPham", new { id = Model.MaSP })" target="_blank" class="btn btn-sc-outline">
+                <i class="bi bi-box-arrow-up-right"></i> Xem trên website khách hàng
+            </a>
+        </div>
+    </div>
+</div>

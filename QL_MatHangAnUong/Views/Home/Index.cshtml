@@ -1,0 +1,209 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model QL_MatHangAnUong.Models.ViewModels.TrangChuViewModel
+@{
+    ViewBag.Title = "Trang chủ";
+    var soSPTheoLoai = ViewBag.SoSanPhamTheoLoai as Dictionary<int, int> ?? new Dictionary<int, int>();
+}
+
+<!-- ================= HERO ================= -->
+<section class="container mt-4">
+    <div class="sc-hero">
+        <span class="sc-blob sc-blob-1"></span>
+        <span class="sc-blob sc-blob-2"></span>
+        <div class="row align-items-center g-4 position-relative">
+            <div class="col-lg-6">
+                <span class="sc-hero-tag"><i class="bi bi-stars"></i> MỚI MỖI NGÀY</span>
+                <h1>Ngọt vừa đủ,<br />mát vừa xinh.</h1>
+                <p class="mb-4">
+                    Trà sữa, trà trái cây, cà phê và bánh ngọt được pha chế trong ngày tại SugarChills.
+                    Đặt online, nhận hàng trong 30 phút.
+                </p>
+                <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc btn-lg">
+                    <i class="bi bi-cup-straw"></i> Xem thực đơn
+                </a>
+                <a href="#khuyen-mai" class="btn btn-sc-outline btn-lg ms-2">Ưu đãi hôm nay</a>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=1000&q=80"
+                     class="sc-hero-img" alt="SugarChills"
+                     onerror="this.onerror=null;this.src='https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills';" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= CAM KẾT ================= -->
+<section class="container mt-4">
+    <div class="row g-3">
+        <div class="col-6 col-lg-3">
+            <div class="sc-feature">
+                <div class="sc-feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                <div><strong>Giao nhanh 30'</strong><div class="sc-text-muted small">Trong bán kính 5km</div></div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="sc-feature">
+                <div class="sc-feature-icon"><i class="bi bi-cup-hot-fill"></i></div>
+                <div><strong>Pha mỗi ngày</strong><div class="sc-text-muted small">Nguyên liệu tươi mới</div></div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="sc-feature">
+                <div class="sc-feature-icon"><i class="bi bi-truck"></i></div>
+                <div><strong>Freeship 150k</strong><div class="sc-text-muted small">Áp dụng toàn menu</div></div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="sc-feature">
+                <div class="sc-feature-icon"><i class="bi bi-heart-fill"></i></div>
+                <div><strong>Tùy chọn theo ý</strong><div class="sc-text-muted small">Size, đường, đá, topping</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= DANH MỤC ================= -->
+<section class="container sc-section">
+    <div class="sc-section-head">
+        <div>
+            <h2>Danh mục yêu thích</h2>
+            <div class="sc-sub">Chọn nhanh nhóm món bạn đang thèm</div>
+        </div>
+        <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-soft">Tất cả <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="row g-3">
+        @foreach (var loai in Model.DanhSachLoai)
+        {
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="@Url.Action("Index", "SanPham", new { maLoai = loai.MaLoai })" class="sc-cat">
+                    <img src="@loai.HinhAnh" alt="@loai.TenLoai"
+                         onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFE6EE/E8517F?text=SC';" />
+                    <span>@loai.TenLoai</span>
+                    <small>@(soSPTheoLoai.ContainsKey(loai.MaLoai) ? soSPTheoLoai[loai.MaLoai] : 0) món</small>
+                </a>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- ================= SẢN PHẨM NỔI BẬT ================= -->
+<section class="container sc-section pt-0">
+    <div class="sc-section-head">
+        <div>
+            <h2>Món nổi bật</h2>
+            <div class="sc-sub">Được khách SugarChills gọi nhiều nhất</div>
+        </div>
+        <a href="@Url.Action("Index", "SanPham", new { sapXep = "ban-chay" })" class="btn btn-sc-soft">
+            Xem thêm <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+
+    <div class="row g-3 g-lg-4">
+        @foreach (var sp in Model.SanPhamNoiBat)
+        {
+            <div class="col-6 col-md-4 col-lg-3">
+                @Html.Partial("_CardSanPham", sp)
+            </div>
+        }
+    </div>
+</section>
+
+<!-- ================= KHUYẾN MÃI ================= -->
+<section class="container sc-section pt-0" id="khuyen-mai">
+    <div class="sc-section-head">
+        <div>
+            <h2>Ưu đãi đang chạy</h2>
+            <div class="sc-sub">Nhập mã ở bước giỏ hàng để được giảm ngay</div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        @foreach (var km in Model.KhuyenMais)
+        {
+            <div class="col-md-4">
+                <div class="sc-panel h-100 d-flex align-items-center gap-3">
+                    <div class="sc-feature-icon" style="width:56px;height:56px;flex:0 0 56px;font-size:24px">
+                        <i class="bi bi-ticket-perforated-fill"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold" style="color:var(--sc-brown)">@km.TenKM</div>
+                        <div class="small sc-text-muted">@km.MoTa</div>
+                        <div class="mt-2">
+                            <span class="sc-chip">Mã: @km.MaGiamGia.ToUpper()</span>
+                            <span class="small sc-text-muted">HSD @DinhDang.Ngay(km.NgayKetThuc)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.KhuyenMais.Count == 0)
+        {
+            <div class="col-12">
+                <div class="sc-panel text-center sc-text-muted">Hiện chưa có chương trình khuyến mãi nào.</div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- ================= ĐANG GIẢM GIÁ ================= -->
+@if (Model.SanPhamGiamGia.Count > 0)
+{
+    <section class="container sc-section pt-0">
+        <div class="sc-section-head">
+            <div>
+                <h2>Đang giảm giá</h2>
+                <div class="sc-sub">Số lượng có hạn trong ngày</div>
+            </div>
+        </div>
+        <div class="row g-3 g-lg-4">
+            @foreach (var sp in Model.SanPhamGiamGia)
+            {
+                <div class="col-6 col-md-4 col-lg-3">
+                    @Html.Partial("_CardSanPham", sp)
+                </div>
+            }
+        </div>
+    </section>
+}
+
+<!-- ================= MÓN MỚI ================= -->
+<section class="container sc-section pt-0">
+    <div class="sc-section-head">
+        <div>
+            <h2>Món mới lên kệ</h2>
+            <div class="sc-sub">Vừa được bếp SugarChills thêm vào menu</div>
+        </div>
+    </div>
+    <div class="row g-3 g-lg-4">
+        @foreach (var sp in Model.SanPhamMoi)
+        {
+            <div class="col-6 col-md-4 col-lg-3">
+                @Html.Partial("_CardSanPham", sp)
+            </div>
+        }
+    </div>
+</section>
+
+<!-- ================= GIỚI THIỆU NGẮN ================= -->
+<section class="container sc-section pt-0">
+    <div class="sc-panel">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-5">
+                <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80"
+                     class="w-100" style="border-radius:var(--sc-radius);max-height:300px;object-fit:cover"
+                     alt="Không gian SugarChills"
+                     onerror="this.onerror=null;this.src='https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills';" />
+            </div>
+            <div class="col-lg-7">
+                <h2 class="mb-3">Một ngụm ngọt cho ngày dài</h2>
+                <p class="sc-text-muted">
+                    SugarChills bắt đầu từ một quầy trà sữa nhỏ trước cổng trường, nơi tụi mình tin rằng
+                    một ly nước ngon có thể làm nhẹ cả buổi chiều. Mọi topping đều được nấu trong ngày,
+                    trà ủ mới mỗi 4 tiếng và bạn có thể chỉnh đường - đá theo đúng khẩu vị của mình.
+                </p>
+                <a href="@Url.Action("GioiThieu", "Home")" class="btn btn-sc-outline">Tìm hiểu thêm</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,161 @@
+﻿@using QL_MatHangAnUong.Helpers
+@using QL_MatHangAnUong.Models
+@model List<QL_MatHangAnUong.Models.DonHang>
+@{
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    ViewBag.Title = "Quản lý đơn hàng";
+
+    string ttChon = ViewBag.TrangThaiDangChon as string ?? "Tất cả";
+    DateTime? tuNgay = ViewBag.TuNgay as DateTime?;
+    DateTime? denNgay = ViewBag.DenNgay as DateTime?;
+}
+
+<!-- ============ SỐ LIỆU NHANH ============ -->
+<div class="row g-3 mb-3">
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-yellow"><i class="bi bi-hourglass-split"></i></div>
+            <div>
+                <div class="sc-stat-value">@ViewBag.SoChoXacNhan</div>
+                <div class="sc-stat-label">Chờ xác nhận</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-blue"><i class="bi bi-truck"></i></div>
+            <div>
+                <div class="sc-stat-value">@ViewBag.SoDangGiao</div>
+                <div class="sc-stat-label">Đang giao</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-mint"><i class="bi bi-check2-all"></i></div>
+            <div>
+                <div class="sc-stat-value">@ViewBag.SoHoanThanh</div>
+                <div class="sc-stat-label">Hoàn thành</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-pink"><i class="bi bi-x-circle"></i></div>
+            <div>
+                <div class="sc-stat-value">@ViewBag.SoDaHuy</div>
+                <div class="sc-stat-label">Đã hủy</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sc-table-card">
+    <div class="sc-table-head">
+        <div>
+            <h5>Danh sách đơn hàng</h5>
+            <small class="sc-text-muted">Tìm thấy @Model.Count đơn</small>
+        </div>
+
+        <form method="get" action="@Url.Action("Index")" class="d-flex flex-wrap align-items-end gap-2">
+            <div>
+                <label class="form-label mb-0">Trạng thái</label>
+                <select name="trangThai" class="form-select" style="min-width:160px">
+                    <option value="Tất cả">Tất cả</option>
+                    @foreach (var tt in DonHang.CacTrangThai)
+                    {
+                        <option value="@tt" selected="@(ttChon == tt)">@tt</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <label class="form-label mb-0">Từ ngày</label>
+                <input type="date" name="tuNgay" class="form-control"
+                       value="@(tuNgay.HasValue ? tuNgay.Value.ToString("yyyy-MM-dd") : "")" />
+            </div>
+            <div>
+                <label class="form-label mb-0">Đến ngày</label>
+                <input type="date" name="denNgay" class="form-control"
+                       value="@(denNgay.HasValue ? denNgay.Value.ToString("yyyy-MM-dd") : "")" />
+            </div>
+            <div>
+                <label class="form-label mb-0">Tìm kiếm</label>
+                <input type="text" name="tuKhoa" class="form-control" style="min-width:180px"
+                       placeholder="Mã đơn, tên, SĐT..." value="@ViewBag.TuKhoa" />
+            </div>
+            <button type="submit" class="btn btn-sc"><i class="bi bi-search"></i></button>
+            <a href="@Url.Action("Index")" class="btn btn-sc-outline">Bỏ lọc</a>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table sc-table align-middle">
+            <thead>
+                <tr>
+                    <th>Mã đơn</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày đặt</th>
+                    <th class="text-center">Số món</th>
+                    <th class="text-end">Tổng tiền</th>
+                    <th>Thanh toán</th>
+                    <th class="text-center" style="width:190px">Trạng thái</th>
+                    <th class="text-end">Xem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td colspan="8" class="text-center py-5 sc-text-muted">
+                            <i class="bi bi-inbox" style="font-size:34px;display:block"></i>
+                            Không có đơn hàng nào khớp bộ lọc.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var dh in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">#@dh.MaDH</td>
+                            <td>
+                                <div class="fw-bold">@dh.TenNguoiNhan</div>
+                                <div class="sc-text-muted" style="font-size:12px">@dh.DienThoai</div>
+                            </td>
+                            <td>@DinhDang.NgayGio(dh.NgayDat)</td>
+                            <td class="text-center">@dh.ChiTietDonHangs.Sum(c => c.SoLuong)</td>
+                            <td class="text-end fw-bold sc-text-primary">@DinhDang.Tien(dh.TongTien)</td>
+                            <td>@dh.HinhThucThanhToan</td>
+                            <td class="text-center">
+                                @if (dh.TrangThai == DonHang.HoanThanh || dh.TrangThai == DonHang.DaHuy)
+                                {
+                                    <span class="sc-badge @dh.CssTrangThai">@dh.TrangThai</span>
+                                }
+                                else
+                                {
+                                    using (Html.BeginForm("CapNhatTrangThai", "QuanLyDonHang", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@dh.MaDH" />
+                                        <select name="trangThai" class="form-select form-select-sm"
+                                                onchange="this.form.submit()">
+                                            @foreach (var tt in DonHang.CacTrangThai)
+                                            {
+                                                <option value="@tt" selected="@(dh.TrangThai == tt)">@tt</option>
+                                            }
+                                        </select>
+                                    }
+                                }
+                            </td>
+                            <td class="text-end">
+                                <a href="@Url.Action("ChiTiet", new { id = dh.MaDH })" class="btn btn-sm btn-sc-soft">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,254 @@
+﻿@using QL_MatHangAnUong.Helpers
+@using QL_MatHangAnUong.Models
+@model QL_MatHangAnUong.Models.ViewModels.ThongKeViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    ViewBag.Title = "Thống kê doanh thu";
+
+    var donMoiNhat = ViewBag.DonMoiNhat as List<DonHang> ?? new List<DonHang>();
+    decimal doanhThuMax = Model.DoanhThuNgay.Count > 0 ? Model.DoanhThuNgay.Max(d => d.DoanhThu) : 0;
+    decimal doanhThuLoaiMax = Model.DoanhThuLoai.Count > 0 ? Model.DoanhThuLoai.Max(d => d.DoanhThu) : 0;
+}
+
+<!-- ============ BỘ LỌC THỜI GIAN ============ -->
+<div class="sc-table-card mb-3">
+    <div class="sc-table-head">
+        <h5><i class="bi bi-calendar-range"></i> Kỳ thống kê</h5>
+        <form method="get" action="@Url.Action("Index")" class="d-flex flex-wrap align-items-end gap-2">
+            <div>
+                <label class="form-label mb-0">Từ ngày</label>
+                <input type="date" name="tuNgay" class="form-control" value="@Model.TuNgay.ToString("yyyy-MM-dd")" />
+            </div>
+            <div>
+                <label class="form-label mb-0">Đến ngày</label>
+                <input type="date" name="denNgay" class="form-control" value="@Model.DenNgay.ToString("yyyy-MM-dd")" />
+            </div>
+            <button type="submit" class="btn btn-sc">Xem</button>
+            <a href="@Url.Action("Index")" class="btn btn-sc-outline">30 ngày gần nhất</a>
+        </form>
+    </div>
+</div>
+
+<!-- ============ CÁC CHỈ SỐ CHÍNH ============ -->
+<div class="row g-3 mb-3">
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-pink"><i class="bi bi-cash-stack"></i></div>
+            <div>
+                <div class="sc-stat-value" style="font-size:20px">@DinhDang.Tien(Model.TongDoanhThu)</div>
+                <div class="sc-stat-label">Doanh thu (đơn hoàn thành)</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-blue"><i class="bi bi-receipt-cutoff"></i></div>
+            <div>
+                <div class="sc-stat-value">@Model.TongDonHang</div>
+                <div class="sc-stat-label">Đơn hàng trong kỳ</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-mint"><i class="bi bi-graph-up-arrow"></i></div>
+            <div>
+                <div class="sc-stat-value" style="font-size:20px">@DinhDang.Tien(Model.GiaTriTrungBinh)</div>
+                <div class="sc-stat-label">Giá trị đơn trung bình</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-yellow"><i class="bi bi-people"></i></div>
+            <div>
+                <div class="sc-stat-value">@Model.TongKhachHang</div>
+                <div class="sc-stat-label">Khách hàng đã đăng ký</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-3">
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-yellow"><i class="bi bi-hourglass-split"></i></div>
+            <div>
+                <div class="sc-stat-value">@Model.DonChoXacNhan</div>
+                <div class="sc-stat-label">Đơn chờ xác nhận</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-mint"><i class="bi bi-check2-all"></i></div>
+            <div>
+                <div class="sc-stat-value">@Model.DonHoanThanh</div>
+                <div class="sc-stat-label">Đơn hoàn thành</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-pink"><i class="bi bi-x-circle"></i></div>
+            <div>
+                <div class="sc-stat-value">@Model.DonDaHuy</div>
+                <div class="sc-stat-label">Đơn đã hủy</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="sc-stat">
+            <div class="sc-stat-icon bg-soft-blue"><i class="bi bi-cup-hot"></i></div>
+            <div>
+                <div class="sc-stat-value">@Model.TongSanPham</div>
+                <div class="sc-stat-label">Sản phẩm trong menu</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <!-- ============ BIỂU ĐỒ DOANH THU THEO NGÀY ============ -->
+    <div class="col-xl-8">
+        <div class="sc-table-card h-100">
+            <div class="sc-table-head">
+                <h5>Doanh thu theo ngày</h5>
+                <span class="sc-text-muted small">
+                    @DinhDang.Ngay(Model.TuNgay) → @DinhDang.Ngay(Model.DenNgay)
+                </span>
+            </div>
+            <div class="p-3">
+                @if (doanhThuMax == 0)
+                {
+                    <div class="sc-empty"><i class="bi bi-bar-chart"></i><p>Chưa có doanh thu trong kỳ này.</p></div>
+                }
+                else
+                {
+                    <div class="sc-chart">
+                        @foreach (var d in Model.DoanhThuNgay)
+                        {
+                            int chieuCao = (int)(d.DoanhThu * 100 / doanhThuMax);
+                            <div class="sc-chart-col" title="@DinhDang.Ngay(d.Ngay): @DinhDang.Tien(d.DoanhThu) (@d.SoDon đơn)">
+                                <div class="sc-chart-bar" style="height:@(chieuCao)%"></div>
+                                <div class="sc-chart-label">@d.Ngay.ToString("dd/MM")</div>
+                            </div>
+                        }
+                    </div>
+                    <div class="text-center sc-text-muted small mt-2">
+                        Rê chuột vào từng cột để xem doanh thu của ngày đó
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ DOANH THU THEO LOẠI ============ -->
+    <div class="col-xl-4">
+        <div class="sc-table-card h-100">
+            <div class="sc-table-head"><h5>Doanh thu theo loại</h5></div>
+            <div class="p-3">
+                @if (Model.DoanhThuLoai.Count == 0)
+                {
+                    <div class="sc-empty"><i class="bi bi-pie-chart"></i><p>Chưa có dữ liệu.</p></div>
+                }
+                else
+                {
+                    foreach (var l in Model.DoanhThuLoai)
+                    {
+                        int phanTram = doanhThuLoaiMax > 0 ? (int)(l.DoanhThu * 100 / doanhThuLoaiMax) : 0;
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span class="fw-bold">@l.TenLoai</span>
+                                <span class="sc-text-primary fw-bold">@DinhDang.Tien(l.DoanhThu)</span>
+                            </div>
+                            <div class="sc-progress"><div style="width:@(phanTram)%"></div></div>
+                            <div class="sc-text-muted" style="font-size:12px">Đã bán @l.SoLuong phần</div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOP BÁN CHẠY ============ -->
+    <div class="col-xl-6">
+        <div class="sc-table-card">
+            <div class="sc-table-head"><h5>Top 5 sản phẩm bán chạy</h5></div>
+            <div class="table-responsive">
+                <table class="table sc-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Sản phẩm</th>
+                            <th class="text-center">SL bán</th>
+                            <th class="text-end">Doanh thu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TopBanChay.Count == 0)
+                        {
+                            <tr><td colspan="4" class="text-center sc-text-muted py-4">Chưa có dữ liệu bán hàng.</td></tr>
+                        }
+                        else
+                        {
+                            int stt = 1;
+                            foreach (var sp in Model.TopBanChay)
+                            {
+                                <tr>
+                                    <td class="fw-bold sc-text-primary">@stt</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="@sp.HinhAnh" class="sc-thumb" style="width:40px;height:40px" alt="@sp.TenSP"
+                                                 onerror="this.onerror=null;this.src='https://placehold.co/100x100/FFE6EE/E8517F?text=SC';" />
+                                            <span class="fw-bold">@sp.TenSP</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">@sp.SoLuongBan</td>
+                                    <td class="text-end fw-bold">@DinhDang.Tien(sp.DoanhThu)</td>
+                                </tr>
+                                stt++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ ĐƠN MỚI NHẤT ============ -->
+    <div class="col-xl-6">
+        <div class="sc-table-card">
+            <div class="sc-table-head">
+                <h5>Đơn hàng mới nhất</h5>
+                <a href="@Url.Action("Index", "QuanLyDonHang")" class="btn btn-sc-soft btn-sm">Xem tất cả</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table sc-table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Khách</th>
+                            <th class="text-end">Tổng tiền</th>
+                            <th class="text-center">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dh in donMoiNhat)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("ChiTiet", "QuanLyDonHang", new { id = dh.MaDH })" class="fw-bold">#@dh.MaDH</a>
+                                    <div class="sc-text-muted" style="font-size:12px">@DinhDang.NgayGio(dh.NgayDat)</div>
+                                </td>
+                                <td>@dh.TenNguoiNhan</td>
+                                <td class="text-end fw-bold">@DinhDang.Tien(dh.TongTien)</td>
+                                <td class="text-center"><span class="sc-badge @dh.CssTrangThai">@dh.TrangThai</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

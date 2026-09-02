@@ -1,0 +1,135 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model QL_MatHangAnUong.Models.ViewModels.DatHangViewModel
+
+<div class="container pb-5">
+    <div class="sc-breadcrumb">
+        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <a href="@Url.Action("Index", "GioHang")">Giỏ hàng</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <span>Đặt hàng</span>
+    </div>
+
+    <h2 class="mb-4">Xác nhận đặt hàng</h2>
+
+    @using (Html.BeginForm("ThanhToan", "GioHang", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row g-4">
+            <!-- ============ THÔNG TIN GIAO HÀNG ============ -->
+            <div class="col-lg-7">
+                <div class="sc-panel">
+                    <h5 class="mb-3"><i class="bi bi-geo-alt"></i> Thông tin giao hàng</h5>
+
+                    @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.TenNguoiNhan, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.TenNguoiNhan, new { @class = "form-control", placeholder = "Nguyễn Văn A" })
+                            @Html.ValidationMessageFor(m => m.TenNguoiNhan)
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.DienThoai, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.DienThoai, new { @class = "form-control", placeholder = "09xxxxxxxx" })
+                            @Html.ValidationMessageFor(m => m.DienThoai)
+                        </div>
+
+                        <div class="col-12">
+                            @Html.LabelFor(m => m.DiaChi, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control", placeholder = "Số nhà, đường, phường, quận" })
+                            @Html.ValidationMessageFor(m => m.DiaChi)
+                        </div>
+
+                        <div class="col-12">
+                            @Html.LabelFor(m => m.GhiChu, new { @class = "form-label" })
+                            @Html.TextAreaFor(m => m.GhiChu, new { @class = "form-control", rows = 3, placeholder = "Ví dụ: ít đá, giao giờ hành chính..." })
+                            @Html.ValidationMessageFor(m => m.GhiChu)
+                        </div>
+                    </div>
+
+                    <hr style="border-color:var(--sc-line)" />
+
+                    <h5 class="mb-3"><i class="bi bi-credit-card"></i> Hình thức thanh toán</h5>
+                    <label class="sc-topping">
+                        @Html.RadioButtonFor(m => m.HinhThucThanhToan, "COD", new { id = "ttCOD" })
+                        <span><strong>Thanh toán khi nhận hàng (COD)</strong><br />
+                            <small class="sc-text-muted">Trả tiền mặt cho shipper</small></span>
+                    </label>
+                    <label class="sc-topping">
+                        @Html.RadioButtonFor(m => m.HinhThucThanhToan, "Chuyển khoản", new { id = "ttCK" })
+                        <span><strong>Chuyển khoản ngân hàng</strong><br />
+                            <small class="sc-text-muted">SugarChills - 0123456789 - Vietcombank</small></span>
+                    </label>
+                    <label class="sc-topping">
+                        @Html.RadioButtonFor(m => m.HinhThucThanhToan, "Ví MoMo", new { id = "ttMomo" })
+                        <span><strong>Ví MoMo</strong><br />
+                            <small class="sc-text-muted">Quét mã khi nhận hàng</small></span>
+                    </label>
+                    @Html.ValidationMessageFor(m => m.HinhThucThanhToan)
+                </div>
+            </div>
+
+            <!-- ============ TÓM TẮT ĐƠN ============ -->
+            <div class="col-lg-5">
+                <div class="sc-summary">
+                    <h5 class="mb-3">Đơn hàng của bạn</h5>
+
+                    @foreach (var item in Model.GioHang.Items)
+                    {
+                        <div class="d-flex gap-2 mb-3">
+                            <img src="@item.HinhAnh" class="sc-cart-img" style="width:56px;height:56px" alt="@item.TenSP"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFE6EE/E8517F?text=SC';" />
+                            <div class="flex-fill">
+                                <div class="fw-bold" style="font-size:14px">@item.TenSP <span class="sc-text-muted">× @item.SoLuong</span></div>
+                                <div class="small sc-text-muted">@item.MoTaTuyChon</div>
+                            </div>
+                            <div class="text-nowrap fw-bold">@DinhDang.Tien(item.ThanhTien)</div>
+                        </div>
+                    }
+
+                    <hr style="border-color:var(--sc-line)" />
+
+                    <div class="sc-summary-row">
+                        <span class="sc-text-muted">Tạm tính</span>
+                        <span>@DinhDang.Tien(Model.GioHang.TamTinh)</span>
+                    </div>
+                    <div class="sc-summary-row">
+                        <span class="sc-text-muted">
+                            Giảm giá
+                            @if (!string.IsNullOrEmpty(Model.GioHang.MaGiamGia))
+                            {
+                                <text>(@Model.GioHang.MaGiamGia.ToUpper())</text>
+                            }
+                        </span>
+                        <span class="sc-text-primary">- @DinhDang.Tien(Model.TienGiam)</span>
+                    </div>
+                    <div class="sc-summary-row">
+                        <span class="sc-text-muted">Phí giao hàng</span>
+                        <span>@(Model.PhiGiaoHang == 0 ? "Miễn phí" : DinhDang.Tien(Model.PhiGiaoHang))</span>
+                    </div>
+
+                    <div class="sc-summary-total">
+                        <span>Tổng thanh toán</span>
+                        <span>@DinhDang.Tien(Model.TongTien)</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-sc btn-lg w-100 mt-3">
+                        <i class="bi bi-check2-circle"></i> Xác nhận đặt hàng
+                    </button>
+
+                    <a href="@Url.Action("Index", "GioHang")" class="btn btn-sc-outline w-100 mt-2">
+                        Quay lại giỏ hàng
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

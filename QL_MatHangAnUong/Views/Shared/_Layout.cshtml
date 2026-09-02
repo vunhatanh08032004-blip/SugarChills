@@ -1,0 +1,243 @@
+﻿@using QL_MatHangAnUong.Models
+@{
+    var menuLoai = ViewBag.MenuLoai as List<LoaiSanPham> ?? new List<LoaiSanPham>();
+    var nguoiDung = ViewBag.NguoiDungHienTai as NguoiDung;
+    int soLuongGio = ViewBag.SoLuongGioHang != null ? (int)ViewBag.SoLuongGioHang : 0;
+    string controllerHienTai = ViewContext.RouteData.Values["controller"] as string;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SugarChills</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/sugarchills.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- ============ THANH TRÊN CÙNG ============ -->
+    <div class="sc-topbar">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center">
+            <div>
+                <i class="bi bi-telephone-fill"></i> Đặt hàng: 1900 6789
+                <span class="d-none d-md-inline ms-3"><i class="bi bi-geo-alt-fill"></i> 12 Nguyễn Văn Bảo, Gò Vấp, TP.HCM</span>
+            </div>
+            <div>
+                <i class="bi bi-truck"></i> Miễn phí giao hàng cho đơn từ 150.000đ
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ HEADER ============ -->
+    <header class="sc-header">
+        <div class="container">
+            <div class="sc-header-main">
+
+                <a href="@Url.Action("Index", "Home")" class="sc-logo">
+                    <span class="sc-logo-mark"><i class="bi bi-cup-straw"></i></span>
+                    <span>
+                        SugarChills
+                        <small>Tea &amp; Dessert</small>
+                    </span>
+                </a>
+
+                <!-- Ô tìm kiếm (rubric 2.3) -->
+                <form class="sc-search" action="@Url.Action("Index", "SanPham")" method="get" autocomplete="off">
+                    <input type="text" name="tuKhoa" id="oTimKiem" value="@ViewContext.HttpContext.Request["tuKhoa"]"
+                           placeholder="Bạn muốn uống gì hôm nay?" />
+                    <button type="submit" title="Tìm kiếm"><i class="bi bi-search"></i></button>
+                    <div class="sc-suggest" id="goiYTimKiem"></div>
+                </form>
+
+                <div class="sc-header-actions">
+                    <a href="@Url.Action("Index", "GioHang")" class="sc-icon-btn" title="Giỏ hàng">
+                        <i class="bi bi-bag-heart"></i>
+                        <span class="sc-cart-badge" id="soLuongGioHang">@soLuongGio</span>
+                    </a>
+
+                    @if (nguoiDung == null)
+                    {
+                        <a href="@Url.Action("DangNhap", "TaiKhoan")" class="btn btn-sc-outline d-none d-sm-inline-block">Đăng nhập</a>
+                        <a href="@Url.Action("DangKy", "TaiKhoan")" class="btn btn-sc">Đăng ký</a>
+                    }
+                    else
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-sc-soft dropdown-toggle" data-bs-toggle="dropdown" type="button">
+                                <i class="bi bi-person-circle"></i>
+                                <span class="d-none d-sm-inline">@nguoiDung.HoTen.Split(' ').Last()</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><h6 class="dropdown-header">@nguoiDung.HoTen</h6></li>
+                                <li><a class="dropdown-item" href="@Url.Action("ThongTin", "TaiKhoan")"><i class="bi bi-person me-2"></i>Tài khoản của tôi</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "DonHang")"><i class="bi bi-receipt me-2"></i>Đơn hàng của tôi</a></li>
+                                @if (nguoiDung.LaNguoiBan)
+                                {
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", "ThongKe")"><i class="bi bi-speedometer2 me-2"></i>Khu quản trị</a></li>
+                                }
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    @using (Html.BeginForm("DangXuat", "TaiKhoan", FormMethod.Post, new { @class = "px-2" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sc-outline btn-sm w-100">
+                                            <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                                        </button>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ MENU 2 CẤP (rubric 1.2) ============ -->
+        <nav class="navbar navbar-expand-lg sc-nav">
+            <div class="container">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuChinh">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="menuChinh">
+                    <ul class="navbar-nav">
+                        <li class="nav-item @(controllerHienTai == "Home" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("Index", "Home")">Trang chủ</a>
+                        </li>
+
+                        <!-- Menu cấp 1: Thực đơn — Menu cấp 2: các loại sản phẩm -->
+                        <li class="nav-item dropdown @(controllerHienTai == "SanPham" ? "active" : "")">
+                            <a class="nav-link dropdown-toggle" href="@Url.Action("Index", "SanPham")"
+                               data-bs-toggle="dropdown" role="button">Thực đơn</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item fw-bold" href="@Url.Action("Index", "SanPham")">
+                                        <i class="bi bi-grid-3x3-gap"></i> Tất cả sản phẩm
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider" /></li>
+                                @foreach (var loai in menuLoai)
+                                {
+                                    <li>
+                                        <a class="dropdown-item" href="@Url.Action("Index", "SanPham", new { maLoai = loai.MaLoai })">
+                                            <img src="@loai.HinhAnh" alt="@loai.TenLoai"
+                                                 onerror="this.onerror=null;this.src='https://placehold.co/60x60/FFE6EE/E8517F?text=SC';" />
+                                            @loai.TenLoai
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button">Khuyến mãi</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "SanPham", new { sapXep = "ban-chay" })"><i class="bi bi-fire"></i> Món bán chạy</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "SanPham", new { sapXep = "gia-tang" })"><i class="bi bi-tag"></i> Món giá tốt</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Home")#khuyen-mai"><i class="bi bi-ticket-perforated"></i> Mã giảm giá</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item @(controllerHienTai == "GioHang" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("Index", "GioHang")">Giỏ hàng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("GioiThieu", "Home")">Giới thiệu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("LienHe", "Home")">Liên hệ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ============ THÔNG BÁO ============ -->
+    @if (TempData["ThongBao"] != null)
+    {
+        <div class="container mt-3">
+            <div class="sc-alert sc-alert-@(TempData["LoaiThongBao"] ?? "success")">
+                <i class="bi bi-info-circle-fill"></i>
+                <span>@TempData["ThongBao"]</span>
+            </div>
+        </div>
+    }
+
+    <!-- ============ NỘI DUNG ============ -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="sc-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="sc-logo mb-3" style="color:#fff">
+                        <span class="sc-logo-mark"><i class="bi bi-cup-straw"></i></span>
+                        <span>SugarChills<small>Tea &amp; Dessert</small></span>
+                    </div>
+                    <p style="font-size:14px">
+                        SugarChills mang đến trà sữa, trà trái cây, cà phê và bánh ngọt được pha chế mỗi ngày
+                        từ nguyên liệu tươi. Ngọt vừa đủ, mát vừa xinh.
+                    </p>
+                    <div class="sc-social mt-3">
+                        <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" title="TikTok"><i class="bi bi-tiktok"></i></a>
+                        <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h5>Thực đơn</h5>
+                    <ul>
+                        @foreach (var loai in menuLoai.Take(5))
+                        {
+                            <li><a href="@Url.Action("Index", "SanPham", new { maLoai = loai.MaLoai })">@loai.TenLoai</a></li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h5>Về SugarChills</h5>
+                    <ul>
+                        <li><a href="@Url.Action("GioiThieu", "Home")">Giới thiệu</a></li>
+                        <li><a href="@Url.Action("LienHe", "Home")">Liên hệ</a></li>
+                        <li><a href="@Url.Action("Index", "SanPham")">Thực đơn</a></li>
+                        <li><a href="@Url.Action("Index", "GioHang")">Giỏ hàng</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4">
+                    <h5>Giờ mở cửa</h5>
+                    <ul>
+                        <li>Thứ 2 - Thứ 6: 07:00 - 22:00</li>
+                        <li>Thứ 7 - Chủ nhật: 08:00 - 23:00</li>
+                        <li><i class="bi bi-telephone"></i> 1900 6789</li>
+                        <li><i class="bi bi-envelope"></i> hello@sugarchills.vn</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sc-footer-bottom text-center">
+                © @DateTime.Now.Year SugarChills — Đồ án môn Lập trình Web, ASP.NET MVC 5.
+            </div>
+        </div>
+    </footer>
+
+    <div class="sc-toast" id="scToast"></div>
+
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/sugarchills.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

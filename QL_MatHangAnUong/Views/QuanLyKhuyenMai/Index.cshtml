@@ -1,0 +1,93 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model List<QL_MatHangAnUong.Models.KhuyenMai>
+@{
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    ViewBag.Title = "Quản lý khuyến mãi";
+}
+
+<div class="sc-table-card">
+    <div class="sc-table-head">
+        <div>
+            <h5>Chương trình khuyến mãi</h5>
+            <small class="sc-text-muted">@Model.Count chương trình, @Model.Count(k => k.ConHieuLuc) đang chạy</small>
+        </div>
+        <a href="@Url.Action("Them")" class="btn btn-sc"><i class="bi bi-plus-lg"></i> Thêm chương trình</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table sc-table align-middle">
+            <thead>
+                <tr>
+                    <th>Chương trình</th>
+                    <th>Mã giảm giá</th>
+                    <th class="text-center">Giảm</th>
+                    <th class="text-end">Tối đa</th>
+                    <th class="text-end">Đơn tối thiểu</th>
+                    <th class="text-center">Thời gian</th>
+                    <th class="text-center">Trạng thái</th>
+                    <th class="text-end" style="width:190px">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr><td colspan="8" class="text-center py-5 sc-text-muted">Chưa có chương trình khuyến mãi nào.</td></tr>
+                }
+                else
+                {
+                    foreach (var km in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="fw-bold">@km.TenKM</div>
+                                <div class="sc-text-muted" style="font-size:12px">@km.MoTa</div>
+                            </td>
+                            <td><span class="sc-chip">@km.MaGiamGia.ToUpper()</span></td>
+                            <td class="text-center fw-bold sc-text-primary">@km.PhanTramGiam%</td>
+                            <td class="text-end">@DinhDang.Tien(km.GiamToiDa)</td>
+                            <td class="text-end">@(km.DonToiThieu > 0 ? DinhDang.Tien(km.DonToiThieu) : "Không")</td>
+                            <td class="text-center" style="font-size:13px">
+                                @DinhDang.Ngay(km.NgayBatDau)<br />→ @DinhDang.Ngay(km.NgayKetThuc)
+                            </td>
+                            <td class="text-center">
+                                @if (km.ConHieuLuc)
+                                {
+                                    <span class="sc-badge badge-success">Đang chạy</span>
+                                }
+                                else if (!km.KichHoat)
+                                {
+                                    <span class="sc-badge badge-muted">Đã tắt</span>
+                                }
+                                else
+                                {
+                                    <span class="sc-badge badge-warning">Ngoài thời gian</span>
+                                }
+                            </td>
+                            <td class="text-end text-nowrap">
+                                @using (Html.BeginForm("DoiTrangThai", "QuanLyKhuyenMai", FormMethod.Post, new { @class = "d-inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@km.MaKM" />
+                                    <button type="submit" class="btn btn-sm btn-sc-soft" title="@(km.KichHoat ? "Tắt" : "Bật")">
+                                        <i class="bi @(km.KichHoat ? "bi-toggle-on" : "bi-toggle-off")"></i>
+                                    </button>
+                                }
+                                <a href="@Url.Action("Sua", new { id = km.MaKM })" class="btn btn-sm btn-sc-soft" title="Sửa">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="@Url.Action("Xoa", new { id = km.MaKM })" class="btn btn-sm btn-sc-outline" title="Xóa">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="sc-alert sc-alert-info mt-3">
+    <i class="bi bi-info-circle"></i>
+    <span>Mã giảm giá tạo ở đây chính là mã khách nhập tại trang <strong>Giỏ hàng</strong>. Hệ thống tự kiểm tra hạn dùng và giá trị đơn tối thiểu.</span>
+</div>

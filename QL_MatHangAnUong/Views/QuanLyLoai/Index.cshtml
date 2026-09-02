@@ -1,0 +1,82 @@
+﻿@model List<QL_MatHangAnUong.Models.LoaiSanPham>
+@{
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    ViewBag.Title = "Quản lý loại sản phẩm";
+
+    var soSP = ViewBag.SoSanPham as Dictionary<int, int> ?? new Dictionary<int, int>();
+}
+
+<div class="sc-table-card">
+    <div class="sc-table-head">
+        <div>
+            <h5>Danh sách loại sản phẩm</h5>
+            <small class="sc-text-muted">@Model.Count loại đang có trong hệ thống</small>
+        </div>
+        <a href="@Url.Action("Them")" class="btn btn-sc"><i class="bi bi-plus-lg"></i> Thêm loại</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table sc-table align-middle">
+            <thead>
+                <tr>
+                    <th style="width:70px">Mã</th>
+                    <th style="width:90px">Ảnh</th>
+                    <th>Tên loại</th>
+                    <th>Mô tả</th>
+                    <th class="text-center">Số SP</th>
+                    <th class="text-center">Thứ tự</th>
+                    <th class="text-center">Hiển thị</th>
+                    <th class="text-end" style="width:150px">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr><td colspan="8" class="text-center py-5 sc-text-muted">Chưa có loại sản phẩm nào.</td></tr>
+                }
+                else
+                {
+                    foreach (var l in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@l.MaLoai</td>
+                            <td>
+                                <img src="@l.HinhAnh" class="sc-thumb" alt="@l.TenLoai"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/100x100/FFE6EE/E8517F?text=SC';" />
+                            </td>
+                            <td class="fw-bold">@l.TenLoai</td>
+                            <td class="sc-text-muted">@l.MoTa</td>
+                            <td class="text-center">
+                                <span class="sc-badge badge-info">@(soSP.ContainsKey(l.MaLoai) ? soSP[l.MaLoai] : 0)</span>
+                            </td>
+                            <td class="text-center">@l.ThuTu</td>
+                            <td class="text-center">
+                                @if (l.HienThi)
+                                {
+                                    <span class="sc-badge badge-success">Hiện</span>
+                                }
+                                else
+                                {
+                                    <span class="sc-badge badge-muted">Ẩn</span>
+                                }
+                            </td>
+                            <td class="text-end text-nowrap">
+                                <a href="@Url.Action("Sua", new { id = l.MaLoai })" class="btn btn-sm btn-sc-soft" title="Sửa">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="@Url.Action("Xoa", new { id = l.MaLoai })" class="btn btn-sm btn-sc-outline" title="Xóa">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="sc-alert sc-alert-info mt-3">
+    <i class="bi bi-info-circle"></i>
+    <span>Không thể xóa loại đang có sản phẩm — hệ thống sẽ báo lỗi để bảo vệ ràng buộc khóa ngoại giữa bảng Loại và bảng Sản phẩm.</span>
+</div>
