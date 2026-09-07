@@ -36,6 +36,22 @@ namespace QL_MatHangAnUong.Models.ViewModels
         public decimal? GiaDen { get; set; }
         public string SapXep { get; set; }
 
+        /// <summary>
+        /// True nếu cột bộ lọc (loại sản phẩm, khoảng giá, lọc nhanh) được hiển thị.
+        /// Chỉ tắt khi khách vào từ các lối tắt "Xem thêm" ở trang chủ (Món nổi bật,
+        /// Đang giảm giá, Món mới) mà chưa chọn danh mục nào. Một khi khách đã ở trong
+        /// trang danh mục (đã hiện sidebar) thì việc đổi Sắp xếp hay bấm Lọc nhanh
+        /// không được làm sidebar biến mất.
+        /// </summary>
+        public bool HienBoLoc { get; set; }
+
+        /// <summary>
+        /// Tên trang khi khách vào từ lối tắt trang chủ (Món nổi bật, Đang giảm giá,
+        /// Món mới lên kệ) — ví dụ "Món mới lên kệ". Null khi duyệt bình thường theo
+        /// Thực đơn / danh mục, lúc đó breadcrumb và tiêu đề dùng TenLoaiDangChon như cũ.
+        /// </summary>
+        public string TieuDeTrang { get; set; }
+
         public int TrangHienTai { get; set; }
         public int TongSoTrang { get; set; }
         public int TongSoSanPham { get; set; }
@@ -138,6 +154,10 @@ namespace QL_MatHangAnUong.Models.ViewModels
         [Required(ErrorMessage = "Vui lòng chọn hình thức thanh toán")]
         [Display(Name = "Hình thức thanh toán")]
         public string HinhThucThanhToan { get; set; }
+
+        /// <summary>true khi khách chọn QR và JS xác nhận đã "quét mã" xong (mô phỏng cổng thanh toán).</summary>
+        [Display(Name = "Đã thanh toán qua QR")]
+        public bool DaThanhToanQR { get; set; }
 
         // Thông tin hiển thị lại ở cột tóm tắt đơn hàng
         public GioHang GioHang { get; set; }

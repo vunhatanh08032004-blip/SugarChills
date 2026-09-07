@@ -21,6 +21,18 @@
                 </div>
 
                 <div class="col-md-4">
+                    @Html.LabelFor(m => m.LoaiGiam, new { @class = "form-label" })
+                    @Html.DropDownListFor(m => m.LoaiGiam,
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem { Value = KhuyenMai.GiamTongTien, Text = "Giảm tổng tiền" },
+                            new SelectListItem { Value = KhuyenMai.GiamPhiGiaoHang, Text = "Giảm phí giao hàng (COD)" }
+                        }, new { @class = "form-select" })
+                    @Html.ValidationMessageFor(m => m.LoaiGiam)
+                    <small class="sc-text-muted">"Giảm phí giao hàng" dùng cho mã kiểu Freeship.</small>
+                </div>
+
+                <div class="col-md-4">
                     @Html.LabelFor(m => m.PhanTramGiam, new { @class = "form-label" })
                     <div class="input-group">
                         @Html.TextBoxFor(m => m.PhanTramGiam, new { @class = "form-control", type = "number", min = 0, max = 100 })
@@ -80,7 +92,7 @@
             <ol class="sc-text-muted" style="font-size:14px;padding-left:18px">
                 <li class="mb-2">Khách nhập mã ở trang giỏ hàng.</li>
                 <li class="mb-2">Hệ thống kiểm tra mã còn hiệu lực và đơn hàng có đạt giá trị tối thiểu không.</li>
-                <li class="mb-2">Tiền giảm = tạm tính × phần trăm giảm, nhưng không vượt quá "Giảm tối đa".</li>
+                <li class="mb-2">Tiền giảm = (tạm tính hoặc phí giao hàng, tùy loại) × phần trăm giảm, nhưng không vượt quá "Giảm tối đa".</li>
                 <li>Số tiền giảm được lưu vào đơn hàng để phục vụ thống kê.</li>
             </ol>
 

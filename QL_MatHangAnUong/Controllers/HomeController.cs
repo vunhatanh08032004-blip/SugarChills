@@ -40,6 +40,13 @@ namespace QL_MatHangAnUong.Controllers
             return View(model);
         }
 
+        // GET: /Home/KhuyenMai
+        public ActionResult KhuyenMai()
+        {
+            ViewBag.Title = "Khuyến mãi đang chạy";
+            return View(KhoDuLieu.LayKhuyenMaiConHieuLuc());
+        }
+
         // GET: /Home/GioiThieu
         public ActionResult GioiThieu()
         {

@@ -20,7 +20,7 @@ namespace QL_MatHangAnUong.Controllers
         /// Đáp ứng rubric: hiển thị danh sách (3.1), lọc dữ liệu theo loại (3.3), tìm kiếm (2.3).
         /// </summary>
         public ActionResult Index(string tuKhoa, int? maLoai, decimal? giaTu, decimal? giaDen,
-                                  string sapXep, int trang = 1)
+                                  string sapXep, int trang = 1, bool an = false)
         {
             var ketQua = KhoDuLieu.LocSanPham(tuKhoa, maLoai, giaTu, giaDen, sapXep);
 
@@ -30,6 +30,24 @@ namespace QL_MatHangAnUong.Controllers
             if (trang > tongSoTrang) trang = tongSoTrang;
 
             var loaiDangChon = maLoai.HasValue ? KhoDuLieu.LayLoai(maLoai.Value) : null;
+
+            // Chỉ ẩn sidebar khi khách bấm "Xem thêm" từ trang chủ (an=true) và
+            // chưa chọn danh mục nào. Ngay khi có maLoai, hoặc khi khách đang thao tác
+            // (đổi sắp xếp, bấm lọc nhanh...) trong trang danh mục, sidebar luôn hiện.
+            bool hienBoLoc = maLoai.HasValue || !an;
+
+            // Khi vào từ lối tắt trang chủ (Món nổi bật / Đang giảm giá / Món mới lên kệ),
+            // đặt lại tên trang cho đúng ngữ cảnh thay vì hiện chung chung là "Thực đơn".
+            string tieuDeTrang = null;
+            if (!hienBoLoc)
+            {
+                switch (sapXep)
+                {
+                    case "ban-chay": tieuDeTrang = "Món nổi bật"; break;
+                    case "giam-gia": tieuDeTrang = "Đang giảm giá"; break;
+                    case "moi": tieuDeTrang = "Món mới lên kệ"; break;
+                }
+            }
 
             var model = new DanhSachSanPhamViewModel
             {
@@ -43,6 +61,8 @@ namespace QL_MatHangAnUong.Controllers
                 GiaTu = giaTu,
                 GiaDen = giaDen,
                 SapXep = sapXep,
+                HienBoLoc = hienBoLoc,
+                TieuDeTrang = tieuDeTrang,
                 TrangHienTai = trang,
                 TongSoTrang = tongSoTrang,
                 TongSoSanPham = ketQua.Count
@@ -51,8 +71,11 @@ namespace QL_MatHangAnUong.Controllers
             ViewBag.SoSanPhamTheoLoai = model.DanhSachLoai
                 .ToDictionary(l => l.MaLoai, l => KhoDuLieu.DemSanPhamTheoLoai(l.MaLoai));
             ViewBag.Title = string.IsNullOrWhiteSpace(tuKhoa)
-                ? (model.TenLoaiDangChon ?? "Thực đơn")
+                ? (tieuDeTrang ?? model.TenLoaiDangChon ?? "Thực đơn")
                 : "Kết quả tìm kiếm";
+            // Khi vào từ lối tắt trang chủ, menu trên cùng hiện "Trang chủ" đang chọn
+            // thay vì "Thực đơn", vì đây không phải đang duyệt theo danh mục.
+            ViewBag.TuTrangChu = !hienBoLoc;
 
             return View(model);
         }

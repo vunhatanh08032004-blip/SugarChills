@@ -100,8 +100,21 @@
                 </div>
                 <div class="sc-summary-row">
                     <span class="sc-text-muted">Thanh toán</span>
-                    <span>@Model.HinhThucThanhToan</span>
+                    <span>
+                        @Model.HinhThucThanhToan
+                        @if (Model.DaThanhToan)
+                        {
+                            <span class="sc-badge badge-success ms-1">Đã thanh toán</span>
+                        }
+                    </span>
                 </div>
+                @if (!Model.DaThanhToan)
+                {
+                    <div class="sc-summary-row">
+                        <span class="sc-text-muted">Còn phải thu</span>
+                        <span>@DinhDang.Tien(Model.SoTienConLai)</span>
+                    </div>
+                }
 
                 <div class="sc-summary-total">
                     <span>Tổng cộng</span>

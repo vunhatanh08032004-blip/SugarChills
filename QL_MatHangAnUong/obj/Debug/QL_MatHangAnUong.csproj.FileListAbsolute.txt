@@ -1,158 +1,79 @@
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.dll.config
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.pdb
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.exe
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.exe.config
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.rsp
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.exe
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.exe.config
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.rsp
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CSharp.Core.targets
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Managed.Core.targets
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.VisualBasic.Core.targets
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Win32.Primitives.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.AppContext.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Collections.Immutable.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Console.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.StackTrace.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Globalization.Calendars.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.Compression.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.Compression.ZipFile.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.FileSystem.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.FileSystem.Primitives.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Net.Http.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Net.Sockets.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Reflection.Metadata.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Algorithms.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Encoding.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Primitives.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Text.Encoding.CodePages.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Threading.Tasks.Extensions.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.ValueTuple.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.ReaderWriter.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XmlDocument.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XPath.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XPath.XDocument.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.exe
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.exe.config
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.rsp
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\VBCSCompiler.exe
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\roslyn\VBCSCompiler.exe.config
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\Antlr3.Runtime.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\Microsoft.Web.Infrastructure.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\Newtonsoft.Json.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.Helpers.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.Mvc.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.Optimization.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.Razor.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Deployment.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Razor.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\WebGrease.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.Helpers.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.Mvc.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.Optimization.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.Razor.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Deployment.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Razor.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\Newtonsoft.Json.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\Antlr3.Runtime.pdb
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.csproj.AssemblyReference.cache
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.csproj.CoreCompileInputs.cache
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHa.AE040BBD.Up2Date
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.dll
-E:\LuuDuLieuSinhVien\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.pdb
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.dll.config
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.pdb
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.exe
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.exe.config
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.rsp
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.exe
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.exe.config
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.rsp
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CSharp.Core.targets
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Managed.Core.targets
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.VisualBasic.Core.targets
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Win32.Primitives.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.AppContext.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Collections.Immutable.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Console.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.StackTrace.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Globalization.Calendars.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.Compression.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.Compression.ZipFile.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.FileSystem.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.FileSystem.Primitives.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Net.Http.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Net.Sockets.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Reflection.Metadata.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Algorithms.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Encoding.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Primitives.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Text.Encoding.CodePages.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Threading.Tasks.Extensions.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.ValueTuple.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.ReaderWriter.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XmlDocument.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XPath.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XPath.XDocument.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.exe
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.exe.config
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.rsp
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\VBCSCompiler.exe
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\VBCSCompiler.exe.config
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\Antlr3.Runtime.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\Microsoft.Web.Infrastructure.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\Newtonsoft.Json.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Helpers.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Mvc.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Optimization.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Razor.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Deployment.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Razor.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\WebGrease.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Helpers.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Mvc.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Optimization.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Razor.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Deployment.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Razor.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\Newtonsoft.Json.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\Antlr3.Runtime.pdb
-D:\SugarChills\SugarChills\QL_MatHangAnUong\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.csproj.AssemblyReference.cache
-D:\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.csproj.CoreCompileInputs.cache
-D:\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHa.AE040BBD.Up2Date
-D:\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.dll
-D:\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.pdb
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.dll.config
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\QL_MatHangAnUong.pdb
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.exe
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.exe.config
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csc.rsp
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.exe
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.exe.config
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\csi.rsp
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Managed.Core.targets
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.AppContext.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Collections.Immutable.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Console.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Globalization.Calendars.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.Compression.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.FileSystem.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Net.Http.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Net.Sockets.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Reflection.Metadata.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.ValueTuple.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XmlDocument.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XPath.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.exe
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.exe.config
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\vbc.rsp
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\VBCSCompiler.exe
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\roslyn\VBCSCompiler.exe.config
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\Antlr3.Runtime.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\Microsoft.Web.Infrastructure.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\Newtonsoft.Json.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Helpers.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Mvc.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Optimization.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Razor.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Deployment.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Razor.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\WebGrease.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Helpers.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Mvc.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Optimization.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.Razor.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Deployment.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\System.Web.WebPages.Razor.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\Newtonsoft.Json.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\Antlr3.Runtime.pdb
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.csproj.AssemblyReference.cache
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.csproj.CoreCompileInputs.cache
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHa.AE040BBD.Up2Date
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.dll
+D:\HOC TAP\LT Web\SugarChills\SugarChills\QL_MatHangAnUong\obj\Debug\QL_MatHangAnUong.pdb

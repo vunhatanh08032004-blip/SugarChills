@@ -3,6 +3,12 @@
 @{
     var soSPTheoLoai = ViewBag.SoSanPhamTheoLoai as Dictionary<int, int> ?? new Dictionary<int, int>();
 
+    // Sidebar lọc theo loại: ẩn khi vào từ lối tắt "Xem thêm" ở trang chủ và chưa chọn
+    // danh mục nào (Model.HienBoLoc do controller quyết định). Các link Sắp xếp / Lọc
+    // nhanh / phân trang bên dưới không mang theo cờ "an" nữa nên một khi sidebar đã
+    // hiện, nó luôn giữ hiện khi khách đổi sắp xếp hoặc lọc bán chạy, giảm giá...
+    bool hienBoLoc = Model.HienBoLoc;
+
     // Hàm nhỏ giúp giữ nguyên các tham số lọc khi bấm sang trang khác
     Func<int, object> thamSoTrang = t => new
     {
@@ -19,66 +25,80 @@
     <div class="sc-breadcrumb">
         <a href="@Url.Action("Index", "Home")">Trang chủ</a>
         <i class="bi bi-chevron-right" style="font-size:11px"></i>
-        <span>Thực đơn</span>
-        @if (!string.IsNullOrEmpty(Model.TenLoaiDangChon))
+        @if (!string.IsNullOrEmpty(Model.TieuDeTrang))
         {
-            <i class="bi bi-chevron-right" style="font-size:11px"></i>
-            <span class="sc-text-primary fw-bold">@Model.TenLoaiDangChon</span>
+            <span>@Model.TieuDeTrang</span>
+        }
+        else
+        {
+            <span>Thực đơn</span>
+            if (!string.IsNullOrEmpty(Model.TenLoaiDangChon))
+            {
+                <i class="bi bi-chevron-right" style="font-size:11px"></i>
+                <span class="sc-text-primary fw-bold">@Model.TenLoaiDangChon</span>
+            }
         }
     </div>
 
     <div class="row g-4 pb-5">
 
-        <!-- ============ CỘT BỘ LỌC (rubric 3.3 - lọc theo loại) ============ -->
-        <div class="col-lg-3">
-            <div class="sc-filter">
-                <h6><i class="bi bi-funnel"></i> Loại sản phẩm</h6>
-                <div class="sc-filter-list">
-                    <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, sapXep = Model.SapXep })"
-                       class="@(Model.MaLoai == null ? "active" : "")">
-                        <span>Tất cả</span>
-                        <span class="sc-count">@Model.TongSoSanPham</span>
-                    </a>
-                    @foreach (var loai in Model.DanhSachLoai)
-                    {
-                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = loai.MaLoai, sapXep = Model.SapXep })"
-                           class="@(Model.MaLoai == loai.MaLoai ? "active" : "")">
-                            <span>@loai.TenLoai</span>
-                            <span class="sc-count">@(soSPTheoLoai.ContainsKey(loai.MaLoai) ? soSPTheoLoai[loai.MaLoai] : 0)</span>
+        <!-- ============ CỘT BỘ LỌC (rubric 3.3 - lọc theo loại) — chỉ hiện khi duyệt theo Danh mục ============ -->
+        @if (hienBoLoc)
+        {
+            <div class="col-lg-3">
+                <div class="sc-filter">
+                    <h6><i class="bi bi-funnel"></i> Loại sản phẩm</h6>
+                    <div class="sc-filter-list">
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, sapXep = Model.SapXep })"
+                           class="@(Model.MaLoai == null ? "active" : "")">
+                            <span>Tất cả</span>
+                            <span class="sc-count">@Model.TongSoSanPham</span>
                         </a>
-                    }
-                </div>
-
-                <h6><i class="bi bi-cash-coin"></i> Khoảng giá</h6>
-                <form method="get" action="@Url.Action("Index")">
-                    <input type="hidden" name="tuKhoa" value="@Model.TuKhoa" />
-                    <input type="hidden" name="maLoai" value="@Model.MaLoai" />
-                    <input type="hidden" name="sapXep" value="@Model.SapXep" />
-                    <div class="d-flex gap-2 mb-2">
-                        <input type="number" class="form-control" name="giaTu" placeholder="Từ" min="0" step="1000" value="@Model.GiaTu" />
-                        <input type="number" class="form-control" name="giaDen" placeholder="Đến" min="0" step="1000" value="@Model.GiaDen" />
+                        @foreach (var loai in Model.DanhSachLoai)
+                        {
+                            <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = loai.MaLoai, sapXep = Model.SapXep })"
+                               class="@(Model.MaLoai == loai.MaLoai ? "active" : "")">
+                                <span>@loai.TenLoai</span>
+                                <span class="sc-count">@(soSPTheoLoai.ContainsKey(loai.MaLoai) ? soSPTheoLoai[loai.MaLoai] : 0)</span>
+                            </a>
+                        }
                     </div>
-                    <button type="submit" class="btn btn-sc w-100 btn-sm">Áp dụng</button>
-                </form>
 
-                <h6><i class="bi bi-lightning"></i> Lọc nhanh</h6>
-                <div>
-                    <a href="@Url.Action("Index", new { giaDen = 35000 })" class="sc-chip">Dưới 35.000đ</a>
-                    <a href="@Url.Action("Index", new { giaTu = 35000, giaDen = 50000 })" class="sc-chip">35k - 50k</a>
-                    <a href="@Url.Action("Index", new { giaTu = 50000 })" class="sc-chip">Trên 50.000đ</a>
-                    <a href="@Url.Action("Index", new { sapXep = "ban-chay" })" class="sc-chip"><i class="bi bi-fire"></i> Bán chạy</a>
+                    <h6><i class="bi bi-cash-coin"></i> Khoảng giá</h6>
+                    <form method="get" action="@Url.Action("Index")">
+                        <input type="hidden" name="tuKhoa" value="@Model.TuKhoa" />
+                        <input type="hidden" name="maLoai" value="@Model.MaLoai" />
+                        <input type="hidden" name="sapXep" value="@Model.SapXep" />
+                        <div class="d-flex gap-2 mb-2">
+                            <input type="number" class="form-control" name="giaTu" placeholder="Từ" min="0" step="1000" value="@Model.GiaTu" />
+                            <input type="number" class="form-control" name="giaDen" placeholder="Đến" min="0" step="1000" value="@Model.GiaDen" />
+                        </div>
+                        <button type="submit" class="btn btn-sc w-100 btn-sm">Áp dụng</button>
+                    </form>
+
+                    <h6><i class="bi bi-lightning"></i> Lọc nhanh</h6>
+                    <div>
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaDen = 35000 })" class="sc-chip">Dưới 35.000đ</a>
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaTu = 35000, giaDen = 50000 })" class="sc-chip">35k - 50k</a>
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaTu = 50000 })" class="sc-chip">Trên 50.000đ</a>
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, giaTu = Model.GiaTu, giaDen = Model.GiaDen, sapXep = "ban-chay" })" class="sc-chip"><i class="bi bi-fire"></i> Bán chạy</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
 
         <!-- ============ CỘT DANH SÁCH SẢN PHẨM ============ -->
-        <div class="col-lg-9">
+        <div class="@(hienBoLoc ? "col-lg-9" : "col-lg-12")">
             <div class="sc-section-head">
                 <div>
                     <h2>
                         @if (!string.IsNullOrWhiteSpace(Model.TuKhoa))
                         {
                             <text>Kết quả cho "@Model.TuKhoa"</text>
+                        }
+                        else if (!string.IsNullOrEmpty(Model.TieuDeTrang))
+                        {
+                            @Model.TieuDeTrang
                         }
                         else if (!string.IsNullOrEmpty(Model.TenLoaiDangChon))
                         {
@@ -92,20 +112,23 @@
                     <div class="sc-sub">Tìm thấy <strong>@Model.TongSoSanPham</strong> sản phẩm</div>
                 </div>
 
-                <form method="get" action="@Url.Action("Index")" class="d-flex align-items-center gap-2">
-                    <input type="hidden" name="tuKhoa" value="@Model.TuKhoa" />
-                    <input type="hidden" name="maLoai" value="@Model.MaLoai" />
-                    <input type="hidden" name="giaTu" value="@Model.GiaTu" />
-                    <input type="hidden" name="giaDen" value="@Model.GiaDen" />
-                    <label class="form-label mb-0 text-nowrap">Sắp xếp:</label>
-                    <select name="sapXep" class="form-select" onchange="this.form.submit()">
-                        <option value="" selected="@(string.IsNullOrEmpty(Model.SapXep))">Mặc định</option>
-                        <option value="ban-chay" selected="@(Model.SapXep == "ban-chay")">Bán chạy</option>
-                        <option value="gia-tang" selected="@(Model.SapXep == "gia-tang")">Giá tăng dần</option>
-                        <option value="gia-giam" selected="@(Model.SapXep == "gia-giam")">Giá giảm dần</option>
-                        <option value="ten" selected="@(Model.SapXep == "ten")">Tên A → Z</option>
-                    </select>
-                </form>
+                @if (hienBoLoc)
+                {
+                    <form method="get" action="@Url.Action("Index")" class="d-flex align-items-center gap-2">
+                        <input type="hidden" name="tuKhoa" value="@Model.TuKhoa" />
+                        <input type="hidden" name="maLoai" value="@Model.MaLoai" />
+                        <input type="hidden" name="giaTu" value="@Model.GiaTu" />
+                        <input type="hidden" name="giaDen" value="@Model.GiaDen" />
+                        <label class="form-label mb-0 text-nowrap">Sắp xếp:</label>
+                        <select name="sapXep" class="form-select" onchange="this.form.submit()">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.SapXep))">Mặc định</option>
+                            <option value="ban-chay" selected="@(Model.SapXep == "ban-chay")">Bán chạy</option>
+                            <option value="gia-tang" selected="@(Model.SapXep == "gia-tang")">Giá tăng dần</option>
+                            <option value="gia-giam" selected="@(Model.SapXep == "gia-giam")">Giá giảm dần</option>
+                            <option value="ten" selected="@(Model.SapXep == "ten")">Tên A → Z</option>
+                        </select>
+                    </form>
+                }
             </div>
 
             @if (Model.SanPhams.Count == 0)
@@ -122,13 +145,13 @@
                 <div class="row g-3 g-lg-4">
                     @foreach (var sp in Model.SanPhams)
                     {
-                        <div class="col-6 col-md-4">
+                        <div class="@(hienBoLoc ? "col-6 col-md-4" : "col-6 col-md-4 col-lg-3")">
                             @Html.Partial("_CardSanPham", sp)
                         </div>
                     }
                 </div>
 
-                @if (Model.TongSoTrang > 1)
+                if (Model.TongSoTrang > 1)
                 {
                     <nav class="mt-4">
                         <ul class="pagination justify-content-center">

@@ -55,9 +55,29 @@ namespace QL_MatHangAnUong.Models
         [Display(Name = "Kích hoạt")]
         public bool KichHoat { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng chọn loại giảm giá")]
+        [Display(Name = "Áp dụng giảm cho")]
+        public string LoaiGiam { get; set; }
+
+        /// <summary>Giảm trên tổng tiền hàng (tạm tính).</summary>
+        public const string GiamTongTien = "TongTien";
+
+        /// <summary>Giảm trên phí giao hàng (phí thu khi nhận hàng / COD) — dùng cho các mã kiểu "Freeship".</summary>
+        public const string GiamPhiGiaoHang = "PhiGiaoHang";
+
+        public static readonly string[] CacLoaiGiam = { GiamTongTien, GiamPhiGiaoHang };
+
+        /// <summary>Tên hiển thị của loại giảm, dùng ở danh sách quản lý và trang chủ.</summary>
+        [NotMapped]
+        public string TenLoaiGiam
+        {
+            get { return LoaiGiam == GiamPhiGiaoHang ? "Giảm phí giao hàng (COD)" : "Giảm tổng tiền"; }
+        }
+
         public KhuyenMai()
         {
             KichHoat = true;
+            LoaiGiam = GiamTongTien;
             NgayBatDau = DateTime.Today;
             NgayKetThuc = DateTime.Today.AddMonths(1);
         }
@@ -74,14 +94,22 @@ namespace QL_MatHangAnUong.Models
             }
         }
 
-        /// <summary>Tính số tiền được giảm cho một giá trị đơn hàng.</summary>
-        public decimal TinhTienGiam(decimal tamTinh)
+        /// <summary>
+        /// Tính số tiền được giảm. Với mã "Giảm tổng tiền" thì % áp dụng trên tạm tính (tamTinh);
+        /// với mã "Giảm phí giao hàng" thì % áp dụng trên chính phí giao hàng (phiGiaoHang) —
+        /// ví dụ mã Freeship 100% sẽ làm phí giao hàng về 0.
+        /// Điều kiện "Đơn tối thiểu" luôn xét trên tạm tính, không phụ thuộc loại giảm.
+        /// </summary>
+        public decimal TinhTienGiam(decimal tamTinh, decimal phiGiaoHang = 0)
         {
             if (!ConHieuLuc || tamTinh < DonToiThieu) return 0;
 
-            decimal giam = tamTinh * PhanTramGiam / 100m;
+            decimal coSo = LoaiGiam == GiamPhiGiaoHang ? phiGiaoHang : tamTinh;
+            if (coSo <= 0) return 0;
+
+            decimal giam = coSo * PhanTramGiam / 100m;
             if (GiamToiDa > 0 && giam > GiamToiDa) giam = GiamToiDa;
-            if (giam > tamTinh) giam = tamTinh;
+            if (giam > coSo) giam = coSo;
             return Math.Round(giam);
         }
     }

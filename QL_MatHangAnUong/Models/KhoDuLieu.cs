@@ -6,13 +6,6 @@ namespace QL_MatHangAnUong.Models
 {
     /// <summary>
     /// KHO DỮ LIỆU TẠM (in-memory).
-    ///
-    /// Giai đoạn 1 (hiện tại): toàn bộ dữ liệu nằm trong bộ nhớ để chạy thử giao diện mà chưa cần SQL Server.
-    /// Giai đoạn 2: khi đã cài Entity Framework 6 và tạo FoodHubContext, chỉ cần thay thân các hàm ở đây
-    ///              bằng truy vấn LINQ trên DbContext, phần Controller/View giữ nguyên.
-    ///
-    /// Ví dụ chuyển đổi:
-    ///     public static List&lt;SanPham&gt; LaySanPhams() =&gt; db.SanPhams.Include("LoaiSanPham").ToList();
     /// </summary>
     public static class KhoDuLieu
     {
@@ -157,16 +150,16 @@ namespace QL_MatHangAnUong.Models
             // ---------- KHUYẾN MÃI ----------
             ThemKhuyenMaiMau("Chào bạn mới", "SUGAR10", 10, 20000, 0,
                 DateTime.Today.AddDays(-10), DateTime.Today.AddDays(60),
-                "Giảm 10% (tối đa 20.000đ) cho mọi đơn hàng.");
-            ThemKhuyenMaiMau("Freeship đơn từ 100k", "CHILL15", 15, 30000, 100000,
+                "Giảm 10% (tối đa 20.000đ) cho mọi đơn hàng.", KhuyenMai.GiamTongTien);
+            ThemKhuyenMaiMau("Freeship đơn từ 100k", "CHILL15", 100, 15000, 100000,
                 DateTime.Today.AddDays(-5), DateTime.Today.AddDays(30),
-                "Giảm 15% (tối đa 30.000đ) cho đơn từ 100.000đ.");
+                "Miễn phí giao hàng cho đơn từ 100.000đ.", KhuyenMai.GiamPhiGiaoHang);
             ThemKhuyenMaiMau("Happy Hour 14h-17h", "HAPPY20", 20, 50000, 150000,
                 DateTime.Today.AddDays(-2), DateTime.Today.AddDays(20),
-                "Giảm 20% (tối đa 50.000đ) cho đơn từ 150.000đ.");
+                "Giảm 20% (tối đa 50.000đ) cho đơn từ 150.000đ.", KhuyenMai.GiamTongTien);
             ThemKhuyenMaiMau("Tết Trung Thu 2025", "TRUNGTHU", 25, 60000, 200000,
                 DateTime.Today.AddDays(-120), DateTime.Today.AddDays(-90),
-                "Chương trình đã kết thúc — dùng để minh họa khuyến mãi hết hạn.");
+                "Chương trình đã kết thúc — dùng để minh họa khuyến mãi hết hạn.", KhuyenMai.GiamTongTien);
 
             TaoDonHangMau();
         }
@@ -223,7 +216,7 @@ namespace QL_MatHangAnUong.Models
         }
 
         private static void ThemKhuyenMaiMau(string ten, string ma, int phanTram, decimal toiDa,
-            decimal donToiThieu, DateTime batDau, DateTime ketThuc, string moTa)
+            decimal donToiThieu, DateTime batDau, DateTime ketThuc, string moTa, string loaiGiam)
         {
             _khuyenMais.Add(new KhuyenMai
             {
@@ -236,6 +229,7 @@ namespace QL_MatHangAnUong.Models
                 NgayBatDau = batDau,
                 NgayKetThuc = ketThuc,
                 MoTa = moTa,
+                LoaiGiam = loaiGiam,
                 KichHoat = true
             });
         }
@@ -393,7 +387,7 @@ namespace QL_MatHangAnUong.Models
             return _sanPhams.FirstOrDefault(s => s.MaSP == maSP);
         }
 
-        /// <summary>Gán navigation property LoaiSanPham (khi dùng EF thì Include sẽ làm việc này).</summary>
+        /// <summary>Gán navigation property LoaiSanPham </summary>
         private static void GanLoaiChoSanPham()
         {
             foreach (var sp in _sanPhams)
@@ -483,6 +477,11 @@ namespace QL_MatHangAnUong.Models
                 case "gia-giam": ds = ds.OrderByDescending(s => s.GiaBanThucTe); break;
                 case "ten": ds = ds.OrderBy(s => s.TenSP); break;
                 case "ban-chay": ds = ds.OrderByDescending(s => s.LuotBan); break;
+                case "moi": ds = ds.OrderByDescending(s => s.NgayTao); break;
+                case "giam-gia":
+                    ds = ds.Where(s => s.GiaKhuyenMai.HasValue && s.GiaKhuyenMai > 0)
+                           .OrderByDescending(s => s.PhanTramGiam);
+                    break;
                 default: ds = ds.OrderByDescending(s => s.NoiBat).ThenByDescending(s => s.LuotBan); break;
             }
 
@@ -677,6 +676,14 @@ namespace QL_MatHangAnUong.Models
             if (!DonHang.CacTrangThai.Contains(trangThai)) return false;
 
             dh.TrangThai = trangThai;
+
+            // Đơn hoàn thành nghĩa là đã giao và đã thu đủ tiền (kể cả COD).
+            if (trangThai == DonHang.HoanThanh)
+            {
+                dh.DaThanhToan = true;
+                dh.SoTienConLai = 0;
+            }
+
             return true;
         }
 
