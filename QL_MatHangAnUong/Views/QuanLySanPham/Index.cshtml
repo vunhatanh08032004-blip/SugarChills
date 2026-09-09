@@ -3,7 +3,7 @@
 @model List<QL_MatHangAnUong.Models.SanPham>
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Quản lý sản phẩm";
+    ViewBag.Title = Resources.Strings.Seller_QuanLySanPham;
 
     var dsLoai = ViewBag.DanhSachLoai as List<LoaiSanPham> ?? new List<LoaiSanPham>();
     int? maLoaiChon = ViewBag.MaLoai as int?;
@@ -13,17 +13,17 @@
 <div class="sc-table-card">
     <div class="sc-table-head">
         <div>
-            <h5>Danh sách sản phẩm</h5>
-            <small class="sc-text-muted">Tổng cộng @Model.Count sản phẩm</small>
+            <h5>@Resources.Strings.SellerProd_DanhSach</h5>
+            <small class="sc-text-muted">@(string.Format(Resources.Strings.SellerProd_TongCongFormat, Model.Count))</small>
         </div>
 
-        <div class="d-flex flex-wrap gap-2">
+        <div class="d-flex flex-wrap gap-2 align-items-start">
             <form method="get" action="@Url.Action("Index")" class="d-flex flex-wrap gap-2">
                 <input type="text" name="tuKhoa" class="form-control" style="min-width:200px"
-                       placeholder="Tìm theo tên sản phẩm..." value="@ViewBag.TuKhoa" />
+                       placeholder="@Resources.Strings.SellerProd_TimTheoTenPlaceholder" value="@ViewBag.TuKhoa" />
 
                 <select name="maLoai" class="form-select" style="min-width:160px">
-                    <option value="">-- Tất cả loại --</option>
+                    <option value="">@Resources.Strings.SellerProd_TatCaLoai</option>
                     @foreach (var l in dsLoai)
                     {
                         <option value="@l.MaLoai" selected="@(maLoaiChon == l.MaLoai)">@l.TenLoai</option>
@@ -31,16 +31,16 @@
                 </select>
 
                 <select name="trangThai" class="form-select" style="min-width:150px">
-                    <option value="">-- Trạng thái --</option>
-                    <option value="dang-ban" selected="@(trangThaiChon == "dang-ban")">Đang bán</option>
-                    <option value="ngung-ban" selected="@(trangThaiChon == "ngung-ban")">Ngừng bán</option>
+                    <option value="">@Resources.Strings.SellerProd_TatCaTrangThai</option>
+                    <option value="dang-ban" selected="@(trangThaiChon == "dang-ban")">@Resources.Strings.SellerProd_DangBan</option>
+                    <option value="ngung-ban" selected="@(trangThaiChon == "ngung-ban")">@Resources.Strings.SellerProd_NgungBan</option>
                 </select>
 
                 <button type="submit" class="btn btn-sc-soft"><i class="bi bi-search"></i></button>
             </form>
 
             <a href="@Url.Action("Them")" class="btn btn-sc text-nowrap">
-                <i class="bi bi-plus-lg"></i> Thêm sản phẩm
+                <i class="bi bi-plus-lg"></i> @Resources.Strings.SellerProd_ThemTitle
             </a>
         </div>
     </div>
@@ -49,14 +49,14 @@
         <table class="table sc-table align-middle">
             <thead>
                 <tr>
-                    <th style="width:70px">Mã</th>
-                    <th>Sản phẩm</th>
-                    <th>Loại</th>
-                    <th class="text-end">Giá bán</th>
-                    <th class="text-center">Tồn</th>
-                    <th class="text-center">Trạng thái</th>
-                    <th class="text-center">Nổi bật</th>
-                    <th class="text-end" style="width:170px">Thao tác</th>
+                    <th style="width:70px">@Resources.Strings.SellerProd_ColMa</th>
+                    <th>@Resources.Strings.SellerProd_ColSanPham</th>
+                    <th>@Resources.Strings.SellerProd_ColLoai</th>
+                    <th class="text-end">@Resources.Strings.SellerProd_ColGiaBan</th>
+                    <th class="text-center">@Resources.Strings.SellerProd_ColTon</th>
+                    <th class="text-center">@Resources.Strings.Account_TrangThai</th>
+                    <th class="text-center">@Resources.Strings.SellerProd_ColNoiBat</th>
+                    <th class="text-end" style="width:170px">@Resources.Strings.Admin_ThaoTac</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,7 +65,7 @@
                     <tr>
                         <td colspan="8" class="text-center py-5 sc-text-muted">
                             <i class="bi bi-inbox" style="font-size:34px;display:block"></i>
-                            Không tìm thấy sản phẩm nào.
+                            @Resources.Strings.SellerProd_KhongTimThaySanPhamNao
                         </td>
                     </tr>
                 }
@@ -81,7 +81,7 @@
                                          onerror="this.onerror=null;this.src='https://placehold.co/100x100/FFE6EE/E8517F?text=SC';" />
                                     <div>
                                         <div class="fw-bold">@sp.TenSP</div>
-                                        <div class="sc-text-muted" style="font-size:12px">Đã bán @sp.LuotBan</div>
+                                        <div class="sc-text-muted" style="font-size:12px">@(string.Format(Resources.Strings.SellerProd_DaBanFormat, sp.LuotBan))</div>
                                     </div>
                                 </div>
                             </td>
@@ -97,31 +97,38 @@
                             <td class="text-center">
                                 @if (sp.DangBan)
                                 {
-                                    <span class="sc-badge badge-success">Đang bán</span>
+                                    <span class="sc-badge badge-success">@Resources.Strings.SellerProd_DangBan</span>
                                 }
                                 else
                                 {
-                                    <span class="sc-badge badge-muted">Ngừng bán</span>
+                                    <span class="sc-badge badge-muted">@Resources.Strings.SellerProd_NgungBan</span>
                                 }
                             </td>
                             <td class="text-center">
-                                @if (sp.NoiBat)
+                                @using (Html.BeginForm("DoiNoiBat", "QuanLySanPham", new { id = sp.MaSP }, FormMethod.Post, new { style = "display:inline" }))
                                 {
-                                    <i class="bi bi-star-fill" style="color:var(--sc-yellow)"></i>
-                                }
-                                else
-                                {
-                                    <i class="bi bi-star sc-text-muted"></i>
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="sc-star-toggle"
+                                            title="@(sp.NoiBat ? Resources.Strings.SellerProd_BoDanhDauNoiBat : Resources.Strings.SellerProd_DanhDauNoiBat)">
+                                        @if (sp.NoiBat)
+                                        {
+                                            <i class="bi bi-star-fill" style="color:var(--sc-yellow)"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-star sc-text-muted"></i>
+                                        }
+                                    </button>
                                 }
                             </td>
                             <td class="text-end text-nowrap">
-                                <a href="@Url.Action("ChiTiet", new { id = sp.MaSP })" class="btn btn-sm btn-sc-soft" title="Xem">
+                                <a href="@Url.Action("ChiTiet", new { id = sp.MaSP })" class="btn btn-sm btn-sc-soft" title="@Resources.Strings.Admin_Xem">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="@Url.Action("Sua", new { id = sp.MaSP })" class="btn btn-sm btn-sc-soft" title="Sửa">
+                                <a href="@Url.Action("Sua", new { id = sp.MaSP })" class="btn btn-sm btn-sc-soft" title="@Resources.Strings.Admin_Sua">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a href="@Url.Action("Xoa", new { id = sp.MaSP })" class="btn btn-sm btn-sc-outline" title="Xóa">
+                                <a href="@Url.Action("Xoa", new { id = sp.MaSP })" class="btn btn-sm btn-sc-outline" title="@Resources.Strings.Common_Xoa">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>

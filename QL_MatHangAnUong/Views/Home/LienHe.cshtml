@@ -1,23 +1,23 @@
 ﻿@{
-    ViewBag.Title = "Liên hệ";
+    ViewBag.Title = Resources.Strings.Common_LienHe;
 }
 
 <div class="container pb-5">
     <div class="sc-breadcrumb">
-        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <a href="@Url.Action("Index", "Home")">@Resources.Strings.Common_TrangChu</a>
         <i class="bi bi-chevron-right" style="font-size:11px"></i>
-        <span>Liên hệ</span>
+        <span>@Resources.Strings.Common_LienHe</span>
     </div>
 
     <div class="row g-4">
         <div class="col-lg-5">
             <div class="sc-panel h-100">
-                <h4 class="mb-3">Liên hệ SugarChills</h4>
+                <h4 class="mb-3">@Resources.Strings.Contact_TieuDe</h4>
 
                 <div class="d-flex gap-3 mb-3">
                     <div class="sc-feature-icon"><i class="bi bi-geo-alt-fill"></i></div>
                     <div>
-                        <strong>Cửa hàng chính</strong>
+                        <strong>@Resources.Strings.Contact_CuaHangChinh</strong>
                         <div class="sc-text-muted small">12 Nguyễn Văn Bảo, P.4, Gò Vấp, TP.HCM</div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="d-flex gap-3 mb-3">
                     <div class="sc-feature-icon"><i class="bi bi-telephone-fill"></i></div>
                     <div>
-                        <strong>Hotline đặt hàng</strong>
+                        <strong>@Resources.Strings.Contact_HotlineDatHang</strong>
                         <div class="sc-text-muted small">1900 6789 (07:00 - 22:00)</div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="d-flex gap-3 mb-3">
                     <div class="sc-feature-icon"><i class="bi bi-envelope-fill"></i></div>
                     <div>
-                        <strong>Email</strong>
+                        <strong>@Resources.Strings.Common_Email</strong>
                         <div class="sc-text-muted small">hello@sugarchills.vn</div>
                     </div>
                 </div>
@@ -41,8 +41,8 @@
                 <div class="d-flex gap-3">
                     <div class="sc-feature-icon"><i class="bi bi-clock-fill"></i></div>
                     <div>
-                        <strong>Giờ mở cửa</strong>
-                        <div class="sc-text-muted small">T2 - T6: 07:00 - 22:00<br />T7 - CN: 08:00 - 23:00</div>
+                        <strong>@Resources.Strings.Footer_GioMoCua</strong>
+                        <div class="sc-text-muted small">@Resources.Strings.Footer_GioT2T6<br />@Resources.Strings.Footer_GioT7CN</div>
                     </div>
                 </div>
             </div>
@@ -50,32 +50,32 @@
 
         <div class="col-lg-7">
             <div class="sc-panel">
-                <h4 class="mb-3">Gửi lời nhắn cho tụi mình</h4>
+                <h4 class="mb-3">@Resources.Strings.Contact_GuiLoiNhan</h4>
                 <p class="sc-text-muted small">
-                    Góp ý về món, về phục vụ hay muốn hợp tác — cứ để lại lời nhắn, SugarChills sẽ phản hồi trong 24 giờ.
+                    @Resources.Strings.Contact_MoTaForm
                 </p>
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label class="form-label">Họ và tên</label>
-                        <input type="text" class="form-control" placeholder="Nguyễn Văn A" />
+                        <label class="form-label">@Resources.Strings.Contact_HoVaTen</label>
+                        <input type="text" class="form-control" placeholder="@Resources.Strings.Contact_HoTenPlaceholder" />
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Số điện thoại</label>
+                        <label class="form-label">@Resources.Strings.Contact_SoDienThoai</label>
                         <input type="text" class="form-control" placeholder="09xxxxxxxx" />
                     </div>
                     <div class="col-12">
-                        <label class="form-label">Email</label>
+                        <label class="form-label">@Resources.Strings.Common_Email</label>
                         <input type="email" class="form-control" placeholder="ban@email.com" />
                     </div>
                     <div class="col-12">
-                        <label class="form-label">Nội dung</label>
-                        <textarea class="form-control" rows="4" placeholder="Bạn muốn nhắn gì cho SugarChills?"></textarea>
+                        <label class="form-label">@Resources.Strings.Contact_NoiDung</label>
+                        <textarea class="form-control" rows="4" placeholder="@Resources.Strings.Contact_NoiDungPlaceholder"></textarea>
                     </div>
                     <div class="col-12">
                         <button type="button" class="btn btn-sc btn-lg"
-                                onclick="alert('Cảm ơn bạn! Đây là form demo của đồ án, chưa lưu vào cơ sở dữ liệu.');">
-                            <i class="bi bi-send"></i> Gửi lời nhắn
+                                onclick="alert('@Html.Raw(Resources.Strings.Contact_ThongBaoDemo)');">
+                            <i class="bi bi-send"></i> @Resources.Strings.Contact_GuiLoiNhanBtn
                         </button>
                     </div>
                 </div>

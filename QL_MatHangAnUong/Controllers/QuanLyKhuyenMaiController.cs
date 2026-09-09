@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Models;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Controllers
 {
@@ -14,14 +15,14 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLyKhuyenMai
         public ActionResult Index()
         {
-            ViewBag.Title = "Quản lý khuyến mãi";
+            ViewBag.Title = Ngu.S("Seller_QuanLyKhuyenMai");
             return View(KhoDuLieu.LayKhuyenMais());
         }
 
         // GET: /QuanLyKhuyenMai/Them
         public ActionResult Them()
         {
-            ViewBag.Title = "Thêm khuyến mãi";
+            ViewBag.Title = Ngu.S("SellerKM_ThemTitle");
             return View(new KhuyenMai());
         }
 
@@ -34,13 +35,13 @@ namespace QL_MatHangAnUong.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Title = "Thêm khuyến mãi";
+                ViewBag.Title = Ngu.S("SellerKM_ThemTitle");
                 return View(km);
             }
 
             km.MaGiamGia = km.MaGiamGia.Trim().ToUpper();
             KhoDuLieu.ThemKhuyenMai(km);
-            ThongBao(string.Format("Đã thêm chương trình \"{0}\".", km.TenKM));
+            ThongBao(string.Format(Ngu.S("SellerKM_DaThemFormat"), km.TenKM));
             return RedirectToAction("Index");
         }
 
@@ -48,9 +49,9 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Sua(int id)
         {
             var km = KhoDuLieu.LayKhuyenMai(id);
-            if (km == null) return HttpNotFound("Không tìm thấy chương trình khuyến mãi.");
+            if (km == null) return HttpNotFound(Ngu.S("SellerKM_KhongTimThay"));
 
-            ViewBag.Title = "Sửa khuyến mãi";
+            ViewBag.Title = Ngu.S("SellerKM_SuaTitle");
             return View(km);
         }
 
@@ -63,15 +64,15 @@ namespace QL_MatHangAnUong.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Title = "Sửa khuyến mãi";
+                ViewBag.Title = Ngu.S("SellerKM_SuaTitle");
                 return View(km);
             }
 
             km.MaGiamGia = km.MaGiamGia.Trim().ToUpper();
             if (!KhoDuLieu.CapNhatKhuyenMai(km))
-                return HttpNotFound("Không tìm thấy chương trình cần sửa.");
+                return HttpNotFound(Ngu.S("SellerKM_KhongTimThaySuaCanXoa"));
 
-            ThongBao(string.Format("Đã cập nhật chương trình \"{0}\".", km.TenKM));
+            ThongBao(string.Format(Ngu.S("SellerKM_DaCapNhatFormat"), km.TenKM));
             return RedirectToAction("Index");
         }
 
@@ -79,9 +80,9 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Xoa(int id)
         {
             var km = KhoDuLieu.LayKhuyenMai(id);
-            if (km == null) return HttpNotFound("Không tìm thấy chương trình khuyến mãi.");
+            if (km == null) return HttpNotFound(Ngu.S("SellerKM_KhongTimThay"));
 
-            ViewBag.Title = "Xóa khuyến mãi";
+            ViewBag.Title = Ngu.S("SellerKM_XoaTitle");
             return View(km);
         }
 
@@ -92,11 +93,11 @@ namespace QL_MatHangAnUong.Controllers
         {
             if (!KhoDuLieu.XoaKhuyenMai(id))
             {
-                ThongBao("Không tìm thấy chương trình khuyến mãi.", "danger");
+                ThongBao(Ngu.S("SellerKM_KhongTimThay"), "danger");
                 return RedirectToAction("Index");
             }
 
-            ThongBao("Đã xóa chương trình khuyến mãi.", "info");
+            ThongBao(Ngu.S("SellerKM_DaXoa"), "info");
             return RedirectToAction("Index");
         }
 
@@ -106,13 +107,13 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult DoiTrangThai(int id)
         {
             var km = KhoDuLieu.LayKhuyenMai(id);
-            if (km == null) return HttpNotFound("Không tìm thấy chương trình khuyến mãi.");
+            if (km == null) return HttpNotFound(Ngu.S("SellerKM_KhongTimThay"));
 
             km.KichHoat = !km.KichHoat;
             KhoDuLieu.CapNhatKhuyenMai(km);
 
-            ThongBao(string.Format("Chương trình \"{0}\" đã được {1}.",
-                km.TenKM, km.KichHoat ? "bật" : "tắt"), "info");
+            ThongBao(string.Format(Ngu.S("SellerKM_DaDuocFormat"),
+                km.TenKM, km.KichHoat ? Ngu.S("SellerKM_Bat") : Ngu.S("SellerKM_Tat")), "info");
             return RedirectToAction("Index");
         }
 
@@ -121,14 +122,14 @@ namespace QL_MatHangAnUong.Controllers
             if (!string.IsNullOrWhiteSpace(km.MaGiamGia) &&
                 KhoDuLieu.MaGiamGiaDaTonTai(km.MaGiamGia, boQuaMaKM))
             {
-                ModelState.AddModelError("MaGiamGia", "Mã giảm giá này đã được dùng cho chương trình khác.");
+                ModelState.AddModelError("MaGiamGia", Ngu.S("SellerKM_MaTrung"));
             }
 
             if (km.NgayKetThuc.Date < km.NgayBatDau.Date)
-                ModelState.AddModelError("NgayKetThuc", "Ngày kết thúc phải sau hoặc bằng ngày bắt đầu.");
+                ModelState.AddModelError("NgayKetThuc", Ngu.S("SellerKM_NgayKetThucSaiThuTu"));
 
             if (km.PhanTramGiam <= 0)
-                ModelState.AddModelError("PhanTramGiam", "Phần trăm giảm phải lớn hơn 0.");
+                ModelState.AddModelError("PhanTramGiam", Ngu.S("SellerKM_PhanTramPhaiLonHon0"));
         }
     }
 }

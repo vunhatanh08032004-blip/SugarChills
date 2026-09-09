@@ -29,7 +29,7 @@ namespace QL_MatHangAnUong.Controllers
             decimal phiGiao = (gio.Items.Count == 0 || gio.TamTinh >= MucMienPhiGiaoHang)
                               ? 0 : PhiGiaoHangMacDinh;
 
-            ViewBag.Title = "Giỏ hàng";
+            ViewBag.Title = Ngu.S("Common_GioHang");
             ViewBag.KhuyenMaiGoiY = KhoDuLieu.LayKhuyenMaiConHieuLuc();
             ViewBag.TienGiam = tienGiam;
             ViewBag.PhiGiaoHang = phiGiao;
@@ -51,7 +51,7 @@ namespace QL_MatHangAnUong.Controllers
             var sp = KhoDuLieu.LaySanPham(maSP);
             if (sp == null || !sp.DangBan)
             {
-                ThongBao("Sản phẩm không tồn tại hoặc đã ngừng bán.", "danger");
+                ThongBao(Ngu.S("Cart_SanPhamKhongTonTai"), "danger");
                 return RedirectToAction("Index", "SanPham");
             }
 
@@ -83,7 +83,7 @@ namespace QL_MatHangAnUong.Controllers
             gio.Them(item);
             PhienLamViec.LuuGioHang(Session, gio);
 
-            ThongBao(string.Format("Đã thêm \"{0}\" vào giỏ hàng.", sp.TenSP));
+            ThongBao(string.Format(Ngu.S("Cart_DaThemVaoGioFormat"), sp.TenSP));
             return RedirectToAction("Index");
         }
 
@@ -98,9 +98,9 @@ namespace QL_MatHangAnUong.Controllers
             if (sp == null || !sp.DangBan)
             {
                 if (Request.IsAjaxRequest())
-                    return Json(new { thanhCong = false, thongBao = "Sản phẩm không còn bán." });
+                    return Json(new { thanhCong = false, thongBao = Ngu.S("Cart_SanPhamKhongConBan") });
 
-                ThongBao("Sản phẩm không còn bán.", "danger");
+                ThongBao(Ngu.S("Cart_SanPhamKhongConBan"), "danger");
                 return RedirectToAction("Index", "SanPham");
             }
 
@@ -127,13 +127,13 @@ namespace QL_MatHangAnUong.Controllers
                 return Json(new
                 {
                     thanhCong = true,
-                    thongBao = string.Format("Đã thêm \"{0}\" vào giỏ.", sp.TenSP),
+                    thongBao = string.Format(Ngu.S("Cart_DaThemVaoGioFormat"), sp.TenSP),
                     soLuongGio = gio.TongSoLuong,
                     tamTinh = DinhDang.Tien(gio.TamTinh)
                 });
             }
 
-            ThongBao(string.Format("Đã thêm \"{0}\" vào giỏ hàng.", sp.TenSP));
+            ThongBao(string.Format(Ngu.S("Cart_DaThemVaoGioFormat"), sp.TenSP));
             return RedirectToAction("Index");
         }
 
@@ -168,7 +168,7 @@ namespace QL_MatHangAnUong.Controllers
             gio.Xoa(khoa);
             PhienLamViec.LuuGioHang(Session, gio);
 
-            ThongBao("Đã xóa sản phẩm khỏi giỏ hàng.", "info");
+            ThongBao(Ngu.S("Cart_DaXoaSanPham"), "info");
             return RedirectToAction("Index");
         }
 
@@ -179,7 +179,7 @@ namespace QL_MatHangAnUong.Controllers
             gio.XoaTatCa();
             PhienLamViec.LuuGioHang(Session, gio);
 
-            ThongBao("Đã xóa toàn bộ giỏ hàng.", "info");
+            ThongBao(Ngu.S("Cart_DaXoaToanBo"), "info");
             return RedirectToAction("Index");
         }
 
@@ -192,22 +192,22 @@ namespace QL_MatHangAnUong.Controllers
 
             if (km == null)
             {
-                ThongBao("Mã giảm giá không tồn tại.", "danger");
+                ThongBao(Ngu.S("Cart_MaKhongTonTai"), "danger");
             }
             else if (!km.ConHieuLuc)
             {
-                ThongBao("Mã giảm giá đã hết hạn hoặc chưa được kích hoạt.", "warning");
+                ThongBao(Ngu.S("Cart_MaHetHan"), "warning");
             }
             else if (gio.TamTinh < km.DonToiThieu)
             {
-                ThongBao(string.Format("Mã {0} chỉ áp dụng cho đơn từ {1}.",
+                ThongBao(string.Format(Ngu.S("Cart_MaChiApDungFormat"),
                     km.MaGiamGia.ToUpper(), DinhDang.Tien(km.DonToiThieu)), "warning");
             }
             else
             {
                 gio.MaGiamGia = km.MaGiamGia;
                 PhienLamViec.LuuGioHang(Session, gio);
-                ThongBao(string.Format("Áp dụng mã {0} thành công, giảm {1}.",
+                ThongBao(string.Format(Ngu.S("Cart_ApDungThanhCongFormat"),
                     km.MaGiamGia.ToUpper(), DinhDang.Tien(km.TinhTienGiam(gio.TamTinh))));
             }
 
@@ -230,7 +230,7 @@ namespace QL_MatHangAnUong.Controllers
             var gio = GioHangHienTai;
             if (gio.Items.Count == 0)
             {
-                ThongBao("Giỏ hàng đang trống, bạn hãy chọn món trước nhé!", "warning");
+                ThongBao(Ngu.S("Cart_GioHangDangTrongCanhBao"), "warning");
                 return RedirectToAction("Index", "SanPham");
             }
 
@@ -240,7 +240,7 @@ namespace QL_MatHangAnUong.Controllers
             model.DienThoai = nd.DienThoai;
             model.DiaChi = nd.DiaChi;
 
-            ViewBag.Title = "Đặt hàng";
+            ViewBag.Title = Ngu.S("Checkout_DatHang");
             return View(model);
         }
 
@@ -253,7 +253,7 @@ namespace QL_MatHangAnUong.Controllers
             var gio = GioHangHienTai;
             if (gio.Items.Count == 0)
             {
-                ThongBao("Giỏ hàng đang trống.", "warning");
+                ThongBao(Ngu.S("Cart_GioHangDangTrong"), "warning");
                 return RedirectToAction("Index", "SanPham");
             }
 
@@ -315,13 +315,13 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult DatHangThanhCong(int id)
         {
             var dh = KhoDuLieu.LayDonHang(id);
-            if (dh == null) return HttpNotFound("Không tìm thấy đơn hàng.");
+            if (dh == null) return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
             var nd = NguoiDungHienTai;
             if (dh.MaND != nd.MaND && nd.VaiTro != NguoiDung.RoleSeller)
-                return new HttpUnauthorizedResult("Bạn không có quyền xem đơn hàng này.");
+                return new HttpUnauthorizedResult(Ngu.S("Order_KhongCoQuyenXem"));
 
-            ViewBag.Title = "Đặt hàng thành công";
+            ViewBag.Title = Ngu.S("Success_DatHangThanhCong");
             return View(dh);
         }
 

@@ -1,7 +1,7 @@
 ﻿@model QL_MatHangAnUong.Models.LoaiSanPham
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Xóa loại sản phẩm";
+    ViewBag.Title = Resources.Strings.SellerLoai_XoaTitle;
 
     int soSP = ViewBag.SoSanPham != null ? (int)ViewBag.SoSanPham : 0;
 }
@@ -12,7 +12,7 @@
              style="width:66px;height:66px;font-size:28px;background:#FFECF1;color:#C0345C">
             <i class="bi bi-exclamation-triangle"></i>
         </div>
-        <h4>Xác nhận xóa loại sản phẩm</h4>
+        <h4>@Resources.Strings.SellerLoai_XacNhanXoaHeading</h4>
     </div>
 
     <div class="d-flex gap-3 align-items-center p-3" style="background:var(--sc-primary-softer);border-radius:14px">
@@ -29,23 +29,23 @@
         <div class="sc-alert sc-alert-danger mt-3">
             <i class="bi bi-x-octagon"></i>
             <span>
-                Loại này đang có <strong>@soSP sản phẩm</strong>. Bạn phải chuyển các sản phẩm đó sang loại khác
-                (hoặc xóa chúng) trước khi xóa loại này.
+                @Html.Raw(string.Format(Resources.Strings.SellerLoai_DangCoSanPhamMoTaFormat,
+                    "<strong>" + string.Format(Resources.Strings.SellerLoai_SanPhamCountFormat, soSP) + "</strong>"))
             </span>
         </div>
 
         <div class="d-flex gap-2 mt-3">
             <a href="@Url.Action("Index", "QuanLySanPham", new { maLoai = Model.MaLoai })" class="btn btn-sc btn-lg">
-                Xem @soSP sản phẩm
+                @(string.Format(Resources.Strings.SellerLoai_XemSanPhamFormat, soSP))
             </a>
-            <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">Quay lại</a>
+            <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">@Resources.Strings.Admin_QuayLai</a>
         </div>
     }
     else
     {
         <div class="sc-alert sc-alert-warning mt-3">
             <i class="bi bi-info-circle"></i>
-            <span>Loại này chưa có sản phẩm nào nên có thể xóa an toàn.</span>
+            <span>@Resources.Strings.SellerLoai_AnToanMoTa</span>
         </div>
 
         <div class="d-flex gap-2 mt-3">
@@ -53,9 +53,9 @@
             {
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="id" value="@Model.MaLoai" />
-                <button type="submit" class="btn btn-sc btn-lg"><i class="bi bi-trash"></i> Xác nhận xóa</button>
+                <button type="submit" class="btn btn-sc btn-lg"><i class="bi bi-trash"></i> @Resources.Strings.Admin_XacNhanXoa</button>
             }
-            <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">Quay lại</a>
+            <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">@Resources.Strings.Admin_QuayLai</a>
         </div>
     }
 </div>

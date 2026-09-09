@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Models;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Controllers
 {
@@ -18,7 +19,7 @@ namespace QL_MatHangAnUong.Controllers
 
             // Số sản phẩm của mỗi loại để hiển thị ở bảng và cảnh báo khi xóa
             ViewBag.SoSanPham = ds.ToDictionary(l => l.MaLoai, l => KhoDuLieu.DemSanPhamTheoLoai(l.MaLoai));
-            ViewBag.Title = "Quản lý loại sản phẩm";
+            ViewBag.Title = Ngu.S("SellerLoai_Title");
 
             return View(ds);
         }
@@ -26,7 +27,7 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLyLoai/Them
         public ActionResult Them()
         {
-            ViewBag.Title = "Thêm loại sản phẩm";
+            ViewBag.Title = Ngu.S("SellerLoai_ThemTitle");
             return View(new LoaiSanPham { HienThi = true, ThuTu = KhoDuLieu.LayLoais().Count + 1 });
         }
 
@@ -39,12 +40,12 @@ namespace QL_MatHangAnUong.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Title = "Thêm loại sản phẩm";
+                ViewBag.Title = Ngu.S("SellerLoai_ThemTitle");
                 return View(loai);
             }
 
             KhoDuLieu.ThemLoai(loai);
-            ThongBao(string.Format("Đã thêm loại \"{0}\".", loai.TenLoai));
+            ThongBao(string.Format(Ngu.S("SellerLoai_DaThemFormat"), loai.TenLoai));
             return RedirectToAction("Index");
         }
 
@@ -52,9 +53,9 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Sua(int id)
         {
             var loai = KhoDuLieu.LayLoai(id);
-            if (loai == null) return HttpNotFound("Không tìm thấy loại sản phẩm.");
+            if (loai == null) return HttpNotFound(Ngu.S("SellerLoai_KhongTimThay"));
 
-            ViewBag.Title = "Sửa loại sản phẩm";
+            ViewBag.Title = Ngu.S("SellerLoai_SuaTitle");
             return View(loai);
         }
 
@@ -67,14 +68,14 @@ namespace QL_MatHangAnUong.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Title = "Sửa loại sản phẩm";
+                ViewBag.Title = Ngu.S("SellerLoai_SuaTitle");
                 return View(loai);
             }
 
             if (!KhoDuLieu.CapNhatLoai(loai))
-                return HttpNotFound("Không tìm thấy loại sản phẩm cần sửa.");
+                return HttpNotFound(Ngu.S("SellerLoai_KhongTimThaySuaCanXoa"));
 
-            ThongBao(string.Format("Đã cập nhật loại \"{0}\".", loai.TenLoai));
+            ThongBao(string.Format(Ngu.S("SellerLoai_DaCapNhatFormat"), loai.TenLoai));
             return RedirectToAction("Index");
         }
 
@@ -82,10 +83,10 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Xoa(int id)
         {
             var loai = KhoDuLieu.LayLoai(id);
-            if (loai == null) return HttpNotFound("Không tìm thấy loại sản phẩm.");
+            if (loai == null) return HttpNotFound(Ngu.S("SellerLoai_KhongTimThay"));
 
             ViewBag.SoSanPham = KhoDuLieu.DemSanPhamTheoLoai(id);
-            ViewBag.Title = "Xóa loại sản phẩm";
+            ViewBag.Title = Ngu.S("SellerLoai_XoaTitle");
             return View(loai);
         }
 
@@ -101,7 +102,7 @@ namespace QL_MatHangAnUong.Controllers
                 return RedirectToAction("Index");
             }
 
-            ThongBao("Đã xóa loại sản phẩm.", "info");
+            ThongBao(Ngu.S("SellerLoai_DaXoa"), "info");
             return RedirectToAction("Index");
         }
 
@@ -113,7 +114,7 @@ namespace QL_MatHangAnUong.Controllers
                 .Any(l => l.MaLoai != loai.MaLoai &&
                           l.TenLoai.Trim().ToLower() == loai.TenLoai.Trim().ToLower());
 
-            if (trung) ModelState.AddModelError("TenLoai", "Tên loại này đã tồn tại.");
+            if (trung) ModelState.AddModelError("TenLoai", Ngu.S("SellerLoai_TrungTen"));
         }
     }
 }

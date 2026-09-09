@@ -2,14 +2,14 @@
 @model QL_MatHangAnUong.Models.SanPham
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Chi tiết sản phẩm";
+    ViewBag.Title = Resources.Strings.SellerProd_ChiTietTitle;
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="mb-0">Chi tiết sản phẩm SC@(Model.MaSP.ToString("D3"))</h4>
+    <h4 class="mb-0">@(string.Format(Resources.Strings.SellerProd_ChiTietSPFormat, Model.MaSP.ToString("D3")))</h4>
     <div class="d-flex gap-2">
-        <a href="@Url.Action("Sua", new { id = Model.MaSP })" class="btn btn-sc"><i class="bi bi-pencil"></i> Sửa</a>
-        <a href="@Url.Action("Index")" class="btn btn-sc-soft"><i class="bi bi-arrow-left"></i> Danh sách</a>
+        <a href="@Url.Action("Sua", new { id = Model.MaSP })" class="btn btn-sc"><i class="bi bi-pencil"></i> @Resources.Strings.Admin_Sua</a>
+        <a href="@Url.Action("Index")" class="btn btn-sc-soft"><i class="bi bi-arrow-left"></i> @Resources.Strings.SellerProd_DanhSach</a>
     </div>
 </div>
 
@@ -29,10 +29,10 @@
 
             <table class="table sc-table">
                 <tbody>
-                    <tr><th style="width:200px">Loại sản phẩm</th><td>@(Model.LoaiSanPham != null ? Model.LoaiSanPham.TenLoai : "-")</td></tr>
-                    <tr><th>Giá niêm yết</th><td>@DinhDang.Tien(Model.Gia)</td></tr>
+                    <tr><th style="width:200px">@Resources.Strings.SellerProd_LoaiSanPhamLabel</th><td>@(Model.LoaiSanPham != null ? Model.LoaiSanPham.TenLoai : "-")</td></tr>
+                    <tr><th>@Resources.Strings.Detail_GiaNiemYet</th><td>@DinhDang.Tien(Model.Gia)</td></tr>
                     <tr>
-                        <th>Giá khuyến mãi</th>
+                        <th>@Resources.Strings.SellerProd_GiaKhuyenMaiLabel</th>
                         <td>
                             @if (Model.GiaKhuyenMai.HasValue && Model.GiaKhuyenMai > 0)
                             {
@@ -41,32 +41,32 @@
                             }
                             else
                             {
-                                <span class="sc-text-muted">Không áp dụng</span>
+                                <span class="sc-text-muted">@Resources.Strings.SellerProd_KhongApDung</span>
                             }
                         </td>
                     </tr>
-                    <tr><th>Số lượng tồn</th><td>@Model.SoLuongTon</td></tr>
-                    <tr><th>Đã bán</th><td>@Model.LuotBan</td></tr>
+                    <tr><th>@Resources.Strings.SellerProd_SoLuongTonLabel</th><td>@Model.SoLuongTon</td></tr>
+                    <tr><th>@Resources.Strings.SellerProd_DaBanLabel</th><td>@Model.LuotBan</td></tr>
                     <tr>
-                        <th>Trạng thái</th>
+                        <th>@Resources.Strings.Account_TrangThai</th>
                         <td>
                             @if (Model.DangBan)
                             {
-                                <span class="sc-badge badge-success">Đang bán</span>
+                                <span class="sc-badge badge-success">@Resources.Strings.SellerProd_DangBan</span>
                             }
                             else
                             {
-                                <span class="sc-badge badge-muted">Ngừng bán</span>
+                                <span class="sc-badge badge-muted">@Resources.Strings.SellerProd_NgungBan</span>
                             }
                         </td>
                     </tr>
-                    <tr><th>Nổi bật</th><td>@(Model.NoiBat ? "Có" : "Không")</td></tr>
-                    <tr><th>Ngày tạo</th><td>@DinhDang.NgayGio(Model.NgayTao)</td></tr>
+                    <tr><th>@Resources.Strings.SellerProd_NoiBatLabel</th><td>@(Model.NoiBat ? Resources.Strings.SellerProd_Co : Resources.Strings.SellerProd_Khong)</td></tr>
+                    <tr><th>@Resources.Strings.SellerProd_NgayTaoLabel</th><td>@DinhDang.NgayGio(Model.NgayTao)</td></tr>
                 </tbody>
             </table>
 
             <a href="@Url.Action("ChiTiet", "SanPham", new { id = Model.MaSP })" target="_blank" class="btn btn-sc-outline">
-                <i class="bi bi-box-arrow-up-right"></i> Xem trên website khách hàng
+                <i class="bi bi-box-arrow-up-right"></i> @Resources.Strings.SellerProd_XemTrenWebKhach
             </a>
         </div>
     </div>

@@ -42,7 +42,7 @@
             {
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="maSP" value="@Model.MaSP" />
-                <button type="submit" class="sc-add-btn" title="Thêm nhanh vào giỏ">
+                <button type="submit" class="sc-add-btn" title="@Resources.Strings.Product_ThemNhanhVaoGio">
                     <i class="bi bi-plus-lg"></i>
                 </button>
             }

@@ -1,21 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\SugarChills\\SugarChills\\",
+  "WorkspaceRootPath": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|d:\\sugarchills\\sugarchills\\ql_mathanganuong\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|d:\\h\u1ECDc k\u1EF3 1 - n\u0103m 3\\l\u1EADp tr\u00ECnh web\\ql_mathanganuong\\ql_mathanganuong\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\SugarChills\\SugarChills\\ql_mathanganuong\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\ql_mathanganuong\\views\\cuahang\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\views\\cuahang\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\SugarChills\\SugarChills\\ql_mathanganuong\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\ql_mathanganuong\\controllers\\quanlysanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\controllers\\quanlysanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\ql_mathanganuong\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\SugarChills\\SugarChills\\ql_mathanganuong\\app_start\\bundleconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\ql_mathanganuong\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\ql_mathanganuong\\scripts\\sugarchills.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\scripts\\sugarchills.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\ql_mathanganuong\\app_start\\bundleconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B4AABE9D-CA38-466B-A50E-BFC3695E6E97}|QL_MatHangAnUong\\QL_MatHangAnUong.csproj|solutionrelative:ql_mathanganuong\\app_start\\bundleconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,52 +38,88 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QuanLySanPhamController.cs",
+              "DocumentMoniker": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\Controllers\\QuanLySanPhamController.cs",
+              "RelativeDocumentMoniker": "QL_MatHangAnUong\\Controllers\\QuanLySanPhamController.cs",
+              "ToolTip": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\Controllers\\QuanLySanPhamController.cs",
+              "RelativeToolTip": "QL_MatHangAnUong\\Controllers\\QuanLySanPhamController.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAcwD8AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-04T14:08:17.93Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\Views\\CuaHang\\Index.cshtml",
+              "RelativeDocumentMoniker": "QL_MatHangAnUong\\Views\\CuaHang\\Index.cshtml",
+              "ToolTip": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\Views\\CuaHang\\Index.cshtml",
+              "RelativeToolTip": "QL_MatHangAnUong\\Views\\CuaHang\\Index.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAABgAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-09-04T11:59:41.603Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "sugarchills.js",
+              "DocumentMoniker": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\Scripts\\sugarchills.js",
+              "RelativeDocumentMoniker": "QL_MatHangAnUong\\Scripts\\sugarchills.js",
+              "ToolTip": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\Scripts\\sugarchills.js",
+              "RelativeToolTip": "QL_MatHangAnUong\\Scripts\\sugarchills.js",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAAAJQAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-04T09:37:06.772Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
+              "DocumentMoniker": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
-              "ToolTip": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "QL_MatHangAnUong\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAACYAAAAAAAAAAAAqwEIAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAowOsAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-08-25T05:34:11.416Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "RouteConfig.cs",
-              "DocumentMoniker": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
+              "DocumentMoniker": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
               "RelativeDocumentMoniker": "QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
-              "ToolTip": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
+              "ToolTip": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
               "RelativeToolTip": "QL_MatHangAnUong\\App_Start\\RouteConfig.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-25T05:28:00.201Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "FilterConfig.cs",
-              "DocumentMoniker": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
+              "DocumentMoniker": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
               "RelativeDocumentMoniker": "QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
-              "ToolTip": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
+              "ToolTip": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
               "RelativeToolTip": "QL_MatHangAnUong\\App_Start\\FilterConfig.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-25T05:27:59.09Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "BundleConfig.cs",
-              "DocumentMoniker": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
+              "DocumentMoniker": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
               "RelativeDocumentMoniker": "QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
-              "ToolTip": "D:\\SugarChills\\SugarChills\\QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
+              "ToolTip": "D:\\H\u1ECDc k\u1EF3 1 - N\u0103m 3\\l\u1EADp tr\u00ECnh web\\QL_MatHangAnUong\\QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
               "RelativeToolTip": "QL_MatHangAnUong\\App_Start\\BundleConfig.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

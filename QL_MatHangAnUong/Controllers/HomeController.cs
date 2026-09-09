@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using QL_MatHangAnUong.Models;
 using QL_MatHangAnUong.Models.ViewModels;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Controllers
 {
@@ -43,14 +44,14 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /Home/GioiThieu
         public ActionResult GioiThieu()
         {
-            ViewBag.Title = "Giới thiệu SugarChills";
+            ViewBag.Title = Ngu.S("Home_GioiThieuTitle");
             return View();
         }
 
         // GET: /Home/LienHe
         public ActionResult LienHe()
         {
-            ViewBag.Title = "Liên hệ";
+            ViewBag.Title = Ngu.S("Common_LienHe");
             return View();
         }
     }

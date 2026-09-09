@@ -7,9 +7,9 @@
 
 <div class="container pb-5">
     <div class="sc-breadcrumb">
-        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <a href="@Url.Action("Index", "Home")">@Resources.Strings.Common_TrangChu</a>
         <i class="bi bi-chevron-right" style="font-size:11px"></i>
-        <span>Tài khoản của tôi</span>
+        <span>@Resources.Strings.Header_TaiKhoanCuaToi</span>
     </div>
 
     <div class="row g-4">
@@ -21,21 +21,21 @@
                 <h4 class="mb-1">@Model.HoTen</h4>
                 <div class="sc-text-muted">@Model.Email</div>
                 <span class="sc-chip mt-2">
-                    @(Model.LaNguoiBan ? "Người bán" : "Khách hàng")
+                    @(Model.LaNguoiBan ? Resources.Strings.Seller_NguoiBan : Resources.Strings.Auth_KhachHang)
                 </span>
 
                 <hr style="border-color:var(--sc-line)" />
 
                 <div class="text-start small">
                     <div class="mb-2"><i class="bi bi-telephone"></i> @Model.DienThoai</div>
-                    <div class="mb-2"><i class="bi bi-geo-alt"></i> @(string.IsNullOrWhiteSpace(Model.DiaChi) ? "Chưa cập nhật địa chỉ" : Model.DiaChi)</div>
-                    <div><i class="bi bi-calendar-check"></i> Tham gia @DinhDang.Ngay(Model.NgayDangKy)</div>
+                    <div class="mb-2"><i class="bi bi-geo-alt"></i> @(string.IsNullOrWhiteSpace(Model.DiaChi) ? Resources.Strings.Account_ChuaCapNhatDiaChi : Model.DiaChi)</div>
+                    <div><i class="bi bi-calendar-check"></i> @(string.Format(Resources.Strings.Account_ThamGiaFormat, DinhDang.Ngay(Model.NgayDangKy)))</div>
                 </div>
 
                 @if (Model.LaNguoiBan)
                 {
                     <a href="@Url.Action("Index", "ThongKe")" class="btn btn-sc w-100 mt-3">
-                        <i class="bi bi-speedometer2"></i> Vào khu quản trị
+                        <i class="bi bi-speedometer2"></i> @Resources.Strings.Account_VaoKhuQuanTri
                     </a>
                 }
             </div>
@@ -48,7 +48,7 @@
                         <div class="sc-stat-icon bg-soft-pink"><i class="bi bi-receipt"></i></div>
                         <div>
                             <div class="sc-stat-value">@donHangs.Count</div>
-                            <div class="sc-stat-label">Tổng đơn hàng</div>
+                            <div class="sc-stat-label">@Resources.Strings.Account_TongDonHang</div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         <div class="sc-stat-icon bg-soft-mint"><i class="bi bi-check2-circle"></i></div>
                         <div>
                             <div class="sc-stat-value">@donHangs.Count(d => d.TrangThai == DonHang.HoanThanh)</div>
-                            <div class="sc-stat-label">Đã hoàn thành</div>
+                            <div class="sc-stat-label">@Resources.Strings.Account_DaHoanThanh</div>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             <div class="sc-stat-value" style="font-size:19px">
                                 @DinhDang.Tien(donHangs.Where(d => d.TrangThai == DonHang.HoanThanh).Sum(d => d.TongTien))
                             </div>
-                            <div class="sc-stat-label">Đã chi tiêu</div>
+                            <div class="sc-stat-label">@Resources.Strings.Account_DaChiTieu</div>
                         </div>
                     </div>
                 </div>
@@ -76,16 +76,16 @@
 
             <div class="sc-table-card">
                 <div class="sc-table-head">
-                    <h5>Đơn hàng gần đây</h5>
-                    <a href="@Url.Action("Index", "DonHang")" class="btn btn-sc-soft btn-sm">Xem tất cả</a>
+                    <h5>@Resources.Strings.Account_DonHangGanDay</h5>
+                    <a href="@Url.Action("Index", "DonHang")" class="btn btn-sc-soft btn-sm">@Resources.Strings.Common_XemTatCa</a>
                 </div>
 
                 @if (donHangs.Count == 0)
                 {
                     <div class="sc-empty">
                         <i class="bi bi-receipt"></i>
-                        <p>Bạn chưa có đơn hàng nào.</p>
-                        <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc">Đặt món ngay</a>
+                        <p>@Resources.Strings.Account_ChuaCoDonHang</p>
+                        <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc">@Resources.Strings.Order_DatMonNgay</a>
                     </div>
                 }
                 else
@@ -94,11 +94,11 @@
                         <table class="table sc-table">
                             <thead>
                                 <tr>
-                                    <th>Mã đơn</th>
-                                    <th>Ngày đặt</th>
-                                    <th class="text-center">Số món</th>
-                                    <th class="text-end">Tổng tiền</th>
-                                    <th class="text-center">Trạng thái</th>
+                                    <th>@Resources.Strings.Account_MaDon</th>
+                                    <th>@Resources.Strings.Account_NgayDat</th>
+                                    <th class="text-center">@Resources.Strings.Account_SoMon</th>
+                                    <th class="text-end">@Resources.Strings.Account_TongTienHeader</th>
+                                    <th class="text-center">@Resources.Strings.Account_TrangThai</th>
                                     <th></th>
                                 </tr>
                             </thead>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Không có quyền truy cập";
+    ViewBag.Title = Resources.Strings.Auth_KhongCoQuyenTruyCap;
 }
 
 <div class="container sc-auth-wrap">
@@ -9,15 +9,14 @@
             <i class="bi bi-shield-lock"></i>
         </div>
 
-        <h3>Khu vực dành riêng cho người bán</h3>
+        <h3>@Resources.Strings.Auth_KhuVucNguoiBan</h3>
         <p class="sc-text-muted">
-            Tài khoản của bạn đang đăng nhập với vai trò <strong>Khách hàng</strong> nên không thể vào
-            trang quản trị. Nếu bạn là chủ shop, hãy đăng nhập bằng tài khoản người bán.
+            @Html.Raw(string.Format(Resources.Strings.Auth_KhongCoQuyenMoTaFormat, "<strong>" + Resources.Strings.Auth_KhachHang + "</strong>"))
         </p>
 
         <div class="d-flex justify-content-center gap-2 mt-3">
-            <a href="@Url.Action("Index", "Home")" class="btn btn-sc">Về trang chủ</a>
-            <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-outline">Xem thực đơn</a>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-sc">@Resources.Strings.Auth_VeTrangChu</a>
+            <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-outline">@Resources.Strings.About_XemThucDon</a>
         </div>
     </div>
 </div>

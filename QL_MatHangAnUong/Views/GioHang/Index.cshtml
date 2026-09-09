@@ -11,21 +11,21 @@
 
 <div class="container pb-5">
     <div class="sc-breadcrumb">
-        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <a href="@Url.Action("Index", "Home")">@Resources.Strings.Common_TrangChu</a>
         <i class="bi bi-chevron-right" style="font-size:11px"></i>
-        <span>Giỏ hàng</span>
+        <span>@Resources.Strings.Common_GioHang</span>
     </div>
 
-    <h2 class="mb-4">Giỏ hàng của bạn</h2>
+    <h2 class="mb-4">@Resources.Strings.Cart_GioHangCuaBan</h2>
 
     @if (Model.Items.Count == 0)
     {
         <div class="sc-panel sc-empty">
             <i class="bi bi-bag-heart"></i>
-            <h5>Giỏ hàng đang trống</h5>
-            <p>Chọn vài món ngọt mát để bắt đầu nhé!</p>
+            <h5>@Resources.Strings.Cart_DangTrong</h5>
+            <p>@Resources.Strings.Cart_ChonMonNgotMat</p>
             <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc btn-lg">
-                <i class="bi bi-cup-straw"></i> Xem thực đơn
+                <i class="bi bi-cup-straw"></i> @Resources.Strings.About_XemThucDon
             </a>
         </div>
     }
@@ -39,10 +39,10 @@
                         <table class="sc-cart-table">
                             <thead>
                                 <tr>
-                                    <th style="width:44%">Sản phẩm</th>
-                                    <th class="text-center">Đơn giá</th>
-                                    <th class="text-center" style="width:170px">Số lượng</th>
-                                    <th class="text-end">Thành tiền</th>
+                                    <th style="width:44%">@Resources.Strings.Cart_SanPham</th>
+                                    <th class="text-center">@Resources.Strings.Cart_DonGia</th>
+                                    <th class="text-center" style="width:170px">@Resources.Strings.Detail_SoLuong</th>
+                                    <th class="text-end">@Resources.Strings.Cart_ThanhTien</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -81,10 +81,10 @@
 
                                         <td class="text-end">
                                             @using (Html.BeginForm("Xoa", "GioHang", FormMethod.Post,
-                                                new { @class = "can-xac-nhan", data_hoi = "Xóa món này khỏi giỏ hàng?" }))
+                                                new { @class = "can-xac-nhan", data_hoi = Resources.Strings.Cart_XoaMonNay }))
                                             {
                                                 <input type="hidden" name="khoa" value="@item.Khoa" />
-                                                <button type="submit" class="btn btn-sm btn-sc-soft" title="Xóa">
+                                                <button type="submit" class="btn btn-sm btn-sc-soft" title="@Resources.Strings.Common_Xoa">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             }
@@ -97,14 +97,14 @@
 
                     <div class="d-flex flex-wrap justify-content-between gap-2 mt-3">
                         <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-outline">
-                            <i class="bi bi-arrow-left"></i> Tiếp tục chọn món
+                            <i class="bi bi-arrow-left"></i> @Resources.Strings.Cart_TiepTucChonMon
                         </a>
 
                         @using (Html.BeginForm("XoaTatCa", "GioHang", FormMethod.Post,
-                            new { @class = "can-xac-nhan", data_hoi = "Xóa toàn bộ giỏ hàng?" }))
+                            new { @class = "can-xac-nhan", data_hoi = Resources.Strings.Cart_XoaToanBoXacNhan }))
                         {
                             <button type="submit" class="btn btn-sc-soft">
-                                <i class="bi bi-trash3"></i> Xóa toàn bộ giỏ
+                                <i class="bi bi-trash3"></i> @Resources.Strings.Cart_XoaToanBoGio
                             </button>
                         }
                     </div>
@@ -112,21 +112,21 @@
 
                 <!-- ---- Mã giảm giá ---- -->
                 <div class="sc-panel mt-3">
-                    <h5 class="mb-3"><i class="bi bi-ticket-perforated"></i> Mã giảm giá</h5>
+                    <h5 class="mb-3"><i class="bi bi-ticket-perforated"></i> @Resources.Strings.Cart_MaGiamGia</h5>
 
                     @if (string.IsNullOrEmpty(Model.MaGiamGia))
                     {
                         using (Html.BeginForm("ApDungMa", "GioHang", FormMethod.Post, new { @class = "d-flex gap-2" }))
                         {
-                            <input type="text" name="maGiamGia" class="form-control" placeholder="Nhập mã, ví dụ SUGAR10" />
-                            <button type="submit" class="btn btn-sc text-nowrap">Áp dụng</button>
+                            <input type="text" name="maGiamGia" class="form-control" placeholder="@Resources.Strings.Cart_NhapMaPlaceholder" />
+                            <button type="submit" class="btn btn-sc text-nowrap">@Resources.Strings.SanPham_ApDung</button>
                         }
 
                         <div class="mt-3">
                             @foreach (var km in goiY)
                             {
                                 <span class="sc-chip" title="@km.MoTa">
-                                    <i class="bi bi-tag"></i> @km.MaGiamGia.ToUpper() — giảm @km.PhanTramGiam%
+                                    <i class="bi bi-tag"></i> @km.MaGiamGia.ToUpper() — @(string.Format(Resources.Strings.Cart_GiamFormat, km.PhanTramGiam))
                                 </span>
                             }
                         </div>
@@ -134,10 +134,10 @@
                     else
                     {
                         <div class="d-flex align-items-center gap-3">
-                            <span class="sc-chip"><i class="bi bi-check-circle"></i> Đang dùng mã @Model.MaGiamGia.ToUpper()</span>
+                            <span class="sc-chip"><i class="bi bi-check-circle"></i> @(string.Format(Resources.Strings.Cart_DangDungMaFormat, Model.MaGiamGia.ToUpper()))</span>
                             @using (Html.BeginForm("BoMa", "GioHang", FormMethod.Post))
                             {
-                                <button type="submit" class="btn btn-sm btn-sc-outline">Bỏ mã</button>
+                                <button type="submit" class="btn btn-sm btn-sc-outline">@Resources.Strings.Cart_BoMa</button>
                             }
                         </div>
                     }
@@ -147,40 +147,40 @@
             <!-- ============ TÓM TẮT ĐƠN ============ -->
             <div class="col-lg-4">
                 <div class="sc-summary">
-                    <h5 class="mb-3">Tóm tắt đơn hàng</h5>
+                    <h5 class="mb-3">@Resources.Strings.Cart_TomTatDonHang</h5>
 
                     <div class="sc-summary-row">
-                        <span class="sc-text-muted">Tạm tính (@Model.TongSoLuong món)</span>
+                        <span class="sc-text-muted">@(string.Format(Resources.Strings.Cart_TamTinhFormat, Model.TongSoLuong))</span>
                         <span>@DinhDang.Tien(Model.TamTinh)</span>
                     </div>
                     <div class="sc-summary-row">
-                        <span class="sc-text-muted">Giảm giá</span>
+                        <span class="sc-text-muted">@Resources.Strings.Cart_GiamGia</span>
                         <span class="sc-text-primary">- @DinhDang.Tien(tienGiam)</span>
                     </div>
                     <div class="sc-summary-row">
-                        <span class="sc-text-muted">Phí giao hàng</span>
-                        <span>@(phiGiao == 0 ? "Miễn phí" : DinhDang.Tien(phiGiao))</span>
+                        <span class="sc-text-muted">@Resources.Strings.Cart_PhiGiaoHang</span>
+                        <span>@(phiGiao == 0 ? Resources.Strings.Cart_MienPhi : DinhDang.Tien(phiGiao))</span>
                     </div>
 
                     @if (Model.TamTinh < mucFreeship)
                     {
                         <div class="sc-alert sc-alert-info mt-2" style="font-size:13px">
                             <i class="bi bi-truck"></i>
-                            Mua thêm @DinhDang.Tien(mucFreeship - Model.TamTinh) để được miễn phí giao hàng.
+                            @(string.Format(Resources.Strings.Cart_MuaThemFormat, DinhDang.Tien(mucFreeship - Model.TamTinh)))
                         </div>
                     }
 
                     <div class="sc-summary-total">
-                        <span>Tổng cộng</span>
+                        <span>@Resources.Strings.Cart_TongCong</span>
                         <span>@DinhDang.Tien(tongTien)</span>
                     </div>
 
                     <a href="@Url.Action("ThanhToan", "GioHang")" class="btn btn-sc btn-lg w-100 mt-3">
-                        <i class="bi bi-bag-check"></i> Tiến hành đặt hàng
+                        <i class="bi bi-bag-check"></i> @Resources.Strings.Cart_TienHanhDatHang
                     </a>
 
                     <div class="text-center small sc-text-muted mt-2">
-                        Bạn cần đăng nhập để hoàn tất đặt hàng
+                        @Resources.Strings.Cart_CanDangNhap
                     </div>
                 </div>
             </div>

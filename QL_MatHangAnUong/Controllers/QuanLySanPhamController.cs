@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Models;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Controllers
 {
@@ -34,7 +35,7 @@ namespace QL_MatHangAnUong.Controllers
             ViewBag.MaLoai = maLoai;
             ViewBag.TrangThai = trangThai;
             ViewBag.DanhSachLoai = KhoDuLieu.LayLoais();
-            ViewBag.Title = "Quản lý sản phẩm";
+            ViewBag.Title = Ngu.S("Seller_QuanLySanPham");
 
             return View(ds);
         }
@@ -43,9 +44,9 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult ChiTiet(int id)
         {
             var sp = KhoDuLieu.LaySanPham(id);
-            if (sp == null) return HttpNotFound("Không tìm thấy sản phẩm.");
+            if (sp == null) return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
 
-            ViewBag.Title = "Chi tiết sản phẩm";
+            ViewBag.Title = Ngu.S("SellerProd_ChiTietTitle");
             return View(sp);
         }
 
@@ -53,7 +54,7 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Them()
         {
             NapDanhSachLoai();
-            ViewBag.Title = "Thêm sản phẩm";
+            ViewBag.Title = Ngu.S("SellerProd_ThemTitle");
             return View(new SanPham { DangBan = true, SoLuongTon = 100 });
         }
 
@@ -67,12 +68,12 @@ namespace QL_MatHangAnUong.Controllers
             if (!ModelState.IsValid)
             {
                 NapDanhSachLoai(sp.MaLoai);
-                ViewBag.Title = "Thêm sản phẩm";
+                ViewBag.Title = Ngu.S("SellerProd_ThemTitle");
                 return View(sp);
             }
 
             KhoDuLieu.ThemSanPham(sp);
-            ThongBao(string.Format("Đã thêm sản phẩm \"{0}\".", sp.TenSP));
+            ThongBao(string.Format(Ngu.S("SellerProd_DaThemFormat"), sp.TenSP));
             return RedirectToAction("Index");
         }
 
@@ -80,10 +81,10 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Sua(int id)
         {
             var sp = KhoDuLieu.LaySanPham(id);
-            if (sp == null) return HttpNotFound("Không tìm thấy sản phẩm.");
+            if (sp == null) return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
 
             NapDanhSachLoai(sp.MaLoai);
-            ViewBag.Title = "Sửa sản phẩm";
+            ViewBag.Title = Ngu.S("SellerProd_SuaTitle");
             return View(sp);
         }
 
@@ -97,14 +98,14 @@ namespace QL_MatHangAnUong.Controllers
             if (!ModelState.IsValid)
             {
                 NapDanhSachLoai(sp.MaLoai);
-                ViewBag.Title = "Sửa sản phẩm";
+                ViewBag.Title = Ngu.S("SellerProd_SuaTitle");
                 return View(sp);
             }
 
             if (!KhoDuLieu.CapNhatSanPham(sp))
-                return HttpNotFound("Không tìm thấy sản phẩm cần sửa.");
+                return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySuaCanXoa"));
 
-            ThongBao(string.Format("Đã cập nhật sản phẩm \"{0}\".", sp.TenSP));
+            ThongBao(string.Format(Ngu.S("SellerProd_DaCapNhatFormat"), sp.TenSP));
             return RedirectToAction("Index");
         }
 
@@ -112,9 +113,9 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Xoa(int id)
         {
             var sp = KhoDuLieu.LaySanPham(id);
-            if (sp == null) return HttpNotFound("Không tìm thấy sản phẩm.");
+            if (sp == null) return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
 
-            ViewBag.Title = "Xóa sản phẩm";
+            ViewBag.Title = Ngu.S("SellerProd_XoaTitle");
             return View(sp);
         }
 
@@ -130,8 +131,20 @@ namespace QL_MatHangAnUong.Controllers
                 return RedirectToAction("Index");
             }
 
-            ThongBao("Đã xóa sản phẩm.", "info");
+            ThongBao(Ngu.S("SellerProd_DaXoa"), "info");
             return RedirectToAction("Index");
+        }
+
+        // POST: /QuanLySanPham/DoiNoiBat/5 — bật/tắt "nổi bật" ngay trên danh sách (nút sao)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DoiNoiBat(int id)
+        {
+            if (!KhoDuLieu.DoiTrangThaiNoiBat(id))
+                return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
+
+            // Quay lại đúng trang danh sách (giữ nguyên tìm kiếm/lọc đang áp dụng)
+            return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"));
         }
 
         #region Hàm phụ
@@ -145,10 +158,10 @@ namespace QL_MatHangAnUong.Controllers
         private void KiemTraNghiepVu(SanPham sp)
         {
             if (sp.MaLoai <= 0 || KhoDuLieu.LayLoai(sp.MaLoai) == null)
-                ModelState.AddModelError("MaLoai", "Vui lòng chọn loại sản phẩm hợp lệ.");
+                ModelState.AddModelError("MaLoai", Ngu.S("SellerProd_ChonLoaiHopLe"));
 
             if (sp.GiaKhuyenMai.HasValue && sp.GiaKhuyenMai.Value > 0 && sp.GiaKhuyenMai.Value >= sp.Gia)
-                ModelState.AddModelError("GiaKhuyenMai", "Giá khuyến mãi phải nhỏ hơn giá bán.");
+                ModelState.AddModelError("GiaKhuyenMai", Ngu.S("SellerProd_GiaKMPhaiNhoHonGiaBan"));
 
             if (!string.IsNullOrWhiteSpace(sp.TenSP))
             {
@@ -156,7 +169,7 @@ namespace QL_MatHangAnUong.Controllers
                     .Any(s => s.MaSP != sp.MaSP &&
                               s.TenSP.Trim().ToLower() == sp.TenSP.Trim().ToLower());
                 if (trungTen)
-                    ModelState.AddModelError("TenSP", "Đã có sản phẩm khác trùng tên này.");
+                    ModelState.AddModelError("TenSP", Ngu.S("SellerProd_TrungTen"));
             }
         }
 

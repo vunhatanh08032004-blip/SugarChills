@@ -8,27 +8,27 @@
         <div class="sc-panel">
             <div class="row g-3">
                 <div class="col-md-8">
-                    @Html.LabelFor(m => m.TenLoai, new { @class = "form-label" })
-                    @Html.TextBoxFor(m => m.TenLoai, new { @class = "form-control", placeholder = "Ví dụ: Trà sữa" })
+                    <label class="form-label" for="TenLoai">@Resources.Strings.SellerLoai_ColTenLoai</label>
+                    @Html.TextBoxFor(m => m.TenLoai, new { @class = "form-control", placeholder = Resources.Strings.SellerLoai_TenLoaiPlaceholder })
                     @Html.ValidationMessageFor(m => m.TenLoai)
                 </div>
 
                 <div class="col-md-4">
-                    @Html.LabelFor(m => m.ThuTu, new { @class = "form-label" })
+                    <label class="form-label" for="ThuTu">@Resources.Strings.SellerLoai_ColThuTu</label>
                     @Html.TextBoxFor(m => m.ThuTu, new { @class = "form-control", type = "number", min = 0 })
-                    <small class="sc-text-muted">Số nhỏ hiển thị trước trên menu.</small>
+                    <small class="sc-text-muted">@Resources.Strings.SellerLoai_ThuTuHint</small>
                 </div>
 
                 <div class="col-12">
-                    @Html.LabelFor(m => m.MoTa, new { @class = "form-label" })
-                    @Html.TextAreaFor(m => m.MoTa, new { @class = "form-control", rows = 3, placeholder = "Mô tả ngắn về nhóm sản phẩm này" })
+                    <label class="form-label" for="MoTa">@Resources.Strings.SellerProd_MoTaLabel</label>
+                    @Html.TextAreaFor(m => m.MoTa, new { @class = "form-control", rows = 3, placeholder = Resources.Strings.SellerLoai_MoTaPlaceholder })
                     @Html.ValidationMessageFor(m => m.MoTa)
                 </div>
 
                 <div class="col-12">
                     <label class="sc-topping">
                         @Html.CheckBoxFor(m => m.HienThi)
-                        <span>Hiển thị loại này trên menu của khách hàng</span>
+                        <span>@Resources.Strings.SellerLoai_HienThiCheckbox</span>
                     </label>
                 </div>
             </div>
@@ -37,14 +37,14 @@
 
     <div class="col-lg-4">
         <div class="sc-panel">
-            <h5 class="mb-3">Hình đại diện</h5>
+            <h5 class="mb-3">@Resources.Strings.SellerLoai_HinhDaiDien</h5>
             <img id="xemTruocAnh"
                  src="@(string.IsNullOrWhiteSpace(Model.HinhAnh) ? "https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills" : Model.HinhAnh)"
                  class="w-100 mb-2" style="border-radius:14px;aspect-ratio:1/1;object-fit:cover"
                  onerror="this.onerror=null;this.src='https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills';" />
 
-            @Html.LabelFor(m => m.HinhAnh, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", id = "HinhAnh", placeholder = "Dán link ảnh (https://...)" })
+            <label class="form-label" for="HinhAnh">@Resources.Strings.SellerProd_HinhAnhHeading</label>
+            @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", id = "HinhAnh", placeholder = Resources.Strings.SellerProd_HinhAnhPlaceholder })
         </div>
     </div>
 </div>

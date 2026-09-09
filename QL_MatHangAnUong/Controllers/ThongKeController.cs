@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Models;
 using QL_MatHangAnUong.Models.ViewModels;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Controllers
 {
@@ -66,7 +67,7 @@ namespace QL_MatHangAnUong.Controllers
 
             model.DoanhThuLoai = chiTiet
                 .Join(sanPhams, ct => ct.MaSP, sp => sp.MaSP, (ct, sp) => new { ct, sp })
-                .GroupBy(x => x.sp.LoaiSanPham != null ? x.sp.LoaiSanPham.TenLoai : "Khác")
+                .GroupBy(x => x.sp.LoaiSanPham != null ? x.sp.LoaiSanPham.TenLoai : Ngu.S("Seller_Khac"))
                 .Select(g => new DoanhThuTheoLoai
                 {
                     TenLoai = g.Key,
@@ -94,7 +95,7 @@ namespace QL_MatHangAnUong.Controllers
                 .ToList();
 
             ViewBag.DonMoiNhat = tatCaDon.Take(5).ToList();
-            ViewBag.Title = "Thống kê doanh thu";
+            ViewBag.Title = Ngu.S("Seller_ThongKeDoanhThu");
 
             return View(model);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Models
 {
@@ -24,6 +25,22 @@ namespace QL_MatHangAnUong.Models
         private static List<NguoiDung> _nguoiDungs;
         private static List<KhuyenMai> _khuyenMais;
         private static List<DonHang> _donHangs;
+        private static List<CuaHang> _cuaHangs;
+
+        /// <summary>
+        /// Danh sách đầy đủ, CHÍNH THỨC 34 Tỉnh/Thành phố của Việt Nam theo Nghị quyết sắp xếp
+        /// đơn vị hành chính, có hiệu lực từ 1/7/2025 (cả nước từ 63 tỉnh/thành rút gọn còn 34).
+        /// Dùng để đổ đủ vào dropdown lọc — không phụ thuộc việc tỉnh đó đã có chi nhánh hay chưa.
+        /// </summary>
+        private static readonly List<string> _tatCaTinhThanhVN = new List<string>
+        {
+            "An Giang", "Bắc Ninh", "Cà Mau", "Cao Bằng", "Cần Thơ", "Đà Nẵng", "Đắk Lắk",
+            "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Nội", "Hà Tĩnh", "Hải Phòng",
+            "Huế", "Hưng Yên", "Khánh Hòa", "Lai Châu", "Lạng Sơn", "Lào Cai", "Lâm Đồng",
+            "Nghệ An", "Ninh Bình", "Phú Thọ", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị",
+            "Sơn La", "Tây Ninh", "Thái Nguyên", "Thanh Hóa", "TP. Hồ Chí Minh",
+            "Tuyên Quang", "Vĩnh Long"
+        };
 
         private static int _idSanPham = 1;
         private static int _idLoai = 1;
@@ -31,6 +48,7 @@ namespace QL_MatHangAnUong.Models
         private static int _idKhuyenMai = 1;
         private static int _idDonHang = 1000;
         private static int _idChiTiet = 1;
+        private static int _idCuaHang = 1;
 
         #region Khởi tạo dữ liệu mẫu
 
@@ -52,6 +70,7 @@ namespace QL_MatHangAnUong.Models
             _nguoiDungs = new List<NguoiDung>();
             _khuyenMais = new List<KhuyenMai>();
             _donHangs = new List<DonHang>();
+            _cuaHangs = new List<CuaHang>();
 
             // ---------- LOẠI SẢN PHẨM ----------
             var traSua = ThemLoaiMau("Trà sữa", "Trà sữa pha từ trà ủ nóng mỗi ngày", "https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=600&q=80", 1);
@@ -169,6 +188,23 @@ namespace QL_MatHangAnUong.Models
                 "Chương trình đã kết thúc — dùng để minh họa khuyến mãi hết hạn.");
 
             TaoDonHangMau();
+
+            // ---------- CỬA HÀNG (chi nhánh trên cả nước) ----------
+            // Tên Tỉnh/Thành phố theo đúng 34 đơn vị hành chính sau sáp nhập (hiệu lực 1/7/2025).
+            // Cấp Quận/Huyện đã bị bãi bỏ trên cả nước — mô hình hiện tại chỉ còn 2 cấp: Tỉnh/Thành → Phường/Xã.
+            ThemCuaHangMau("SugarChills Gò Vấp", "12 Nguyễn Văn Bảo", "TP. Hồ Chí Minh", "Gò Vấp", "1900 6789", "07:00 - 22:00");
+            ThemCuaHangMau("SugarChills Sài Gòn", "45 Nguyễn Huệ", "TP. Hồ Chí Minh", "Sài Gòn", "1900 6789", "07:00 - 23:00");
+            ThemCuaHangMau("SugarChills Tân Hưng", "116 Nguyễn Thị Thập", "TP. Hồ Chí Minh", "Tân Hưng", "1900 6789", "07:00 - 22:00");
+            ThemCuaHangMau("SugarChills Tây Thạnh", "140 Lê Trọng Tấn", "TP. Hồ Chí Minh", "Tây Thạnh", "1900 6789", "06:30 - 22:00");
+            ThemCuaHangMau("SugarChills Vũng Tàu", "15 Thùy Vân", "TP. Hồ Chí Minh", "Vũng Tàu", "1900 6789", "07:00 - 22:30");
+            ThemCuaHangMau("SugarChills Cầu Giấy", "25 Trần Duy Hưng", "Hà Nội", "Cầu Giấy", "1900 6789", "07:30 - 22:00");
+            ThemCuaHangMau("SugarChills Hai Bà Trưng", "88 Bà Triệu", "Hà Nội", "Hai Bà Trưng", "1900 6789", "07:30 - 22:00");
+            ThemCuaHangMau("SugarChills Hải Châu", "20 Bạch Đằng", "Đà Nẵng", "Hải Châu", "1900 6789", "07:00 - 22:30");
+            ThemCuaHangMau("SugarChills Ngô Quyền", "10 Điện Biên Phủ", "Hải Phòng", "Ngô Quyền", "1900 6789", "07:30 - 22:00");
+            ThemCuaHangMau("SugarChills Ninh Kiều", "5 Hòa Bình", "Cần Thơ", "Ninh Kiều", "1900 6789", "07:00 - 22:00");
+            ThemCuaHangMau("SugarChills Nha Trang", "68 Trần Phú", "Khánh Hòa", "Nha Trang", "1900 6789", "07:00 - 23:00");
+            ThemCuaHangMau("SugarChills Huế", "30 Lê Lợi", "Huế", "Phú Xuân", "1900 6789", "07:30 - 22:00");
+            ThemCuaHangMau("SugarChills Biên Hòa", "88 Đồng Khởi", "Đồng Nai", "Biên Hòa", "1900 6789", "07:00 - 22:00");
         }
 
         private static LoaiSanPham ThemLoaiMau(string ten, string moTa, string hinh, int thuTu)
@@ -184,6 +220,23 @@ namespace QL_MatHangAnUong.Models
             };
             _loais.Add(l);
             return l;
+        }
+
+        private static CuaHang ThemCuaHangMau(string ten, string diaChi, string tinhThanh, string quanHuyen,
+            string sdt, string gioMoCua)
+        {
+            var ch = new CuaHang
+            {
+                MaCH = _idCuaHang++,
+                TenCH = ten,
+                DiaChi = diaChi,
+                TinhThanh = tinhThanh,
+                QuanHuyen = quanHuyen,
+                SoDienThoai = sdt,
+                GioMoCua = gioMoCua
+            };
+            _cuaHangs.Add(ch);
+            return ch;
         }
 
         private static void ThemSanPhamMau(string ten, int maLoai, decimal gia, decimal? giaKM,
@@ -345,7 +398,7 @@ namespace QL_MatHangAnUong.Models
             var loai = LayLoai(maLoai);
             if (loai == null)
             {
-                thongBaoLoi = "Không tìm thấy loại sản phẩm.";
+                thongBaoLoi = Ngu.S("SellerLoai_KhongTimThay");
                 return false;
             }
 
@@ -353,7 +406,7 @@ namespace QL_MatHangAnUong.Models
             if (soSP > 0)
             {
                 thongBaoLoi = string.Format(
-                    "Không thể xóa loại \"{0}\" vì đang có {1} sản phẩm thuộc loại này. Hãy chuyển hoặc xóa sản phẩm trước.",
+                    Ngu.S("KhoDuLieu_KhongTheXoaLoaiFormat"),
                     loai.TenLoai, soSP);
                 return false;
             }
@@ -429,6 +482,17 @@ namespace QL_MatHangAnUong.Models
             return true;
         }
 
+        /// <summary>Bật/tắt trạng thái "nổi bật" của 1 sản phẩm (nút sao trong Quản lý sản phẩm).</summary>
+        public static bool DoiTrangThaiNoiBat(int maSP)
+        {
+            BaoDamKhoiTao();
+            var sp = _sanPhams.FirstOrDefault(s => s.MaSP == maSP);
+            if (sp == null) return false;
+
+            sp.NoiBat = !sp.NoiBat;
+            return true;
+        }
+
         public static bool XoaSanPham(int maSP, out string thongBaoLoi)
         {
             BaoDamKhoiTao();
@@ -437,7 +501,7 @@ namespace QL_MatHangAnUong.Models
             var sp = _sanPhams.FirstOrDefault(s => s.MaSP == maSP);
             if (sp == null)
             {
-                thongBaoLoi = "Không tìm thấy sản phẩm.";
+                thongBaoLoi = Ngu.S("SellerProd_KhongTimThaySP");
                 return false;
             }
 
@@ -446,7 +510,7 @@ namespace QL_MatHangAnUong.Models
                                                      && d.TrangThai != DonHang.DaHuy);
             if (dangCoTrongDon)
             {
-                thongBaoLoi = "Sản phẩm đang nằm trong đơn hàng chưa xử lý xong. Bạn nên chuyển sang trạng thái \"Ngừng bán\" thay vì xóa.";
+                thongBaoLoi = Ngu.S("KhoDuLieu_SPDangTrongDonChuaXuLy");
                 return false;
             }
 
@@ -678,6 +742,48 @@ namespace QL_MatHangAnUong.Models
 
             dh.TrangThai = trangThai;
             return true;
+        }
+
+        #endregion
+
+        #region Cửa hàng
+
+        /// <summary>Toàn bộ chi nhánh, có thể lọc theo Tỉnh/Thành và/hoặc Phường/Xã.</summary>
+        public static List<CuaHang> LayCuaHangs(string tinhThanh = null, string quanHuyen = null)
+        {
+            BaoDamKhoiTao();
+            var ds = _cuaHangs.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(tinhThanh))
+                ds = ds.Where(c => c.TinhThanh == tinhThanh);
+
+            if (!string.IsNullOrWhiteSpace(quanHuyen))
+                ds = ds.Where(c => c.QuanHuyen == quanHuyen);
+
+            return ds.OrderBy(c => c.TinhThanh).ThenBy(c => c.QuanHuyen).ToList();
+        }
+
+        /// <summary>
+        /// Danh sách đầy đủ 34 Tỉnh/Thành phố hiện hành của Việt Nam (dùng để đổ vào dropdown lọc) —
+        /// hiện luôn TẤT CẢ tỉnh/thành, kể cả nơi chưa có chi nhánh. Nếu chọn 1 tỉnh chưa có chi nhánh,
+        /// danh sách Phường/Xã và kết quả bên dưới sẽ tự động rỗng (không hiện chi nhánh nào).
+        /// </summary>
+        public static List<string> LayDanhSachTinhThanh()
+        {
+            return _tatCaTinhThanhVN;
+        }
+
+        /// <summary>Danh sách Phường/Xã thuộc 1 Tỉnh/Thành (dropdown con, phụ thuộc dropdown Tỉnh/Thành).</summary>
+        public static List<string> LayQuanHuyenTheoTinh(string tinhThanh)
+        {
+            BaoDamKhoiTao();
+            if (string.IsNullOrWhiteSpace(tinhThanh)) return new List<string>();
+
+            return _cuaHangs.Where(c => c.TinhThanh == tinhThanh)
+                             .Select(c => c.QuanHuyen)
+                             .Distinct()
+                             .OrderBy(q => q)
+                             .ToList();
         }
 
         #endregion

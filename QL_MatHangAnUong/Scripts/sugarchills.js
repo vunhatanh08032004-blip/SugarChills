@@ -131,6 +131,24 @@
 
         $(document).on("change", "#khungTuyChon input", tinhLaiGia);
         tinhLaiGia();
+
+        /* ---------- 9. Nút Scroll to Top ---------- */
+        var $scrollBtn = $("#scrollToTopBtn");
+
+        // Hiển thị/ẩn nút khi cuộn trang
+        $(window).on("scroll", function () {
+            if ($(window).scrollTop() > 200) {
+                $scrollBtn.addClass("show");
+            } else {
+                $scrollBtn.removeClass("show");
+            }
+        });
+
+        // Cuộn lên đầu trang khi bấm nút
+        $scrollBtn.on("click", function (e) {
+            e.preventDefault();
+            $("html, body").animate({ scrollTop: 0 }, 300, "swing");
+        });
     });
 
 })(jQuery);

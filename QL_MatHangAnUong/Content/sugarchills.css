@@ -112,16 +112,6 @@ a:hover {
 /* ============================================================
    HEADER
    ============================================================ */
-.sc-topbar {
-    background: var(--sc-brown);
-    color: #FFE9DF;
-    font-size: 13px;
-    padding: 7px 0;
-}
-
-.sc-topbar a { color: #FFD9C7; }
-.sc-topbar a:hover { color: #fff; }
-
 .sc-header {
     background: #fff;
     box-shadow: 0 2px 14px rgba(91, 58, 50, .07);
@@ -386,6 +376,57 @@ a:hover {
     border-radius: var(--sc-radius);
     object-fit: cover;
     width: 100%;
+}
+
+/* ---------- Banner ảnh tự chuyển ở Trang chủ (Bootstrap Carousel) ---------- */
+.sc-hero-carousel,
+.sc-hero-carousel .carousel-inner,
+.sc-hero-carousel .carousel-item {
+    border-radius: var(--sc-radius);
+}
+
+.sc-hero-carousel .carousel-item .sc-hero-img { margin: 0; }
+
+.sc-carousel-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .85);
+    color: var(--sc-primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(91, 58, 50, .18);
+    transition: background .2s ease, transform .2s ease;
+}
+
+.sc-hero-carousel .carousel-control-prev,
+.sc-hero-carousel .carousel-control-next {
+    width: 52px;
+    opacity: 1;
+}
+
+.sc-hero-carousel .carousel-control-prev:hover .sc-carousel-arrow,
+.sc-hero-carousel .carousel-control-next:hover .sc-carousel-arrow {
+    background: var(--sc-primary);
+    color: #fff;
+    transform: scale(1.08);
+}
+
+.sc-hero-carousel .carousel-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, .7);
+    border: none;
+    margin: 0 4px;
+}
+
+.sc-hero-carousel .carousel-indicators .active {
+    background-color: #fff;
+    width: 22px;
+    border-radius: 999px;
 }
 
 .sc-hero-tag {
@@ -886,7 +927,7 @@ a:hover {
     color: var(--sc-muted);
 }
 
-.sc-empty i { font-size: 64px; color: var(--sc-primary-soft); margin-bottom: 14px; display: block; }
+.sc-empty > i { font-size: 64px; color: var(--sc-primary-soft); margin-bottom: 14px; display: block; }
 
 /* ============================================================
    FORM (đăng nhập / đăng ký / đặt hàng / quản trị)
@@ -1173,6 +1214,23 @@ textarea.form-control { min-height: 96px; }
 
 .table.sc-table > tbody > tr:hover { background: #FFFAFC; }
 
+/* Nút bấm để bật/tắt "nổi bật" trong bảng Quản lý sản phẩm */
+.sc-star-toggle {
+    background: none;
+    border: none;
+    padding: 4px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform .15s ease, background .15s ease;
+}
+
+.sc-star-toggle:hover {
+    background: var(--sc-primary-softer);
+    transform: scale(1.15);
+}
+
 .sc-thumb {
     width: 52px;
     height: 52px;
@@ -1301,6 +1359,91 @@ textarea.form-control { min-height: 96px; }
 
 .pagination .page-item.disabled .page-link { color: #C9BCC0; background: #F6F0F2; }
 
+/* ---------- Trang "Hệ thống cửa hàng" (danh sách chi nhánh + bản đồ) ---------- */
+.sc-store-search {
+    background: linear-gradient(120deg, #FFE6EE 0%, #FFF3E8 100%);
+    border-radius: var(--sc-radius);
+    padding: 22px 24px;
+}
+
+.sc-store-search h6 { color: var(--sc-brown); margin-bottom: 14px; }
+
+.sc-store-list {
+    background: #fff;
+    border-radius: var(--sc-radius);
+    box-shadow: 0 6px 18px rgba(91, 58, 50, .06);
+    padding: 16px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.sc-store-count {
+    font-weight: 700;
+    color: var(--sc-brown);
+    padding: 4px 8px 12px;
+}
+
+.sc-store-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    border-radius: var(--sc-radius-sm);
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: background .18s ease, border-color .18s ease;
+}
+
+.sc-store-item:hover { background: #FFFAFC; }
+
+.sc-store-item.active {
+    background: var(--sc-primary-softer);
+    border-color: var(--sc-primary-soft);
+}
+
+.sc-store-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 12px;
+    background: var(--sc-primary-softer);
+    color: var(--sc-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+.sc-store-item.active .sc-store-icon { background: var(--sc-primary); color: #fff; }
+
+.sc-store-name { font-weight: 700; color: var(--sc-brown); }
+.sc-store-addr { font-size: 13px; color: var(--sc-muted); margin: 3px 0 6px; }
+
+.sc-store-meta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    color: var(--sc-muted);
+}
+
+.sc-store-map-wrap {
+    border-radius: var(--sc-radius);
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(91, 58, 50, .06);
+    height: 600px;
+}
+
+.sc-store-map-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+@media (max-width: 991.98px) {
+    .sc-store-list, .sc-store-map-wrap { max-height: none; height: 420px; }
+}
+
 /* ---------- Breadcrumb ---------- */
 .sc-breadcrumb {
     font-size: 13.5px;
@@ -1310,6 +1453,43 @@ textarea.form-control { min-height: 96px; }
 
 .sc-breadcrumb a { color: var(--sc-muted); }
 .sc-breadcrumb a:hover { color: var(--sc-primary); }
+
+/* ============================================================
+   NÚT SCROLL TO TOP
+   ============================================================ */
+.sc-scroll-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF7BA8, var(--sc-primary));
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 6px 20px rgba(232, 81, 127, .4);
+    z-index: 999;
+    transition: all .3s ease;
+}
+
+.sc-scroll-top:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(232, 81, 127, .5);
+    background: linear-gradient(135deg, #FF9CBE, var(--sc-primary-dark));
+}
+
+.sc-scroll-top:active {
+    transform: translateY(-2px);
+}
+
+.sc-scroll-top.show {
+    display: flex;
+}
 
 /* ============================================================
    RESPONSIVE
@@ -1336,4 +1516,118 @@ textarea.form-control { min-height: 96px; }
     .sc-section-head { flex-direction: column; align-items: flex-start; }
     .sc-price-lg { font-size: 26px; }
     .sc-product-name { min-height: auto; }
+}
+
+/* ============================================================
+   ĐỔI NGÔN NGỮ (VI/EN)
+   ============================================================ */
+.sc-lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sc-lang-switch a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: 15px;
+    line-height: 1;
+    text-decoration: none;
+    opacity: .55;
+    filter: grayscale(35%);
+    transition: opacity .15s ease, transform .15s ease, filter .15s ease;
+}
+
+.sc-lang-switch a:hover {
+    opacity: .9;
+    transform: scale(1.08);
+}
+
+.sc-lang-switch a.active {
+    opacity: 1;
+    filter: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .55);
+}
+
+/* Nút cờ đổi ngôn ngữ đặt trong thanh menu chính (góc phải, cạnh các mục menu) */
+.sc-nav-lang {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.sc-flag-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .55);
+    overflow: hidden;
+    text-decoration: none;
+    transition: background .15s ease, transform .15s ease;
+}
+
+.sc-flag-btn:hover {
+    background: #fff;
+    transform: scale(1.08);
+}
+
+/* Ảnh cờ hình vuông (fis) bên trong nút tròn */
+.sc-flag-btn .fi {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+@media (max-width: 991.98px) {
+    .sc-nav-lang { padding: 10px 16px; }
+}
+
+/* Biến thể trong sidebar quản trị: hiện cả tên ngôn ngữ, không phải hình tròn nhỏ */
+.sc-lang-switch-sidebar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 0 20px;
+}
+
+.sc-lang-switch-sidebar a {
+    width: auto;
+    height: auto;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: var(--sc-radius-sm);
+    font-size: 14px;
+    color: var(--sc-muted);
+    opacity: 1;
+    filter: none;
+    box-shadow: none;
+}
+
+.sc-lang-switch-sidebar a:hover {
+    background: var(--sc-primary-softer);
+    transform: none;
+}
+
+.sc-lang-switch-sidebar a.active {
+    background: var(--sc-primary-soft);
+    color: var(--sc-primary-dark);
+    font-weight: 600;
+    box-shadow: none;
+}
+
+/* Ảnh cờ chữ nhật trong sidebar quản trị */
+.sc-lang-switch-sidebar a .fi {
+    width: 20px;
+    height: 15px;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .08);
+    flex-shrink: 0;
 }
