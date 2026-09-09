@@ -25,6 +25,9 @@ namespace QL_MatHangAnUong.Models
         private static int _idDonHang = 1000;
         private static int _idChiTiet = 1;
 
+        public const string ThuMucAnhLoai = "/Content/Images/Loai/";
+        public const string ThuMucAnhSanPham = "/Content/Images/SanPham/";
+
         #region Khởi tạo dữ liệu mẫu
 
         private static void BaoDamKhoiTao()
@@ -47,7 +50,7 @@ namespace QL_MatHangAnUong.Models
             _donHangs = new List<DonHang>();
 
             // ---------- LOẠI SẢN PHẨM ----------
-            var traSua = ThemLoaiMau("Trà sữa", "Trà sữa pha từ trà ủ nóng mỗi ngày", "https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=600&q=80", 1);
+            var traSua = ThemLoaiMau("Trà sữa", "Trà sữa pha từ trà ủ nóng mỗi ngày", ThuMucAnhLoai + "trasua.jpg", 1);
             var traTraiCay = ThemLoaiMau("Trà trái cây", "Trà thanh mát cùng trái cây tươi", "https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=600&q=80", 2);
             var caPhe = ThemLoaiMau("Cà phê", "Cà phê rang xay nguyên chất", "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80", 3);
             var kem = ThemLoaiMau("Kem & Đá xay", "Đá xay và kem tươi mát lạnh", "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=600&q=80", 4);
@@ -59,74 +62,74 @@ namespace QL_MatHangAnUong.Models
                 "https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=800&q=80",
                 "Trà sữa béo nhẹ kết hợp trân châu đường đen dai mềm, nấu mới mỗi 2 tiếng.", true, 320);
             ThemSanPhamMau("Trà sữa hồng trà kem cheese", traSua.MaLoai, 49000, null,
-                "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "hongtrakemcheese.jpg",
                 "Hồng trà đậm vị phủ lớp kem cheese mặn ngọt hài hòa.", true, 245);
             ThemSanPhamMau("Trà sữa khoai môn", traSua.MaLoai, 45000, null,
-                "https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham +"tskhoaimon.jpg",
                 "Khoai môn nghiền nguyên chất, thơm bùi, thêm trân châu trắng.", false, 180);
             ThemSanPhamMau("Trà sữa matcha Nhật Bản", traSua.MaLoai, 52000, 45000,
-                "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "matchanb.jpg",
                 "Matcha Uji nguyên chất, vị chát nhẹ đặc trưng, ít ngọt.", true, 210);
             ThemSanPhamMau("Trà sữa socola", traSua.MaLoai, 47000, null,
-                "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "socola.jpg",
                 "Socola Bỉ đậm đà, hợp cho bạn thích vị ngọt sâu.", false, 95);
             ThemSanPhamMau("Trà sữa oolong nướng", traSua.MaLoai, 49000, null,
-                "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "olongnuong.jpg",
                 "Oolong nướng thơm mùi khói nhẹ, hậu vị ngọt thanh.", false, 130);
 
             ThemSanPhamMau("Trà đào cam sả", traTraiCay.MaLoai, 45000, 39000,
-                "https://images.unsplash.com/photo-1499638673689-79a0b5115d87?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "tradaocamsa.jpg",
                 "Đào ngâm giòn, cam tươi và sả thơm — món bán chạy nhất mùa hè.", true, 410);
             ThemSanPhamMau("Trà vải hoa hồng", traTraiCay.MaLoai, 45000, null,
-                "https://images.unsplash.com/photo-1560508180-03f285f67ded?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "travaihh.jpg",
                 "Vải ngọt mọng cùng hương hoa hồng dịu nhẹ.", true, 260);
             ThemSanPhamMau("Trà dâu tây tuyết", traTraiCay.MaLoai, 52000, null,
-                "https://images.unsplash.com/photo-1587223962930-cb7f31384c19?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "tradautuyet.png",
                 "Dâu Đà Lạt xay cùng trà xanh, phủ tuyết sữa.", false, 155);
             ThemSanPhamMau("Trà chanh giã tay", traTraiCay.MaLoai, 35000, 29000,
-                "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "trachanhgiatay.jpg",
                 "Chanh tươi giã tay cùng trà xanh, giải nhiệt tức thì.", false, 300);
             ThemSanPhamMau("Trà ổi hồng bạc hà", traTraiCay.MaLoai, 45000, null,
-                "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "oihongbacha.jpg",
                 "Ổi hồng ép tươi thêm lá bạc hà the mát.", false, 120);
 
             ThemSanPhamMau("Cà phê sữa đá", caPhe.MaLoai, 32000, null,
-                "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "cfsuada.jpg",
                 "Robusta rang đậm pha phin, thêm sữa đặc và đá.", true, 380);
             ThemSanPhamMau("Bạc xỉu", caPhe.MaLoai, 35000, null,
-                "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "bacxiu.jpg",
                 "Nhiều sữa, ít cà phê, hợp bạn mới tập uống cà phê.", false, 190);
             ThemSanPhamMau("Cà phê muối", caPhe.MaLoai, 39000, 35000,
-                "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "cfmuoi.jpg",
                 "Lớp kem muối béo mặn trên nền cà phê đậm.", true, 275);
             ThemSanPhamMau("Latte hạnh nhân", caPhe.MaLoai, 49000, null,
-                "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "lattehn.jpg",
                 "Espresso cùng sữa hạnh nhân, ít đường.", false, 88);
             ThemSanPhamMau("Cold brew cam quế", caPhe.MaLoai, 55000, null,
-                "https://images.unsplash.com/photo-1536511132770-e5058c7e8c46?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "coldbrew.jpg",
                 "Cà phê ủ lạnh 18 tiếng, thêm cam và quế.", false, 70);
 
             ThemSanPhamMau("Đá xay socola chip", kem.MaLoai, 59000, 49000,
-                "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "sclchip.jpg",
                 "Socola chip đá xay phủ kem tươi và vụn bánh.", true, 205);
             ThemSanPhamMau("Đá xay matcha đậu đỏ", kem.MaLoai, 59000, null,
-                "https://images.unsplash.com/photo-1536520002442-39764a41e987?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "matchadaudo.jpg",
                 "Matcha đá xay cùng đậu đỏ ninh mềm.", false, 140);
             ThemSanPhamMau("Kem tươi vani", kem.MaLoai, 29000, null,
-                "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "kemvani.jpg",
                 "Kem tươi vani Madagascar, ngọt dịu.", false, 175);
             ThemSanPhamMau("Kem dâu bạc hà", kem.MaLoai, 32000, null,
-                "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "daubacha.jpg",
                 "Hai vị kem dâu và bạc hà trong một ly.", false, 96);
 
             ThemSanPhamMau("Bánh su kem trứng muối", banh.MaLoai, 25000, null,
-                "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "sukemtrungmuoi.jpg",
                 "Vỏ su giòn, nhân kem trứng muối béo mặn.", true, 230);
             ThemSanPhamMau("Bánh tiramisu", banh.MaLoai, 45000, 39000,
                 "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80",
                 "Tiramisu chuẩn Ý với mascarpone và cacao.", true, 165);
             ThemSanPhamMau("Bánh mousse dâu", banh.MaLoai, 42000, null,
-                "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80",
+                ThuMucAnhSanPham + "moussedau.jpg",
                 "Mousse dâu mềm mịn, chua ngọt cân bằng.", false, 110);
             ThemSanPhamMau("Bánh croissant bơ", banh.MaLoai, 32000, null,
                 "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80",
@@ -541,6 +544,40 @@ namespace QL_MatHangAnUong.Models
                 _nguoiDungs.Add(nd);
             }
             return nd;
+        }
+        public static bool CapNhatThongTinNguoiDung(int maND, string hoTen, string dienThoai, string diaChi)
+        {
+            BaoDamKhoiTao();
+            lock (_khoa)
+            {
+                var nd = _nguoiDungs.FirstOrDefault(n => n.MaND == maND);
+                if (nd == null) return false;
+
+                nd.HoTen = hoTen.Trim();
+                nd.DienThoai = dienThoai.Trim();
+                nd.DiaChi = string.IsNullOrWhiteSpace(diaChi) ? null : diaChi.Trim();
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Đổi mật khẩu: bắt buộc phải cung cấp đúng mật khẩu hiện tại mới cho đổi.
+        /// Trả về false nếu không tìm thấy người dùng hoặc mật khẩu hiện tại sai.
+        /// Lưu ý: đồ án demo nên lưu mật khẩu thẳng (plain text), thực tế cần băm
+        /// (SHA256 + salt hoặc BCrypt) trước khi so sánh / lưu.
+        /// </summary>
+        public static bool DoiMatKhau(int maND, string matKhauHienTai, string matKhauMoi)
+        {
+            BaoDamKhoiTao();
+            lock (_khoa)
+            {
+                var nd = _nguoiDungs.FirstOrDefault(n => n.MaND == maND);
+                if (nd == null) return false;
+                if (nd.MatKhau != matKhauHienTai) return false;
+
+                nd.MatKhau = matKhauMoi;
+                return true;
+            }
         }
 
         #endregion

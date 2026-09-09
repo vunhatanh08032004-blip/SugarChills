@@ -712,6 +712,21 @@ a:hover {
     margin: 0 6px 6px 0;
 }
 
+.sc-chip-btn {
+    border: 1px dashed var(--sc-primary);
+    cursor: pointer;
+    transition: background .15s ease, transform .1s ease;
+}
+
+    .sc-chip-btn:hover {
+        background: var(--sc-primary);
+        color: #fff;
+    }
+
+    .sc-chip-btn:active {
+        transform: scale(0.97);
+    }
+
 /* ============================================================
    CHI TIẾT SẢN PHẨM
    ============================================================ */

@@ -112,6 +112,81 @@ namespace QL_MatHangAnUong.Controllers
             ViewBag.DonHangs = KhoDuLieu.LayDonHangCuaKhach(NguoiDungHienTai.MaND);
             return View(NguoiDungHienTai);
         }
+        // GET: /TaiKhoan/CapNhatThongTin
+        [KiemTraDangNhap]
+        public ActionResult CapNhatThongTin()
+        {
+            ViewBag.Title = "Chỉnh sửa thông tin cá nhân";
+
+            var nd = NguoiDungHienTai;
+            var model = new CapNhatThongTinViewModel
+            {
+                MaND = nd.MaND,
+                HoTen = nd.HoTen,
+                DienThoai = nd.DienThoai,
+                DiaChi = nd.DiaChi
+            };
+            return View(model);
+        }
+
+        // POST: /TaiKhoan/CapNhatThongTin
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [KiemTraDangNhap]
+        public ActionResult CapNhatThongTin(CapNhatThongTinViewModel model)
+        {
+            ViewBag.Title = "Chỉnh sửa thông tin cá nhân";
+
+            // Chặn trường hợp cố tình sửa MaND trong request để đụng vào tài khoản khác
+            model.MaND = NguoiDungHienTai.MaND;
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            KhoDuLieu.CapNhatThongTinNguoiDung(model.MaND, model.HoTen, model.DienThoai, model.DiaChi);
+
+            // Đồng bộ lại Session để _Layout / trang Thông tin hiển thị dữ liệu mới ngay,
+            // không cần đăng nhập lại.
+            var ndMoi = KhoDuLieu.LayNguoiDung(model.MaND);
+            PhienLamViec.DangNhap(Session, ndMoi);
+
+            ThongBao("Cập nhật thông tin cá nhân thành công.");
+            return RedirectToAction("ThongTin");
+        }
+
+        // GET: /TaiKhoan/DoiMatKhau
+        [KiemTraDangNhap]
+        public ActionResult DoiMatKhau()
+        {
+            ViewBag.Title = "Đổi mật khẩu";
+            return View(new DoiMatKhauViewModel());
+        }
+
+        // POST: /TaiKhoan/DoiMatKhau
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [KiemTraDangNhap]
+        public ActionResult DoiMatKhau(DoiMatKhauViewModel model)
+        {
+            ViewBag.Title = "Đổi mật khẩu";
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            bool thanhCong = KhoDuLieu.DoiMatKhau(NguoiDungHienTai.MaND, model.MatKhauHienTai, model.MatKhauMoi);
+            if (!thanhCong)
+            {
+                ModelState.AddModelError("MatKhauHienTai", "Mật khẩu hiện tại không đúng.");
+                return View(model);
+            }
+
+            // Đồng bộ lại Session với mật khẩu mới
+            var ndMoi = KhoDuLieu.LayNguoiDung(NguoiDungHienTai.MaND);
+            PhienLamViec.DangNhap(Session, ndMoi);
+
+            ThongBao("Đổi mật khẩu thành công.");
+            return RedirectToAction("ThongTin");
+        }
 
         // GET: /TaiKhoan/KhongCoQuyen
         public ActionResult KhongCoQuyen()
