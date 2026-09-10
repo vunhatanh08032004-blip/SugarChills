@@ -15,6 +15,7 @@
     @using (Html.BeginForm("ThanhToan", "GioHang", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.DaThanhToanQR, new { id = "DaThanhToanQR" })
 
         <div class="row g-4">
             <!-- ============ THÔNG TIN GIAO HÀNG ============ -->
@@ -59,16 +60,26 @@
                             <small class="sc-text-muted">@Resources.Strings.Checkout_CODMoTa</small></span>
                     </label>
                     <label class="sc-topping">
-                        @Html.RadioButtonFor(m => m.HinhThucThanhToan, "Chuyển khoản", new { id = "ttCK" })
-                        <span><strong>@Resources.Strings.Checkout_ChuyenKhoan</strong><br />
-                            <small class="sc-text-muted">SugarChills - 0123456789 - Vietcombank</small></span>
-                    </label>
-                    <label class="sc-topping">
-                        @Html.RadioButtonFor(m => m.HinhThucThanhToan, "Ví MoMo", new { id = "ttMomo" })
-                        <span><strong>@Resources.Strings.Checkout_ViMomo</strong><br />
-                            <small class="sc-text-muted">@Resources.Strings.Checkout_ViMomoMoTa</small></span>
+                        @Html.RadioButtonFor(m => m.HinhThucThanhToan, "QR", new { id = "ttQR" })
+                        <span>
+                            <strong>Thanh toán bằng mã QR</strong><br />
+                            <small class="sc-text-muted">Quét mã VietQR để chuyển khoản đúng số tiền</small>
+                        </span>
                     </label>
                     @Html.ValidationMessageFor(m => m.HinhThucThanhToan)
+
+                    <div id="khungThanhToanQR" class="sc-panel mt-3 text-center" style="display:none;background:var(--sc-bg-soft,#fff7f9)">
+                        <h6 class="mb-2"><i class="bi bi-qr-code"></i> Quét mã để thanh toán</h6>
+                        <img id="anhMaQR" src="https://img.vietqr.io/image/970436-0123456789-compact2.png?amount=@((long)Model.TongTien)&addInfo=@Uri.EscapeDataString("SugarChills - " + Model.TenNguoiNhan)&accountName=SUGARCHILLS"
+                             alt="Mã QR thanh toán SugarChills" style="width:220px;height:220px;border-radius:12px;border:1px solid var(--sc-line)" />
+                        <div class="small sc-text-muted mt-2">
+                            SugarChills - 0123456789 - Vietcombank<br />
+                            Số tiền cần thanh toán: <strong id="soTienCanTT" data-goc="@DinhDang.Tien(Model.TongTien)">@DinhDang.Tien(Model.TongTien)</strong>
+                        </div>
+                        <div id="trangThaiQR" class="mt-2 fw-bold" style="color:var(--sc-primary,#E8517F)">
+                            <i class="bi bi-hourglass-split"></i> Đang chờ xác nhận thanh toán... <span id="demNguocQR">10</span>s
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -116,7 +127,7 @@
                         <span>@DinhDang.Tien(Model.TongTien)</span>
                     </div>
 
-                    <button type="submit" class="btn btn-sc btn-lg w-100 mt-3">
+                    <button type="submit" id="btnXacNhanDatHang" class="btn btn-sc btn-lg w-100 mt-3">
                         <i class="bi bi-check2-circle"></i> @Resources.Strings.Checkout_XacNhanDatHang
                     </button>
 

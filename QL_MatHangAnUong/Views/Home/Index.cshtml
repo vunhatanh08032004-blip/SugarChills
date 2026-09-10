@@ -17,7 +17,7 @@
                 <p class="mb-4">
                     @Resources.Strings.Home_HeroMoTa
                 </p>
-                <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc btn-lg">
+                <a href="#danh-muc-yeu-thich" class="btn btn-sc btn-lg">
                     <i class="bi bi-cup-straw"></i> @Resources.Strings.About_XemThucDon
                 </a>
                 <a href="#khuyen-mai" class="btn btn-sc-outline btn-lg ms-2">@Resources.Strings.Home_UuDaiHomNay</a>
@@ -92,7 +92,7 @@
 </section>
 
 <!-- ================= DANH MỤC ================= -->
-<section class="container sc-section">
+<section class="container sc-section" id="danh-muc-yeu-thich" style="scroll-margin-top:90px">
     <div class="sc-section-head">
         <div>
             <h2>@Resources.Strings.Home_DanhMucYeuThich</h2>
@@ -117,13 +117,13 @@
 </section>
 
 <!-- ================= SẢN PHẨM NỔI BẬT ================= -->
-<section class="container sc-section pt-0">
+<section class="container sc-section pt-0" id="mon-noi-bat" style="scroll-margin-top:90px">
     <div class="sc-section-head">
         <div>
             <h2>@Resources.Strings.Home_MonNoiBat</h2>
             <div class="sc-sub">@Resources.Strings.Home_MonNoiBatMoTa</div>
         </div>
-        <a href="@Url.Action("Index", "SanPham", new { sapXep = "ban-chay" })" class="btn btn-sc-soft">
+        <a href="@Url.Action("Index", "SanPham", new { sapXep = "ban-chay", an = true })" class="btn btn-sc-soft">
             @Resources.Strings.Common_XemThem <i class="bi bi-arrow-right"></i>
         </a>
     </div>
@@ -139,12 +139,15 @@
 </section>
 
 <!-- ================= KHUYẾN MÃI ================= -->
-<section class="container sc-section pt-0" id="khuyen-mai">
+<section class="container sc-section pt-0" id="khuyen-mai" style="scroll-margin-top:90px">
     <div class="sc-section-head">
         <div>
             <h2>@Resources.Strings.Home_UuDaiDangChay</h2>
             <div class="sc-sub">@Resources.Strings.Home_UuDaiMoTa</div>
         </div>
+        <a href="@Url.Action("KhuyenMai", "Home")" class="btn btn-sc-soft">
+            Xem tất cả <i class="bi bi-arrow-right"></i>
+        </a>
     </div>
 
     <div class="row g-3">
@@ -162,6 +165,7 @@
                             <span class="sc-chip">@Resources.Strings.Home_Ma @km.MaGiamGia.ToUpper()</span>
                             <span class="small sc-text-muted">@Resources.Strings.Home_HSD @DinhDang.Ngay(km.NgayKetThuc)</span>
                         </div>
+                        <div class="small sc-text-muted mt-1">@km.TenLoaiGiam</div>
                     </div>
                 </div>
             </div>
@@ -178,12 +182,15 @@
 <!-- ================= ĐANG GIẢM GIÁ ================= -->
 @if (Model.SanPhamGiamGia.Count > 0)
 {
-    <section class="container sc-section pt-0">
+    <section class="container sc-section pt-0" id="dang-giam-gia" style="scroll-margin-top:90px">
         <div class="sc-section-head">
             <div>
                 <h2>@Resources.Strings.Home_DangGiamGia</h2>
                 <div class="sc-sub">@Resources.Strings.Home_DangGiamGiaMoTa</div>
             </div>
+            <a href="@Url.Action("Index", "SanPham", new { sapXep = "giam-gia", an = true })" class="btn btn-sc-soft">
+                Xem tất cả <i class="bi bi-arrow-right"></i>
+            </a>
         </div>
         <div class="row g-3 g-lg-4">
             @foreach (var sp in Model.SanPhamGiamGia)
@@ -203,6 +210,9 @@
             <h2>@Resources.Strings.Home_MonMoiLenKe</h2>
             <div class="sc-sub">@Resources.Strings.Home_MonMoiMoTa</div>
         </div>
+        <a href="@Url.Action("Index", "SanPham", new { sapXep = "moi", an = true })" class="btn btn-sc-soft">
+            Xem tất cả <i class="bi bi-arrow-right"></i>
+        </a>
     </div>
     <div class="row g-3 g-lg-4">
         @foreach (var sp in Model.SanPhamMoi)

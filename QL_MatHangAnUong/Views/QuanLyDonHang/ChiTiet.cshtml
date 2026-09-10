@@ -85,6 +85,19 @@
                             <td colspan="3" class="text-end fw-bold">@Resources.Strings.Cart_TongCong</td>
                             <td class="text-end fw-bold sc-text-primary" style="font-size:18px">@DinhDang.Tien(Model.TongTien)</td>
                         </tr>
+                        <tr>
+                            <td colspan="3" class="text-end sc-text-muted">Thanh toán (@Model.HinhThucThanhToan)</td>
+                            <td class="text-end">
+                                @if (Model.DaThanhToan)
+                                {
+                                    <span class="sc-badge badge-success">Đã thanh toán</span>
+                                }
+                                else
+                                {
+                                    <span>Còn thu @DinhDang.Tien(Model.SoTienConLai)</span>
+                                }
+                            </td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>

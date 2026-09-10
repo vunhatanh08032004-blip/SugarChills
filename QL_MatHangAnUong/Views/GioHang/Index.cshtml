@@ -125,10 +125,18 @@
                         <div class="mt-3">
                             @foreach (var km in goiY)
                             {
-                                <span class="sc-chip" title="@km.MoTa">
-                                    <i class="bi bi-tag"></i> @km.MaGiamGia.ToUpper() — @(string.Format(Resources.Strings.Cart_GiamFormat, km.PhanTramGiam))
-                                </span>
+                                using (Html.BeginForm("ApDungMa", "GioHang", FormMethod.Post, new { @class = "d-inline" }))
+                                {
+                                    <input type="hidden" name="maGiamGia" value="@km.MaGiamGia" />
+                                    <button type="submit" class="sc-chip sc-chip-btn" title="@km.MoTa">
+                                        <i class="bi bi-tag"></i> @km.MaGiamGia.ToUpper() — @(string.Format(Resources.Strings.Cart_GiamFormat, km.PhanTramGiam))
+                                        @(km.LoaiGiam == QL_MatHangAnUong.Models.KhuyenMai.GiamPhiGiaoHang ? "phí ship" : "")
+                                    </button>
+                                }
                             }
+                        </div>
+                        <div class="small sc-text-muted mt-1">
+                            <i class="bi bi-info-circle"></i> Bấm vào mã gợi ý để áp dụng ngay, hoặc nhập mã ở ô trên.
                         </div>
                     }
                     else

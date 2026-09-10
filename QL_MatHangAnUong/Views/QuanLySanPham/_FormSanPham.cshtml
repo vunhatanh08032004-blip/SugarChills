@@ -1,9 +1,4 @@
 ﻿@model QL_MatHangAnUong.Models.SanPham
-@*
-    Partial dùng chung cho màn Thêm và Sửa sản phẩm.
-    Có đủ: nhập hình (URL + xem trước), chọn loại (dropdown),
-    radio trạng thái và checkbox nổi bật — đáp ứng rubric mục 6.
-*@
 @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
 @Html.HiddenFor(m => m.MaSP)
 @Html.HiddenFor(m => m.LuotBan)
@@ -68,9 +63,28 @@
                  class="w-100 mb-2" style="border-radius:14px;aspect-ratio:1/1;object-fit:cover"
                  data-fallback="https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills" />
 
-            <label class="form-label" for="HinhAnh">@Resources.Strings.SellerProd_HinhAnhHeading</label>
-            @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", id = "HinhAnh", placeholder = Resources.Strings.SellerProd_HinhAnhPlaceholder })
-            <small class="sc-text-muted">@Resources.Strings.SellerProd_HinhAnhHint</small>
+            <div class="sc-option-title">Nguồn ảnh</div>
+            <label class="sc-topping">
+                <input type="radio" name="ChonAnh" id="chonAnhLink" value="link" checked="checked" />
+                <span>Dán link ảnh</span>
+            </label>
+            <label class="sc-topping">
+                <input type="radio" name="ChonAnh" id="chonAnhUpload" value="upload" />
+                <span>Tải ảnh từ máy</span>
+            </label>
+
+            <div id="khungLinkAnh" class="mt-2">
+                <label class="form-label" for="HinhAnh">@Resources.Strings.SellerProd_HinhAnhHeading</label>
+                @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", id = "HinhAnh", placeholder = Resources.Strings.SellerProd_HinhAnhPlaceholder })
+                <small class="sc-text-muted">@Resources.Strings.SellerProd_HinhAnhHint</small>
+            </div>
+
+            <div id="khungUploadAnh" class="mt-2" style="display:none">
+                <label class="form-label">Chọn ảnh từ máy</label>
+                <input type="file" name="AnhTaiLen" id="AnhTaiLen" class="form-control"
+                       accept="image/png,image/jpeg,image/gif,image/webp" />
+                <small class="sc-text-muted">Ảnh JPG/PNG/GIF/WEBP, dung lượng tối đa 5MB.</small>
+            </div>
         </div>
 
         <div class="sc-panel">

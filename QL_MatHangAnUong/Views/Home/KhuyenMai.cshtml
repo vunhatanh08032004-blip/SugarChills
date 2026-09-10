@@ -1,0 +1,47 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model System.Collections.Generic.List<QL_MatHangAnUong.Models.KhuyenMai>
+@{
+    ViewBag.Title = "Khuyến mãi đang chạy";
+}
+
+<div class="container pb-5">
+    <div class="sc-breadcrumb">
+        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <span>Khuyến mãi</span>
+    </div>
+
+    <div class="sc-section-head">
+        <div>
+            <h2>Tất cả khuyến mãi</h2>
+            <div class="sc-sub">Nhập mã ở bước giỏ hàng để được giảm ngay</div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        @foreach (var km in Model)
+        {
+            <div class="col-md-4">
+                <div class="sc-panel h-100 d-flex align-items-center gap-3">
+                    <div class="sc-feature-icon" style="width:56px;height:56px;flex:0 0 56px;font-size:24px">
+                        <i class="bi bi-ticket-perforated-fill"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold" style="color:var(--sc-brown)">@km.TenKM</div>
+                        <div class="small sc-text-muted">@km.MoTa</div>
+                        <div class="mt-2">
+                            <span class="sc-chip">Mã: @km.MaGiamGia.ToUpper()</span>
+                            <span class="small sc-text-muted">HSD @DinhDang.Ngay(km.NgayKetThuc)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.Count == 0)
+        {
+            <div class="col-12">
+                <div class="sc-panel text-center sc-text-muted">Hiện chưa có chương trình khuyến mãi nào.</div>
+            </div>
+        }
+    </div>
+</div>

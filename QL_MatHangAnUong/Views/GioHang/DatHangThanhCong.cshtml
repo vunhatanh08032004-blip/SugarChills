@@ -27,6 +27,16 @@
                     <div class="sc-option-title">@Resources.Strings.Success_DonHang</div>
                     <div>@(string.Format(Resources.Strings.Success_NgayDatFormat, DinhDang.NgayGio(Model.NgayDat)))</div>
                     <div>@(string.Format(Resources.Strings.Success_ThanhToanFormat, Model.HinhThucThanhToan))</div>
+                    <div>
+                        @if (Model.DaThanhToan)
+                        {
+                            <span class="sc-badge badge-success">Đã thanh toán</span>
+                        }
+                        else
+                        {
+                            <span>Còn phải thu: <strong>@DinhDang.Tien(Model.SoTienConLai)</strong></span>
+                        }
+                    </div>
                     <div>@Resources.Strings.Success_TrangThai <span class="sc-badge @Model.CssTrangThai">@Model.TrangThai</span></div>
                 </div>
             </div>

@@ -20,6 +20,7 @@
                 <tr>
                     <th>@Resources.Strings.SellerKM_ColChuongTrinh</th>
                     <th>@Resources.Strings.SellerKM_ColMaGiamGia</th>
+                    <th class="text-center">Loại</th>
                     <th class="text-center">@Resources.Strings.SellerKM_ColGiam</th>
                     <th class="text-end">@Resources.Strings.SellerKM_ColToiDa</th>
                     <th class="text-end">@Resources.Strings.SellerKM_ColDonToiThieu</th>
@@ -31,7 +32,7 @@
             <tbody>
                 @if (Model.Count == 0)
                 {
-                    <tr><td colspan="8" class="text-center py-5 sc-text-muted">@Resources.Strings.SellerKM_ChuaCoChuongTrinh</td></tr>
+                    <tr><td colspan="9" class="text-center py-5 sc-text-muted">@Resources.Strings.SellerKM_ChuaCoChuongTrinh</td></tr>
                 }
                 else
                 {
@@ -43,6 +44,16 @@
                                 <div class="sc-text-muted" style="font-size:12px">@km.MoTa</div>
                             </td>
                             <td><span class="sc-chip">@km.MaGiamGia.ToUpper()</span></td>
+                            <td class="text-center" style="font-size:12px">
+                                @if (km.LoaiGiam == QL_MatHangAnUong.Models.KhuyenMai.GiamPhiGiaoHang)
+                                {
+                                    <span class="sc-badge badge-info">Phí giao hàng</span>
+                                }
+                                else
+                                {
+                                    <span class="sc-badge badge-muted">Tổng tiền</span>
+                                }
+                            </td>
                             <td class="text-center fw-bold sc-text-primary">@km.PhanTramGiam%</td>
                             <td class="text-end">@DinhDang.Tien(km.GiamToiDa)</td>
                             <td class="text-end">@(km.DonToiThieu > 0 ? DinhDang.Tien(km.DonToiThieu) : Resources.Strings.SellerProd_Khong)</td>

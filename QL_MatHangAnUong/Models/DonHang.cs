@@ -78,6 +78,14 @@ namespace QL_MatHangAnUong.Models
         [Display(Name = "Trạng thái")]
         public string TrangThai { get; set; }
 
+        /// <summary>Đơn đã được thanh toán chưa (true ngay khi khách quét QR thành công; COD thì false cho tới khi giao hàng xong).</summary>
+        [Display(Name = "Đã thanh toán")]
+        public bool DaThanhToan { get; set; }
+
+        /// <summary>Số tiền khách còn phải trả. Thanh toán QR thành công thì về 0 ngay; COD thì bằng TongTien cho tới khi nhận hàng.</summary>
+        [Display(Name = "Số tiền còn phải thu")]
+        public decimal SoTienConLai { get; set; }
+
         [ForeignKey("MaND")]
         public virtual NguoiDung NguoiDung { get; set; }
 
@@ -89,6 +97,7 @@ namespace QL_MatHangAnUong.Models
             NgayDat = DateTime.Now;
             TrangThai = ChoXacNhan;
             HinhThucThanhToan = "COD";
+            DaThanhToan = false;
         }
 
         /// <summary>Lớp CSS badge tương ứng trạng thái, dùng cho View.</summary>

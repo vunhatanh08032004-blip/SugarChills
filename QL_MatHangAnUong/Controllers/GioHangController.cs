@@ -25,15 +25,15 @@ namespace QL_MatHangAnUong.Controllers
         {
             var gio = GioHangHienTai;
 
-            decimal tienGiam = TinhTienGiam(gio);
             decimal phiGiao = (gio.Items.Count == 0 || gio.TamTinh >= MucMienPhiGiaoHang)
                               ? 0 : PhiGiaoHangMacDinh;
+            decimal tienGiam = TinhTienGiam(gio, phiGiao);
 
             ViewBag.Title = Ngu.S("Common_GioHang");
             ViewBag.KhuyenMaiGoiY = KhoDuLieu.LayKhuyenMaiConHieuLuc();
             ViewBag.TienGiam = tienGiam;
             ViewBag.PhiGiaoHang = phiGiao;
-            ViewBag.TongTien = gio.TamTinh - tienGiam + phiGiao;
+            ViewBag.TongTien = gio.TamTinh + phiGiao - tienGiam;
             ViewBag.MucMienPhiGiaoHang = MucMienPhiGiaoHang;
 
             return View(gio);
@@ -207,8 +207,10 @@ namespace QL_MatHangAnUong.Controllers
             {
                 gio.MaGiamGia = km.MaGiamGia;
                 PhienLamViec.LuuGioHang(Session, gio);
+                decimal phiGiaoXemTruoc = (gio.Items.Count == 0 || gio.TamTinh >= MucMienPhiGiaoHang)
+                                          ? 0 : PhiGiaoHangMacDinh;
                 ThongBao(string.Format(Ngu.S("Cart_ApDungThanhCongFormat"),
-                    km.MaGiamGia.ToUpper(), DinhDang.Tien(km.TinhTienGiam(gio.TamTinh))));
+                    km.MaGiamGia.ToUpper(), DinhDang.Tien(km.TinhTienGiam(gio.TamTinh, phiGiaoXemTruoc))));
             }
 
             return RedirectToAction("Index");
@@ -270,8 +272,13 @@ namespace QL_MatHangAnUong.Controllers
 
             var nd = NguoiDungHienTai;
             decimal tamTinh = gio.TamTinh;
-            decimal tienGiam = TinhTienGiam(gio);
             decimal phiGiao = tamTinh >= MucMienPhiGiaoHang ? 0 : PhiGiaoHangMacDinh;
+            decimal tienGiam = TinhTienGiam(gio, phiGiao);
+            decimal tongTien = tamTinh + phiGiao - tienGiam;
+
+            // QR: JS đã mô phỏng chờ 10s và báo thanh toán thành công -> đơn được đánh dấu đã thu đủ tiền ngay.
+            // COD: chưa thu tiền, số tiền còn lại = tổng tiền, chỉ hết khi giao hàng xong.
+            bool daThanhToanQR = model.HinhThucThanhToan == "QR" && model.DaThanhToanQR;
 
             var dh = new DonHang
             {
@@ -285,9 +292,11 @@ namespace QL_MatHangAnUong.Controllers
                 TamTinh = tamTinh,
                 TienGiam = tienGiam,
                 PhiGiaoHang = phiGiao,
-                TongTien = tamTinh - tienGiam + phiGiao,
+                TongTien = tongTien,
                 MaGiamGiaApDung = gio.MaGiamGia,
-                TrangThai = DonHang.ChoXacNhan
+                TrangThai = DonHang.ChoXacNhan,
+                DaThanhToan = daThanhToanQR,
+                SoTienConLai = daThanhToanQR ? 0 : tongTien
             };
 
             foreach (var item in gio.Items)
@@ -329,27 +338,27 @@ namespace QL_MatHangAnUong.Controllers
 
         private DatHangViewModel TaoViewModelThanhToan(GioHang gio)
         {
-            decimal tienGiam = TinhTienGiam(gio);
             decimal phiGiao = gio.TamTinh >= MucMienPhiGiaoHang ? 0 : PhiGiaoHangMacDinh;
+            decimal tienGiam = TinhTienGiam(gio, phiGiao);
 
             return new DatHangViewModel
             {
                 GioHang = gio,
                 TienGiam = tienGiam,
                 PhiGiaoHang = phiGiao,
-                TongTien = gio.TamTinh - tienGiam + phiGiao,
+                TongTien = gio.TamTinh + phiGiao - tienGiam,
                 HinhThucThanhToan = "COD"
             };
         }
 
-        private decimal TinhTienGiam(GioHang gio)
+        private decimal TinhTienGiam(GioHang gio, decimal phiGiaoHang)
         {
             if (string.IsNullOrWhiteSpace(gio.MaGiamGia)) return 0;
 
             var km = KhoDuLieu.TimTheoMaGiamGia(gio.MaGiamGia);
             if (km == null) return 0;
 
-            return km.TinhTienGiam(gio.TamTinh);
+            return km.TinhTienGiam(gio.TamTinh, phiGiaoHang);
         }
 
         #endregion

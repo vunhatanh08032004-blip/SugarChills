@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Models;
@@ -61,8 +64,9 @@ namespace QL_MatHangAnUong.Controllers
         // POST: /QuanLySanPham/Them
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Them(SanPham sp)
+        public ActionResult Them(SanPham sp, HttpPostedFileBase anhTaiLen, string chonAnh)
         {
+            XuLyHinhAnh(sp, anhTaiLen, chonAnh);
             KiemTraNghiepVu(sp);
 
             if (!ModelState.IsValid)
@@ -91,8 +95,9 @@ namespace QL_MatHangAnUong.Controllers
         // POST: /QuanLySanPham/Sua/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Sua(SanPham sp)
+        public ActionResult Sua(SanPham sp, HttpPostedFileBase anhTaiLen, string chonAnh)
         {
+            XuLyHinhAnh(sp, anhTaiLen, chonAnh);
             KiemTraNghiepVu(sp);
 
             if (!ModelState.IsValid)
@@ -149,12 +154,47 @@ namespace QL_MatHangAnUong.Controllers
 
         #region Hàm phụ
 
+        /// <summary>Các phần mở rộng ảnh được phép tải lên.</summary>
+        private static readonly string[] DuoiAnhChoPhep = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+        private const long DungLuongAnhToiDa = 5 * 1024 * 1024; // 5MB
+
+        private void XuLyHinhAnh(SanPham sp, HttpPostedFileBase anhTaiLen, string chonAnh)
+        {
+            if (chonAnh != "upload") return; // chế độ dán link: giữ nguyên sp.HinhAnh đã bind từ ô văn bản
+
+            if (anhTaiLen == null || anhTaiLen.ContentLength <= 0)
+            {
+                ModelState.AddModelError("HinhAnh", "Vui lòng chọn một tệp ảnh để tải lên.");
+                return;
+            }
+
+            string duoiFile = Path.GetExtension(anhTaiLen.FileName).ToLowerInvariant();
+            if (!DuoiAnhChoPhep.Contains(duoiFile))
+            {
+                ModelState.AddModelError("HinhAnh", "Chỉ chấp nhận ảnh định dạng JPG, PNG, GIF hoặc WEBP.");
+                return;
+            }
+
+            if (anhTaiLen.ContentLength > DungLuongAnhToiDa)
+            {
+                ModelState.AddModelError("HinhAnh", "Dung lượng ảnh tối đa 5MB.");
+                return;
+            }
+
+            string thuMuc = Server.MapPath("~/Content/Uploads/SanPham");
+            if (!Directory.Exists(thuMuc)) Directory.CreateDirectory(thuMuc);
+
+            string tenFile = Guid.NewGuid().ToString("N") + duoiFile;
+            anhTaiLen.SaveAs(Path.Combine(thuMuc, tenFile));
+
+            sp.HinhAnh = "/Content/Uploads/SanPham/" + tenFile;
+        }
+
         private void NapDanhSachLoai(int? maLoaiDangChon = null)
         {
             ViewBag.DanhSachLoai = new SelectList(KhoDuLieu.LayLoais(), "MaLoai", "TenLoai", maLoaiDangChon);
         }
 
-        /// <summary>Các quy tắc nghiệp vụ mà Data Annotation không kiểm tra được.</summary>
         private void KiemTraNghiepVu(SanPham sp)
         {
             if (sp.MaLoai <= 0 || KhoDuLieu.LayLoai(sp.MaLoai) == null)

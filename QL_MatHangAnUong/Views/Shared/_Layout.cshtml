@@ -4,6 +4,10 @@
     var nguoiDung = ViewBag.NguoiDungHienTai as NguoiDung;
     int soLuongGio = ViewBag.SoLuongGioHang != null ? (int)ViewBag.SoLuongGioHang : 0;
     string controllerHienTai = ViewContext.RouteData.Values["controller"] as string;
+    // Khi khách vào trang danh sách sản phẩm từ lối tắt trang chủ (Món nổi bật,
+    // Đang giảm giá, Món mới lên kệ) thay vì duyệt theo Thực đơn, menu trên cùng
+    // hiện "Trang chủ" đang chọn thay vì "Thực đơn".
+    bool tuTrangChu = ViewBag.TuTrangChu is bool && (bool)ViewBag.TuTrangChu;
 }
 <!DOCTYPE html>
 <html lang="@(ViewBag.NgonNguHienTai == "en" ? "en" : "vi")">
@@ -96,12 +100,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="menuChinh">
                     <ul class="navbar-nav">
-                        <li class="nav-item @(controllerHienTai == "Home" ? "active" : "")">
+                        <li class="nav-item @((controllerHienTai == "Home" || tuTrangChu) ? "active" : "")">
                             <a class="nav-link" href="@Url.Action("Index", "Home")">@Resources.Strings.Common_TrangChu</a>
                         </li>
 
                         <!-- Menu cấp 1: Thực đơn — Menu cấp 2: các loại sản phẩm -->
-                        <li class="nav-item dropdown @(controllerHienTai == "SanPham" ? "active" : "")">
+                        <li class="nav-item dropdown @(controllerHienTai == "SanPham" && !tuTrangChu ? "active" : "")">
                             <a class="nav-link dropdown-toggle" href="@Url.Action("Index", "SanPham")"
                                data-bs-toggle="dropdown" role="button">@Resources.Strings.Header_ThucDon</a>
                             <ul class="dropdown-menu">
@@ -127,8 +131,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button">@Resources.Strings.Header_KhuyenMai</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "SanPham", new { sapXep = "ban-chay" })"><i class="bi bi-fire"></i> @Resources.Strings.Header_MonBanChay</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "SanPham", new { sapXep = "gia-tang" })"><i class="bi bi-tag"></i> @Resources.Strings.Header_MonGiaTot</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Home")#mon-noi-bat"><i class="bi bi-fire"></i> @Resources.Strings.Header_MonBanChay</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Home")#dang-giam-gia"><i class="bi bi-tag"></i> @Resources.Strings.Header_MonGiaTot</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("Index", "Home")#khuyen-mai"><i class="bi bi-ticket-perforated"></i> @Resources.Strings.Header_MaGiamGia</a></li>
                             </ul>
                         </li>

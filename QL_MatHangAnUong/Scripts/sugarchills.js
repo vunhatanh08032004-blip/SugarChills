@@ -1,6 +1,5 @@
 ﻿/* ============================================================
    SugarChills - JavaScript dùng chung
-   Yêu cầu: jQuery (đã có sẵn trong project)
    ============================================================ */
 (function ($) {
     "use strict";
@@ -61,10 +60,10 @@
                     var html = "";
                     $.each(ds, function (i, sp) {
                         html += '<a href="/SanPham/ChiTiet/' + sp.maSP + '">' +
-                                '<img src="' + sp.hinhAnh + '" onerror="this.src=\'https://placehold.co/60x60/FFE6EE/E8517F?text=SC\'" />' +
-                                '<span>' + sp.tenSP + '</span>' +
-                                '<span class="ms-auto sc-text-primary fw-bold">' +
-                                Number(sp.gia).toLocaleString("vi-VN") + 'đ</span></a>';
+                            '<img src="' + sp.hinhAnh + '" onerror="this.src=\'https://placehold.co/60x60/FFE6EE/E8517F?text=SC\'" />' +
+                            '<span>' + sp.tenSP + '</span>' +
+                            '<span class="ms-auto sc-text-primary fw-bold">' +
+                            Number(sp.gia).toLocaleString("vi-VN") + 'đ</span></a>';
                     });
                     $box.html(html).show();
                 });
@@ -105,6 +104,90 @@
             var url = $(this).val();
             $("#xemTruocAnh").attr("src", url || "https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills");
         });
+
+        /* ---------- 6b. Form sản phẩm: chọn nguồn ảnh (dán link / tải từ máy) ---------- */
+        $(document).on("change", "#chonAnhLink, #chonAnhUpload", function () {
+            var dungUpload = $("#chonAnhUpload").is(":checked");
+            $("#khungLinkAnh").toggle(!dungUpload);
+            $("#khungUploadAnh").toggle(dungUpload);
+        });
+
+        $(document).on("change", "#AnhTaiLen", function () {
+            var file = this.files && this.files[0];
+            if (!file) return;
+
+            var doc = new FileReader();
+            doc.onload = function (e) {
+                $("#xemTruocAnh").attr("src", e.target.result);
+            };
+            doc.readAsDataURL(file);
+        });
+
+        /* ---------- 6c. Trang đặt hàng: chọn "Thanh toán bằng QR" -> hiện mã QR, đợi 10s rồi
+           mô phỏng thanh toán thành công (số tiền về 0) và tự cập nhật/hoàn tất đơn hàng. ---------- */
+        var demNguocQRTimer = null;
+
+        function dungDemNguocQR() {
+            if (demNguocQRTimer) {
+                clearInterval(demNguocQRTimer);
+                demNguocQRTimer = null;
+            }
+        }
+
+        function resetKhungQR() {
+            dungDemNguocQR();
+            $("#DaThanhToanQR").val("false");
+            $("#demNguocQR").text("10");
+            $("#trangThaiQR")
+                .css("color", "var(--sc-primary, #E8517F)")
+                .html('<i class="bi bi-hourglass-split"></i> Đang chờ xác nhận thanh toán... <span id="demNguocQR">10</span>s');
+            var $soTien = $("#soTienCanTT");
+            if ($soTien.length) { $soTien.text($soTien.data("goc")); }
+            $("#btnXacNhanDatHang").prop("disabled", false);
+        }
+
+        function batDauDemNguocQR() {
+            resetKhungQR();
+            var giay = 10;
+
+            demNguocQRTimer = setInterval(function () {
+                giay--;
+                $("#demNguocQR").text(giay);
+
+                if (giay <= 0) {
+                    dungDemNguocQR();
+
+                    // Mô phỏng cổng thanh toán báo thành công: số tiền cần thanh toán về 0.
+                    $("#soTienCanTT").text("0đ");
+                    $("#trangThaiQR")
+                        .css("color", "#2FA98A")
+                        .html('<i class="bi bi-check-circle-fill"></i> Đã nhận được thanh toán! Đang cập nhật đơn hàng...');
+                    $("#DaThanhToanQR").val("true");
+
+                    // Tự động hoàn tất đặt hàng ngay khi đã "thanh toán" xong.
+                    var $form = $("#btnXacNhanDatHang").closest("form");
+                    if ($form.length) {
+                        setTimeout(function () { $form.trigger("submit"); }, 600);
+                    }
+                }
+            }, 1000);
+        }
+
+        function capNhatKhungQR() {
+            var $khung = $("#khungThanhToanQR");
+            if ($khung.length === 0) return;
+
+            var laQR = $("#ttQR").is(":checked");
+            $khung.toggle(laQR);
+
+            if (laQR) {
+                batDauDemNguocQR();
+            } else {
+                resetKhungQR();
+            }
+        }
+        $(document).on("change", "input[name='HinhThucThanhToan']", capNhatKhungQR);
+        if ($("#khungThanhToanQR").length) { capNhatKhungQR(); }
 
         /* ---------- 7. Mở/đóng sidebar quản trị trên màn hình nhỏ ---------- */
         $("#nutMoSidebar").on("click", function () {
