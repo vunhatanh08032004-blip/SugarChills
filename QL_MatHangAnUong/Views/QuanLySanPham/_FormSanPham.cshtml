@@ -66,7 +66,7 @@
             <img id="xemTruocAnh"
                  src="@(string.IsNullOrWhiteSpace(Model.HinhAnh) ? "https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills" : Model.HinhAnh)"
                  class="w-100 mb-2" style="border-radius:14px;aspect-ratio:1/1;object-fit:cover"
-                 onerror="this.onerror=null;this.src='https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills';" />
+                 data-fallback="https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills" />
 
             <label class="form-label" for="HinhAnh">@Resources.Strings.SellerProd_HinhAnhHeading</label>
             @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", id = "HinhAnh", placeholder = Resources.Strings.SellerProd_HinhAnhPlaceholder })

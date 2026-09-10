@@ -116,7 +116,7 @@
                                     <li>
                                         <a class="dropdown-item" href="@Url.Action("Index", "SanPham", new { maLoai = loai.MaLoai })">
                                             <img src="@loai.HinhAnh" alt="@loai.TenLoai"
-                                                 onerror="this.onerror=null;this.src='https://placehold.co/60x60/FFE6EE/E8517F?text=SC';" />
+                                                 data-fallback="https://placehold.co/60x60/FFE6EE/E8517F?text=SC" />
                                             @loai.TenLoai
                                         </a>
                                     </li>

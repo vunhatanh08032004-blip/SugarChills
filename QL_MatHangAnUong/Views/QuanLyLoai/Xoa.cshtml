@@ -17,7 +17,7 @@
 
     <div class="d-flex gap-3 align-items-center p-3" style="background:var(--sc-primary-softer);border-radius:14px">
         <img src="@Model.HinhAnh" class="sc-thumb" style="width:70px;height:70px" alt="@Model.TenLoai"
-             onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFE6EE/E8517F?text=SC';" />
+             data-fallback="https://placehold.co/200x200/FFE6EE/E8517F?text=SC" />
         <div>
             <div class="fw-bold" style="font-size:17px">@Model.TenLoai</div>
             <div class="sc-text-muted small">@Model.MoTa</div>
