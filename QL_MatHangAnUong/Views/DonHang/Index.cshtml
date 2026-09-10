@@ -7,17 +7,17 @@
 
 <div class="container pb-5">
     <div class="sc-breadcrumb">
-        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <a href="@Url.Action("Index", "Home")">@Resources.Strings.Common_TrangChu</a>
         <i class="bi bi-chevron-right" style="font-size:11px"></i>
-        <span>Đơn hàng của tôi</span>
+        <span>@Resources.Strings.Header_DonHangCuaToi</span>
     </div>
 
-    <h2 class="mb-3">Đơn hàng của tôi</h2>
+    <h2 class="mb-3">@Resources.Strings.Header_DonHangCuaToi</h2>
 
     <!-- Lọc theo trạng thái -->
     <div class="mb-4">
         <a href="@Url.Action("Index")" class="sc-chip @(dangChon == "Tất cả" ? "" : "")"
-           style="@(dangChon == "Tất cả" ? "background:var(--sc-primary);color:#fff" : "")">Tất cả</a>
+           style="@(dangChon == "Tất cả" ? "background:var(--sc-primary);color:#fff" : "")">@Resources.Strings.Common_TatCa</a>
         @foreach (var tt in DonHang.CacTrangThai)
         {
             <a href="@Url.Action("Index", new { trangThai = tt })" class="sc-chip"
@@ -29,9 +29,9 @@
     {
         <div class="sc-panel sc-empty">
             <i class="bi bi-receipt"></i>
-            <h5>Chưa có đơn hàng nào</h5>
-            <p>Khi bạn đặt món, đơn hàng sẽ xuất hiện ở đây.</p>
-            <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc">Đặt món ngay</a>
+            <h5>@Resources.Strings.Order_ChuaCoDonHang</h5>
+            <p>@Resources.Strings.Order_KhiBanDatMon</p>
+            <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc">@Resources.Strings.Order_DatMonNgay</a>
         </div>
     }
     else
@@ -41,7 +41,7 @@
             <div class="sc-panel mb-3">
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                     <div>
-                        <span class="fw-bold" style="font-size:17px;color:var(--sc-brown)">Đơn #@dh.MaDH</span>
+                        <span class="fw-bold" style="font-size:17px;color:var(--sc-brown)">@(string.Format(Resources.Strings.Order_DonFormat, dh.MaDH))</span>
                         <span class="sc-text-muted small ms-2">@DinhDang.NgayGio(dh.NgayDat)</span>
                     </div>
                     <span class="sc-badge @dh.CssTrangThai">@dh.TrangThai</span>
@@ -64,7 +64,7 @@
                     }
                     @if (dh.ChiTietDonHangs.Count > 3)
                     {
-                        <div class="col-12 small sc-text-muted">và @(dh.ChiTietDonHangs.Count - 3) món khác...</div>
+                        <div class="col-12 small sc-text-muted">@(string.Format(Resources.Strings.Order_VaMonKhacFormat, dh.ChiTietDonHangs.Count - 3))</div>
                     }
                 </div>
 
@@ -72,21 +72,21 @@
 
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <div>
-                        <span class="sc-text-muted">Tổng tiền:</span>
+                        <span class="sc-text-muted">@Resources.Strings.Order_TongTien</span>
                         <span class="fw-bold sc-text-primary" style="font-size:18px">@DinhDang.Tien(dh.TongTien)</span>
                     </div>
                     <div class="d-flex gap-2">
                         <a href="@Url.Action("ChiTiet", new { id = dh.MaDH })" class="btn btn-sc-soft btn-sm">
-                            <i class="bi bi-eye"></i> Xem chi tiết
+                            <i class="bi bi-eye"></i> @Resources.Strings.Order_XemChiTiet
                         </a>
                         @if (dh.TrangThai == DonHang.ChoXacNhan)
                         {
                             using (Html.BeginForm("HuyDon", "DonHang", FormMethod.Post,
-                                new { @class = "can-xac-nhan d-inline", data_hoi = "Bạn chắc chắn muốn hủy đơn này?" }))
+                                new { @class = "can-xac-nhan d-inline", data_hoi = Resources.Strings.Order_XacNhanHuyDon }))
                             {
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="id" value="@dh.MaDH" />
-                                <button type="submit" class="btn btn-sc-outline btn-sm">Hủy đơn</button>
+                                <button type="submit" class="btn btn-sc-outline btn-sm">@Resources.Strings.Order_HuyDon</button>
                             }
                         }
                     </div>

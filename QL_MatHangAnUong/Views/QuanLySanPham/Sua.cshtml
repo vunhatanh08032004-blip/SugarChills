@@ -1,12 +1,12 @@
 ﻿@model QL_MatHangAnUong.Models.SanPham
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Sửa sản phẩm";
+    ViewBag.Title = Resources.Strings.SellerProd_SuaTitle;
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="mb-0"><i class="bi bi-pencil-square"></i> Sửa sản phẩm SC@(Model.MaSP.ToString("D3"))</h4>
-    <a href="@Url.Action("Index")" class="btn btn-sc-soft"><i class="bi bi-arrow-left"></i> Quay lại danh sách</a>
+    <h4 class="mb-0"><i class="bi bi-pencil-square"></i> @(string.Format(Resources.Strings.SellerProd_SuaSPFormat, Model.MaSP.ToString("D3")))</h4>
+    <a href="@Url.Action("Index")" class="btn btn-sc-soft"><i class="bi bi-arrow-left"></i> @Resources.Strings.Admin_QuayLaiDanhSach</a>
 </div>
 
 @using (Html.BeginForm("Sua", "QuanLySanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -15,10 +15,10 @@
     @Html.Partial("_FormSanPham", Model)
 
     <div class="mt-3 d-flex gap-2">
-        <button type="submit" class="btn btn-sc btn-lg"><i class="bi bi-save"></i> Cập nhật</button>
-        <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">Hủy</a>
+        <button type="submit" class="btn btn-sc btn-lg"><i class="bi bi-save"></i> @Resources.Strings.SellerProd_CapNhatBtn</button>
+        <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">@Resources.Strings.Admin_Huy</a>
         <a href="@Url.Action("Xoa", new { id = Model.MaSP })" class="btn btn-sc-soft btn-lg ms-auto">
-            <i class="bi bi-trash"></i> Xóa sản phẩm
+            <i class="bi bi-trash"></i> @Resources.Strings.SellerProd_XoaSanPhamBtn
         </a>
     </div>
 }

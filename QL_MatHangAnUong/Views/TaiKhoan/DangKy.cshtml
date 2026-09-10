@@ -4,18 +4,18 @@
     <div class="sc-auth-card w-100" style="max-width:980px;margin:0 auto">
         <div class="row g-0">
             <div class="col-lg-5 sc-auth-side">
-                <h3>Tham gia SugarChills</h3>
-                <p>Tạo tài khoản chỉ trong 30 giây để đặt món, lưu địa chỉ và nhận ưu đãi thành viên.</p>
+                <h3>@Resources.Strings.Auth_ThamGia</h3>
+                <p>@Resources.Strings.Auth_ThamGiaMoTa</p>
                 <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=600&q=80"
                      class="mt-4 d-none d-lg-block" style="border-radius:16px;max-height:200px;object-fit:cover;width:100%"
                      alt="SugarChills"
-                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/FFE6EE/E8517F?text=SugarChills';" />
+                     data-fallback="https://placehold.co/600x400/FFE6EE/E8517F?text=SugarChills" />
             </div>
 
             <div class="col-lg-7 p-4 p-lg-5">
-                <h4 class="mb-1">Đăng ký tài khoản</h4>
-                <p class="sc-text-muted small mb-4">Đã có tài khoản?
-                    <a href="@Url.Action("DangNhap")">Đăng nhập</a>
+                <h4 class="mb-1">@Resources.Strings.Auth_DangKyTitle</h4>
+                <p class="sc-text-muted small mb-4">@Resources.Strings.Auth_DaCoTaiKhoan
+                    <a href="@Url.Action("DangNhap")">@Resources.Strings.Common_DangNhap</a>
                 </p>
 
                 @using (Html.BeginForm("DangKy", "TaiKhoan", FormMethod.Post))
@@ -25,46 +25,46 @@
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            @Html.LabelFor(m => m.HoTen, new { @class = "form-label" })
-                            @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control", placeholder = "Nguyễn Văn A" })
+                            <label class="form-label" for="HoTen">@Resources.Strings.Auth_HoVaTen</label>
+                            @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control", placeholder = Resources.Strings.Contact_HoTenPlaceholder })
                             @Html.ValidationMessageFor(m => m.HoTen)
                         </div>
 
                         <div class="col-md-6">
-                            @Html.LabelFor(m => m.DienThoai, new { @class = "form-label" })
+                            <label class="form-label" for="DienThoai">@Resources.Strings.Contact_SoDienThoai</label>
                             @Html.TextBoxFor(m => m.DienThoai, new { @class = "form-control", placeholder = "09xxxxxxxx" })
                             @Html.ValidationMessageFor(m => m.DienThoai)
                         </div>
 
                         <div class="col-12">
-                            @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                            <label class="form-label" for="Email">@Resources.Strings.Common_Email</label>
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "ban@email.com" })
                             @Html.ValidationMessageFor(m => m.Email)
                         </div>
 
                         <div class="col-12">
-                            @Html.LabelFor(m => m.DiaChi, new { @class = "form-label" })
-                            @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control", placeholder = "Số nhà, đường, phường, quận" })
+                            <label class="form-label" for="DiaChi">@Resources.Strings.Auth_DiaChiLabel</label>
+                            @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control", placeholder = Resources.Strings.Auth_DiaChiPlaceholder })
                             @Html.ValidationMessageFor(m => m.DiaChi)
                         </div>
 
                         <div class="col-md-6">
-                            @Html.LabelFor(m => m.MatKhau, new { @class = "form-label" })
-                            @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "Tối thiểu 6 ký tự" })
+                            <label class="form-label" for="MatKhau">@Resources.Strings.Auth_MatKhau</label>
+                            @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = Resources.Strings.Auth_MatKhauPlaceholder })
                             @Html.ValidationMessageFor(m => m.MatKhau)
                         </div>
 
                         <div class="col-md-6">
-                            @Html.LabelFor(m => m.XacNhanMatKhau, new { @class = "form-label" })
-                            @Html.PasswordFor(m => m.XacNhanMatKhau, new { @class = "form-control", placeholder = "Nhập lại mật khẩu" })
+                            <label class="form-label" for="XacNhanMatKhau">@Resources.Strings.Auth_XacNhanMatKhau</label>
+                            @Html.PasswordFor(m => m.XacNhanMatKhau, new { @class = "form-control", placeholder = Resources.Strings.Auth_XacNhanMatKhauPlaceholder })
                             @Html.ValidationMessageFor(m => m.XacNhanMatKhau)
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-sc btn-lg w-100 mt-4">Tạo tài khoản</button>
+                    <button type="submit" class="btn btn-sc btn-lg w-100 mt-4">@Resources.Strings.Auth_TaoTaiKhoanBtn</button>
 
                     <p class="small sc-text-muted text-center mt-3 mb-0">
-                        Khi đăng ký, bạn đồng ý với điều khoản sử dụng của SugarChills.
+                        @Resources.Strings.Auth_DieuKhoan
                     </p>
                 }
             </div>

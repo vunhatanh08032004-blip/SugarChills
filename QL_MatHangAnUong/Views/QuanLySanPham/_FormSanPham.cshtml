@@ -6,30 +6,30 @@
 <div class="row g-4">
     <div class="col-lg-8">
         <div class="sc-panel">
-            <h5 class="mb-3">Thông tin sản phẩm</h5>
+            <h5 class="mb-3">@Resources.Strings.SellerProd_ThongTinSP</h5>
 
             <div class="row g-3">
                 <div class="col-12">
-                    @Html.LabelFor(m => m.TenSP, new { @class = "form-label" })
-                    @Html.TextBoxFor(m => m.TenSP, new { @class = "form-control", placeholder = "Ví dụ: Trà sữa trân châu đường đen" })
+                    <label class="form-label" for="TenSP">@Resources.Strings.SellerProd_TenSPLabel</label>
+                    @Html.TextBoxFor(m => m.TenSP, new { @class = "form-control", placeholder = Resources.Strings.SellerProd_TenSPPlaceholder })
                     @Html.ValidationMessageFor(m => m.TenSP)
                 </div>
 
                 <div class="col-md-6">
-                    @Html.LabelFor(m => m.MaLoai, new { @class = "form-label" })
+                    <label class="form-label" for="MaLoai">@Resources.Strings.SellerProd_LoaiSanPhamLabel</label>
                     @Html.DropDownListFor(m => m.MaLoai, (SelectList)ViewBag.DanhSachLoai,
-                        "-- Chọn loại sản phẩm --", new { @class = "form-select" })
+                        Resources.Strings.SellerProd_ChonLoaiOption, new { @class = "form-select" })
                     @Html.ValidationMessageFor(m => m.MaLoai)
                 </div>
 
                 <div class="col-md-6">
-                    @Html.LabelFor(m => m.SoLuongTon, new { @class = "form-label" })
+                    <label class="form-label" for="SoLuongTon">@Resources.Strings.SellerProd_SoLuongTonLabel</label>
                     @Html.TextBoxFor(m => m.SoLuongTon, new { @class = "form-control", type = "number", min = 0 })
                     @Html.ValidationMessageFor(m => m.SoLuongTon)
                 </div>
 
                 <div class="col-md-6">
-                    @Html.LabelFor(m => m.Gia, new { @class = "form-label" })
+                    <label class="form-label" for="Gia">@Resources.Strings.SellerProd_GiaBanLabel</label>
                     <div class="input-group">
                         @Html.TextBoxFor(m => m.Gia, new { @class = "form-control", type = "number", min = 0, step = 1000 })
                         <span class="input-group-text">đ</span>
@@ -38,17 +38,17 @@
                 </div>
 
                 <div class="col-md-6">
-                    @Html.LabelFor(m => m.GiaKhuyenMai, new { @class = "form-label" })
+                    <label class="form-label" for="GiaKhuyenMai">@Resources.Strings.SellerProd_GiaKhuyenMaiLabel</label>
                     <div class="input-group">
-                        @Html.TextBoxFor(m => m.GiaKhuyenMai, new { @class = "form-control", type = "number", min = 0, step = 1000, placeholder = "Bỏ trống nếu không giảm giá" })
+                        @Html.TextBoxFor(m => m.GiaKhuyenMai, new { @class = "form-control", type = "number", min = 0, step = 1000, placeholder = Resources.Strings.SellerProd_GiaKMPlaceholder })
                         <span class="input-group-text">đ</span>
                     </div>
                     @Html.ValidationMessageFor(m => m.GiaKhuyenMai)
                 </div>
 
                 <div class="col-12">
-                    @Html.LabelFor(m => m.MoTa, new { @class = "form-label" })
-                    @Html.TextAreaFor(m => m.MoTa, new { @class = "form-control", rows = 4, placeholder = "Mô tả ngắn về hương vị, nguyên liệu..." })
+                    <label class="form-label" for="MoTa">@Resources.Strings.SellerProd_MoTaLabel</label>
+                    @Html.TextAreaFor(m => m.MoTa, new { @class = "form-control", rows = 4, placeholder = Resources.Strings.SellerProd_MoTaPlaceholder })
                     @Html.ValidationMessageFor(m => m.MoTa)
                 </div>
             </div>
@@ -57,11 +57,11 @@
 
     <div class="col-lg-4">
         <div class="sc-panel mb-3">
-            <h5 class="mb-3">Hình ảnh</h5>
+            <h5 class="mb-3">@Resources.Strings.SellerProd_HinhAnhHeading</h5>
             <img id="xemTruocAnh"
                  src="@(string.IsNullOrWhiteSpace(Model.HinhAnh) ? "https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills" : Model.HinhAnh)"
                  class="w-100 mb-2" style="border-radius:14px;aspect-ratio:1/1;object-fit:cover"
-                 onerror="this.onerror=null;this.src='https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills';" />
+                 data-fallback="https://placehold.co/300x300/FFE6EE/E8517F?text=SugarChills" />
 
             <div class="sc-option-title">Nguồn ảnh</div>
             <label class="sc-topping">
@@ -74,9 +74,9 @@
             </label>
 
             <div id="khungLinkAnh" class="mt-2">
-                @Html.LabelFor(m => m.HinhAnh, new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", id = "HinhAnh", placeholder = "Dán link ảnh (https://...)" })
-                <small class="sc-text-muted">Dán URL ảnh, khung xem trước sẽ tự cập nhật.</small>
+                <label class="form-label" for="HinhAnh">@Resources.Strings.SellerProd_HinhAnhHeading</label>
+                @Html.TextBoxFor(m => m.HinhAnh, new { @class = "form-control", id = "HinhAnh", placeholder = Resources.Strings.SellerProd_HinhAnhPlaceholder })
+                <small class="sc-text-muted">@Resources.Strings.SellerProd_HinhAnhHint</small>
             </div>
 
             <div id="khungUploadAnh" class="mt-2" style="display:none">
@@ -88,24 +88,24 @@
         </div>
 
         <div class="sc-panel">
-            <h5 class="mb-3">Hiển thị</h5>
+            <h5 class="mb-3">@Resources.Strings.SellerProd_HienThiHeading</h5>
 
             <!-- Radio: trạng thái bán -->
-            <div class="sc-option-title">Trạng thái bán</div>
+            <div class="sc-option-title">@Resources.Strings.SellerProd_TrangThaiBanLabel</div>
             <label class="sc-topping">
                 @Html.RadioButtonFor(m => m.DangBan, true, new { id = "DangBanTrue" })
-                <span>Đang bán</span>
+                <span>@Resources.Strings.SellerProd_DangBan</span>
             </label>
             <label class="sc-topping">
                 @Html.RadioButtonFor(m => m.DangBan, false, new { id = "DangBanFalse" })
-                <span>Ngừng bán</span>
+                <span>@Resources.Strings.SellerProd_NgungBan</span>
             </label>
 
             <!-- Checkbox: sản phẩm nổi bật -->
-            <div class="sc-option-title mt-3">Tùy chọn khác</div>
+            <div class="sc-option-title mt-3">@Resources.Strings.SellerProd_TuyChonKhac</div>
             <label class="sc-topping">
                 @Html.CheckBoxFor(m => m.NoiBat)
-                <span>Hiển thị ở mục "Món nổi bật" trang chủ</span>
+                <span>@Resources.Strings.SellerProd_HienThiMonNoiBat</span>
             </label>
         </div>
     </div>

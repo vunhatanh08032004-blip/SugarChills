@@ -3,7 +3,7 @@
 @model QL_MatHangAnUong.Models.ViewModels.ThongKeViewModel
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Thống kê doanh thu";
+    ViewBag.Title = Resources.Strings.Seller_ThongKeDoanhThu;
 
     var donMoiNhat = ViewBag.DonMoiNhat as List<DonHang> ?? new List<DonHang>();
     decimal doanhThuMax = Model.DoanhThuNgay.Count > 0 ? Model.DoanhThuNgay.Max(d => d.DoanhThu) : 0;
@@ -13,18 +13,18 @@
 <!-- ============ BỘ LỌC THỜI GIAN ============ -->
 <div class="sc-table-card mb-3">
     <div class="sc-table-head">
-        <h5><i class="bi bi-calendar-range"></i> Kỳ thống kê</h5>
+        <h5><i class="bi bi-calendar-range"></i> @Resources.Strings.ThongKe_KyThongKe</h5>
         <form method="get" action="@Url.Action("Index")" class="d-flex flex-wrap align-items-end gap-2">
             <div>
-                <label class="form-label mb-0">Từ ngày</label>
+                <label class="form-label mb-0">@Resources.Strings.SellerOrder_TuNgay</label>
                 <input type="date" name="tuNgay" class="form-control" value="@Model.TuNgay.ToString("yyyy-MM-dd")" />
             </div>
             <div>
-                <label class="form-label mb-0">Đến ngày</label>
+                <label class="form-label mb-0">@Resources.Strings.SellerOrder_DenNgay</label>
                 <input type="date" name="denNgay" class="form-control" value="@Model.DenNgay.ToString("yyyy-MM-dd")" />
             </div>
-            <button type="submit" class="btn btn-sc">Xem</button>
-            <a href="@Url.Action("Index")" class="btn btn-sc-outline">30 ngày gần nhất</a>
+            <button type="submit" class="btn btn-sc">@Resources.Strings.Admin_Xem</button>
+            <a href="@Url.Action("Index")" class="btn btn-sc-outline">@Resources.Strings.ThongKe_30NgayGanNhat</a>
         </form>
     </div>
 </div>
@@ -36,7 +36,7 @@
             <div class="sc-stat-icon bg-soft-pink"><i class="bi bi-cash-stack"></i></div>
             <div>
                 <div class="sc-stat-value" style="font-size:20px">@DinhDang.Tien(Model.TongDoanhThu)</div>
-                <div class="sc-stat-label">Doanh thu (đơn hoàn thành)</div>
+                <div class="sc-stat-label">@Resources.Strings.ThongKe_DoanhThuLabel</div>
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <div class="sc-stat-icon bg-soft-blue"><i class="bi bi-receipt-cutoff"></i></div>
             <div>
                 <div class="sc-stat-value">@Model.TongDonHang</div>
-                <div class="sc-stat-label">Đơn hàng trong kỳ</div>
+                <div class="sc-stat-label">@Resources.Strings.ThongKe_DonHangTrongKy</div>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
             <div class="sc-stat-icon bg-soft-mint"><i class="bi bi-graph-up-arrow"></i></div>
             <div>
                 <div class="sc-stat-value" style="font-size:20px">@DinhDang.Tien(Model.GiaTriTrungBinh)</div>
-                <div class="sc-stat-label">Giá trị đơn trung bình</div>
+                <div class="sc-stat-label">@Resources.Strings.ThongKe_GiaTriTrungBinh</div>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
             <div class="sc-stat-icon bg-soft-yellow"><i class="bi bi-people"></i></div>
             <div>
                 <div class="sc-stat-value">@Model.TongKhachHang</div>
-                <div class="sc-stat-label">Khách hàng đã đăng ký</div>
+                <div class="sc-stat-label">@Resources.Strings.ThongKe_KhachHangDangKy</div>
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
             <div class="sc-stat-icon bg-soft-yellow"><i class="bi bi-hourglass-split"></i></div>
             <div>
                 <div class="sc-stat-value">@Model.DonChoXacNhan</div>
-                <div class="sc-stat-label">Đơn chờ xác nhận</div>
+                <div class="sc-stat-label">@Resources.Strings.ThongKe_DonChoXacNhan</div>
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@
             <div class="sc-stat-icon bg-soft-mint"><i class="bi bi-check2-all"></i></div>
             <div>
                 <div class="sc-stat-value">@Model.DonHoanThanh</div>
-                <div class="sc-stat-label">Đơn hoàn thành</div>
+                <div class="sc-stat-label">@Resources.Strings.ThongKe_DonHoanThanh</div>
             </div>
         </div>
     </div>
@@ -93,7 +93,7 @@
             <div class="sc-stat-icon bg-soft-pink"><i class="bi bi-x-circle"></i></div>
             <div>
                 <div class="sc-stat-value">@Model.DonDaHuy</div>
-                <div class="sc-stat-label">Đơn đã hủy</div>
+                <div class="sc-stat-label">@Resources.Strings.ThongKe_DonDaHuy</div>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
             <div class="sc-stat-icon bg-soft-blue"><i class="bi bi-cup-hot"></i></div>
             <div>
                 <div class="sc-stat-value">@Model.TongSanPham</div>
-                <div class="sc-stat-label">Sản phẩm trong menu</div>
+                <div class="sc-stat-label">@Resources.Strings.ThongKe_SanPhamTrongMenu</div>
             </div>
         </div>
     </div>
@@ -113,7 +113,7 @@
     <div class="col-xl-8">
         <div class="sc-table-card h-100">
             <div class="sc-table-head">
-                <h5>Doanh thu theo ngày</h5>
+                <h5>@Resources.Strings.ThongKe_DoanhThuTheoNgay</h5>
                 <span class="sc-text-muted small">
                     @DinhDang.Ngay(Model.TuNgay) → @DinhDang.Ngay(Model.DenNgay)
                 </span>
@@ -121,7 +121,7 @@
             <div class="p-3">
                 @if (doanhThuMax == 0)
                 {
-                    <div class="sc-empty"><i class="bi bi-bar-chart"></i><p>Chưa có doanh thu trong kỳ này.</p></div>
+                    <div class="sc-empty"><i class="bi bi-bar-chart"></i><p>@Resources.Strings.ThongKe_ChuaCoDoanhThu</p></div>
                 }
                 else
                 {
@@ -129,14 +129,14 @@
                         @foreach (var d in Model.DoanhThuNgay)
                         {
                             int chieuCao = (int)(d.DoanhThu * 100 / doanhThuMax);
-                            <div class="sc-chart-col" title="@DinhDang.Ngay(d.Ngay): @DinhDang.Tien(d.DoanhThu) (@d.SoDon đơn)">
+                            <div class="sc-chart-col" title="@(string.Format(Resources.Strings.ThongKe_ChartTooltipFormat, DinhDang.Ngay(d.Ngay), DinhDang.Tien(d.DoanhThu), d.SoDon))">
                                 <div class="sc-chart-bar" style="height:@(chieuCao)%"></div>
                                 <div class="sc-chart-label">@d.Ngay.ToString("dd/MM")</div>
                             </div>
                         }
                     </div>
                     <div class="text-center sc-text-muted small mt-2">
-                        Rê chuột vào từng cột để xem doanh thu của ngày đó
+                        @Resources.Strings.ThongKe_ReChuot
                     </div>
                 }
             </div>
@@ -146,11 +146,11 @@
     <!-- ============ DOANH THU THEO LOẠI ============ -->
     <div class="col-xl-4">
         <div class="sc-table-card h-100">
-            <div class="sc-table-head"><h5>Doanh thu theo loại</h5></div>
+            <div class="sc-table-head"><h5>@Resources.Strings.ThongKe_DoanhThuTheoLoai</h5></div>
             <div class="p-3">
                 @if (Model.DoanhThuLoai.Count == 0)
                 {
-                    <div class="sc-empty"><i class="bi bi-pie-chart"></i><p>Chưa có dữ liệu.</p></div>
+                    <div class="sc-empty"><i class="bi bi-pie-chart"></i><p>@Resources.Strings.ThongKe_ChuaCoDuLieu</p></div>
                 }
                 else
                 {
@@ -163,7 +163,7 @@
                                 <span class="sc-text-primary fw-bold">@DinhDang.Tien(l.DoanhThu)</span>
                             </div>
                             <div class="sc-progress"><div style="width:@(phanTram)%"></div></div>
-                            <div class="sc-text-muted" style="font-size:12px">Đã bán @l.SoLuong phần</div>
+                            <div class="sc-text-muted" style="font-size:12px">@(string.Format(Resources.Strings.ThongKe_DaBanPhanFormat, l.SoLuong))</div>
                         </div>
                     }
                 }
@@ -174,21 +174,21 @@
     <!-- ============ TOP BÁN CHẠY ============ -->
     <div class="col-xl-6">
         <div class="sc-table-card">
-            <div class="sc-table-head"><h5>Top 5 sản phẩm bán chạy</h5></div>
+            <div class="sc-table-head"><h5>@Resources.Strings.ThongKe_Top5BanChay</h5></div>
             <div class="table-responsive">
                 <table class="table sc-table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Sản phẩm</th>
-                            <th class="text-center">SL bán</th>
-                            <th class="text-end">Doanh thu</th>
+                            <th>@Resources.Strings.SellerProd_ColSanPham</th>
+                            <th class="text-center">@Resources.Strings.ThongKe_ColSLBan</th>
+                            <th class="text-end">@Resources.Strings.ThongKe_ColDoanhThu</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if (Model.TopBanChay.Count == 0)
                         {
-                            <tr><td colspan="4" class="text-center sc-text-muted py-4">Chưa có dữ liệu bán hàng.</td></tr>
+                            <tr><td colspan="4" class="text-center sc-text-muted py-4">@Resources.Strings.ThongKe_ChuaCoDuLieuBanHang</td></tr>
                         }
                         else
                         {
@@ -200,7 +200,7 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
                                             <img src="@sp.HinhAnh" class="sc-thumb" style="width:40px;height:40px" alt="@sp.TenSP"
-                                                 onerror="this.onerror=null;this.src='https://placehold.co/100x100/FFE6EE/E8517F?text=SC';" />
+                                                 data-fallback="https://placehold.co/100x100/FFE6EE/E8517F?text=SC" />
                                             <span class="fw-bold">@sp.TenSP</span>
                                         </div>
                                     </td>
@@ -220,17 +220,17 @@
     <div class="col-xl-6">
         <div class="sc-table-card">
             <div class="sc-table-head">
-                <h5>Đơn hàng mới nhất</h5>
-                <a href="@Url.Action("Index", "QuanLyDonHang")" class="btn btn-sc-soft btn-sm">Xem tất cả</a>
+                <h5>@Resources.Strings.ThongKe_DonHangMoiNhat</h5>
+                <a href="@Url.Action("Index", "QuanLyDonHang")" class="btn btn-sc-soft btn-sm">@Resources.Strings.Common_XemTatCa</a>
             </div>
             <div class="table-responsive">
                 <table class="table sc-table">
                     <thead>
                         <tr>
-                            <th>Mã đơn</th>
-                            <th>Khách</th>
-                            <th class="text-end">Tổng tiền</th>
-                            <th class="text-center">Trạng thái</th>
+                            <th>@Resources.Strings.Account_MaDon</th>
+                            <th>@Resources.Strings.ThongKe_ColKhach</th>
+                            <th class="text-end">@Resources.Strings.Account_TongTienHeader</th>
+                            <th class="text-center">@Resources.Strings.Account_TrangThai</th>
                         </tr>
                     </thead>
                     <tbody>

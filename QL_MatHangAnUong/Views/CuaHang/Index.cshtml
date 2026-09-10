@@ -1,0 +1,126 @@
+﻿@model List<QL_MatHangAnUong.Models.CuaHang>
+@{
+    ViewBag.Title = Resources.Strings.Footer_HeThongCuaHang;
+    var dsTinh = ViewBag.DanhSachTinhThanh as List<string> ?? new List<string>();
+    var dsQuan = ViewBag.DanhSachQuanHuyen as List<string> ?? new List<string>();
+    string tinhChon = ViewBag.TinhThanhChon as string;
+    string quanChon = ViewBag.QuanHuyenChon as string;
+    string maNgonNgu = ViewBag.NgonNguHienTai == "en" ? "en" : "vi";
+
+    // Cửa hàng đầu tiên trong kết quả lọc — dùng làm vị trí mặc định hiển thị trên bản đồ
+    var diaChiMacDinh = Model.Count > 0 ? Model[0].DiaChiDayDu : "SugarChills Việt Nam";
+}
+
+<div class="container">
+    <div class="sc-breadcrumb">
+        <a href="@Url.Action("Index", "Home")">@Resources.Strings.Common_TrangChu</a>
+        <i class="bi bi-chevron-right" style="font-size:11px"></i>
+        <span>@Resources.Strings.Footer_HeThongCuaHang</span>
+    </div>
+
+    <div class="sc-section-head">
+        <div>
+            <h2>@Resources.Strings.Footer_HeThongCuaHang</h2>
+            <div class="sc-sub">@Resources.Strings.Store_Subtitle</div>
+        </div>
+    </div>
+
+    <!-- ============ TÌM CỬA HÀNG GẦN BẠN ============ -->
+    <div class="sc-store-search mb-4">
+        <h6><i class="bi bi-geo-alt"></i> @Resources.Strings.Store_TimCuaHangGanBan</h6>
+        <form method="get" action="@Url.Action("Index")" class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label">@Resources.Strings.Store_TinhThanhPho</label>
+                <select name="tinhThanh" class="form-select" onchange="this.form.submit()">
+                    <option value="">@Resources.Strings.Store_TatCaTinhThanh</option>
+                    @foreach (var t in dsTinh)
+                    {
+                        <option value="@t" selected="@(tinhChon == t)">@t</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-5">
+                <label class="form-label">@Resources.Strings.Store_PhuongXa</label>
+                <select name="quanHuyen" class="form-select">
+                    <option value="">@Resources.Strings.Store_TatCaPhuongXa</option>
+                    @foreach (var q in dsQuan)
+                    {
+                        <option value="@q" selected="@(quanChon == q)">@q</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-sc-brown w-100">@Resources.Strings.Store_HienThiKetQua</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- ============ DANH SÁCH + BẢN ĐỒ ============ -->
+    <!-- Lưu ý: tên chi nhánh và địa chỉ bên dưới là DỮ LIỆU thật (giống tên sản phẩm), không phải
+         chữ giao diện cố định, nên luôn giữ nguyên tiếng Việt dù đang xem ở ngôn ngữ nào. -->
+    <div class="row g-4 pb-5">
+        <div class="col-lg-5">
+            <div class="sc-store-list">
+                <div class="sc-store-count">@Resources.Strings.Store_CuaHang (@Model.Count)</div>
+
+                @if (Model.Count == 0)
+                {
+                    <div class="sc-panel sc-empty">
+                        <i class="bi bi-shop"></i>
+                        <h5>@Resources.Strings.Store_KhongTimThay</h5>
+                        <p>@Resources.Strings.Store_ThuChonLai</p>
+                        <a href="@Url.Action("Index")" class="btn btn-sc-outline">@Resources.Strings.Store_XemTatCa</a>
+                    </div>
+                }
+                else
+                {
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+                        var ch = Model[i];
+                        <div class="sc-store-item @(i == 0 ? "active" : "")"
+                             data-diachi="@ch.DiaChiDayDu"
+                             onclick="chonCuaHang(this)">
+                            <div class="sc-store-icon"><i class="bi bi-shop"></i></div>
+                            <div>
+                                <div class="sc-store-name">@ch.TenCH</div>
+                                <div class="sc-store-addr"><i class="bi bi-geo-alt"></i> @ch.DiaChiDayDu</div>
+                                <div class="sc-store-meta">
+                                    <span><i class="bi bi-clock"></i> @ch.GioMoCua</span>
+                                    <span><i class="bi bi-telephone"></i> @ch.SoDienThoai</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="sc-store-map-wrap">
+                <iframe id="banDoCuaHang"
+                        src="https://www.google.com/maps?q=@Url.Encode(diaChiMacDinh)&output=embed&hl=@maNgonNgu"
+                        allowfullscreen="" loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // Ngôn ngữ hiện tại của site — dùng để bản đồ Google Maps cũng hiện nhãn cùng ngôn ngữ.
+        var scNgonNguBanDo = '@maNgonNgu';
+
+        // Bấm 1 chi nhánh trong danh sách -> bản đồ bên phải chuyển tới đúng địa chỉ đó
+        function chonCuaHang(el) {
+            var diaChi = el.getAttribute('data-diachi');
+            document.getElementById('banDoCuaHang').src =
+                'https://www.google.com/maps?q=' + encodeURIComponent(diaChi) + '&output=embed&hl=' + scNgonNguBanDo;
+
+            document.querySelectorAll('.sc-store-item').forEach(function (x) {
+                x.classList.remove('active');
+            });
+            el.classList.add('active');
+        }
+    </script>
+}

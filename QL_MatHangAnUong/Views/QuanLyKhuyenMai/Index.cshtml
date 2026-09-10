@@ -2,37 +2,37 @@
 @model List<QL_MatHangAnUong.Models.KhuyenMai>
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Quản lý khuyến mãi";
+    ViewBag.Title = Resources.Strings.Seller_QuanLyKhuyenMai;
 }
 
 <div class="sc-table-card">
     <div class="sc-table-head">
         <div>
-            <h5>Chương trình khuyến mãi</h5>
-            <small class="sc-text-muted">@Model.Count chương trình, @Model.Count(k => k.ConHieuLuc) đang chạy</small>
+            <h5>@Resources.Strings.SellerKM_ChuongTrinhKM</h5>
+            <small class="sc-text-muted">@(string.Format(Resources.Strings.SellerKM_SoLuongFormat, Model.Count, Model.Count(k => k.ConHieuLuc)))</small>
         </div>
-        <a href="@Url.Action("Them")" class="btn btn-sc"><i class="bi bi-plus-lg"></i> Thêm chương trình</a>
+        <a href="@Url.Action("Them")" class="btn btn-sc"><i class="bi bi-plus-lg"></i> @Resources.Strings.SellerKM_ThemBtn</a>
     </div>
 
     <div class="table-responsive">
         <table class="table sc-table align-middle">
             <thead>
                 <tr>
-                    <th>Chương trình</th>
-                    <th>Mã giảm giá</th>
+                    <th>@Resources.Strings.SellerKM_ColChuongTrinh</th>
+                    <th>@Resources.Strings.SellerKM_ColMaGiamGia</th>
                     <th class="text-center">Loại</th>
-                    <th class="text-center">Giảm</th>
-                    <th class="text-end">Tối đa</th>
-                    <th class="text-end">Đơn tối thiểu</th>
-                    <th class="text-center">Thời gian</th>
-                    <th class="text-center">Trạng thái</th>
-                    <th class="text-end" style="width:190px">Thao tác</th>
+                    <th class="text-center">@Resources.Strings.SellerKM_ColGiam</th>
+                    <th class="text-end">@Resources.Strings.SellerKM_ColToiDa</th>
+                    <th class="text-end">@Resources.Strings.SellerKM_ColDonToiThieu</th>
+                    <th class="text-center">@Resources.Strings.SellerKM_ColThoiGian</th>
+                    <th class="text-center">@Resources.Strings.Account_TrangThai</th>
+                    <th class="text-end" style="width:190px">@Resources.Strings.Admin_ThaoTac</th>
                 </tr>
             </thead>
             <tbody>
                 @if (Model.Count == 0)
                 {
-                    <tr><td colspan="9" class="text-center py-5 sc-text-muted">Chưa có chương trình khuyến mãi nào.</td></tr>
+                    <tr><td colspan="9" class="text-center py-5 sc-text-muted">@Resources.Strings.SellerKM_ChuaCoChuongTrinh</td></tr>
                 }
                 else
                 {
@@ -56,22 +56,22 @@
                             </td>
                             <td class="text-center fw-bold sc-text-primary">@km.PhanTramGiam%</td>
                             <td class="text-end">@DinhDang.Tien(km.GiamToiDa)</td>
-                            <td class="text-end">@(km.DonToiThieu > 0 ? DinhDang.Tien(km.DonToiThieu) : "Không")</td>
+                            <td class="text-end">@(km.DonToiThieu > 0 ? DinhDang.Tien(km.DonToiThieu) : Resources.Strings.SellerProd_Khong)</td>
                             <td class="text-center" style="font-size:13px">
                                 @DinhDang.Ngay(km.NgayBatDau)<br />→ @DinhDang.Ngay(km.NgayKetThuc)
                             </td>
                             <td class="text-center">
                                 @if (km.ConHieuLuc)
                                 {
-                                    <span class="sc-badge badge-success">Đang chạy</span>
+                                    <span class="sc-badge badge-success">@Resources.Strings.SellerKM_DangChay</span>
                                 }
                                 else if (!km.KichHoat)
                                 {
-                                    <span class="sc-badge badge-muted">Đã tắt</span>
+                                    <span class="sc-badge badge-muted">@Resources.Strings.SellerKM_DaTat</span>
                                 }
                                 else
                                 {
-                                    <span class="sc-badge badge-warning">Ngoài thời gian</span>
+                                    <span class="sc-badge badge-warning">@Resources.Strings.SellerKM_NgoaiThoiGian</span>
                                 }
                             </td>
                             <td class="text-end text-nowrap">
@@ -79,14 +79,14 @@
                                 {
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="id" value="@km.MaKM" />
-                                    <button type="submit" class="btn btn-sm btn-sc-soft" title="@(km.KichHoat ? "Tắt" : "Bật")">
+                                    <button type="submit" class="btn btn-sm btn-sc-soft" title="@(km.KichHoat ? Resources.Strings.SellerKM_TatTitle : Resources.Strings.SellerKM_BatTitle)">
                                         <i class="bi @(km.KichHoat ? "bi-toggle-on" : "bi-toggle-off")"></i>
                                     </button>
                                 }
-                                <a href="@Url.Action("Sua", new { id = km.MaKM })" class="btn btn-sm btn-sc-soft" title="Sửa">
+                                <a href="@Url.Action("Sua", new { id = km.MaKM })" class="btn btn-sm btn-sc-soft" title="@Resources.Strings.Admin_Sua">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a href="@Url.Action("Xoa", new { id = km.MaKM })" class="btn btn-sm btn-sc-outline" title="Xóa">
+                                <a href="@Url.Action("Xoa", new { id = km.MaKM })" class="btn btn-sm btn-sc-outline" title="@Resources.Strings.Common_Xoa">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>
@@ -100,5 +100,5 @@
 
 <div class="sc-alert sc-alert-info mt-3">
     <i class="bi bi-info-circle"></i>
-    <span>Mã giảm giá tạo ở đây chính là mã khách nhập tại trang <strong>Giỏ hàng</strong>. Hệ thống tự kiểm tra hạn dùng và giá trị đơn tối thiểu.</span>
+    <span>@Html.Raw(string.Format(Resources.Strings.SellerKM_GhiChuMaGiamGiaFormat, "<strong>" + Resources.Strings.Common_GioHang + "</strong>"))</span>
 </div>

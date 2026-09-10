@@ -23,7 +23,7 @@
 
 <div class="container">
     <div class="sc-breadcrumb">
-        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        <a href="@Url.Action("Index", "Home")">@Resources.Strings.Common_TrangChu</a>
         <i class="bi bi-chevron-right" style="font-size:11px"></i>
         @if (!string.IsNullOrEmpty(Model.TieuDeTrang))
         {
@@ -31,7 +31,7 @@
         }
         else
         {
-            <span>Thực đơn</span>
+            <span>@Resources.Strings.Header_ThucDon</span>
             if (!string.IsNullOrEmpty(Model.TenLoaiDangChon))
             {
                 <i class="bi bi-chevron-right" style="font-size:11px"></i>
@@ -47,11 +47,11 @@
         {
             <div class="col-lg-3">
                 <div class="sc-filter">
-                    <h6><i class="bi bi-funnel"></i> Loại sản phẩm</h6>
+                    <h6><i class="bi bi-funnel"></i> @Resources.Strings.SanPham_LoaiSanPham</h6>
                     <div class="sc-filter-list">
                         <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, sapXep = Model.SapXep })"
                            class="@(Model.MaLoai == null ? "active" : "")">
-                            <span>Tất cả</span>
+                            <span>@Resources.Strings.Common_TatCa</span>
                             <span class="sc-count">@Model.TongSoSanPham</span>
                         </a>
                         @foreach (var loai in Model.DanhSachLoai)
@@ -64,24 +64,24 @@
                         }
                     </div>
 
-                    <h6><i class="bi bi-cash-coin"></i> Khoảng giá</h6>
+                    <h6><i class="bi bi-cash-coin"></i> @Resources.Strings.SanPham_KhoangGia</h6>
                     <form method="get" action="@Url.Action("Index")">
                         <input type="hidden" name="tuKhoa" value="@Model.TuKhoa" />
                         <input type="hidden" name="maLoai" value="@Model.MaLoai" />
                         <input type="hidden" name="sapXep" value="@Model.SapXep" />
                         <div class="d-flex gap-2 mb-2">
-                            <input type="number" class="form-control" name="giaTu" placeholder="Từ" min="0" step="1000" value="@Model.GiaTu" />
-                            <input type="number" class="form-control" name="giaDen" placeholder="Đến" min="0" step="1000" value="@Model.GiaDen" />
+                            <input type="number" class="form-control" name="giaTu" placeholder="@Resources.Strings.SanPham_Tu" min="0" step="1000" value="@Model.GiaTu" />
+                            <input type="number" class="form-control" name="giaDen" placeholder="@Resources.Strings.SanPham_Den" min="0" step="1000" value="@Model.GiaDen" />
                         </div>
-                        <button type="submit" class="btn btn-sc w-100 btn-sm">Áp dụng</button>
+                        <button type="submit" class="btn btn-sc w-100 btn-sm">@Resources.Strings.SanPham_ApDung</button>
                     </form>
 
-                    <h6><i class="bi bi-lightning"></i> Lọc nhanh</h6>
+                    <h6><i class="bi bi-lightning"></i> @Resources.Strings.SanPham_LocNhanh</h6>
                     <div>
-                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaDen = 35000 })" class="sc-chip">Dưới 35.000đ</a>
-                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaTu = 35000, giaDen = 50000 })" class="sc-chip">35k - 50k</a>
-                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaTu = 50000 })" class="sc-chip">Trên 50.000đ</a>
-                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, giaTu = Model.GiaTu, giaDen = Model.GiaDen, sapXep = "ban-chay" })" class="sc-chip"><i class="bi bi-fire"></i> Bán chạy</a>
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaDen = 35000 })" class="sc-chip">@Resources.Strings.SanPham_Duoi35k</a>
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaTu = 35000, giaDen = 50000 })" class="sc-chip">@Resources.Strings.SanPham_35kTo50k</a>
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, sapXep = Model.SapXep, giaTu = 50000 })" class="sc-chip">@Resources.Strings.SanPham_Tren50k</a>
+                        <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = Model.MaLoai, giaTu = Model.GiaTu, giaDen = Model.GiaDen, sapXep = "ban-chay" })" class="sc-chip"><i class="bi bi-fire"></i> @Resources.Strings.SanPham_BanChay</a>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                     <h2>
                         @if (!string.IsNullOrWhiteSpace(Model.TuKhoa))
                         {
-                            <text>Kết quả cho "@Model.TuKhoa"</text>
+                            @(string.Format(Resources.Strings.SanPham_KetQuaChoFormat, Model.TuKhoa))
                         }
                         else if (!string.IsNullOrEmpty(Model.TieuDeTrang))
                         {
@@ -106,10 +106,10 @@
                         }
                         else
                         {
-                            <text>Toàn bộ thực đơn</text>
+                            @Resources.Strings.SanPham_ToanBoThucDon
                         }
                     </h2>
-                    <div class="sc-sub">Tìm thấy <strong>@Model.TongSoSanPham</strong> sản phẩm</div>
+                    <div class="sc-sub">@Resources.Strings.SanPham_TimThayPrefix <strong>@Model.TongSoSanPham</strong> @Resources.Strings.SanPham_SanPhamSuffix</div>
                 </div>
 
                 @if (hienBoLoc)
@@ -119,13 +119,13 @@
                         <input type="hidden" name="maLoai" value="@Model.MaLoai" />
                         <input type="hidden" name="giaTu" value="@Model.GiaTu" />
                         <input type="hidden" name="giaDen" value="@Model.GiaDen" />
-                        <label class="form-label mb-0 text-nowrap">Sắp xếp:</label>
+                        <label class="form-label mb-0 text-nowrap">@Resources.Strings.SanPham_SapXep</label>
                         <select name="sapXep" class="form-select" onchange="this.form.submit()">
-                            <option value="" selected="@(string.IsNullOrEmpty(Model.SapXep))">Mặc định</option>
-                            <option value="ban-chay" selected="@(Model.SapXep == "ban-chay")">Bán chạy</option>
-                            <option value="gia-tang" selected="@(Model.SapXep == "gia-tang")">Giá tăng dần</option>
-                            <option value="gia-giam" selected="@(Model.SapXep == "gia-giam")">Giá giảm dần</option>
-                            <option value="ten" selected="@(Model.SapXep == "ten")">Tên A → Z</option>
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.SapXep))">@Resources.Strings.SanPham_MacDinh</option>
+                            <option value="ban-chay" selected="@(Model.SapXep == "ban-chay")">@Resources.Strings.SanPham_BanChay</option>
+                            <option value="gia-tang" selected="@(Model.SapXep == "gia-tang")">@Resources.Strings.SanPham_GiaTangDan</option>
+                            <option value="gia-giam" selected="@(Model.SapXep == "gia-giam")">@Resources.Strings.SanPham_GiaGiamDan</option>
+                            <option value="ten" selected="@(Model.SapXep == "ten")">@Resources.Strings.SanPham_TenAZ</option>
                         </select>
                     </form>
                 }
@@ -135,9 +135,9 @@
             {
                 <div class="sc-panel sc-empty">
                     <i class="bi bi-cup-straw"></i>
-                    <h5>Không tìm thấy sản phẩm phù hợp</h5>
-                    <p>Bạn thử đổi từ khóa hoặc bỏ bớt bộ lọc nhé.</p>
-                    <a href="@Url.Action("Index")" class="btn btn-sc">Xem tất cả sản phẩm</a>
+                    <h5>@Resources.Strings.SanPham_KhongTimThay</h5>
+                    <p>@Resources.Strings.SanPham_DoiTuKhoa</p>
+                    <a href="@Url.Action("Index")" class="btn btn-sc">@Resources.Strings.SanPham_XemTatCaSanPham</a>
                 </div>
             }
             else

@@ -15,7 +15,7 @@
             <span class="sc-badge-hot"><i class="bi bi-fire"></i> HOT</span>
         }
         <img src="@Model.HinhAnh" alt="@Model.TenSP"
-             onerror="this.onerror=null;this.src='https://placehold.co/600x600/FFE6EE/E8517F?text=SugarChills';" />
+             data-fallback="https://placehold.co/600x600/FFE6EE/E8517F?text=SugarChills" />
     </a>
 
     <div class="sc-product-body">
@@ -42,7 +42,7 @@
             {
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="maSP" value="@Model.MaSP" />
-                <button type="submit" class="sc-add-btn" title="Thêm nhanh vào giỏ">
+                <button type="submit" class="sc-add-btn" title="@Resources.Strings.Product_ThemNhanhVaoGio">
                     <i class="bi bi-plus-lg"></i>
                 </button>
             }

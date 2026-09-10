@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using QL_MatHangAnUong.Models;
 using QL_MatHangAnUong.Models.ViewModels;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Controllers
 {
@@ -68,11 +69,9 @@ namespace QL_MatHangAnUong.Controllers
                 TongSoSanPham = ketQua.Count
             };
 
-            ViewBag.SoSanPhamTheoLoai = model.DanhSachLoai
-                .ToDictionary(l => l.MaLoai, l => KhoDuLieu.DemSanPhamTheoLoai(l.MaLoai));
             ViewBag.Title = string.IsNullOrWhiteSpace(tuKhoa)
-                ? (tieuDeTrang ?? model.TenLoaiDangChon ?? "Thực đơn")
-                : "Kết quả tìm kiếm";
+                ? (tieuDeTrang ?? model.TenLoaiDangChon ?? Ngu.S("Header_ThucDon"))
+                : Ngu.S("SanPham_KetQuaTimKiem");
             // Khi vào từ lối tắt trang chủ, menu trên cùng hiện "Trang chủ" đang chọn
             // thay vì "Thực đơn", vì đây không phải đang duyệt theo danh mục.
             ViewBag.TuTrangChu = !hienBoLoc;

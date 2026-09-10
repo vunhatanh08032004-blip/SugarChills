@@ -6,7 +6,7 @@
     Func<string, string> active = c => ctl == c ? "active" : "";
 }
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="@(ViewBag.NgonNguHienTai == "en" ? "en" : "vi")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +14,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Ảnh cờ quốc gia thật (Windows không hiện emoji cờ 🇻🇳/🇬🇧 mà chỉ hiện chữ "VN"/"GB") -->
+    <link href="https://cdn.jsdelivr.net/npm/flag-icons@7/css/flag-icons.min.css" rel="stylesheet">
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
@@ -26,34 +28,43 @@
         <aside class="sc-sidebar" id="sidebarQuanTri">
             <a href="@Url.Action("Index", "Home")" class="sc-logo">
                 <span class="sc-logo-mark"><i class="bi bi-cup-straw"></i></span>
-                <span>SugarChills<small>Trang quản trị</small></span>
+                <span>SugarChills<small>@Resources.Strings.Seller_TrangQuanTri</small></span>
             </a>
 
-            <div class="sc-sidebar-label">Tổng quan</div>
+            <div class="sc-sidebar-label">@Resources.Strings.Seller_TongQuan</div>
             <a class="sc-menu-item @active("ThongKe")" href="@Url.Action("Index", "ThongKe")">
-                <i class="bi bi-speedometer2"></i> Thống kê doanh thu
+                <i class="bi bi-speedometer2"></i> @Resources.Strings.Seller_ThongKeDoanhThu
             </a>
 
-            <div class="sc-sidebar-label">Bán hàng</div>
+            <div class="sc-sidebar-label">@Resources.Strings.Seller_BanHang</div>
             <a class="sc-menu-item @active("QuanLyDonHang")" href="@Url.Action("Index", "QuanLyDonHang")">
-                <i class="bi bi-receipt-cutoff"></i> Quản lý đơn hàng
+                <i class="bi bi-receipt-cutoff"></i> @Resources.Strings.Seller_QuanLyDonHang
             </a>
             <a class="sc-menu-item @active("QuanLyKhuyenMai")" href="@Url.Action("Index", "QuanLyKhuyenMai")">
-                <i class="bi bi-ticket-perforated"></i> Quản lý khuyến mãi
+                <i class="bi bi-ticket-perforated"></i> @Resources.Strings.Seller_QuanLyKhuyenMai
             </a>
 
-            <div class="sc-sidebar-label">Danh mục</div>
+            <div class="sc-sidebar-label">@Resources.Strings.Seller_DanhMuc</div>
             <a class="sc-menu-item @active("QuanLySanPham")" href="@Url.Action("Index", "QuanLySanPham")">
-                <i class="bi bi-cup-hot"></i> Quản lý sản phẩm
+                <i class="bi bi-cup-hot"></i> @Resources.Strings.Seller_QuanLySanPham
             </a>
             <a class="sc-menu-item @active("QuanLyLoai")" href="@Url.Action("Index", "QuanLyLoai")">
-                <i class="bi bi-tags"></i> Quản lý loại
+                <i class="bi bi-tags"></i> @Resources.Strings.Seller_QuanLyLoai
             </a>
 
-            <div class="sc-sidebar-label">Khác</div>
+            <div class="sc-sidebar-label">@Resources.Strings.Seller_Khac</div>
             <a class="sc-menu-item" href="@Url.Action("Index", "Home")" target="_blank">
-                <i class="bi bi-shop"></i> Xem website
+                <i class="bi bi-shop"></i> @Resources.Strings.Seller_XemWebsite
             </a>
+
+            <!-- ============ ĐỔI NGÔN NGỮ (VI/EN) ============ -->
+            <div class="sc-sidebar-label">@Resources.Strings.Common_NgonNgu</div>
+            <div class="sc-lang-switch sc-lang-switch-sidebar">
+                <a href="@Url.Action("Doi", "NgonNgu", new { ma = "vi" })"
+                   class="@(ViewBag.NgonNguHienTai == "vi" ? "active" : "")" title="Tiếng Việt"><span class="fi fi-vn"></span> Tiếng Việt</a>
+                <a href="@Url.Action("Doi", "NgonNgu", new { ma = "en" })"
+                   class="@(ViewBag.NgonNguHienTai == "en" ? "active" : "")" title="English"><span class="fi fi-gb"></span> English</a>
+            </div>
         </aside>
 
         <!-- ============ NỘI DUNG ============ -->
@@ -65,7 +76,7 @@
                     </button>
                     <div>
                         <h5 class="mb-0">@ViewBag.Title</h5>
-                        <small class="sc-text-muted">Xin chào, @(nguoiBan != null ? nguoiBan.HoTen : "Người bán")</small>
+                        <small class="sc-text-muted">@Resources.Strings.Seller_XinChao, @(nguoiBan != null ? nguoiBan.HoTen : Resources.Strings.Seller_NguoiBan)</small>
                     </div>
                 </div>
 
@@ -75,14 +86,14 @@
                         <span class="d-none d-sm-inline">@(nguoiBan != null ? nguoiBan.Email : "")</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="@Url.Action("Index", "Home")"><i class="bi bi-shop me-2"></i>Về trang bán hàng</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("Index", "Home")"><i class="bi bi-shop me-2"></i>@Resources.Strings.Seller_VeTrangBanHang</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             @using (Html.BeginForm("DangXuat", "TaiKhoan", FormMethod.Post, new { @class = "px-2" }))
                             {
                                 @Html.AntiForgeryToken()
                                 <button type="submit" class="btn btn-sc-outline btn-sm w-100">
-                                    <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                                    <i class="bi bi-box-arrow-right"></i> @Resources.Strings.Common_DangXuat
                                 </button>
                             }
                         </li>

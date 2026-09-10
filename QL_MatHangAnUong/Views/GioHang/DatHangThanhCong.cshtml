@@ -8,16 +8,15 @@
             <i class="bi bi-check-lg"></i>
         </div>
 
-        <h2>Đặt hàng thành công!</h2>
+        <h2>@Resources.Strings.Success_DatHangThanhCong</h2>
         <p class="sc-text-muted">
-            Cảm ơn bạn đã đặt món tại SugarChills. Đơn hàng <strong>#@Model.MaDH</strong> đang chờ quán xác nhận,
-            tụi mình sẽ gọi cho bạn trong ít phút nữa.
+            @Resources.Strings.Success_CamOnPrefix <strong>#@Model.MaDH</strong> @Resources.Strings.Success_CamOnSuffix
         </p>
 
         <div class="row g-3 text-start mt-3">
             <div class="col-md-6">
                 <div class="sc-panel h-100" style="box-shadow:none;background:var(--sc-primary-softer)">
-                    <div class="sc-option-title">Người nhận</div>
+                    <div class="sc-option-title">@Resources.Strings.Success_NguoiNhan</div>
                     <div>@Model.TenNguoiNhan</div>
                     <div class="sc-text-muted">@Model.DienThoai</div>
                     <div class="sc-text-muted">@Model.DiaChi</div>
@@ -25,9 +24,9 @@
             </div>
             <div class="col-md-6">
                 <div class="sc-panel h-100" style="box-shadow:none;background:var(--sc-primary-softer)">
-                    <div class="sc-option-title">Đơn hàng</div>
-                    <div>Ngày đặt: @DinhDang.NgayGio(Model.NgayDat)</div>
-                    <div>Thanh toán: @Model.HinhThucThanhToan</div>
+                    <div class="sc-option-title">@Resources.Strings.Success_DonHang</div>
+                    <div>@(string.Format(Resources.Strings.Success_NgayDatFormat, DinhDang.NgayGio(Model.NgayDat)))</div>
+                    <div>@(string.Format(Resources.Strings.Success_ThanhToanFormat, Model.HinhThucThanhToan))</div>
                     <div>
                         @if (Model.DaThanhToan)
                         {
@@ -38,7 +37,7 @@
                             <span>Còn phải thu: <strong>@DinhDang.Tien(Model.SoTienConLai)</strong></span>
                         }
                     </div>
-                    <div>Trạng thái: <span class="sc-badge @Model.CssTrangThai">@Model.TrangThai</span></div>
+                    <div>@Resources.Strings.Success_TrangThai <span class="sc-badge @Model.CssTrangThai">@Model.TrangThai</span></div>
                 </div>
             </div>
         </div>
@@ -47,9 +46,9 @@
             <table class="table sc-table">
                 <thead>
                     <tr>
-                        <th>Món</th>
-                        <th class="text-center">SL</th>
-                        <th class="text-end">Thành tiền</th>
+                        <th>@Resources.Strings.Success_Mon</th>
+                        <th class="text-center">@Resources.Strings.Success_SL</th>
+                        <th class="text-end">@Resources.Strings.Cart_ThanhTien</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,19 +66,19 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="2" class="text-end sc-text-muted">Tạm tính</td>
+                        <td colspan="2" class="text-end sc-text-muted">@Resources.Strings.Detail_TamTinh</td>
                         <td class="text-end">@DinhDang.Tien(Model.TamTinh)</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="text-end sc-text-muted">Giảm giá</td>
+                        <td colspan="2" class="text-end sc-text-muted">@Resources.Strings.Cart_GiamGia</td>
                         <td class="text-end">- @DinhDang.Tien(Model.TienGiam)</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="text-end sc-text-muted">Phí giao hàng</td>
+                        <td colspan="2" class="text-end sc-text-muted">@Resources.Strings.Cart_PhiGiaoHang</td>
                         <td class="text-end">@DinhDang.Tien(Model.PhiGiaoHang)</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="text-end fw-bold">Tổng cộng</td>
+                        <td colspan="2" class="text-end fw-bold">@Resources.Strings.Cart_TongCong</td>
                         <td class="text-end fw-bold sc-text-primary" style="font-size:18px">@DinhDang.Tien(Model.TongTien)</td>
                     </tr>
                 </tfoot>
@@ -88,9 +87,9 @@
 
         <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
             <a href="@Url.Action("ChiTiet", "DonHang", new { id = Model.MaDH })" class="btn btn-sc">
-                <i class="bi bi-receipt"></i> Theo dõi đơn hàng
+                <i class="bi bi-receipt"></i> @Resources.Strings.Success_TheoDoiDonHang
             </a>
-            <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-outline">Tiếp tục mua sắm</a>
+            <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-outline">@Resources.Strings.Success_TiepTucMuaSam</a>
         </div>
     </div>
 </div>

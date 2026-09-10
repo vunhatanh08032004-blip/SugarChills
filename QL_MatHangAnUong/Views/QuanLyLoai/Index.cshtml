@@ -1,7 +1,7 @@
 ﻿@model List<QL_MatHangAnUong.Models.LoaiSanPham>
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Quản lý loại sản phẩm";
+    ViewBag.Title = Resources.Strings.SellerLoai_Title;
 
     var soSP = ViewBag.SoSanPham as Dictionary<int, int> ?? new Dictionary<int, int>();
 }
@@ -9,30 +9,30 @@
 <div class="sc-table-card">
     <div class="sc-table-head">
         <div>
-            <h5>Danh sách loại sản phẩm</h5>
-            <small class="sc-text-muted">@Model.Count loại đang có trong hệ thống</small>
+            <h5>@Resources.Strings.SellerLoai_DanhSach</h5>
+            <small class="sc-text-muted">@(string.Format(Resources.Strings.SellerLoai_SoLuongDangCoFormat, Model.Count))</small>
         </div>
-        <a href="@Url.Action("Them")" class="btn btn-sc"><i class="bi bi-plus-lg"></i> Thêm loại</a>
+        <a href="@Url.Action("Them")" class="btn btn-sc"><i class="bi bi-plus-lg"></i> @Resources.Strings.SellerLoai_ThemBtn</a>
     </div>
 
     <div class="table-responsive">
         <table class="table sc-table align-middle">
             <thead>
                 <tr>
-                    <th style="width:70px">Mã</th>
-                    <th style="width:90px">Ảnh</th>
-                    <th>Tên loại</th>
-                    <th>Mô tả</th>
-                    <th class="text-center">Số SP</th>
-                    <th class="text-center">Thứ tự</th>
-                    <th class="text-center">Hiển thị</th>
-                    <th class="text-end" style="width:150px">Thao tác</th>
+                    <th style="width:70px">@Resources.Strings.SellerProd_ColMa</th>
+                    <th style="width:90px">@Resources.Strings.SellerLoai_ColAnh</th>
+                    <th>@Resources.Strings.SellerLoai_ColTenLoai</th>
+                    <th>@Resources.Strings.SellerProd_MoTaLabel</th>
+                    <th class="text-center">@Resources.Strings.SellerLoai_ColSoSP</th>
+                    <th class="text-center">@Resources.Strings.SellerLoai_ColThuTu</th>
+                    <th class="text-center">@Resources.Strings.SellerLoai_ColHienThi</th>
+                    <th class="text-end" style="width:150px">@Resources.Strings.Admin_ThaoTac</th>
                 </tr>
             </thead>
             <tbody>
                 @if (Model.Count == 0)
                 {
-                    <tr><td colspan="8" class="text-center py-5 sc-text-muted">Chưa có loại sản phẩm nào.</td></tr>
+                    <tr><td colspan="8" class="text-center py-5 sc-text-muted">@Resources.Strings.SellerLoai_ChuaCoLoaiNao</td></tr>
                 }
                 else
                 {
@@ -42,7 +42,7 @@
                             <td class="fw-bold">@l.MaLoai</td>
                             <td>
                                 <img src="@l.HinhAnh" class="sc-thumb" alt="@l.TenLoai"
-                                     onerror="this.onerror=null;this.src='https://placehold.co/100x100/FFE6EE/E8517F?text=SC';" />
+                                     data-fallback="https://placehold.co/100x100/FFE6EE/E8517F?text=SC" />
                             </td>
                             <td class="fw-bold">@l.TenLoai</td>
                             <td class="sc-text-muted">@l.MoTa</td>
@@ -53,18 +53,18 @@
                             <td class="text-center">
                                 @if (l.HienThi)
                                 {
-                                    <span class="sc-badge badge-success">Hiện</span>
+                                    <span class="sc-badge badge-success">@Resources.Strings.SellerLoai_Hien</span>
                                 }
                                 else
                                 {
-                                    <span class="sc-badge badge-muted">Ẩn</span>
+                                    <span class="sc-badge badge-muted">@Resources.Strings.SellerLoai_An</span>
                                 }
                             </td>
                             <td class="text-end text-nowrap">
-                                <a href="@Url.Action("Sua", new { id = l.MaLoai })" class="btn btn-sm btn-sc-soft" title="Sửa">
+                                <a href="@Url.Action("Sua", new { id = l.MaLoai })" class="btn btn-sm btn-sc-soft" title="@Resources.Strings.Admin_Sua">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a href="@Url.Action("Xoa", new { id = l.MaLoai })" class="btn btn-sm btn-sc-outline" title="Xóa">
+                                <a href="@Url.Action("Xoa", new { id = l.MaLoai })" class="btn btn-sm btn-sc-outline" title="@Resources.Strings.Common_Xoa">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>
@@ -78,5 +78,5 @@
 
 <div class="sc-alert sc-alert-info mt-3">
     <i class="bi bi-info-circle"></i>
-    <span>Không thể xóa loại đang có sản phẩm — hệ thống sẽ báo lỗi để bảo vệ ràng buộc khóa ngoại giữa bảng Loại và bảng Sản phẩm.</span>
+    <span>@Resources.Strings.SellerLoai_GhiChuKhongXoaDuoc</span>
 </div>

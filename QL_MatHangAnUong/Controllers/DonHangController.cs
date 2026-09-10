@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Models;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Controllers
 {
@@ -21,7 +22,7 @@ namespace QL_MatHangAnUong.Controllers
                 ds = ds.Where(d => d.TrangThai == trangThai).ToList();
 
             ViewBag.TrangThaiDangChon = trangThai ?? "Tất cả";
-            ViewBag.Title = "Đơn hàng của tôi";
+            ViewBag.Title = Ngu.S("Header_DonHangCuaToi");
             return View(ds);
         }
 
@@ -29,13 +30,13 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult ChiTiet(int id)
         {
             var dh = KhoDuLieu.LayDonHang(id);
-            if (dh == null) return HttpNotFound("Không tìm thấy đơn hàng.");
+            if (dh == null) return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
             // Khách chỉ được xem đơn của chính mình
             if (dh.MaND != NguoiDungHienTai.MaND)
-                return new HttpUnauthorizedResult("Bạn không có quyền xem đơn hàng này.");
+                return new HttpUnauthorizedResult(Ngu.S("Order_KhongCoQuyenXem"));
 
-            ViewBag.Title = "Đơn hàng #" + dh.MaDH;
+            ViewBag.Title = string.Format(Ngu.S("Order_DonHangTitleFormat"), dh.MaDH);
             return View(dh);
         }
 
@@ -45,19 +46,19 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult HuyDon(int id)
         {
             var dh = KhoDuLieu.LayDonHang(id);
-            if (dh == null) return HttpNotFound("Không tìm thấy đơn hàng.");
+            if (dh == null) return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
             if (dh.MaND != NguoiDungHienTai.MaND)
-                return new HttpUnauthorizedResult("Bạn không có quyền hủy đơn hàng này.");
+                return new HttpUnauthorizedResult(Ngu.S("Order_KhongCoQuyenHuy"));
 
             if (dh.TrangThai != DonHang.ChoXacNhan)
             {
-                ThongBao("Đơn đã được xác nhận nên không thể tự hủy. Vui lòng liên hệ 1900 6789.", "warning");
+                ThongBao(Ngu.S("Order_KhongTheTuHuy"), "warning");
                 return RedirectToAction("ChiTiet", new { id = id });
             }
 
             KhoDuLieu.CapNhatTrangThaiDonHang(id, DonHang.DaHuy);
-            ThongBao("Đã hủy đơn hàng #" + id + ".", "info");
+            ThongBao(string.Format(Ngu.S("Order_DaHuyDonFormat"), id), "info");
             return RedirectToAction("Index");
         }
     }

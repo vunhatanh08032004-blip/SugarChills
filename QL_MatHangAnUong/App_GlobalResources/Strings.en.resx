@@ -1,0 +1,1621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_TrangChu" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Common_GioiThieu" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="Common_LienHe" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Common_CuaHang" xml:space="preserve">
+    <value>Stores</value>
+  </data>
+  <data name="Common_DangNhap" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="Common_DangKy" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="Common_DangXuat" xml:space="preserve">
+    <value>Log Out</value>
+  </data>
+  <data name="Common_GioHang" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="Common_TimKiem" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Common_CuonLenDauTrang" xml:space="preserve">
+    <value>Scroll to top</value>
+  </data>
+  <data name="Header_DatHang" xml:space="preserve">
+    <value>Hotline</value>
+  </data>
+  <data name="Header_MienPhiGiaoHang" xml:space="preserve">
+    <value>Free shipping for orders over 150,000₫</value>
+  </data>
+  <data name="Header_SearchPlaceholder" xml:space="preserve">
+    <value>What would you like to drink today?</value>
+  </data>
+  <data name="Header_TaiKhoanCuaToi" xml:space="preserve">
+    <value>My Account</value>
+  </data>
+  <data name="Header_DonHangCuaToi" xml:space="preserve">
+    <value>My Orders</value>
+  </data>
+  <data name="Header_KhuQuanTri" xml:space="preserve">
+    <value>Admin Area</value>
+  </data>
+  <data name="Header_ThucDon" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Header_TatCaSanPham" xml:space="preserve">
+    <value>All Products</value>
+  </data>
+  <data name="Header_KhuyenMai" xml:space="preserve">
+    <value>Promotions</value>
+  </data>
+  <data name="Header_MonBanChay" xml:space="preserve">
+    <value>Best Sellers</value>
+  </data>
+  <data name="Header_MonGiaTot" xml:space="preserve">
+    <value>Best Prices</value>
+  </data>
+  <data name="Header_MaGiamGia" xml:space="preserve">
+    <value>Discount Codes</value>
+  </data>
+  <data name="Footer_MoTa" xml:space="preserve">
+    <value>SugarChills serves milk tea, fruit tea, coffee and pastries freshly made every day from fresh ingredients. Just sweet enough, refreshingly delightful.</value>
+  </data>
+  <data name="Footer_VeSugarChills" xml:space="preserve">
+    <value>About SugarChills</value>
+  </data>
+  <data name="Footer_HeThongCuaHang" xml:space="preserve">
+    <value>Store Locator</value>
+  </data>
+  <data name="Footer_GioMoCua" xml:space="preserve">
+    <value>Opening Hours</value>
+  </data>
+  <data name="Footer_GioT2T6" xml:space="preserve">
+    <value>Mon - Fri: 07:00 - 22:00</value>
+  </data>
+  <data name="Footer_GioT7CN" xml:space="preserve">
+    <value>Sat - Sun: 08:00 - 23:00</value>
+  </data>
+  <data name="Footer_Copyright" xml:space="preserve">
+    <value>Web Programming course project, ASP.NET MVC 5.</value>
+  </data>
+  <data name="Seller_TrangQuanTri" xml:space="preserve">
+    <value>Admin Panel</value>
+  </data>
+  <data name="Seller_TongQuan" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Seller_ThongKeDoanhThu" xml:space="preserve">
+    <value>Revenue Statistics</value>
+  </data>
+  <data name="Seller_BanHang" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="Seller_QuanLyDonHang" xml:space="preserve">
+    <value>Order Management</value>
+  </data>
+  <data name="Seller_QuanLyKhuyenMai" xml:space="preserve">
+    <value>Promotion Management</value>
+  </data>
+  <data name="Seller_DanhMuc" xml:space="preserve">
+    <value>Catalog</value>
+  </data>
+  <data name="Seller_QuanLySanPham" xml:space="preserve">
+    <value>Product Management</value>
+  </data>
+  <data name="Seller_QuanLyLoai" xml:space="preserve">
+    <value>Category Management</value>
+  </data>
+  <data name="Seller_Khac" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Seller_XemWebsite" xml:space="preserve">
+    <value>View Website</value>
+  </data>
+  <data name="Seller_XinChao" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="Seller_NguoiBan" xml:space="preserve">
+    <value>Seller</value>
+  </data>
+  <data name="Seller_VeTrangBanHang" xml:space="preserve">
+    <value>Back to Storefront</value>
+  </data>
+  <data name="Common_NgonNgu" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Store_Subtitle" xml:space="preserve">
+    <value>SugarChills has branches across many provinces and cities nationwide</value>
+  </data>
+  <data name="Store_TimCuaHangGanBan" xml:space="preserve">
+    <value>Find a store near you</value>
+  </data>
+  <data name="Store_TinhThanhPho" xml:space="preserve">
+    <value>Province/City</value>
+  </data>
+  <data name="Store_TatCaTinhThanh" xml:space="preserve">
+    <value>-- All provinces/cities --</value>
+  </data>
+  <data name="Store_PhuongXa" xml:space="preserve">
+    <value>Ward/Commune</value>
+  </data>
+  <data name="Store_TatCaPhuongXa" xml:space="preserve">
+    <value>-- All wards/communes --</value>
+  </data>
+  <data name="Store_HienThiKetQua" xml:space="preserve">
+    <value>Show Results</value>
+  </data>
+  <data name="Store_CuaHang" xml:space="preserve">
+    <value>Stores</value>
+  </data>
+  <data name="Store_KhongTimThay" xml:space="preserve">
+    <value>No matching branch found</value>
+  </data>
+  <data name="Store_ThuChonLai" xml:space="preserve">
+    <value>Try selecting a different Province/City or Ward/Commune.</value>
+  </data>
+  <data name="Store_XemTatCa" xml:space="preserve">
+    <value>View all branches</value>
+  </data>
+  <data name="Common_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Home_GioiThieuTitle" xml:space="preserve">
+    <value>About SugarChills</value>
+  </data>
+  <data name="Contact_TieuDe" xml:space="preserve">
+    <value>Contact SugarChills</value>
+  </data>
+  <data name="Contact_CuaHangChinh" xml:space="preserve">
+    <value>Main Store</value>
+  </data>
+  <data name="Contact_HotlineDatHang" xml:space="preserve">
+    <value>Order Hotline</value>
+  </data>
+  <data name="Contact_GuiLoiNhan" xml:space="preserve">
+    <value>Send us a message</value>
+  </data>
+  <data name="Contact_MoTaForm" xml:space="preserve">
+    <value>Feedback about our drinks, service, or a collaboration idea — leave us a message and SugarChills will reply within 24 hours.</value>
+  </data>
+  <data name="Contact_HoVaTen" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Contact_HoTenPlaceholder" xml:space="preserve">
+    <value>John Smith</value>
+  </data>
+  <data name="Contact_SoDienThoai" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="Contact_NoiDung" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Contact_NoiDungPlaceholder" xml:space="preserve">
+    <value>What would you like to tell SugarChills?</value>
+  </data>
+  <data name="Contact_GuiLoiNhanBtn" xml:space="preserve">
+    <value>Send Message</value>
+  </data>
+  <data name="Contact_ThongBaoDemo" xml:space="preserve">
+    <value>Thank you! This is a course-project demo form and is not yet saved to the database.</value>
+  </data>
+  <data name="About_TuNam" xml:space="preserve">
+    <value>SINCE 2023</value>
+  </data>
+  <data name="About_CauChuyen" xml:space="preserve">
+    <value>The SugarChills Story</value>
+  </data>
+  <data name="About_MoTaHero" xml:space="preserve">
+    <value>Starting from a small milk tea stand outside the school gate, SugarChills grew up alongside after-school afternoons and the familiar "less sugar, more ice" order.</value>
+  </data>
+  <data name="About_AltKhongGianQuan" xml:space="preserve">
+    <value>Store Interior</value>
+  </data>
+  <data name="About_LamGiMoiNgay" xml:space="preserve">
+    <value>What We Do Every Day</value>
+  </data>
+  <data name="About_MoTaLamViec" xml:space="preserve">
+    <value>Tea is freshly brewed every 4 hours, tapioca pearls are cooked in small batches every 2 hours, and fruit is cut fresh daily. Every drink is made exactly to the sugar and ice level you chose, because we believe "just sweet enough" is a level only you get to decide.</value>
+  </data>
+  <data name="About_GiaTri" xml:space="preserve">
+    <value>Values SugarChills Lives By</value>
+  </data>
+  <data name="About_NguyenLieuMinhBach" xml:space="preserve">
+    <value>Transparent Ingredients</value>
+  </data>
+  <data name="About_NguyenLieuMoTa" xml:space="preserve">
+    <value>Clear origin, no artificial coloring</value>
+  </data>
+  <data name="About_PhucVuTuTe" xml:space="preserve">
+    <value>Caring Service</value>
+  </data>
+  <data name="About_PhucVuMoTa" xml:space="preserve">
+    <value>Wrong order? We'll remake it right away</value>
+  </data>
+  <data name="About_LyThanThien" xml:space="preserve">
+    <value>Eco-Friendly Cups</value>
+  </data>
+  <data name="About_LyMoTa" xml:space="preserve">
+    <value>Paper straws, recycled cups</value>
+  </data>
+  <data name="About_GiaSinhVien" xml:space="preserve">
+    <value>Student-Friendly Prices</value>
+  </data>
+  <data name="About_GiaSinhVienMoTa" xml:space="preserve">
+    <value>Most items under 50,000₫</value>
+  </data>
+  <data name="About_TrongConSo" xml:space="preserve">
+    <value>SugarChills by the Numbers</value>
+  </data>
+  <data name="About_ChiNhanh" xml:space="preserve">
+    <value>3 branches</value>
+  </data>
+  <data name="About_MonTrongMenu" xml:space="preserve">
+    <value>Items on the Menu</value>
+  </data>
+  <data name="About_SoMon" xml:space="preserve">
+    <value>26 items</value>
+  </data>
+  <data name="About_KhachMoiNgay" xml:space="preserve">
+    <value>Customers per Day</value>
+  </data>
+  <data name="About_LuotKhach" xml:space="preserve">
+    <value>~400 visits</value>
+  </data>
+  <data name="About_ThoiGianGiao" xml:space="preserve">
+    <value>Delivery Time</value>
+  </data>
+  <data name="About_PhutGiao" xml:space="preserve">
+    <value>30 minutes</value>
+  </data>
+  <data name="About_XemThucDon" xml:space="preserve">
+    <value>View Menu</value>
+  </data>
+  <data name="Home_MoiMoiNgay" xml:space="preserve">
+    <value>FRESH EVERY DAY</value>
+  </data>
+  <data name="Home_HeroTitle" xml:space="preserve">
+    <value>Just sweet enough,&lt;br /&gt;refreshingly delightful.</value>
+  </data>
+  <data name="Home_HeroMoTa" xml:space="preserve">
+    <value>Milk tea, fruit tea, coffee and pastries made fresh daily at SugarChills. Order online, get it delivered in 30 minutes.</value>
+  </data>
+  <data name="Home_UuDaiHomNay" xml:space="preserve">
+    <value>Today's Deals</value>
+  </data>
+  <data name="Home_AnhTruoc" xml:space="preserve">
+    <value>Previous image</value>
+  </data>
+  <data name="Home_AnhSau" xml:space="preserve">
+    <value>Next image</value>
+  </data>
+  <data name="Home_AltTraSua" xml:space="preserve">
+    <value>SugarChills Milk Tea</value>
+  </data>
+  <data name="Home_AltCaPhe" xml:space="preserve">
+    <value>SugarChills Coffee</value>
+  </data>
+  <data name="Home_AltKemDaXay" xml:space="preserve">
+    <value>SugarChills Ice Cream &amp; Blended Ice</value>
+  </data>
+  <data name="Home_GiaoNhanh" xml:space="preserve">
+    <value>30' Fast Delivery</value>
+  </data>
+  <data name="Home_GiaoNhanhMoTa" xml:space="preserve">
+    <value>Within a 5km radius</value>
+  </data>
+  <data name="Home_PhaMoiNgay" xml:space="preserve">
+    <value>Made Fresh Daily</value>
+  </data>
+  <data name="Home_PhaMoiNgayMoTa" xml:space="preserve">
+    <value>Fresh ingredients</value>
+  </data>
+  <data name="Home_Freeship" xml:space="preserve">
+    <value>Free Ship 150k</value>
+  </data>
+  <data name="Home_FreeshipMoTa" xml:space="preserve">
+    <value>Applies to the whole menu</value>
+  </data>
+  <data name="Home_TuyChon" xml:space="preserve">
+    <value>Customize Your Order</value>
+  </data>
+  <data name="Home_TuyChonMoTa" xml:space="preserve">
+    <value>Size, sugar, ice, toppings</value>
+  </data>
+  <data name="Home_DanhMucYeuThich" xml:space="preserve">
+    <value>Popular Categories</value>
+  </data>
+  <data name="Home_ChonNhanh" xml:space="preserve">
+    <value>Quickly pick the group you're craving</value>
+  </data>
+  <data name="Common_TatCa" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Home_SoMonCount" xml:space="preserve">
+    <value>{0} items</value>
+  </data>
+  <data name="Home_MonNoiBat" xml:space="preserve">
+    <value>Featured Items</value>
+  </data>
+  <data name="Home_MonNoiBatMoTa" xml:space="preserve">
+    <value>Most ordered by SugarChills customers</value>
+  </data>
+  <data name="Common_XemThem" xml:space="preserve">
+    <value>View More</value>
+  </data>
+  <data name="Home_UuDaiDangChay" xml:space="preserve">
+    <value>Current Promotions</value>
+  </data>
+  <data name="Home_UuDaiMoTa" xml:space="preserve">
+    <value>Enter the code at checkout to get an instant discount</value>
+  </data>
+  <data name="Home_Ma" xml:space="preserve">
+    <value>Code:</value>
+  </data>
+  <data name="Home_HSD" xml:space="preserve">
+    <value>Valid until</value>
+  </data>
+  <data name="Home_ChuaCoKhuyenMai" xml:space="preserve">
+    <value>No promotions available at the moment.</value>
+  </data>
+  <data name="Home_DangGiamGia" xml:space="preserve">
+    <value>On Sale</value>
+  </data>
+  <data name="Home_DangGiamGiaMoTa" xml:space="preserve">
+    <value>Limited quantities today</value>
+  </data>
+  <data name="Home_MonMoiLenKe" xml:space="preserve">
+    <value>New on the Menu</value>
+  </data>
+  <data name="Home_MonMoiMoTa" xml:space="preserve">
+    <value>Just added by the SugarChills kitchen</value>
+  </data>
+  <data name="Home_AltKhongGianSC" xml:space="preserve">
+    <value>SugarChills Space</value>
+  </data>
+  <data name="Home_MotNgum" xml:space="preserve">
+    <value>A Sweet Sip for a Long Day</value>
+  </data>
+  <data name="Home_MoTaNgan" xml:space="preserve">
+    <value>SugarChills started from a small milk tea stand outside the school gate, where we believe a great drink can lighten up an entire afternoon. Every topping is cooked fresh daily, tea is brewed anew every 4 hours, and you can adjust sugar and ice exactly to your taste.</value>
+  </data>
+  <data name="Home_TimHieuThem" xml:space="preserve">
+    <value>Learn More</value>
+  </data>
+  <data name="Product_ThemNhanhVaoGio" xml:space="preserve">
+    <value>Quick add to cart</value>
+  </data>
+  <data name="SanPham_KetQuaTimKiem" xml:space="preserve">
+    <value>Search Results</value>
+  </data>
+  <data name="SanPham_LoaiSanPham" xml:space="preserve">
+    <value>Product Category</value>
+  </data>
+  <data name="SanPham_KhoangGia" xml:space="preserve">
+    <value>Price Range</value>
+  </data>
+  <data name="SanPham_Tu" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="SanPham_Den" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="SanPham_ApDung" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="SanPham_LocNhanh" xml:space="preserve">
+    <value>Quick Filters</value>
+  </data>
+  <data name="SanPham_Duoi35k" xml:space="preserve">
+    <value>Under 35,000₫</value>
+  </data>
+  <data name="SanPham_35kTo50k" xml:space="preserve">
+    <value>35k - 50k</value>
+  </data>
+  <data name="SanPham_Tren50k" xml:space="preserve">
+    <value>Over 50,000₫</value>
+  </data>
+  <data name="SanPham_BanChay" xml:space="preserve">
+    <value>Best Sellers</value>
+  </data>
+  <data name="SanPham_KetQuaChoFormat" xml:space="preserve">
+    <value>Results for "{0}"</value>
+  </data>
+  <data name="SanPham_ToanBoThucDon" xml:space="preserve">
+    <value>Full Menu</value>
+  </data>
+  <data name="SanPham_TimThayPrefix" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="SanPham_SanPhamSuffix" xml:space="preserve">
+    <value>products</value>
+  </data>
+  <data name="SanPham_SapXep" xml:space="preserve">
+    <value>Sort by:</value>
+  </data>
+  <data name="SanPham_MacDinh" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="SanPham_GiaTangDan" xml:space="preserve">
+    <value>Price: Low to High</value>
+  </data>
+  <data name="SanPham_GiaGiamDan" xml:space="preserve">
+    <value>Price: High to Low</value>
+  </data>
+  <data name="SanPham_TenAZ" xml:space="preserve">
+    <value>Name A → Z</value>
+  </data>
+  <data name="SanPham_KhongTimThay" xml:space="preserve">
+    <value>No matching products found</value>
+  </data>
+  <data name="SanPham_DoiTuKhoa" xml:space="preserve">
+    <value>Try a different keyword or remove some filters.</value>
+  </data>
+  <data name="SanPham_XemTatCaSanPham" xml:space="preserve">
+    <value>View All Products</value>
+  </data>
+  <data name="Detail_DaBanFormat" xml:space="preserve">
+    <value>{0} sold</value>
+  </data>
+  <data name="Detail_ConHang" xml:space="preserve">
+    <value>In Stock</value>
+  </data>
+  <data name="Detail_TamHet" xml:space="preserve">
+    <value>Out of Stock</value>
+  </data>
+  <data name="Detail_ChonSize" xml:space="preserve">
+    <value>Choose Size</value>
+  </data>
+  <data name="Detail_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Detail_MucDuong" xml:space="preserve">
+    <value>Sugar Level</value>
+  </data>
+  <data name="Detail_MucDa" xml:space="preserve">
+    <value>Ice Level</value>
+  </data>
+  <data name="Detail_ToppingThem" xml:space="preserve">
+    <value>Extra Toppings</value>
+  </data>
+  <data name="Detail_SoLuong" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Detail_TamTinh" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+  <data name="Detail_ThemVaoGio" xml:space="preserve">
+    <value>Add to Cart</value>
+  </data>
+  <data name="Detail_XemGio" xml:space="preserve">
+    <value>View Cart</value>
+  </data>
+  <data name="Detail_GiaoTrong30" xml:space="preserve">
+    <value>Delivery in 30 minutes</value>
+  </data>
+  <data name="Detail_DoiLyMoi" xml:space="preserve">
+    <value>Free remake if we get it wrong</value>
+  </data>
+  <data name="Detail_TabMoTa" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Detail_TabThongTinThem" xml:space="preserve">
+    <value>More Info</value>
+  </data>
+  <data name="Detail_TabGiaoHang" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="Detail_MoTaChiTiet" xml:space="preserve">
+    <value>This drink is made after you order, with tea brewed fresh every 4 hours. You can pick the sugar and ice level to your taste and add toppings in the options above.</value>
+  </data>
+  <data name="Detail_MaSanPham" xml:space="preserve">
+    <value>Product Code</value>
+  </data>
+  <data name="Detail_Loai" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Detail_GiaNiemYet" xml:space="preserve">
+    <value>Listed Price</value>
+  </data>
+  <data name="Detail_TinhTrang" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Detail_DaBan" xml:space="preserve">
+    <value>Sold</value>
+  </data>
+  <data name="Detail_LuotBanFormat" xml:space="preserve">
+    <value>{0} cups</value>
+  </data>
+  <data name="Detail_GiaoBanKinh5km" xml:space="preserve">
+    <value>Delivery within a 5km radius, average time 30 minutes.</value>
+  </data>
+  <data name="Detail_PhiGiaoHang" xml:space="preserve">
+    <value>Delivery fee 15,000₫, free for orders over 150,000₫.</value>
+  </data>
+  <data name="Detail_ThanhToanCOD" xml:space="preserve">
+    <value>Cash on delivery (COD) or bank transfer.</value>
+  </data>
+  <data name="Detail_CoTheThich" xml:space="preserve">
+    <value>You Might Also Like</value>
+  </data>
+  <data name="Detail_CungNhomFormat" xml:space="preserve">
+    <value>More from {0}</value>
+  </data>
+  <data name="Common_XemTatCa" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="Cart_GioHangCuaBan" xml:space="preserve">
+    <value>Your Cart</value>
+  </data>
+  <data name="Cart_DangTrong" xml:space="preserve">
+    <value>Your Cart is Empty</value>
+  </data>
+  <data name="Cart_ChonMonNgotMat" xml:space="preserve">
+    <value>Pick a few sweet treats to get started!</value>
+  </data>
+  <data name="Cart_SanPham" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Cart_DonGia" xml:space="preserve">
+    <value>Unit Price</value>
+  </data>
+  <data name="Cart_ThanhTien" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Common_Xoa" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Cart_XoaMonNay" xml:space="preserve">
+    <value>Remove this item from your cart?</value>
+  </data>
+  <data name="Cart_TiepTucChonMon" xml:space="preserve">
+    <value>Continue Shopping</value>
+  </data>
+  <data name="Cart_XoaToanBoGio" xml:space="preserve">
+    <value>Clear Cart</value>
+  </data>
+  <data name="Cart_XoaToanBoXacNhan" xml:space="preserve">
+    <value>Clear your entire cart?</value>
+  </data>
+  <data name="Cart_MaGiamGia" xml:space="preserve">
+    <value>Discount Code</value>
+  </data>
+  <data name="Cart_NhapMaPlaceholder" xml:space="preserve">
+    <value>Enter code, e.g. SUGAR10</value>
+  </data>
+  <data name="Cart_GiamFormat" xml:space="preserve">
+    <value>{0}% off</value>
+  </data>
+  <data name="Cart_DangDungMaFormat" xml:space="preserve">
+    <value>Using code {0}</value>
+  </data>
+  <data name="Cart_BoMa" xml:space="preserve">
+    <value>Remove Code</value>
+  </data>
+  <data name="Cart_TomTatDonHang" xml:space="preserve">
+    <value>Order Summary</value>
+  </data>
+  <data name="Cart_TamTinhFormat" xml:space="preserve">
+    <value>Subtotal ({0} items)</value>
+  </data>
+  <data name="Cart_GiamGia" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="Cart_PhiGiaoHang" xml:space="preserve">
+    <value>Shipping Fee</value>
+  </data>
+  <data name="Cart_MienPhi" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="Cart_MuaThemFormat" xml:space="preserve">
+    <value>Add {0} more to get free shipping.</value>
+  </data>
+  <data name="Cart_TongCong" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Cart_TienHanhDatHang" xml:space="preserve">
+    <value>Proceed to Checkout</value>
+  </data>
+  <data name="Cart_CanDangNhap" xml:space="preserve">
+    <value>You need to log in to complete your order</value>
+  </data>
+  <data name="Checkout_DatHang" xml:space="preserve">
+    <value>Checkout</value>
+  </data>
+  <data name="Checkout_XacNhanDatHang" xml:space="preserve">
+    <value>Confirm Order</value>
+  </data>
+  <data name="Checkout_ThongTinGiaoHang" xml:space="preserve">
+    <value>Delivery Information</value>
+  </data>
+  <data name="Checkout_TenNguoiNhan" xml:space="preserve">
+    <value>Recipient Name</value>
+  </data>
+  <data name="Checkout_DiaChiGiaoHang" xml:space="preserve">
+    <value>Delivery Address</value>
+  </data>
+  <data name="Checkout_DiaChiPlaceholder" xml:space="preserve">
+    <value>House number, street, ward, district</value>
+  </data>
+  <data name="Checkout_GhiChuChoQuan" xml:space="preserve">
+    <value>Note for the Store</value>
+  </data>
+  <data name="Checkout_GhiChuPlaceholder" xml:space="preserve">
+    <value>e.g. less ice, deliver during office hours...</value>
+  </data>
+  <data name="Checkout_HinhThucThanhToan" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="Checkout_COD" xml:space="preserve">
+    <value>Cash on Delivery (COD)</value>
+  </data>
+  <data name="Checkout_CODMoTa" xml:space="preserve">
+    <value>Pay cash to the delivery person</value>
+  </data>
+  <data name="Checkout_ChuyenKhoan" xml:space="preserve">
+    <value>Bank Transfer</value>
+  </data>
+  <data name="Checkout_ViMomo" xml:space="preserve">
+    <value>MoMo Wallet</value>
+  </data>
+  <data name="Checkout_ViMomoMoTa" xml:space="preserve">
+    <value>Scan QR code upon delivery</value>
+  </data>
+  <data name="Checkout_DonHangCuaBan" xml:space="preserve">
+    <value>Your Order</value>
+  </data>
+  <data name="Checkout_TongThanhToan" xml:space="preserve">
+    <value>Total Payment</value>
+  </data>
+  <data name="Checkout_QuayLaiGioHang" xml:space="preserve">
+    <value>Back to Cart</value>
+  </data>
+  <data name="Success_DatHangThanhCong" xml:space="preserve">
+    <value>Order Placed Successfully!</value>
+  </data>
+  <data name="Success_CamOnPrefix" xml:space="preserve">
+    <value>Thank you for ordering from SugarChills. Order</value>
+  </data>
+  <data name="Success_CamOnSuffix" xml:space="preserve">
+    <value>is awaiting confirmation from the store — we'll call you in a few minutes.</value>
+  </data>
+  <data name="Success_NguoiNhan" xml:space="preserve">
+    <value>Recipient</value>
+  </data>
+  <data name="Success_DonHang" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Success_NgayDatFormat" xml:space="preserve">
+    <value>Order date: {0}</value>
+  </data>
+  <data name="Success_ThanhToanFormat" xml:space="preserve">
+    <value>Payment: {0}</value>
+  </data>
+  <data name="Success_TrangThai" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="Success_Mon" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="Success_SL" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="Success_TheoDoiDonHang" xml:space="preserve">
+    <value>Track Order</value>
+  </data>
+  <data name="Success_TiepTucMuaSam" xml:space="preserve">
+    <value>Continue Shopping</value>
+  </data>
+  <data name="Cart_SanPhamKhongTonTai" xml:space="preserve">
+    <value>This product doesn't exist or is no longer available.</value>
+  </data>
+  <data name="Cart_DaThemVaoGioFormat" xml:space="preserve">
+    <value>Added "{0}" to your cart.</value>
+  </data>
+  <data name="Cart_SanPhamKhongConBan" xml:space="preserve">
+    <value>This product is no longer available.</value>
+  </data>
+  <data name="Cart_DaXoaSanPham" xml:space="preserve">
+    <value>Removed item from your cart.</value>
+  </data>
+  <data name="Cart_DaXoaToanBo" xml:space="preserve">
+    <value>Cleared your entire cart.</value>
+  </data>
+  <data name="Cart_MaKhongTonTai" xml:space="preserve">
+    <value>This discount code doesn't exist.</value>
+  </data>
+  <data name="Cart_MaHetHan" xml:space="preserve">
+    <value>This discount code has expired or is not yet active.</value>
+  </data>
+  <data name="Cart_MaChiApDungFormat" xml:space="preserve">
+    <value>Code {0} only applies to orders from {1}.</value>
+  </data>
+  <data name="Cart_ApDungThanhCongFormat" xml:space="preserve">
+    <value>Code {0} applied successfully — {1} off.</value>
+  </data>
+  <data name="Cart_GioHangDangTrongCanhBao" xml:space="preserve">
+    <value>Your cart is empty — please pick some items first!</value>
+  </data>
+  <data name="Cart_GioHangDangTrong" xml:space="preserve">
+    <value>Your cart is empty.</value>
+  </data>
+  <data name="Order_KhongTimThayDonHang" xml:space="preserve">
+    <value>Order not found.</value>
+  </data>
+  <data name="Order_KhongCoQuyenXem" xml:space="preserve">
+    <value>You don't have permission to view this order.</value>
+  </data>
+  <data name="Order_DonHangTitleFormat" xml:space="preserve">
+    <value>Order #{0}</value>
+  </data>
+  <data name="Order_KhongCoQuyenHuy" xml:space="preserve">
+    <value>You don't have permission to cancel this order.</value>
+  </data>
+  <data name="Order_KhongTheTuHuy" xml:space="preserve">
+    <value>This order is already being processed and can no longer be self-cancelled.</value>
+  </data>
+  <data name="Order_DaHuyDonFormat" xml:space="preserve">
+    <value>Order #{0} has been cancelled.</value>
+  </data>
+  <data name="Order_ChuaCoDonHang" xml:space="preserve">
+    <value>You don't have any orders yet</value>
+  </data>
+  <data name="Order_KhiBanDatMon" xml:space="preserve">
+    <value>When you place an order, it will show up here.</value>
+  </data>
+  <data name="Order_DatMonNgay" xml:space="preserve">
+    <value>Order Now</value>
+  </data>
+  <data name="Order_DonFormat" xml:space="preserve">
+    <value>Order #{0}</value>
+  </data>
+  <data name="Order_VaMonKhacFormat" xml:space="preserve">
+    <value>and {0} more item(s)</value>
+  </data>
+  <data name="Order_TongTien" xml:space="preserve">
+    <value>Total:</value>
+  </data>
+  <data name="Order_XemChiTiet" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+  <data name="Order_XacNhanHuyDon" xml:space="preserve">
+    <value>Are you sure you want to cancel this order?</value>
+  </data>
+  <data name="Order_HuyDon" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Order_DatLucFormat" xml:space="preserve">
+    <value>Placed at {0}</value>
+  </data>
+  <data name="Order_DaBiHuy" xml:space="preserve">
+    <value>This order has been cancelled.</value>
+  </data>
+  <data name="Order_GhiChuFormat" xml:space="preserve">
+    <value>Note: {0}</value>
+  </data>
+  <data name="Order_ThanhToanLabel" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="Order_HuyDonHangBtn" xml:space="preserve">
+    <value>Cancel Order</value>
+  </data>
+  <data name="Order_VeDanhSachDon" xml:space="preserve">
+    <value>Back to Orders</value>
+  </data>
+  <data name="Auth_DangKyTitle" xml:space="preserve">
+    <value>Register Account</value>
+  </data>
+  <data name="Auth_EmailDaTonTai" xml:space="preserve">
+    <value>This email is already registered. Please sign in or use a different email.</value>
+  </data>
+  <data name="Auth_DangKyThanhCong" xml:space="preserve">
+    <value>Registration successful. Welcome to SugarChills!</value>
+  </data>
+  <data name="Auth_SaiTaiKhoanMatKhau" xml:space="preserve">
+    <value>Incorrect email or password.</value>
+  </data>
+  <data name="Auth_XinChaoFormat" xml:space="preserve">
+    <value>Hello, {0}!</value>
+  </data>
+  <data name="Auth_KhongCoQuyenTruyCap" xml:space="preserve">
+    <value>Access Denied</value>
+  </data>
+  <data name="Auth_ThamGia" xml:space="preserve">
+    <value>Join SugarChills</value>
+  </data>
+  <data name="Auth_ThamGiaMoTa" xml:space="preserve">
+    <value>Create an account in just 30 seconds to order food, save addresses, and get member perks.</value>
+  </data>
+  <data name="Auth_DaCoTaiKhoan" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="Auth_HoVaTen" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Auth_DiaChiLabel" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Auth_DiaChiPlaceholder" xml:space="preserve">
+    <value>House number, street, ward, district</value>
+  </data>
+  <data name="Auth_MatKhau" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Auth_MatKhauPlaceholder" xml:space="preserve">
+    <value>At least 6 characters</value>
+  </data>
+  <data name="Auth_XacNhanMatKhau" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Auth_XacNhanMatKhauPlaceholder" xml:space="preserve">
+    <value>Re-enter your password</value>
+  </data>
+  <data name="Auth_TaoTaiKhoanBtn" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="Auth_DieuKhoan" xml:space="preserve">
+    <value>By signing up, you agree to SugarChills' terms of service.</value>
+  </data>
+  <data name="Auth_ChaoMungTroLai" xml:space="preserve">
+    <value>Welcome back!</value>
+  </data>
+  <data name="Auth_ChaoMungMoTa" xml:space="preserve">
+    <value>Sign in to order faster, track your orders, and get exclusive SugarChills perks.</value>
+  </data>
+  <data name="Auth_LuuDiaChi" xml:space="preserve">
+    <value>Save delivery addresses</value>
+  </data>
+  <data name="Auth_TheoDoiTrangThai" xml:space="preserve">
+    <value>Track order status</value>
+  </data>
+  <data name="Auth_NhanMaGiamGia" xml:space="preserve">
+    <value>Get weekly discount codes</value>
+  </data>
+  <data name="Auth_ChuaCoTaiKhoan" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="Auth_DangKyNgay" xml:space="preserve">
+    <value>Register now</value>
+  </data>
+  <data name="Auth_GhiNhoDangNhap" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="Auth_QuenMatKhau" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="Auth_TaiKhoanDungThu" xml:space="preserve">
+    <value>Demo accounts:</value>
+  </data>
+  <data name="Auth_KhachHang" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Auth_KhuVucNguoiBan" xml:space="preserve">
+    <value>This area is for sellers only</value>
+  </data>
+  <data name="Auth_KhongCoQuyenMoTaFormat" xml:space="preserve">
+    <value>Your account is signed in as {0}, so you can't access the admin area. If you're the shop owner, please sign in with a seller account.</value>
+  </data>
+  <data name="Auth_VeTrangChu" xml:space="preserve">
+    <value>Back to Home</value>
+  </data>
+  <data name="Account_ThamGiaFormat" xml:space="preserve">
+    <value>Joined {0}</value>
+  </data>
+  <data name="Account_ChuaCapNhatDiaChi" xml:space="preserve">
+    <value>Address not set</value>
+  </data>
+  <data name="Account_VaoKhuQuanTri" xml:space="preserve">
+    <value>Go to Admin Area</value>
+  </data>
+  <data name="Account_TongDonHang" xml:space="preserve">
+    <value>Total Orders</value>
+  </data>
+  <data name="Account_DaHoanThanh" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Account_DaChiTieu" xml:space="preserve">
+    <value>Total Spent</value>
+  </data>
+  <data name="Account_DonHangGanDay" xml:space="preserve">
+    <value>Recent Orders</value>
+  </data>
+  <data name="Account_MaDon" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="Account_NgayDat" xml:space="preserve">
+    <value>Order Date</value>
+  </data>
+  <data name="Account_SoMon" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="Account_TongTienHeader" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Account_TrangThai" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Account_ChuaCoDonHang" xml:space="preserve">
+    <value>You don't have any orders yet.</value>
+  </data>
+  <data name="Admin_ThaoTac" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Admin_QuayLaiDanhSach" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+  <data name="Admin_Huy" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Admin_QuayLai" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Admin_XacNhanXoa" xml:space="preserve">
+    <value>Confirm Delete</value>
+  </data>
+  <data name="Admin_KhongTheHoanTac" xml:space="preserve">
+    <value>This action cannot be undone.</value>
+  </data>
+  <data name="Admin_Xem" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Admin_Sua" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="SellerProd_KhongTimThaySP" xml:space="preserve">
+    <value>Product not found.</value>
+  </data>
+  <data name="SellerProd_ChiTietTitle" xml:space="preserve">
+    <value>Product Details</value>
+  </data>
+  <data name="SellerProd_ThemTitle" xml:space="preserve">
+    <value>Add Product</value>
+  </data>
+  <data name="SellerProd_SuaTitle" xml:space="preserve">
+    <value>Edit Product</value>
+  </data>
+  <data name="SellerProd_XoaTitle" xml:space="preserve">
+    <value>Delete Product</value>
+  </data>
+  <data name="SellerProd_KhongTimThaySuaCanXoa" xml:space="preserve">
+    <value>The product to edit was not found.</value>
+  </data>
+  <data name="SellerProd_DaThemFormat" xml:space="preserve">
+    <value>Product "{0}" has been added.</value>
+  </data>
+  <data name="SellerProd_DaCapNhatFormat" xml:space="preserve">
+    <value>Product "{0}" has been updated.</value>
+  </data>
+  <data name="SellerProd_DaXoa" xml:space="preserve">
+    <value>Product deleted.</value>
+  </data>
+  <data name="SellerProd_ChonLoaiHopLe" xml:space="preserve">
+    <value>Please select a valid product category.</value>
+  </data>
+  <data name="SellerProd_GiaKMPhaiNhoHonGiaBan" xml:space="preserve">
+    <value>The sale price must be lower than the regular price.</value>
+  </data>
+  <data name="SellerProd_TrungTen" xml:space="preserve">
+    <value>Another product already has this name.</value>
+  </data>
+  <data name="SellerProd_DanhSach" xml:space="preserve">
+    <value>Product List</value>
+  </data>
+  <data name="SellerProd_TongCongFormat" xml:space="preserve">
+    <value>{0} products total</value>
+  </data>
+  <data name="SellerProd_TimTheoTenPlaceholder" xml:space="preserve">
+    <value>Search by product name...</value>
+  </data>
+  <data name="SellerProd_TatCaLoai" xml:space="preserve">
+    <value>-- All categories --</value>
+  </data>
+  <data name="SellerProd_TatCaTrangThai" xml:space="preserve">
+    <value>-- Status --</value>
+  </data>
+  <data name="SellerProd_DangBan" xml:space="preserve">
+    <value>On Sale</value>
+  </data>
+  <data name="SellerProd_NgungBan" xml:space="preserve">
+    <value>Discontinued</value>
+  </data>
+  <data name="SellerProd_ColMa" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="SellerProd_ColSanPham" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="SellerProd_ColLoai" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="SellerProd_ColGiaBan" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="SellerProd_ColTon" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="SellerProd_ColNoiBat" xml:space="preserve">
+    <value>Featured</value>
+  </data>
+  <data name="SellerProd_KhongTimThaySanPhamNao" xml:space="preserve">
+    <value>No products found.</value>
+  </data>
+  <data name="SellerProd_DaBanFormat" xml:space="preserve">
+    <value>{0} sold</value>
+  </data>
+  <data name="SellerProd_BoDanhDauNoiBat" xml:space="preserve">
+    <value>Remove featured mark</value>
+  </data>
+  <data name="SellerProd_DanhDauNoiBat" xml:space="preserve">
+    <value>Mark as featured</value>
+  </data>
+  <data name="SellerProd_ChiTietSPFormat" xml:space="preserve">
+    <value>Product Details SC{0}</value>
+  </data>
+  <data name="SellerProd_XemTrenWebKhach" xml:space="preserve">
+    <value>View on customer site</value>
+  </data>
+  <data name="SellerProd_LoaiSanPhamLabel" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="SellerProd_GiaKhuyenMaiLabel" xml:space="preserve">
+    <value>Sale Price</value>
+  </data>
+  <data name="SellerProd_KhongApDung" xml:space="preserve">
+    <value>Not applied</value>
+  </data>
+  <data name="SellerProd_SoLuongTonLabel" xml:space="preserve">
+    <value>Stock Quantity</value>
+  </data>
+  <data name="SellerProd_DaBanLabel" xml:space="preserve">
+    <value>Sold</value>
+  </data>
+  <data name="SellerProd_NoiBatLabel" xml:space="preserve">
+    <value>Featured</value>
+  </data>
+  <data name="SellerProd_Co" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="SellerProd_Khong" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="SellerProd_NgayTaoLabel" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="SellerProd_TenSPLabel" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="SellerProd_TenSPPlaceholder" xml:space="preserve">
+    <value>e.g. Brown Sugar Bubble Milk Tea</value>
+  </data>
+  <data name="SellerProd_ChonLoaiOption" xml:space="preserve">
+    <value>-- Select category --</value>
+  </data>
+  <data name="SellerProd_GiaBanLabel" xml:space="preserve">
+    <value>Selling Price</value>
+  </data>
+  <data name="SellerProd_GiaKMPlaceholder" xml:space="preserve">
+    <value>Leave blank if no discount</value>
+  </data>
+  <data name="SellerProd_MoTaLabel" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="SellerProd_MoTaPlaceholder" xml:space="preserve">
+    <value>Short description of flavor, ingredients...</value>
+  </data>
+  <data name="SellerProd_ThongTinSP" xml:space="preserve">
+    <value>Product Information</value>
+  </data>
+  <data name="SellerProd_HinhAnhHeading" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="SellerProd_HinhAnhPlaceholder" xml:space="preserve">
+    <value>Paste image URL (https://...)</value>
+  </data>
+  <data name="SellerProd_HinhAnhHint" xml:space="preserve">
+    <value>Paste an image URL and the preview will update automatically.</value>
+  </data>
+  <data name="SellerProd_HienThiHeading" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="SellerProd_TrangThaiBanLabel" xml:space="preserve">
+    <value>Sale Status</value>
+  </data>
+  <data name="SellerProd_TuyChonKhac" xml:space="preserve">
+    <value>Other Options</value>
+  </data>
+  <data name="SellerProd_HienThiMonNoiBat" xml:space="preserve">
+    <value>Show in the "Featured Items" section on the homepage</value>
+  </data>
+  <data name="SellerProd_ThemMoiHeading" xml:space="preserve">
+    <value>Add New Product</value>
+  </data>
+  <data name="SellerProd_LuuSanPham" xml:space="preserve">
+    <value>Save Product</value>
+  </data>
+  <data name="SellerProd_SuaSPFormat" xml:space="preserve">
+    <value>Edit Product SC{0}</value>
+  </data>
+  <data name="SellerProd_CapNhatBtn" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SellerProd_XoaSanPhamBtn" xml:space="preserve">
+    <value>Delete Product</value>
+  </data>
+  <data name="SellerProd_XacNhanXoaHeading" xml:space="preserve">
+    <value>Confirm Product Deletion</value>
+  </data>
+  <data name="SellerProd_XacNhanXoaMoTa" xml:space="preserve">
+    <value>Are you sure you want to delete the product below?</value>
+  </data>
+  <data name="SellerProd_TonFormat" xml:space="preserve">
+    <value>Stock {0}</value>
+  </data>
+  <data name="SellerProd_GoiYNgungBanFormat" xml:space="preserve">
+    <value>If this product has ever been ordered, consider switching it to {0} instead of deleting it, to preserve order history.</value>
+  </data>
+  <data name="SellerLoai_Title" xml:space="preserve">
+    <value>Manage Categories</value>
+  </data>
+  <data name="SellerLoai_ThemTitle" xml:space="preserve">
+    <value>Add Category</value>
+  </data>
+  <data name="SellerLoai_SuaTitle" xml:space="preserve">
+    <value>Edit Category</value>
+  </data>
+  <data name="SellerLoai_XoaTitle" xml:space="preserve">
+    <value>Delete Category</value>
+  </data>
+  <data name="SellerLoai_KhongTimThay" xml:space="preserve">
+    <value>Category not found.</value>
+  </data>
+  <data name="SellerLoai_KhongTimThaySuaCanXoa" xml:space="preserve">
+    <value>The category to edit was not found.</value>
+  </data>
+  <data name="SellerLoai_DaThemFormat" xml:space="preserve">
+    <value>Category "{0}" has been added.</value>
+  </data>
+  <data name="SellerLoai_DaCapNhatFormat" xml:space="preserve">
+    <value>Category "{0}" has been updated.</value>
+  </data>
+  <data name="SellerLoai_DaXoa" xml:space="preserve">
+    <value>Category deleted.</value>
+  </data>
+  <data name="SellerLoai_TrungTen" xml:space="preserve">
+    <value>This category name already exists.</value>
+  </data>
+  <data name="SellerLoai_DanhSach" xml:space="preserve">
+    <value>Category List</value>
+  </data>
+  <data name="SellerLoai_SoLuongDangCoFormat" xml:space="preserve">
+    <value>{0} categories in the system</value>
+  </data>
+  <data name="SellerLoai_ThemBtn" xml:space="preserve">
+    <value>Add Category</value>
+  </data>
+  <data name="SellerLoai_ColAnh" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="SellerLoai_ColTenLoai" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
+  <data name="SellerLoai_ColSoSP" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="SellerLoai_ColThuTu" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="SellerLoai_ColHienThi" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="SellerLoai_ChuaCoLoaiNao" xml:space="preserve">
+    <value>No categories yet.</value>
+  </data>
+  <data name="SellerLoai_Hien" xml:space="preserve">
+    <value>Shown</value>
+  </data>
+  <data name="SellerLoai_An" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="SellerLoai_GhiChuKhongXoaDuoc" xml:space="preserve">
+    <value>A category that still has products cannot be deleted — the system blocks this to protect the foreign-key relationship between the Category and Product tables.</value>
+  </data>
+  <data name="SellerLoai_TenLoaiPlaceholder" xml:space="preserve">
+    <value>e.g. Milk Tea</value>
+  </data>
+  <data name="SellerLoai_ThuTuHint" xml:space="preserve">
+    <value>A smaller number shows earlier on the menu.</value>
+  </data>
+  <data name="SellerLoai_MoTaPlaceholder" xml:space="preserve">
+    <value>Short description of this product group</value>
+  </data>
+  <data name="SellerLoai_HienThiCheckbox" xml:space="preserve">
+    <value>Show this category on the customer menu</value>
+  </data>
+  <data name="SellerLoai_HinhDaiDien" xml:space="preserve">
+    <value>Cover Image</value>
+  </data>
+  <data name="SellerLoai_LuuLoai" xml:space="preserve">
+    <value>Save Category</value>
+  </data>
+  <data name="SellerLoai_SuaFormat" xml:space="preserve">
+    <value>Edit Category: {0}</value>
+  </data>
+  <data name="SellerLoai_XacNhanXoaHeading" xml:space="preserve">
+    <value>Confirm Category Deletion</value>
+  </data>
+  <data name="SellerLoai_SanPhamCountFormat" xml:space="preserve">
+    <value>{0} products</value>
+  </data>
+  <data name="SellerLoai_DangCoSanPhamMoTaFormat" xml:space="preserve">
+    <value>This category currently has {0}. You must move those products to another category (or delete them) before deleting this category.</value>
+  </data>
+  <data name="SellerLoai_XemSanPhamFormat" xml:space="preserve">
+    <value>View {0} products</value>
+  </data>
+  <data name="SellerLoai_AnToanMoTa" xml:space="preserve">
+    <value>This category has no products yet, so it can be safely deleted.</value>
+  </data>
+  <data name="KhoDuLieu_KhongTheXoaLoaiFormat" xml:space="preserve">
+    <value>Cannot delete category "{0}" because it still has {1} product(s) in it. Please move or delete those products first.</value>
+  </data>
+  <data name="KhoDuLieu_SPDangTrongDonChuaXuLy" xml:space="preserve">
+    <value>This product is part of an order that hasn't been fully processed yet. Consider switching it to "Discontinued" instead of deleting it.</value>
+  </data>
+  <data name="SellerOrder_TrangThaiKhongHopLe" xml:space="preserve">
+    <value>Invalid status.</value>
+  </data>
+  <data name="SellerOrder_KhongTheDoiTiepFormat" xml:space="preserve">
+    <value>Order #{0} is already "{1}" and can no longer be changed.</value>
+  </data>
+  <data name="SellerOrder_DaChuyenSangFormat" xml:space="preserve">
+    <value>Order #{0} has been moved to "{1}".</value>
+  </data>
+  <data name="SellerOrder_ChoXacNhanLabel" xml:space="preserve">
+    <value>Awaiting Confirmation</value>
+  </data>
+  <data name="SellerOrder_DangGiaoLabel" xml:space="preserve">
+    <value>Out for Delivery</value>
+  </data>
+  <data name="SellerOrder_HoanThanhLabel" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="SellerOrder_DaHuyLabel" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="SellerOrder_DanhSachDonHang" xml:space="preserve">
+    <value>Order List</value>
+  </data>
+  <data name="SellerOrder_TimThayFormat" xml:space="preserve">
+    <value>Found {0} orders</value>
+  </data>
+  <data name="SellerOrder_TuNgay" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="SellerOrder_DenNgay" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="SellerOrder_TimKiemPlaceholder" xml:space="preserve">
+    <value>Order ID, name, phone...</value>
+  </data>
+  <data name="SellerOrder_BoLoc" xml:space="preserve">
+    <value>Clear Filters</value>
+  </data>
+  <data name="SellerOrder_KhongCoDonKhopBoLoc" xml:space="preserve">
+    <value>No orders match the filters.</value>
+  </data>
+  <data name="SellerOrder_DanhSachDonBtn" xml:space="preserve">
+    <value>Order List</value>
+  </data>
+  <data name="SellerOrder_DatLuc" xml:space="preserve">
+    <value>Placed at</value>
+  </data>
+  <data name="SellerOrder_MaFormat" xml:space="preserve">
+    <value>(code {0})</value>
+  </data>
+  <data name="SellerOrder_CapNhatTrangThai" xml:space="preserve">
+    <value>Update Status</value>
+  </data>
+  <data name="SellerOrder_DaKhoaFormat" xml:space="preserve">
+    <value>This order is already "{0}" and can no longer be changed.</value>
+  </data>
+  <data name="SellerOrder_LuongXuLyFormat" xml:space="preserve">
+    <value>Processing flow: {0} → {1} → {2} → {3}. Select "{4}" if the customer requests a cancellation.</value>
+  </data>
+  <data name="SellerKM_ThemTitle" xml:space="preserve">
+    <value>Add Promotion</value>
+  </data>
+  <data name="SellerKM_SuaTitle" xml:space="preserve">
+    <value>Edit Promotion</value>
+  </data>
+  <data name="SellerKM_XoaTitle" xml:space="preserve">
+    <value>Delete Promotion</value>
+  </data>
+  <data name="SellerKM_KhongTimThay" xml:space="preserve">
+    <value>Promotion not found.</value>
+  </data>
+  <data name="SellerKM_KhongTimThaySuaCanXoa" xml:space="preserve">
+    <value>The promotion to edit was not found.</value>
+  </data>
+  <data name="SellerKM_DaThemFormat" xml:space="preserve">
+    <value>Promotion "{0}" has been added.</value>
+  </data>
+  <data name="SellerKM_DaCapNhatFormat" xml:space="preserve">
+    <value>Promotion "{0}" has been updated.</value>
+  </data>
+  <data name="SellerKM_DaXoa" xml:space="preserve">
+    <value>Promotion deleted.</value>
+  </data>
+  <data name="SellerKM_MaTrung" xml:space="preserve">
+    <value>This discount code is already used by another promotion.</value>
+  </data>
+  <data name="SellerKM_NgayKetThucSaiThuTu" xml:space="preserve">
+    <value>The end date must be on or after the start date.</value>
+  </data>
+  <data name="SellerKM_PhanTramPhaiLonHon0" xml:space="preserve">
+    <value>The discount percentage must be greater than 0.</value>
+  </data>
+  <data name="SellerKM_DaDuocFormat" xml:space="preserve">
+    <value>Promotion "{0}" has been {1}.</value>
+  </data>
+  <data name="SellerKM_Bat" xml:space="preserve">
+    <value>enabled</value>
+  </data>
+  <data name="SellerKM_Tat" xml:space="preserve">
+    <value>disabled</value>
+  </data>
+  <data name="SellerKM_ChuongTrinhKM" xml:space="preserve">
+    <value>Promotions</value>
+  </data>
+  <data name="SellerKM_SoLuongFormat" xml:space="preserve">
+    <value>{0} promotions, {1} active</value>
+  </data>
+  <data name="SellerKM_ThemBtn" xml:space="preserve">
+    <value>Add Promotion</value>
+  </data>
+  <data name="SellerKM_ColChuongTrinh" xml:space="preserve">
+    <value>Promotion</value>
+  </data>
+  <data name="SellerKM_ColMaGiamGia" xml:space="preserve">
+    <value>Discount Code</value>
+  </data>
+  <data name="SellerKM_ColGiam" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="SellerKM_ColToiDa" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="SellerKM_ColDonToiThieu" xml:space="preserve">
+    <value>Min Order</value>
+  </data>
+  <data name="SellerKM_ColThoiGian" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="SellerKM_ChuaCoChuongTrinh" xml:space="preserve">
+    <value>No promotions yet.</value>
+  </data>
+  <data name="SellerKM_DangChay" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="SellerKM_DaTat" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="SellerKM_NgoaiThoiGian" xml:space="preserve">
+    <value>Out of Period</value>
+  </data>
+  <data name="SellerKM_TatTitle" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="SellerKM_BatTitle" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="SellerKM_GhiChuMaGiamGiaFormat" xml:space="preserve">
+    <value>Discount codes created here are exactly what customers enter on the {0} page. The system automatically checks the expiry date and minimum order value.</value>
+  </data>
+  <data name="SellerKM_TenChuongTrinhLabel" xml:space="preserve">
+    <value>Program Name</value>
+  </data>
+  <data name="SellerKM_TenKMPlaceholder" xml:space="preserve">
+    <value>e.g. Welcome New Customer</value>
+  </data>
+  <data name="SellerKM_MaHint" xml:space="preserve">
+    <value>Letters and numbers only, no accents or spaces.</value>
+  </data>
+  <data name="SellerKM_PhanTramLabel" xml:space="preserve">
+    <value>Discount (%)</value>
+  </data>
+  <data name="SellerKM_GiamToiDaLabel" xml:space="preserve">
+    <value>Max Discount (VND)</value>
+  </data>
+  <data name="SellerKM_DonToiThieuLabel" xml:space="preserve">
+    <value>Minimum Order (VND)</value>
+  </data>
+  <data name="SellerKM_NgayBatDauLabel" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="SellerKM_NgayKetThucLabel" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="SellerKM_MoTaPlaceholder" xml:space="preserve">
+    <value>Description shown to customers</value>
+  </data>
+  <data name="SellerKM_KichHoatCheckbox" xml:space="preserve">
+    <value>Activate this promotion</value>
+  </data>
+  <data name="SellerKM_CachHoatDongHeading" xml:space="preserve">
+    <value>How the promotion works</value>
+  </data>
+  <data name="SellerKM_Buoc1" xml:space="preserve">
+    <value>The customer enters the code on the cart page.</value>
+  </data>
+  <data name="SellerKM_Buoc2" xml:space="preserve">
+    <value>The system checks whether the code is still valid and whether the order meets the minimum value.</value>
+  </data>
+  <data name="SellerKM_Buoc3" xml:space="preserve">
+    <value>Discount amount = subtotal × discount percentage, capped at "Max Discount".</value>
+  </data>
+  <data name="SellerKM_Buoc4" xml:space="preserve">
+    <value>The discount amount is saved with the order for reporting purposes.</value>
+  </data>
+  <data name="SellerKM_CanhBaoDuyNhat" xml:space="preserve">
+    <value>Each discount code must be unique in the system.</value>
+  </data>
+  <data name="SellerKM_ThemChuongTrinhHeading" xml:space="preserve">
+    <value>Add Promotion Program</value>
+  </data>
+  <data name="SellerKM_LuuChuongTrinh" xml:space="preserve">
+    <value>Save Promotion</value>
+  </data>
+  <data name="SellerKM_SuaFormat" xml:space="preserve">
+    <value>Edit: {0}</value>
+  </data>
+  <data name="SellerKM_XacNhanXoaHeading" xml:space="preserve">
+    <value>Confirm Promotion Deletion</value>
+  </data>
+  <data name="SellerKM_KhongDungDuocMoTa" xml:space="preserve">
+    <value>Customers will no longer be able to use this code after deletion.</value>
+  </data>
+  <data name="SellerKM_GiamFormat" xml:space="preserve">
+    <value>{0}% off</value>
+  </data>
+  <data name="SellerKM_ToiDaFormat" xml:space="preserve">
+    <value>Max {0}</value>
+  </data>
+  <data name="SellerKM_HieuLucFormat" xml:space="preserve">
+    <value>Valid: {0} → {1}</value>
+  </data>
+  <data name="ThongKe_KyThongKe" xml:space="preserve">
+    <value>Reporting Period</value>
+  </data>
+  <data name="ThongKe_30NgayGanNhat" xml:space="preserve">
+    <value>Last 30 Days</value>
+  </data>
+  <data name="ThongKe_DoanhThuLabel" xml:space="preserve">
+    <value>Revenue (completed orders)</value>
+  </data>
+  <data name="ThongKe_DonHangTrongKy" xml:space="preserve">
+    <value>Orders in Period</value>
+  </data>
+  <data name="ThongKe_GiaTriTrungBinh" xml:space="preserve">
+    <value>Average Order Value</value>
+  </data>
+  <data name="ThongKe_KhachHangDangKy" xml:space="preserve">
+    <value>Registered Customers</value>
+  </data>
+  <data name="ThongKe_DonChoXacNhan" xml:space="preserve">
+    <value>Orders Awaiting Confirmation</value>
+  </data>
+  <data name="ThongKe_DonHoanThanh" xml:space="preserve">
+    <value>Completed Orders</value>
+  </data>
+  <data name="ThongKe_DonDaHuy" xml:space="preserve">
+    <value>Cancelled Orders</value>
+  </data>
+  <data name="ThongKe_SanPhamTrongMenu" xml:space="preserve">
+    <value>Products in Menu</value>
+  </data>
+  <data name="ThongKe_DoanhThuTheoNgay" xml:space="preserve">
+    <value>Revenue by Day</value>
+  </data>
+  <data name="ThongKe_ChuaCoDoanhThu" xml:space="preserve">
+    <value>No revenue in this period yet.</value>
+  </data>
+  <data name="ThongKe_ChartTooltipFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} orders)</value>
+  </data>
+  <data name="ThongKe_ReChuot" xml:space="preserve">
+    <value>Hover over a bar to see that day's revenue</value>
+  </data>
+  <data name="ThongKe_DoanhThuTheoLoai" xml:space="preserve">
+    <value>Revenue by Category</value>
+  </data>
+  <data name="ThongKe_ChuaCoDuLieu" xml:space="preserve">
+    <value>No data yet.</value>
+  </data>
+  <data name="ThongKe_DaBanPhanFormat" xml:space="preserve">
+    <value>{0} sold</value>
+  </data>
+  <data name="ThongKe_Top5BanChay" xml:space="preserve">
+    <value>Top 5 Best-Selling Products</value>
+  </data>
+  <data name="ThongKe_ColSLBan" xml:space="preserve">
+    <value>Qty Sold</value>
+  </data>
+  <data name="ThongKe_ColDoanhThu" xml:space="preserve">
+    <value>Revenue</value>
+  </data>
+  <data name="ThongKe_ChuaCoDuLieuBanHang" xml:space="preserve">
+    <value>No sales data yet.</value>
+  </data>
+  <data name="ThongKe_DonHangMoiNhat" xml:space="preserve">
+    <value>Latest Orders</value>
+  </data>
+  <data name="ThongKe_ColKhach" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+</root>

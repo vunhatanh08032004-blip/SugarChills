@@ -214,6 +214,36 @@
 
         $(document).on("change", "#khungTuyChon input", tinhLaiGia);
         tinhLaiGia();
+
+        /* ---------- 9. Nút Scroll to Top ---------- */
+        var $scrollBtn = $("#scrollToTopBtn");
+
+        // Hiển thị/ẩn nút khi cuộn trang
+        $(window).on("scroll", function () {
+            if ($(window).scrollTop() > 200) {
+                $scrollBtn.addClass("show");
+            } else {
+                $scrollBtn.removeClass("show");
+            }
+        });
+
+        // Cuộn lên đầu trang khi bấm nút
+        $scrollBtn.on("click", function (e) {
+            e.preventDefault();
+            $("html, body").animate({ scrollTop: 0 }, 300, "swing");
+        });
+
+        /* ---------- 10. Ảnh lỗi -> tự thay bằng ảnh placeholder ----------
+           Thay cho onerror="this.onerror=null;this.src='...'" viết trực tiếp
+           trong View (gây cảnh báo "'this' implicitly has type 'any'" của
+           trình kiểm tra JS/TS trong Visual Studio khi phân tích thuộc tính
+           inline). View chỉ cần gắn data-fallback="URL ảnh thay thế" lên thẻ
+           <img>, JS dùng chung này sẽ lo phần xử lý lỗi tải ảnh. */
+        $(document).on("error", "img[data-fallback]", function () {
+            var $img = $(this);
+            $img.off("error");
+            $img.attr("src", $img.data("fallback"));
+        });
     });
 
 })(jQuery);

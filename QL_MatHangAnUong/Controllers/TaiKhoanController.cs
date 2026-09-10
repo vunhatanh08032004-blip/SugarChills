@@ -18,7 +18,7 @@ namespace QL_MatHangAnUong.Controllers
         {
             if (NguoiDungHienTai != null) return RedirectToAction("Index", "Home");
 
-            ViewBag.Title = "Đăng ký tài khoản";
+            ViewBag.Title = Ngu.S("Auth_DangKyTitle");
             return View(new DangKyViewModel());
         }
 
@@ -29,11 +29,11 @@ namespace QL_MatHangAnUong.Controllers
         {
             // Kiểm tra trùng email — validation nghiệp vụ, Data Annotation không làm được
             if (!string.IsNullOrWhiteSpace(model.Email) && KhoDuLieu.EmailDaTonTai(model.Email))
-                ModelState.AddModelError("Email", "Email này đã được đăng ký. Bạn hãy đăng nhập hoặc dùng email khác.");
+                ModelState.AddModelError("Email", Ngu.S("Auth_EmailDaTonTai"));
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Title = "Đăng ký tài khoản";
+                ViewBag.Title = Ngu.S("Auth_DangKyTitle");
                 return View(model);
             }
 
@@ -50,7 +50,7 @@ namespace QL_MatHangAnUong.Controllers
 
             // Đăng ký xong đăng nhập luôn cho tiện
             PhienLamViec.DangNhap(Session, nd);
-            ThongBao("Đăng ký thành công. Chào mừng bạn đến với SugarChills!");
+            ThongBao(Ngu.S("Auth_DangKyThanhCong"));
 
             return RedirectToAction("Index", "Home");
         }
@@ -61,7 +61,7 @@ namespace QL_MatHangAnUong.Controllers
             if (NguoiDungHienTai != null) return RedirectToAction("Index", "Home");
 
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.Title = "Đăng nhập";
+            ViewBag.Title = Ngu.S("Common_DangNhap");
             return View(new DangNhapViewModel());
         }
 
@@ -71,19 +71,19 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult DangNhap(DangNhapViewModel model, string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.Title = "Đăng nhập";
+            ViewBag.Title = Ngu.S("Common_DangNhap");
 
             if (!ModelState.IsValid) return View(model);
 
             var nd = KhoDuLieu.KiemTraDangNhap(model.Email, model.MatKhau);
             if (nd == null)
             {
-                ModelState.AddModelError("", "Email hoặc mật khẩu không đúng.");
+                ModelState.AddModelError("", Ngu.S("Auth_SaiTaiKhoanMatKhau"));
                 return View(model);
             }
 
             PhienLamViec.DangNhap(Session, nd);
-            ThongBao(string.Format("Xin chào {0}!", nd.HoTen));
+            ThongBao(string.Format(Ngu.S("Auth_XinChaoFormat"), nd.HoTen));
 
             // Người bán vào thẳng khu quản trị
             if (nd.VaiTro == NguoiDung.RoleSeller && string.IsNullOrEmpty(returnUrl))
@@ -108,7 +108,7 @@ namespace QL_MatHangAnUong.Controllers
         [KiemTraDangNhap]
         public ActionResult ThongTin()
         {
-            ViewBag.Title = "Tài khoản của tôi";
+            ViewBag.Title = Ngu.S("Header_TaiKhoanCuaToi");
             ViewBag.DonHangs = KhoDuLieu.LayDonHangCuaKhach(NguoiDungHienTai.MaND);
             return View(NguoiDungHienTai);
         }
@@ -191,7 +191,7 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /TaiKhoan/KhongCoQuyen
         public ActionResult KhongCoQuyen()
         {
-            ViewBag.Title = "Không có quyền truy cập";
+            ViewBag.Title = Ngu.S("Auth_KhongCoQuyenTruyCap");
             return View();
         }
     }

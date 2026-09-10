@@ -3,7 +3,7 @@
 @model List<QL_MatHangAnUong.Models.DonHang>
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Quản lý đơn hàng";
+    ViewBag.Title = Resources.Strings.Seller_QuanLyDonHang;
 
     string ttChon = ViewBag.TrangThaiDangChon as string ?? "Tất cả";
     DateTime? tuNgay = ViewBag.TuNgay as DateTime?;
@@ -17,7 +17,7 @@
             <div class="sc-stat-icon bg-soft-yellow"><i class="bi bi-hourglass-split"></i></div>
             <div>
                 <div class="sc-stat-value">@ViewBag.SoChoXacNhan</div>
-                <div class="sc-stat-label">Chờ xác nhận</div>
+                <div class="sc-stat-label">@Resources.Strings.SellerOrder_ChoXacNhanLabel</div>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
             <div class="sc-stat-icon bg-soft-blue"><i class="bi bi-truck"></i></div>
             <div>
                 <div class="sc-stat-value">@ViewBag.SoDangGiao</div>
-                <div class="sc-stat-label">Đang giao</div>
+                <div class="sc-stat-label">@Resources.Strings.SellerOrder_DangGiaoLabel</div>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <div class="sc-stat-icon bg-soft-mint"><i class="bi bi-check2-all"></i></div>
             <div>
                 <div class="sc-stat-value">@ViewBag.SoHoanThanh</div>
-                <div class="sc-stat-label">Hoàn thành</div>
+                <div class="sc-stat-label">@Resources.Strings.SellerOrder_HoanThanhLabel</div>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
             <div class="sc-stat-icon bg-soft-pink"><i class="bi bi-x-circle"></i></div>
             <div>
                 <div class="sc-stat-value">@ViewBag.SoDaHuy</div>
-                <div class="sc-stat-label">Đã hủy</div>
+                <div class="sc-stat-label">@Resources.Strings.SellerOrder_DaHuyLabel</div>
             </div>
         </div>
     </div>
@@ -53,15 +53,15 @@
 <div class="sc-table-card">
     <div class="sc-table-head">
         <div>
-            <h5>Danh sách đơn hàng</h5>
-            <small class="sc-text-muted">Tìm thấy @Model.Count đơn</small>
+            <h5>@Resources.Strings.SellerOrder_DanhSachDonHang</h5>
+            <small class="sc-text-muted">@(string.Format(Resources.Strings.SellerOrder_TimThayFormat, Model.Count))</small>
         </div>
 
         <form method="get" action="@Url.Action("Index")" class="d-flex flex-wrap align-items-end gap-2">
             <div>
-                <label class="form-label mb-0">Trạng thái</label>
+                <label class="form-label mb-0">@Resources.Strings.Account_TrangThai</label>
                 <select name="trangThai" class="form-select" style="min-width:160px">
-                    <option value="Tất cả">Tất cả</option>
+                    <option value="Tất cả">@Resources.Strings.Common_TatCa</option>
                     @foreach (var tt in DonHang.CacTrangThai)
                     {
                         <option value="@tt" selected="@(ttChon == tt)">@tt</option>
@@ -69,22 +69,22 @@
                 </select>
             </div>
             <div>
-                <label class="form-label mb-0">Từ ngày</label>
+                <label class="form-label mb-0">@Resources.Strings.SellerOrder_TuNgay</label>
                 <input type="date" name="tuNgay" class="form-control"
                        value="@(tuNgay.HasValue ? tuNgay.Value.ToString("yyyy-MM-dd") : "")" />
             </div>
             <div>
-                <label class="form-label mb-0">Đến ngày</label>
+                <label class="form-label mb-0">@Resources.Strings.SellerOrder_DenNgay</label>
                 <input type="date" name="denNgay" class="form-control"
                        value="@(denNgay.HasValue ? denNgay.Value.ToString("yyyy-MM-dd") : "")" />
             </div>
             <div>
-                <label class="form-label mb-0">Tìm kiếm</label>
+                <label class="form-label mb-0">@Resources.Strings.Common_TimKiem</label>
                 <input type="text" name="tuKhoa" class="form-control" style="min-width:180px"
-                       placeholder="Mã đơn, tên, SĐT..." value="@ViewBag.TuKhoa" />
+                       placeholder="@Resources.Strings.SellerOrder_TimKiemPlaceholder" value="@ViewBag.TuKhoa" />
             </div>
             <button type="submit" class="btn btn-sc"><i class="bi bi-search"></i></button>
-            <a href="@Url.Action("Index")" class="btn btn-sc-outline">Bỏ lọc</a>
+            <a href="@Url.Action("Index")" class="btn btn-sc-outline">@Resources.Strings.SellerOrder_BoLoc</a>
         </form>
     </div>
 
@@ -92,14 +92,14 @@
         <table class="table sc-table align-middle">
             <thead>
                 <tr>
-                    <th>Mã đơn</th>
-                    <th>Khách hàng</th>
-                    <th>Ngày đặt</th>
-                    <th class="text-center">Số món</th>
-                    <th class="text-end">Tổng tiền</th>
-                    <th>Thanh toán</th>
-                    <th class="text-center" style="width:190px">Trạng thái</th>
-                    <th class="text-end">Xem</th>
+                    <th>@Resources.Strings.Account_MaDon</th>
+                    <th>@Resources.Strings.Auth_KhachHang</th>
+                    <th>@Resources.Strings.Account_NgayDat</th>
+                    <th class="text-center">@Resources.Strings.Account_SoMon</th>
+                    <th class="text-end">@Resources.Strings.Account_TongTienHeader</th>
+                    <th>@Resources.Strings.Order_ThanhToanLabel</th>
+                    <th class="text-center" style="width:190px">@Resources.Strings.Account_TrangThai</th>
+                    <th class="text-end">@Resources.Strings.Admin_Xem</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,7 +108,7 @@
                     <tr>
                         <td colspan="8" class="text-center py-5 sc-text-muted">
                             <i class="bi bi-inbox" style="font-size:34px;display:block"></i>
-                            Không có đơn hàng nào khớp bộ lọc.
+                            @Resources.Strings.SellerOrder_KhongCoDonKhopBoLoc
                         </td>
                     </tr>
                 }

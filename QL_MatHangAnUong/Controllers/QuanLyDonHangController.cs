@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Models;
+using QL_MatHangAnUong.Helpers;
 
 namespace QL_MatHangAnUong.Controllers
 {
@@ -45,7 +46,7 @@ namespace QL_MatHangAnUong.Controllers
             ViewBag.TuKhoa = tuKhoa;
             ViewBag.TuNgay = tuNgay;
             ViewBag.DenNgay = denNgay;
-            ViewBag.Title = "Quản lý đơn hàng";
+            ViewBag.Title = Ngu.S("Seller_QuanLyDonHang");
 
             return View(ds);
         }
@@ -54,9 +55,9 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult ChiTiet(int id)
         {
             var dh = KhoDuLieu.LayDonHang(id);
-            if (dh == null) return HttpNotFound("Không tìm thấy đơn hàng.");
+            if (dh == null) return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
-            ViewBag.Title = "Đơn hàng #" + dh.MaDH;
+            ViewBag.Title = string.Format(Ngu.S("Order_DonFormat"), dh.MaDH);
             return View(dh);
         }
 
@@ -66,24 +67,24 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult CapNhatTrangThai(int id, string trangThai, string quayVe)
         {
             var dh = KhoDuLieu.LayDonHang(id);
-            if (dh == null) return HttpNotFound("Không tìm thấy đơn hàng.");
+            if (dh == null) return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
             if (!DonHang.CacTrangThai.Contains(trangThai))
             {
-                ThongBao("Trạng thái không hợp lệ.", "danger");
+                ThongBao(Ngu.S("SellerOrder_TrangThaiKhongHopLe"), "danger");
                 return RedirectToAction("Index");
             }
 
             // Quy tắc nghiệp vụ: đơn đã hoàn thành hoặc đã hủy thì không đổi trạng thái nữa
             if (dh.TrangThai == DonHang.HoanThanh || dh.TrangThai == DonHang.DaHuy)
             {
-                ThongBao(string.Format("Đơn #{0} đang ở trạng thái \"{1}\" nên không thể đổi tiếp.",
+                ThongBao(string.Format(Ngu.S("SellerOrder_KhongTheDoiTiepFormat"),
                     dh.MaDH, dh.TrangThai), "warning");
                 return RedirectToAction("ChiTiet", new { id = id });
             }
 
             KhoDuLieu.CapNhatTrangThaiDonHang(id, trangThai);
-            ThongBao(string.Format("Đơn #{0} chuyển sang \"{1}\".", id, trangThai));
+            ThongBao(string.Format(Ngu.S("SellerOrder_DaChuyenSangFormat"), id, trangThai));
 
             if (quayVe == "chitiet") return RedirectToAction("ChiTiet", new { id = id });
             return RedirectToAction("Index");

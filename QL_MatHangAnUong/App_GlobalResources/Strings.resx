@@ -1,0 +1,1621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_TrangChu" xml:space="preserve">
+    <value>Trang chủ</value>
+  </data>
+  <data name="Common_GioiThieu" xml:space="preserve">
+    <value>Giới thiệu</value>
+  </data>
+  <data name="Common_LienHe" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="Common_CuaHang" xml:space="preserve">
+    <value>Cửa hàng</value>
+  </data>
+  <data name="Common_DangNhap" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Common_DangKy" xml:space="preserve">
+    <value>Đăng ký</value>
+  </data>
+  <data name="Common_DangXuat" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="Common_GioHang" xml:space="preserve">
+    <value>Giỏ hàng</value>
+  </data>
+  <data name="Common_TimKiem" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Common_CuonLenDauTrang" xml:space="preserve">
+    <value>Cuộn lên đầu trang</value>
+  </data>
+  <data name="Header_DatHang" xml:space="preserve">
+    <value>Đặt hàng</value>
+  </data>
+  <data name="Header_MienPhiGiaoHang" xml:space="preserve">
+    <value>Miễn phí giao hàng cho đơn từ 150.000đ</value>
+  </data>
+  <data name="Header_SearchPlaceholder" xml:space="preserve">
+    <value>Bạn muốn uống gì hôm nay?</value>
+  </data>
+  <data name="Header_TaiKhoanCuaToi" xml:space="preserve">
+    <value>Tài khoản của tôi</value>
+  </data>
+  <data name="Header_DonHangCuaToi" xml:space="preserve">
+    <value>Đơn hàng của tôi</value>
+  </data>
+  <data name="Header_KhuQuanTri" xml:space="preserve">
+    <value>Khu quản trị</value>
+  </data>
+  <data name="Header_ThucDon" xml:space="preserve">
+    <value>Thực đơn</value>
+  </data>
+  <data name="Header_TatCaSanPham" xml:space="preserve">
+    <value>Tất cả sản phẩm</value>
+  </data>
+  <data name="Header_KhuyenMai" xml:space="preserve">
+    <value>Khuyến mãi</value>
+  </data>
+  <data name="Header_MonBanChay" xml:space="preserve">
+    <value>Món bán chạy</value>
+  </data>
+  <data name="Header_MonGiaTot" xml:space="preserve">
+    <value>Món giá tốt</value>
+  </data>
+  <data name="Header_MaGiamGia" xml:space="preserve">
+    <value>Mã giảm giá</value>
+  </data>
+  <data name="Footer_MoTa" xml:space="preserve">
+    <value>SugarChills mang đến trà sữa, trà trái cây, cà phê và bánh ngọt được pha chế mỗi ngày từ nguyên liệu tươi. Ngọt vừa đủ, mát vừa xinh.</value>
+  </data>
+  <data name="Footer_VeSugarChills" xml:space="preserve">
+    <value>Về SugarChills</value>
+  </data>
+  <data name="Footer_HeThongCuaHang" xml:space="preserve">
+    <value>Hệ thống cửa hàng</value>
+  </data>
+  <data name="Footer_GioMoCua" xml:space="preserve">
+    <value>Giờ mở cửa</value>
+  </data>
+  <data name="Footer_GioT2T6" xml:space="preserve">
+    <value>Thứ 2 - Thứ 6: 07:00 - 22:00</value>
+  </data>
+  <data name="Footer_GioT7CN" xml:space="preserve">
+    <value>Thứ 7 - Chủ nhật: 08:00 - 23:00</value>
+  </data>
+  <data name="Footer_Copyright" xml:space="preserve">
+    <value>Đồ án môn Lập trình Web, ASP.NET MVC 5.</value>
+  </data>
+  <data name="Seller_TrangQuanTri" xml:space="preserve">
+    <value>Trang quản trị</value>
+  </data>
+  <data name="Seller_TongQuan" xml:space="preserve">
+    <value>Tổng quan</value>
+  </data>
+  <data name="Seller_ThongKeDoanhThu" xml:space="preserve">
+    <value>Thống kê doanh thu</value>
+  </data>
+  <data name="Seller_BanHang" xml:space="preserve">
+    <value>Bán hàng</value>
+  </data>
+  <data name="Seller_QuanLyDonHang" xml:space="preserve">
+    <value>Quản lý đơn hàng</value>
+  </data>
+  <data name="Seller_QuanLyKhuyenMai" xml:space="preserve">
+    <value>Quản lý khuyến mãi</value>
+  </data>
+  <data name="Seller_DanhMuc" xml:space="preserve">
+    <value>Danh mục</value>
+  </data>
+  <data name="Seller_QuanLySanPham" xml:space="preserve">
+    <value>Quản lý sản phẩm</value>
+  </data>
+  <data name="Seller_QuanLyLoai" xml:space="preserve">
+    <value>Quản lý loại</value>
+  </data>
+  <data name="Seller_Khac" xml:space="preserve">
+    <value>Khác</value>
+  </data>
+  <data name="Seller_XemWebsite" xml:space="preserve">
+    <value>Xem website</value>
+  </data>
+  <data name="Seller_XinChao" xml:space="preserve">
+    <value>Xin chào</value>
+  </data>
+  <data name="Seller_NguoiBan" xml:space="preserve">
+    <value>Người bán</value>
+  </data>
+  <data name="Seller_VeTrangBanHang" xml:space="preserve">
+    <value>Về trang bán hàng</value>
+  </data>
+  <data name="Common_NgonNgu" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="Store_Subtitle" xml:space="preserve">
+    <value>SugarChills có mặt tại nhiều tỉnh/thành trên cả nước</value>
+  </data>
+  <data name="Store_TimCuaHangGanBan" xml:space="preserve">
+    <value>Tìm cửa hàng gần bạn</value>
+  </data>
+  <data name="Store_TinhThanhPho" xml:space="preserve">
+    <value>Tỉnh/Thành phố</value>
+  </data>
+  <data name="Store_TatCaTinhThanh" xml:space="preserve">
+    <value>-- Tất cả tỉnh/thành --</value>
+  </data>
+  <data name="Store_PhuongXa" xml:space="preserve">
+    <value>Phường/Xã</value>
+  </data>
+  <data name="Store_TatCaPhuongXa" xml:space="preserve">
+    <value>-- Tất cả phường/xã --</value>
+  </data>
+  <data name="Store_HienThiKetQua" xml:space="preserve">
+    <value>Hiển thị kết quả</value>
+  </data>
+  <data name="Store_CuaHang" xml:space="preserve">
+    <value>Cửa hàng</value>
+  </data>
+  <data name="Store_KhongTimThay" xml:space="preserve">
+    <value>Không tìm thấy chi nhánh phù hợp</value>
+  </data>
+  <data name="Store_ThuChonLai" xml:space="preserve">
+    <value>Thử chọn lại Tỉnh/Thành hoặc Phường/Xã khác nhé.</value>
+  </data>
+  <data name="Store_XemTatCa" xml:space="preserve">
+    <value>Xem tất cả chi nhánh</value>
+  </data>
+  <data name="Common_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Home_GioiThieuTitle" xml:space="preserve">
+    <value>Giới thiệu SugarChills</value>
+  </data>
+  <data name="Contact_TieuDe" xml:space="preserve">
+    <value>Liên hệ SugarChills</value>
+  </data>
+  <data name="Contact_CuaHangChinh" xml:space="preserve">
+    <value>Cửa hàng chính</value>
+  </data>
+  <data name="Contact_HotlineDatHang" xml:space="preserve">
+    <value>Hotline đặt hàng</value>
+  </data>
+  <data name="Contact_GuiLoiNhan" xml:space="preserve">
+    <value>Gửi lời nhắn cho tụi mình</value>
+  </data>
+  <data name="Contact_MoTaForm" xml:space="preserve">
+    <value>Góp ý về món, về phục vụ hay muốn hợp tác — cứ để lại lời nhắn, SugarChills sẽ phản hồi trong 24 giờ.</value>
+  </data>
+  <data name="Contact_HoVaTen" xml:space="preserve">
+    <value>Họ và tên</value>
+  </data>
+  <data name="Contact_HoTenPlaceholder" xml:space="preserve">
+    <value>Nguyễn Văn A</value>
+  </data>
+  <data name="Contact_SoDienThoai" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="Contact_NoiDung" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="Contact_NoiDungPlaceholder" xml:space="preserve">
+    <value>Bạn muốn nhắn gì cho SugarChills?</value>
+  </data>
+  <data name="Contact_GuiLoiNhanBtn" xml:space="preserve">
+    <value>Gửi lời nhắn</value>
+  </data>
+  <data name="Contact_ThongBaoDemo" xml:space="preserve">
+    <value>Cảm ơn bạn! Đây là form demo của đồ án, chưa lưu vào cơ sở dữ liệu.</value>
+  </data>
+  <data name="About_TuNam" xml:space="preserve">
+    <value>TỪ 2023</value>
+  </data>
+  <data name="About_CauChuyen" xml:space="preserve">
+    <value>Câu chuyện của SugarChills</value>
+  </data>
+  <data name="About_MoTaHero" xml:space="preserve">
+    <value>Bắt đầu từ một quầy trà sữa nhỏ trước cổng trường, SugarChills lớn lên cùng những buổi chiều tan học và những ly nước "ít đường, nhiều đá" quen thuộc.</value>
+  </data>
+  <data name="About_AltKhongGianQuan" xml:space="preserve">
+    <value>Không gian quán</value>
+  </data>
+  <data name="About_LamGiMoiNgay" xml:space="preserve">
+    <value>Chúng mình làm gì mỗi ngày?</value>
+  </data>
+  <data name="About_MoTaLamViec" xml:space="preserve">
+    <value>Trà được ủ mới mỗi 4 tiếng, trân châu nấu theo mẻ nhỏ 2 tiếng một lần, trái cây cắt trong ngày. Mỗi ly nước ra khỏi quầy đều được pha theo đúng tùy chọn đường - đá mà bạn đã chọn, vì tụi mình tin "ngọt vừa đủ" là mức ngọt do chính bạn quyết định.</value>
+  </data>
+  <data name="About_GiaTri" xml:space="preserve">
+    <value>Giá trị SugarChills theo đuổi</value>
+  </data>
+  <data name="About_NguyenLieuMinhBach" xml:space="preserve">
+    <value>Nguyên liệu minh bạch</value>
+  </data>
+  <data name="About_NguyenLieuMoTa" xml:space="preserve">
+    <value>Nguồn gốc rõ ràng, không phẩm màu</value>
+  </data>
+  <data name="About_PhucVuTuTe" xml:space="preserve">
+    <value>Phục vụ tử tế</value>
+  </data>
+  <data name="About_PhucVuMoTa" xml:space="preserve">
+    <value>Sai món là đổi ly mới ngay</value>
+  </data>
+  <data name="About_LyThanThien" xml:space="preserve">
+    <value>Ly thân thiện</value>
+  </data>
+  <data name="About_LyMoTa" xml:space="preserve">
+    <value>Ống hút giấy, ly tái chế</value>
+  </data>
+  <data name="About_GiaSinhVien" xml:space="preserve">
+    <value>Giá sinh viên</value>
+  </data>
+  <data name="About_GiaSinhVienMoTa" xml:space="preserve">
+    <value>Đa số món dưới 50.000đ</value>
+  </data>
+  <data name="About_TrongConSo" xml:space="preserve">
+    <value>SugarChills trong con số</value>
+  </data>
+  <data name="About_ChiNhanh" xml:space="preserve">
+    <value>3 chi nhánh</value>
+  </data>
+  <data name="About_MonTrongMenu" xml:space="preserve">
+    <value>Món trong menu</value>
+  </data>
+  <data name="About_SoMon" xml:space="preserve">
+    <value>26 món</value>
+  </data>
+  <data name="About_KhachMoiNgay" xml:space="preserve">
+    <value>Khách mỗi ngày</value>
+  </data>
+  <data name="About_LuotKhach" xml:space="preserve">
+    <value>~400 lượt</value>
+  </data>
+  <data name="About_ThoiGianGiao" xml:space="preserve">
+    <value>Thời gian giao</value>
+  </data>
+  <data name="About_PhutGiao" xml:space="preserve">
+    <value>30 phút</value>
+  </data>
+  <data name="About_XemThucDon" xml:space="preserve">
+    <value>Xem thực đơn</value>
+  </data>
+  <data name="Home_MoiMoiNgay" xml:space="preserve">
+    <value>MỚI MỖI NGÀY</value>
+  </data>
+  <data name="Home_HeroTitle" xml:space="preserve">
+    <value>Ngọt vừa đủ,&lt;br /&gt;mát vừa xinh.</value>
+  </data>
+  <data name="Home_HeroMoTa" xml:space="preserve">
+    <value>Trà sữa, trà trái cây, cà phê và bánh ngọt được pha chế trong ngày tại SugarChills. Đặt online, nhận hàng trong 30 phút.</value>
+  </data>
+  <data name="Home_UuDaiHomNay" xml:space="preserve">
+    <value>Ưu đãi hôm nay</value>
+  </data>
+  <data name="Home_AnhTruoc" xml:space="preserve">
+    <value>Ảnh trước</value>
+  </data>
+  <data name="Home_AnhSau" xml:space="preserve">
+    <value>Ảnh sau</value>
+  </data>
+  <data name="Home_AltTraSua" xml:space="preserve">
+    <value>Trà sữa SugarChills</value>
+  </data>
+  <data name="Home_AltCaPhe" xml:space="preserve">
+    <value>Cà phê SugarChills</value>
+  </data>
+  <data name="Home_AltKemDaXay" xml:space="preserve">
+    <value>Kem &amp; đá xay SugarChills</value>
+  </data>
+  <data name="Home_GiaoNhanh" xml:space="preserve">
+    <value>Giao nhanh 30'</value>
+  </data>
+  <data name="Home_GiaoNhanhMoTa" xml:space="preserve">
+    <value>Trong bán kính 5km</value>
+  </data>
+  <data name="Home_PhaMoiNgay" xml:space="preserve">
+    <value>Pha mỗi ngày</value>
+  </data>
+  <data name="Home_PhaMoiNgayMoTa" xml:space="preserve">
+    <value>Nguyên liệu tươi mới</value>
+  </data>
+  <data name="Home_Freeship" xml:space="preserve">
+    <value>Freeship 150k</value>
+  </data>
+  <data name="Home_FreeshipMoTa" xml:space="preserve">
+    <value>Áp dụng toàn menu</value>
+  </data>
+  <data name="Home_TuyChon" xml:space="preserve">
+    <value>Tùy chọn theo ý</value>
+  </data>
+  <data name="Home_TuyChonMoTa" xml:space="preserve">
+    <value>Size, đường, đá, topping</value>
+  </data>
+  <data name="Home_DanhMucYeuThich" xml:space="preserve">
+    <value>Danh mục yêu thích</value>
+  </data>
+  <data name="Home_ChonNhanh" xml:space="preserve">
+    <value>Chọn nhanh nhóm món bạn đang thèm</value>
+  </data>
+  <data name="Common_TatCa" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="Home_SoMonCount" xml:space="preserve">
+    <value>{0} món</value>
+  </data>
+  <data name="Home_MonNoiBat" xml:space="preserve">
+    <value>Món nổi bật</value>
+  </data>
+  <data name="Home_MonNoiBatMoTa" xml:space="preserve">
+    <value>Được khách SugarChills gọi nhiều nhất</value>
+  </data>
+  <data name="Common_XemThem" xml:space="preserve">
+    <value>Xem thêm</value>
+  </data>
+  <data name="Home_UuDaiDangChay" xml:space="preserve">
+    <value>Ưu đãi đang chạy</value>
+  </data>
+  <data name="Home_UuDaiMoTa" xml:space="preserve">
+    <value>Nhập mã ở bước giỏ hàng để được giảm ngay</value>
+  </data>
+  <data name="Home_Ma" xml:space="preserve">
+    <value>Mã:</value>
+  </data>
+  <data name="Home_HSD" xml:space="preserve">
+    <value>HSD</value>
+  </data>
+  <data name="Home_ChuaCoKhuyenMai" xml:space="preserve">
+    <value>Hiện chưa có chương trình khuyến mãi nào.</value>
+  </data>
+  <data name="Home_DangGiamGia" xml:space="preserve">
+    <value>Đang giảm giá</value>
+  </data>
+  <data name="Home_DangGiamGiaMoTa" xml:space="preserve">
+    <value>Số lượng có hạn trong ngày</value>
+  </data>
+  <data name="Home_MonMoiLenKe" xml:space="preserve">
+    <value>Món mới lên kệ</value>
+  </data>
+  <data name="Home_MonMoiMoTa" xml:space="preserve">
+    <value>Vừa được bếp SugarChills thêm vào menu</value>
+  </data>
+  <data name="Home_AltKhongGianSC" xml:space="preserve">
+    <value>Không gian SugarChills</value>
+  </data>
+  <data name="Home_MotNgum" xml:space="preserve">
+    <value>Một ngụm ngọt cho ngày dài</value>
+  </data>
+  <data name="Home_MoTaNgan" xml:space="preserve">
+    <value>SugarChills bắt đầu từ một quầy trà sữa nhỏ trước cổng trường, nơi tụi mình tin rằng một ly nước ngon có thể làm nhẹ cả buổi chiều. Mọi topping đều được nấu trong ngày, trà ủ mới mỗi 4 tiếng và bạn có thể chỉnh đường - đá theo đúng khẩu vị của mình.</value>
+  </data>
+  <data name="Home_TimHieuThem" xml:space="preserve">
+    <value>Tìm hiểu thêm</value>
+  </data>
+  <data name="Product_ThemNhanhVaoGio" xml:space="preserve">
+    <value>Thêm nhanh vào giỏ</value>
+  </data>
+  <data name="SanPham_KetQuaTimKiem" xml:space="preserve">
+    <value>Kết quả tìm kiếm</value>
+  </data>
+  <data name="SanPham_LoaiSanPham" xml:space="preserve">
+    <value>Loại sản phẩm</value>
+  </data>
+  <data name="SanPham_KhoangGia" xml:space="preserve">
+    <value>Khoảng giá</value>
+  </data>
+  <data name="SanPham_Tu" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="SanPham_Den" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="SanPham_ApDung" xml:space="preserve">
+    <value>Áp dụng</value>
+  </data>
+  <data name="SanPham_LocNhanh" xml:space="preserve">
+    <value>Lọc nhanh</value>
+  </data>
+  <data name="SanPham_Duoi35k" xml:space="preserve">
+    <value>Dưới 35.000đ</value>
+  </data>
+  <data name="SanPham_35kTo50k" xml:space="preserve">
+    <value>35k - 50k</value>
+  </data>
+  <data name="SanPham_Tren50k" xml:space="preserve">
+    <value>Trên 50.000đ</value>
+  </data>
+  <data name="SanPham_BanChay" xml:space="preserve">
+    <value>Bán chạy</value>
+  </data>
+  <data name="SanPham_KetQuaChoFormat" xml:space="preserve">
+    <value>Kết quả cho "{0}"</value>
+  </data>
+  <data name="SanPham_ToanBoThucDon" xml:space="preserve">
+    <value>Toàn bộ thực đơn</value>
+  </data>
+  <data name="SanPham_TimThayPrefix" xml:space="preserve">
+    <value>Tìm thấy</value>
+  </data>
+  <data name="SanPham_SanPhamSuffix" xml:space="preserve">
+    <value>sản phẩm</value>
+  </data>
+  <data name="SanPham_SapXep" xml:space="preserve">
+    <value>Sắp xếp:</value>
+  </data>
+  <data name="SanPham_MacDinh" xml:space="preserve">
+    <value>Mặc định</value>
+  </data>
+  <data name="SanPham_GiaTangDan" xml:space="preserve">
+    <value>Giá tăng dần</value>
+  </data>
+  <data name="SanPham_GiaGiamDan" xml:space="preserve">
+    <value>Giá giảm dần</value>
+  </data>
+  <data name="SanPham_TenAZ" xml:space="preserve">
+    <value>Tên A → Z</value>
+  </data>
+  <data name="SanPham_KhongTimThay" xml:space="preserve">
+    <value>Không tìm thấy sản phẩm phù hợp</value>
+  </data>
+  <data name="SanPham_DoiTuKhoa" xml:space="preserve">
+    <value>Bạn thử đổi từ khóa hoặc bỏ bớt bộ lọc nhé.</value>
+  </data>
+  <data name="SanPham_XemTatCaSanPham" xml:space="preserve">
+    <value>Xem tất cả sản phẩm</value>
+  </data>
+  <data name="Detail_DaBanFormat" xml:space="preserve">
+    <value>Đã bán {0} ly</value>
+  </data>
+  <data name="Detail_ConHang" xml:space="preserve">
+    <value>Còn hàng</value>
+  </data>
+  <data name="Detail_TamHet" xml:space="preserve">
+    <value>Tạm hết</value>
+  </data>
+  <data name="Detail_ChonSize" xml:space="preserve">
+    <value>Chọn size</value>
+  </data>
+  <data name="Detail_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Detail_MucDuong" xml:space="preserve">
+    <value>Mức đường</value>
+  </data>
+  <data name="Detail_MucDa" xml:space="preserve">
+    <value>Mức đá</value>
+  </data>
+  <data name="Detail_ToppingThem" xml:space="preserve">
+    <value>Topping thêm</value>
+  </data>
+  <data name="Detail_SoLuong" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="Detail_TamTinh" xml:space="preserve">
+    <value>Tạm tính</value>
+  </data>
+  <data name="Detail_ThemVaoGio" xml:space="preserve">
+    <value>Thêm vào giỏ hàng</value>
+  </data>
+  <data name="Detail_XemGio" xml:space="preserve">
+    <value>Xem giỏ</value>
+  </data>
+  <data name="Detail_GiaoTrong30" xml:space="preserve">
+    <value>Giao trong 30 phút</value>
+  </data>
+  <data name="Detail_DoiLyMoi" xml:space="preserve">
+    <value>Đổi ly mới nếu sai món</value>
+  </data>
+  <data name="Detail_TabMoTa" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="Detail_TabThongTinThem" xml:space="preserve">
+    <value>Thông tin thêm</value>
+  </data>
+  <data name="Detail_TabGiaoHang" xml:space="preserve">
+    <value>Giao hàng</value>
+  </data>
+  <data name="Detail_MoTaChiTiet" xml:space="preserve">
+    <value>Món được pha chế sau khi bạn đặt, trà ủ mới mỗi 4 tiếng. Bạn có thể chọn mức đường và đá phù hợp khẩu vị, thêm topping tùy thích ở phần tùy chọn phía trên.</value>
+  </data>
+  <data name="Detail_MaSanPham" xml:space="preserve">
+    <value>Mã sản phẩm</value>
+  </data>
+  <data name="Detail_Loai" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="Detail_GiaNiemYet" xml:space="preserve">
+    <value>Giá niêm yết</value>
+  </data>
+  <data name="Detail_TinhTrang" xml:space="preserve">
+    <value>Tình trạng</value>
+  </data>
+  <data name="Detail_DaBan" xml:space="preserve">
+    <value>Đã bán</value>
+  </data>
+  <data name="Detail_LuotBanFormat" xml:space="preserve">
+    <value>{0} ly</value>
+  </data>
+  <data name="Detail_GiaoBanKinh5km" xml:space="preserve">
+    <value>Giao trong bán kính 5km, thời gian trung bình 30 phút.</value>
+  </data>
+  <data name="Detail_PhiGiaoHang" xml:space="preserve">
+    <value>Phí giao hàng 15.000đ, miễn phí cho đơn từ 150.000đ.</value>
+  </data>
+  <data name="Detail_ThanhToanCOD" xml:space="preserve">
+    <value>Thanh toán khi nhận hàng (COD) hoặc chuyển khoản.</value>
+  </data>
+  <data name="Detail_CoTheThich" xml:space="preserve">
+    <value>Có thể bạn cũng thích</value>
+  </data>
+  <data name="Detail_CungNhomFormat" xml:space="preserve">
+    <value>Cùng nhóm {0}</value>
+  </data>
+  <data name="Common_XemTatCa" xml:space="preserve">
+    <value>Xem tất cả</value>
+  </data>
+  <data name="Cart_GioHangCuaBan" xml:space="preserve">
+    <value>Giỏ hàng của bạn</value>
+  </data>
+  <data name="Cart_DangTrong" xml:space="preserve">
+    <value>Giỏ hàng đang trống</value>
+  </data>
+  <data name="Cart_ChonMonNgotMat" xml:space="preserve">
+    <value>Chọn vài món ngọt mát để bắt đầu nhé!</value>
+  </data>
+  <data name="Cart_SanPham" xml:space="preserve">
+    <value>Sản phẩm</value>
+  </data>
+  <data name="Cart_DonGia" xml:space="preserve">
+    <value>Đơn giá</value>
+  </data>
+  <data name="Cart_ThanhTien" xml:space="preserve">
+    <value>Thành tiền</value>
+  </data>
+  <data name="Common_Xoa" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Cart_XoaMonNay" xml:space="preserve">
+    <value>Xóa món này khỏi giỏ hàng?</value>
+  </data>
+  <data name="Cart_TiepTucChonMon" xml:space="preserve">
+    <value>Tiếp tục chọn món</value>
+  </data>
+  <data name="Cart_XoaToanBoGio" xml:space="preserve">
+    <value>Xóa toàn bộ giỏ</value>
+  </data>
+  <data name="Cart_XoaToanBoXacNhan" xml:space="preserve">
+    <value>Xóa toàn bộ giỏ hàng?</value>
+  </data>
+  <data name="Cart_MaGiamGia" xml:space="preserve">
+    <value>Mã giảm giá</value>
+  </data>
+  <data name="Cart_NhapMaPlaceholder" xml:space="preserve">
+    <value>Nhập mã, ví dụ SUGAR10</value>
+  </data>
+  <data name="Cart_GiamFormat" xml:space="preserve">
+    <value>giảm {0}%</value>
+  </data>
+  <data name="Cart_DangDungMaFormat" xml:space="preserve">
+    <value>Đang dùng mã {0}</value>
+  </data>
+  <data name="Cart_BoMa" xml:space="preserve">
+    <value>Bỏ mã</value>
+  </data>
+  <data name="Cart_TomTatDonHang" xml:space="preserve">
+    <value>Tóm tắt đơn hàng</value>
+  </data>
+  <data name="Cart_TamTinhFormat" xml:space="preserve">
+    <value>Tạm tính ({0} món)</value>
+  </data>
+  <data name="Cart_GiamGia" xml:space="preserve">
+    <value>Giảm giá</value>
+  </data>
+  <data name="Cart_PhiGiaoHang" xml:space="preserve">
+    <value>Phí giao hàng</value>
+  </data>
+  <data name="Cart_MienPhi" xml:space="preserve">
+    <value>Miễn phí</value>
+  </data>
+  <data name="Cart_MuaThemFormat" xml:space="preserve">
+    <value>Mua thêm {0} để được miễn phí giao hàng.</value>
+  </data>
+  <data name="Cart_TongCong" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="Cart_TienHanhDatHang" xml:space="preserve">
+    <value>Tiến hành đặt hàng</value>
+  </data>
+  <data name="Cart_CanDangNhap" xml:space="preserve">
+    <value>Bạn cần đăng nhập để hoàn tất đặt hàng</value>
+  </data>
+  <data name="Checkout_DatHang" xml:space="preserve">
+    <value>Đặt hàng</value>
+  </data>
+  <data name="Checkout_XacNhanDatHang" xml:space="preserve">
+    <value>Xác nhận đặt hàng</value>
+  </data>
+  <data name="Checkout_ThongTinGiaoHang" xml:space="preserve">
+    <value>Thông tin giao hàng</value>
+  </data>
+  <data name="Checkout_TenNguoiNhan" xml:space="preserve">
+    <value>Người nhận</value>
+  </data>
+  <data name="Checkout_DiaChiGiaoHang" xml:space="preserve">
+    <value>Địa chỉ giao hàng</value>
+  </data>
+  <data name="Checkout_DiaChiPlaceholder" xml:space="preserve">
+    <value>Số nhà, đường, phường, quận</value>
+  </data>
+  <data name="Checkout_GhiChuChoQuan" xml:space="preserve">
+    <value>Ghi chú cho quán</value>
+  </data>
+  <data name="Checkout_GhiChuPlaceholder" xml:space="preserve">
+    <value>Ví dụ: ít đá, giao giờ hành chính...</value>
+  </data>
+  <data name="Checkout_HinhThucThanhToan" xml:space="preserve">
+    <value>Hình thức thanh toán</value>
+  </data>
+  <data name="Checkout_COD" xml:space="preserve">
+    <value>Thanh toán khi nhận hàng (COD)</value>
+  </data>
+  <data name="Checkout_CODMoTa" xml:space="preserve">
+    <value>Trả tiền mặt cho shipper</value>
+  </data>
+  <data name="Checkout_ChuyenKhoan" xml:space="preserve">
+    <value>Chuyển khoản ngân hàng</value>
+  </data>
+  <data name="Checkout_ViMomo" xml:space="preserve">
+    <value>Ví MoMo</value>
+  </data>
+  <data name="Checkout_ViMomoMoTa" xml:space="preserve">
+    <value>Quét mã khi nhận hàng</value>
+  </data>
+  <data name="Checkout_DonHangCuaBan" xml:space="preserve">
+    <value>Đơn hàng của bạn</value>
+  </data>
+  <data name="Checkout_TongThanhToan" xml:space="preserve">
+    <value>Tổng thanh toán</value>
+  </data>
+  <data name="Checkout_QuayLaiGioHang" xml:space="preserve">
+    <value>Quay lại giỏ hàng</value>
+  </data>
+  <data name="Success_DatHangThanhCong" xml:space="preserve">
+    <value>Đặt hàng thành công!</value>
+  </data>
+  <data name="Success_CamOnPrefix" xml:space="preserve">
+    <value>Cảm ơn bạn đã đặt món tại SugarChills. Đơn hàng</value>
+  </data>
+  <data name="Success_CamOnSuffix" xml:space="preserve">
+    <value>đang chờ quán xác nhận, tụi mình sẽ gọi cho bạn trong ít phút nữa.</value>
+  </data>
+  <data name="Success_NguoiNhan" xml:space="preserve">
+    <value>Người nhận</value>
+  </data>
+  <data name="Success_DonHang" xml:space="preserve">
+    <value>Đơn hàng</value>
+  </data>
+  <data name="Success_NgayDatFormat" xml:space="preserve">
+    <value>Ngày đặt: {0}</value>
+  </data>
+  <data name="Success_ThanhToanFormat" xml:space="preserve">
+    <value>Thanh toán: {0}</value>
+  </data>
+  <data name="Success_TrangThai" xml:space="preserve">
+    <value>Trạng thái:</value>
+  </data>
+  <data name="Success_Mon" xml:space="preserve">
+    <value>Món</value>
+  </data>
+  <data name="Success_SL" xml:space="preserve">
+    <value>SL</value>
+  </data>
+  <data name="Success_TheoDoiDonHang" xml:space="preserve">
+    <value>Theo dõi đơn hàng</value>
+  </data>
+  <data name="Success_TiepTucMuaSam" xml:space="preserve">
+    <value>Tiếp tục mua sắm</value>
+  </data>
+  <data name="Cart_SanPhamKhongTonTai" xml:space="preserve">
+    <value>Sản phẩm không tồn tại hoặc đã ngừng bán.</value>
+  </data>
+  <data name="Cart_DaThemVaoGioFormat" xml:space="preserve">
+    <value>Đã thêm "{0}" vào giỏ hàng.</value>
+  </data>
+  <data name="Cart_SanPhamKhongConBan" xml:space="preserve">
+    <value>Sản phẩm không còn bán.</value>
+  </data>
+  <data name="Cart_DaXoaSanPham" xml:space="preserve">
+    <value>Đã xóa sản phẩm khỏi giỏ hàng.</value>
+  </data>
+  <data name="Cart_DaXoaToanBo" xml:space="preserve">
+    <value>Đã xóa toàn bộ giỏ hàng.</value>
+  </data>
+  <data name="Cart_MaKhongTonTai" xml:space="preserve">
+    <value>Mã giảm giá không tồn tại.</value>
+  </data>
+  <data name="Cart_MaHetHan" xml:space="preserve">
+    <value>Mã giảm giá đã hết hạn hoặc chưa được kích hoạt.</value>
+  </data>
+  <data name="Cart_MaChiApDungFormat" xml:space="preserve">
+    <value>Mã {0} chỉ áp dụng cho đơn từ {1}.</value>
+  </data>
+  <data name="Cart_ApDungThanhCongFormat" xml:space="preserve">
+    <value>Áp dụng mã {0} thành công, giảm {1}.</value>
+  </data>
+  <data name="Cart_GioHangDangTrongCanhBao" xml:space="preserve">
+    <value>Giỏ hàng đang trống, bạn hãy chọn món trước nhé!</value>
+  </data>
+  <data name="Cart_GioHangDangTrong" xml:space="preserve">
+    <value>Giỏ hàng đang trống.</value>
+  </data>
+  <data name="Order_KhongTimThayDonHang" xml:space="preserve">
+    <value>Không tìm thấy đơn hàng.</value>
+  </data>
+  <data name="Order_KhongCoQuyenXem" xml:space="preserve">
+    <value>Bạn không có quyền xem đơn hàng này.</value>
+  </data>
+  <data name="Order_DonHangTitleFormat" xml:space="preserve">
+    <value>Đơn hàng #{0}</value>
+  </data>
+  <data name="Order_KhongCoQuyenHuy" xml:space="preserve">
+    <value>Bạn không có quyền hủy đơn hàng này.</value>
+  </data>
+  <data name="Order_KhongTheTuHuy" xml:space="preserve">
+    <value>Đơn hàng đã được xử lý nên không thể tự hủy.</value>
+  </data>
+  <data name="Order_DaHuyDonFormat" xml:space="preserve">
+    <value>Đã hủy đơn hàng #{0}.</value>
+  </data>
+  <data name="Order_ChuaCoDonHang" xml:space="preserve">
+    <value>Bạn chưa có đơn hàng nào</value>
+  </data>
+  <data name="Order_KhiBanDatMon" xml:space="preserve">
+    <value>Khi bạn đặt món, đơn hàng sẽ xuất hiện ở đây.</value>
+  </data>
+  <data name="Order_DatMonNgay" xml:space="preserve">
+    <value>Đặt món ngay</value>
+  </data>
+  <data name="Order_DonFormat" xml:space="preserve">
+    <value>Đơn hàng #{0}</value>
+  </data>
+  <data name="Order_VaMonKhacFormat" xml:space="preserve">
+    <value>và {0} món khác</value>
+  </data>
+  <data name="Order_TongTien" xml:space="preserve">
+    <value>Tổng tiền:</value>
+  </data>
+  <data name="Order_XemChiTiet" xml:space="preserve">
+    <value>Xem chi tiết</value>
+  </data>
+  <data name="Order_XacNhanHuyDon" xml:space="preserve">
+    <value>Bạn chắc chắn muốn hủy đơn này?</value>
+  </data>
+  <data name="Order_HuyDon" xml:space="preserve">
+    <value>Hủy đơn</value>
+  </data>
+  <data name="Order_DatLucFormat" xml:space="preserve">
+    <value>Đặt lúc {0}</value>
+  </data>
+  <data name="Order_DaBiHuy" xml:space="preserve">
+    <value>Đơn hàng này đã bị hủy.</value>
+  </data>
+  <data name="Order_GhiChuFormat" xml:space="preserve">
+    <value>Ghi chú: {0}</value>
+  </data>
+  <data name="Order_ThanhToanLabel" xml:space="preserve">
+    <value>Thanh toán</value>
+  </data>
+  <data name="Order_HuyDonHangBtn" xml:space="preserve">
+    <value>Hủy đơn hàng</value>
+  </data>
+  <data name="Order_VeDanhSachDon" xml:space="preserve">
+    <value>Về danh sách đơn</value>
+  </data>
+  <data name="Auth_DangKyTitle" xml:space="preserve">
+    <value>Đăng ký tài khoản</value>
+  </data>
+  <data name="Auth_EmailDaTonTai" xml:space="preserve">
+    <value>Email này đã được đăng ký. Bạn hãy đăng nhập hoặc dùng email khác.</value>
+  </data>
+  <data name="Auth_DangKyThanhCong" xml:space="preserve">
+    <value>Đăng ký thành công. Chào mừng bạn đến với SugarChills!</value>
+  </data>
+  <data name="Auth_SaiTaiKhoanMatKhau" xml:space="preserve">
+    <value>Email hoặc mật khẩu không đúng.</value>
+  </data>
+  <data name="Auth_XinChaoFormat" xml:space="preserve">
+    <value>Xin chào {0}!</value>
+  </data>
+  <data name="Auth_KhongCoQuyenTruyCap" xml:space="preserve">
+    <value>Không có quyền truy cập</value>
+  </data>
+  <data name="Auth_ThamGia" xml:space="preserve">
+    <value>Tham gia SugarChills</value>
+  </data>
+  <data name="Auth_ThamGiaMoTa" xml:space="preserve">
+    <value>Tạo tài khoản chỉ trong 30 giây để đặt món, lưu địa chỉ và nhận ưu đãi thành viên.</value>
+  </data>
+  <data name="Auth_DaCoTaiKhoan" xml:space="preserve">
+    <value>Đã có tài khoản?</value>
+  </data>
+  <data name="Auth_HoVaTen" xml:space="preserve">
+    <value>Họ và tên</value>
+  </data>
+  <data name="Auth_DiaChiLabel" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="Auth_DiaChiPlaceholder" xml:space="preserve">
+    <value>Số nhà, đường, phường, quận</value>
+  </data>
+  <data name="Auth_MatKhau" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="Auth_MatKhauPlaceholder" xml:space="preserve">
+    <value>Tối thiểu 6 ký tự</value>
+  </data>
+  <data name="Auth_XacNhanMatKhau" xml:space="preserve">
+    <value>Nhập lại mật khẩu</value>
+  </data>
+  <data name="Auth_XacNhanMatKhauPlaceholder" xml:space="preserve">
+    <value>Nhập lại mật khẩu</value>
+  </data>
+  <data name="Auth_TaoTaiKhoanBtn" xml:space="preserve">
+    <value>Tạo tài khoản</value>
+  </data>
+  <data name="Auth_DieuKhoan" xml:space="preserve">
+    <value>Khi đăng ký, bạn đồng ý với điều khoản sử dụng của SugarChills.</value>
+  </data>
+  <data name="Auth_ChaoMungTroLai" xml:space="preserve">
+    <value>Chào mừng trở lại!</value>
+  </data>
+  <data name="Auth_ChaoMungMoTa" xml:space="preserve">
+    <value>Đăng nhập để đặt món nhanh hơn, theo dõi đơn hàng và nhận ưu đãi riêng của SugarChills.</value>
+  </data>
+  <data name="Auth_LuuDiaChi" xml:space="preserve">
+    <value>Lưu địa chỉ giao hàng</value>
+  </data>
+  <data name="Auth_TheoDoiTrangThai" xml:space="preserve">
+    <value>Theo dõi trạng thái đơn</value>
+  </data>
+  <data name="Auth_NhanMaGiamGia" xml:space="preserve">
+    <value>Nhận mã giảm giá mỗi tuần</value>
+  </data>
+  <data name="Auth_ChuaCoTaiKhoan" xml:space="preserve">
+    <value>Chưa có tài khoản?</value>
+  </data>
+  <data name="Auth_DangKyNgay" xml:space="preserve">
+    <value>Đăng ký ngay</value>
+  </data>
+  <data name="Auth_GhiNhoDangNhap" xml:space="preserve">
+    <value>Ghi nhớ đăng nhập</value>
+  </data>
+  <data name="Auth_QuenMatKhau" xml:space="preserve">
+    <value>Quên mật khẩu?</value>
+  </data>
+  <data name="Auth_TaiKhoanDungThu" xml:space="preserve">
+    <value>Tài khoản dùng thử:</value>
+  </data>
+  <data name="Auth_KhachHang" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="Auth_KhuVucNguoiBan" xml:space="preserve">
+    <value>Khu vực dành riêng cho người bán</value>
+  </data>
+  <data name="Auth_KhongCoQuyenMoTaFormat" xml:space="preserve">
+    <value>Tài khoản của bạn đang đăng nhập với vai trò {0} nên không thể vào trang quản trị. Nếu bạn là chủ shop, hãy đăng nhập bằng tài khoản người bán.</value>
+  </data>
+  <data name="Auth_VeTrangChu" xml:space="preserve">
+    <value>Về trang chủ</value>
+  </data>
+  <data name="Account_ThamGiaFormat" xml:space="preserve">
+    <value>Tham gia {0}</value>
+  </data>
+  <data name="Account_ChuaCapNhatDiaChi" xml:space="preserve">
+    <value>Chưa cập nhật địa chỉ</value>
+  </data>
+  <data name="Account_VaoKhuQuanTri" xml:space="preserve">
+    <value>Vào khu quản trị</value>
+  </data>
+  <data name="Account_TongDonHang" xml:space="preserve">
+    <value>Tổng đơn hàng</value>
+  </data>
+  <data name="Account_DaHoanThanh" xml:space="preserve">
+    <value>Đã hoàn thành</value>
+  </data>
+  <data name="Account_DaChiTieu" xml:space="preserve">
+    <value>Đã chi tiêu</value>
+  </data>
+  <data name="Account_DonHangGanDay" xml:space="preserve">
+    <value>Đơn hàng gần đây</value>
+  </data>
+  <data name="Account_MaDon" xml:space="preserve">
+    <value>Mã đơn</value>
+  </data>
+  <data name="Account_NgayDat" xml:space="preserve">
+    <value>Ngày đặt</value>
+  </data>
+  <data name="Account_SoMon" xml:space="preserve">
+    <value>Số món</value>
+  </data>
+  <data name="Account_TongTienHeader" xml:space="preserve">
+    <value>Tổng tiền</value>
+  </data>
+  <data name="Account_TrangThai" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Account_ChuaCoDonHang" xml:space="preserve">
+    <value>Bạn chưa có đơn hàng nào.</value>
+  </data>
+  <data name="Admin_ThaoTac" xml:space="preserve">
+    <value>Thao tác</value>
+  </data>
+  <data name="Admin_QuayLaiDanhSach" xml:space="preserve">
+    <value>Quay lại danh sách</value>
+  </data>
+  <data name="Admin_Huy" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Admin_QuayLai" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
+  <data name="Admin_XacNhanXoa" xml:space="preserve">
+    <value>Xác nhận xóa</value>
+  </data>
+  <data name="Admin_KhongTheHoanTac" xml:space="preserve">
+    <value>Thao tác này không thể hoàn tác.</value>
+  </data>
+  <data name="Admin_Xem" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="Admin_Sua" xml:space="preserve">
+    <value>Sửa</value>
+  </data>
+  <data name="SellerProd_KhongTimThaySP" xml:space="preserve">
+    <value>Không tìm thấy sản phẩm.</value>
+  </data>
+  <data name="SellerProd_ChiTietTitle" xml:space="preserve">
+    <value>Chi tiết sản phẩm</value>
+  </data>
+  <data name="SellerProd_ThemTitle" xml:space="preserve">
+    <value>Thêm sản phẩm</value>
+  </data>
+  <data name="SellerProd_SuaTitle" xml:space="preserve">
+    <value>Sửa sản phẩm</value>
+  </data>
+  <data name="SellerProd_XoaTitle" xml:space="preserve">
+    <value>Xóa sản phẩm</value>
+  </data>
+  <data name="SellerProd_KhongTimThaySuaCanXoa" xml:space="preserve">
+    <value>Không tìm thấy sản phẩm cần sửa.</value>
+  </data>
+  <data name="SellerProd_DaThemFormat" xml:space="preserve">
+    <value>Đã thêm sản phẩm "{0}".</value>
+  </data>
+  <data name="SellerProd_DaCapNhatFormat" xml:space="preserve">
+    <value>Đã cập nhật sản phẩm "{0}".</value>
+  </data>
+  <data name="SellerProd_DaXoa" xml:space="preserve">
+    <value>Đã xóa sản phẩm.</value>
+  </data>
+  <data name="SellerProd_ChonLoaiHopLe" xml:space="preserve">
+    <value>Vui lòng chọn loại sản phẩm hợp lệ.</value>
+  </data>
+  <data name="SellerProd_GiaKMPhaiNhoHonGiaBan" xml:space="preserve">
+    <value>Giá khuyến mãi phải nhỏ hơn giá bán.</value>
+  </data>
+  <data name="SellerProd_TrungTen" xml:space="preserve">
+    <value>Đã có sản phẩm khác trùng tên này.</value>
+  </data>
+  <data name="SellerProd_DanhSach" xml:space="preserve">
+    <value>Danh sách sản phẩm</value>
+  </data>
+  <data name="SellerProd_TongCongFormat" xml:space="preserve">
+    <value>Tổng cộng {0} sản phẩm</value>
+  </data>
+  <data name="SellerProd_TimTheoTenPlaceholder" xml:space="preserve">
+    <value>Tìm theo tên sản phẩm...</value>
+  </data>
+  <data name="SellerProd_TatCaLoai" xml:space="preserve">
+    <value>-- Tất cả loại --</value>
+  </data>
+  <data name="SellerProd_TatCaTrangThai" xml:space="preserve">
+    <value>-- Trạng thái --</value>
+  </data>
+  <data name="SellerProd_DangBan" xml:space="preserve">
+    <value>Đang bán</value>
+  </data>
+  <data name="SellerProd_NgungBan" xml:space="preserve">
+    <value>Ngừng bán</value>
+  </data>
+  <data name="SellerProd_ColMa" xml:space="preserve">
+    <value>Mã</value>
+  </data>
+  <data name="SellerProd_ColSanPham" xml:space="preserve">
+    <value>Sản phẩm</value>
+  </data>
+  <data name="SellerProd_ColLoai" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="SellerProd_ColGiaBan" xml:space="preserve">
+    <value>Giá bán</value>
+  </data>
+  <data name="SellerProd_ColTon" xml:space="preserve">
+    <value>Tồn</value>
+  </data>
+  <data name="SellerProd_ColNoiBat" xml:space="preserve">
+    <value>Nổi bật</value>
+  </data>
+  <data name="SellerProd_KhongTimThaySanPhamNao" xml:space="preserve">
+    <value>Không tìm thấy sản phẩm nào.</value>
+  </data>
+  <data name="SellerProd_DaBanFormat" xml:space="preserve">
+    <value>Đã bán {0}</value>
+  </data>
+  <data name="SellerProd_BoDanhDauNoiBat" xml:space="preserve">
+    <value>Bỏ đánh dấu nổi bật</value>
+  </data>
+  <data name="SellerProd_DanhDauNoiBat" xml:space="preserve">
+    <value>Đánh dấu nổi bật</value>
+  </data>
+  <data name="SellerProd_ChiTietSPFormat" xml:space="preserve">
+    <value>Chi tiết sản phẩm SC{0}</value>
+  </data>
+  <data name="SellerProd_XemTrenWebKhach" xml:space="preserve">
+    <value>Xem trên website khách hàng</value>
+  </data>
+  <data name="SellerProd_LoaiSanPhamLabel" xml:space="preserve">
+    <value>Loại sản phẩm</value>
+  </data>
+  <data name="SellerProd_GiaKhuyenMaiLabel" xml:space="preserve">
+    <value>Giá khuyến mãi</value>
+  </data>
+  <data name="SellerProd_KhongApDung" xml:space="preserve">
+    <value>Không áp dụng</value>
+  </data>
+  <data name="SellerProd_SoLuongTonLabel" xml:space="preserve">
+    <value>Số lượng tồn</value>
+  </data>
+  <data name="SellerProd_DaBanLabel" xml:space="preserve">
+    <value>Đã bán</value>
+  </data>
+  <data name="SellerProd_NoiBatLabel" xml:space="preserve">
+    <value>Nổi bật</value>
+  </data>
+  <data name="SellerProd_Co" xml:space="preserve">
+    <value>Có</value>
+  </data>
+  <data name="SellerProd_Khong" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="SellerProd_NgayTaoLabel" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="SellerProd_TenSPLabel" xml:space="preserve">
+    <value>Tên sản phẩm</value>
+  </data>
+  <data name="SellerProd_TenSPPlaceholder" xml:space="preserve">
+    <value>Ví dụ: Trà sữa trân châu đường đen</value>
+  </data>
+  <data name="SellerProd_ChonLoaiOption" xml:space="preserve">
+    <value>-- Chọn loại sản phẩm --</value>
+  </data>
+  <data name="SellerProd_GiaBanLabel" xml:space="preserve">
+    <value>Giá bán</value>
+  </data>
+  <data name="SellerProd_GiaKMPlaceholder" xml:space="preserve">
+    <value>Bỏ trống nếu không giảm giá</value>
+  </data>
+  <data name="SellerProd_MoTaLabel" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="SellerProd_MoTaPlaceholder" xml:space="preserve">
+    <value>Mô tả ngắn về hương vị, nguyên liệu...</value>
+  </data>
+  <data name="SellerProd_ThongTinSP" xml:space="preserve">
+    <value>Thông tin sản phẩm</value>
+  </data>
+  <data name="SellerProd_HinhAnhHeading" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="SellerProd_HinhAnhPlaceholder" xml:space="preserve">
+    <value>Dán link ảnh (https://...)</value>
+  </data>
+  <data name="SellerProd_HinhAnhHint" xml:space="preserve">
+    <value>Dán URL ảnh, khung xem trước sẽ tự cập nhật.</value>
+  </data>
+  <data name="SellerProd_HienThiHeading" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="SellerProd_TrangThaiBanLabel" xml:space="preserve">
+    <value>Trạng thái bán</value>
+  </data>
+  <data name="SellerProd_TuyChonKhac" xml:space="preserve">
+    <value>Tùy chọn khác</value>
+  </data>
+  <data name="SellerProd_HienThiMonNoiBat" xml:space="preserve">
+    <value>Hiển thị ở mục "Món nổi bật" trang chủ</value>
+  </data>
+  <data name="SellerProd_ThemMoiHeading" xml:space="preserve">
+    <value>Thêm sản phẩm mới</value>
+  </data>
+  <data name="SellerProd_LuuSanPham" xml:space="preserve">
+    <value>Lưu sản phẩm</value>
+  </data>
+  <data name="SellerProd_SuaSPFormat" xml:space="preserve">
+    <value>Sửa sản phẩm SC{0}</value>
+  </data>
+  <data name="SellerProd_CapNhatBtn" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="SellerProd_XoaSanPhamBtn" xml:space="preserve">
+    <value>Xóa sản phẩm</value>
+  </data>
+  <data name="SellerProd_XacNhanXoaHeading" xml:space="preserve">
+    <value>Xác nhận xóa sản phẩm</value>
+  </data>
+  <data name="SellerProd_XacNhanXoaMoTa" xml:space="preserve">
+    <value>Bạn chắc chắn muốn xóa sản phẩm dưới đây?</value>
+  </data>
+  <data name="SellerProd_TonFormat" xml:space="preserve">
+    <value>Tồn {0}</value>
+  </data>
+  <data name="SellerProd_GoiYNgungBanFormat" xml:space="preserve">
+    <value>Nếu sản phẩm đã từng được đặt, bạn nên chuyển sang {0} thay vì xóa để giữ lịch sử đơn hàng.</value>
+  </data>
+  <data name="SellerLoai_Title" xml:space="preserve">
+    <value>Quản lý loại sản phẩm</value>
+  </data>
+  <data name="SellerLoai_ThemTitle" xml:space="preserve">
+    <value>Thêm loại sản phẩm</value>
+  </data>
+  <data name="SellerLoai_SuaTitle" xml:space="preserve">
+    <value>Sửa loại sản phẩm</value>
+  </data>
+  <data name="SellerLoai_XoaTitle" xml:space="preserve">
+    <value>Xóa loại sản phẩm</value>
+  </data>
+  <data name="SellerLoai_KhongTimThay" xml:space="preserve">
+    <value>Không tìm thấy loại sản phẩm.</value>
+  </data>
+  <data name="SellerLoai_KhongTimThaySuaCanXoa" xml:space="preserve">
+    <value>Không tìm thấy loại sản phẩm cần sửa.</value>
+  </data>
+  <data name="SellerLoai_DaThemFormat" xml:space="preserve">
+    <value>Đã thêm loại "{0}".</value>
+  </data>
+  <data name="SellerLoai_DaCapNhatFormat" xml:space="preserve">
+    <value>Đã cập nhật loại "{0}".</value>
+  </data>
+  <data name="SellerLoai_DaXoa" xml:space="preserve">
+    <value>Đã xóa loại sản phẩm.</value>
+  </data>
+  <data name="SellerLoai_TrungTen" xml:space="preserve">
+    <value>Tên loại này đã tồn tại.</value>
+  </data>
+  <data name="SellerLoai_DanhSach" xml:space="preserve">
+    <value>Danh sách loại sản phẩm</value>
+  </data>
+  <data name="SellerLoai_SoLuongDangCoFormat" xml:space="preserve">
+    <value>{0} loại đang có trong hệ thống</value>
+  </data>
+  <data name="SellerLoai_ThemBtn" xml:space="preserve">
+    <value>Thêm loại</value>
+  </data>
+  <data name="SellerLoai_ColAnh" xml:space="preserve">
+    <value>Ảnh</value>
+  </data>
+  <data name="SellerLoai_ColTenLoai" xml:space="preserve">
+    <value>Tên loại</value>
+  </data>
+  <data name="SellerLoai_ColSoSP" xml:space="preserve">
+    <value>Số SP</value>
+  </data>
+  <data name="SellerLoai_ColThuTu" xml:space="preserve">
+    <value>Thứ tự</value>
+  </data>
+  <data name="SellerLoai_ColHienThi" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="SellerLoai_ChuaCoLoaiNao" xml:space="preserve">
+    <value>Chưa có loại sản phẩm nào.</value>
+  </data>
+  <data name="SellerLoai_Hien" xml:space="preserve">
+    <value>Hiện</value>
+  </data>
+  <data name="SellerLoai_An" xml:space="preserve">
+    <value>Ẩn</value>
+  </data>
+  <data name="SellerLoai_GhiChuKhongXoaDuoc" xml:space="preserve">
+    <value>Không thể xóa loại đang có sản phẩm — hệ thống sẽ báo lỗi để bảo vệ ràng buộc khóa ngoại giữa bảng Loại và bảng Sản phẩm.</value>
+  </data>
+  <data name="SellerLoai_TenLoaiPlaceholder" xml:space="preserve">
+    <value>Ví dụ: Trà sữa</value>
+  </data>
+  <data name="SellerLoai_ThuTuHint" xml:space="preserve">
+    <value>Số nhỏ hiển thị trước trên menu.</value>
+  </data>
+  <data name="SellerLoai_MoTaPlaceholder" xml:space="preserve">
+    <value>Mô tả ngắn về nhóm sản phẩm này</value>
+  </data>
+  <data name="SellerLoai_HienThiCheckbox" xml:space="preserve">
+    <value>Hiển thị loại này trên menu của khách hàng</value>
+  </data>
+  <data name="SellerLoai_HinhDaiDien" xml:space="preserve">
+    <value>Hình đại diện</value>
+  </data>
+  <data name="SellerLoai_LuuLoai" xml:space="preserve">
+    <value>Lưu loại</value>
+  </data>
+  <data name="SellerLoai_SuaFormat" xml:space="preserve">
+    <value>Sửa loại: {0}</value>
+  </data>
+  <data name="SellerLoai_XacNhanXoaHeading" xml:space="preserve">
+    <value>Xác nhận xóa loại sản phẩm</value>
+  </data>
+  <data name="SellerLoai_SanPhamCountFormat" xml:space="preserve">
+    <value>{0} sản phẩm</value>
+  </data>
+  <data name="SellerLoai_DangCoSanPhamMoTaFormat" xml:space="preserve">
+    <value>Loại này đang có {0}. Bạn phải chuyển các sản phẩm đó sang loại khác (hoặc xóa chúng) trước khi xóa loại này.</value>
+  </data>
+  <data name="SellerLoai_XemSanPhamFormat" xml:space="preserve">
+    <value>Xem {0} sản phẩm</value>
+  </data>
+  <data name="SellerLoai_AnToanMoTa" xml:space="preserve">
+    <value>Loại này chưa có sản phẩm nào nên có thể xóa an toàn.</value>
+  </data>
+  <data name="KhoDuLieu_KhongTheXoaLoaiFormat" xml:space="preserve">
+    <value>Không thể xóa loại "{0}" vì đang có {1} sản phẩm thuộc loại này. Hãy chuyển hoặc xóa sản phẩm trước.</value>
+  </data>
+  <data name="KhoDuLieu_SPDangTrongDonChuaXuLy" xml:space="preserve">
+    <value>Sản phẩm đang nằm trong đơn hàng chưa xử lý xong. Bạn nên chuyển sang trạng thái "Ngừng bán" thay vì xóa.</value>
+  </data>
+  <data name="SellerOrder_TrangThaiKhongHopLe" xml:space="preserve">
+    <value>Trạng thái không hợp lệ.</value>
+  </data>
+  <data name="SellerOrder_KhongTheDoiTiepFormat" xml:space="preserve">
+    <value>Đơn #{0} đang ở trạng thái "{1}" nên không thể đổi tiếp.</value>
+  </data>
+  <data name="SellerOrder_DaChuyenSangFormat" xml:space="preserve">
+    <value>Đơn #{0} chuyển sang "{1}".</value>
+  </data>
+  <data name="SellerOrder_ChoXacNhanLabel" xml:space="preserve">
+    <value>Chờ xác nhận</value>
+  </data>
+  <data name="SellerOrder_DangGiaoLabel" xml:space="preserve">
+    <value>Đang giao</value>
+  </data>
+  <data name="SellerOrder_HoanThanhLabel" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="SellerOrder_DaHuyLabel" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="SellerOrder_DanhSachDonHang" xml:space="preserve">
+    <value>Danh sách đơn hàng</value>
+  </data>
+  <data name="SellerOrder_TimThayFormat" xml:space="preserve">
+    <value>Tìm thấy {0} đơn</value>
+  </data>
+  <data name="SellerOrder_TuNgay" xml:space="preserve">
+    <value>Từ ngày</value>
+  </data>
+  <data name="SellerOrder_DenNgay" xml:space="preserve">
+    <value>Đến ngày</value>
+  </data>
+  <data name="SellerOrder_TimKiemPlaceholder" xml:space="preserve">
+    <value>Mã đơn, tên, SĐT...</value>
+  </data>
+  <data name="SellerOrder_BoLoc" xml:space="preserve">
+    <value>Bỏ lọc</value>
+  </data>
+  <data name="SellerOrder_KhongCoDonKhopBoLoc" xml:space="preserve">
+    <value>Không có đơn hàng nào khớp bộ lọc.</value>
+  </data>
+  <data name="SellerOrder_DanhSachDonBtn" xml:space="preserve">
+    <value>Danh sách đơn</value>
+  </data>
+  <data name="SellerOrder_DatLuc" xml:space="preserve">
+    <value>Đặt lúc</value>
+  </data>
+  <data name="SellerOrder_MaFormat" xml:space="preserve">
+    <value>(mã {0})</value>
+  </data>
+  <data name="SellerOrder_CapNhatTrangThai" xml:space="preserve">
+    <value>Cập nhật trạng thái</value>
+  </data>
+  <data name="SellerOrder_DaKhoaFormat" xml:space="preserve">
+    <value>Đơn đã ở trạng thái "{0}" nên không thể thay đổi tiếp.</value>
+  </data>
+  <data name="SellerOrder_LuongXuLyFormat" xml:space="preserve">
+    <value>Luồng xử lý: {0} → {1} → {2} → {3}. Chọn "{4}" nếu khách báo hủy đơn.</value>
+  </data>
+  <data name="SellerKM_ThemTitle" xml:space="preserve">
+    <value>Thêm khuyến mãi</value>
+  </data>
+  <data name="SellerKM_SuaTitle" xml:space="preserve">
+    <value>Sửa khuyến mãi</value>
+  </data>
+  <data name="SellerKM_XoaTitle" xml:space="preserve">
+    <value>Xóa khuyến mãi</value>
+  </data>
+  <data name="SellerKM_KhongTimThay" xml:space="preserve">
+    <value>Không tìm thấy chương trình khuyến mãi.</value>
+  </data>
+  <data name="SellerKM_KhongTimThaySuaCanXoa" xml:space="preserve">
+    <value>Không tìm thấy chương trình cần sửa.</value>
+  </data>
+  <data name="SellerKM_DaThemFormat" xml:space="preserve">
+    <value>Đã thêm chương trình "{0}".</value>
+  </data>
+  <data name="SellerKM_DaCapNhatFormat" xml:space="preserve">
+    <value>Đã cập nhật chương trình "{0}".</value>
+  </data>
+  <data name="SellerKM_DaXoa" xml:space="preserve">
+    <value>Đã xóa chương trình khuyến mãi.</value>
+  </data>
+  <data name="SellerKM_MaTrung" xml:space="preserve">
+    <value>Mã giảm giá này đã được dùng cho chương trình khác.</value>
+  </data>
+  <data name="SellerKM_NgayKetThucSaiThuTu" xml:space="preserve">
+    <value>Ngày kết thúc phải sau hoặc bằng ngày bắt đầu.</value>
+  </data>
+  <data name="SellerKM_PhanTramPhaiLonHon0" xml:space="preserve">
+    <value>Phần trăm giảm phải lớn hơn 0.</value>
+  </data>
+  <data name="SellerKM_DaDuocFormat" xml:space="preserve">
+    <value>Chương trình "{0}" đã được {1}.</value>
+  </data>
+  <data name="SellerKM_Bat" xml:space="preserve">
+    <value>bật</value>
+  </data>
+  <data name="SellerKM_Tat" xml:space="preserve">
+    <value>tắt</value>
+  </data>
+  <data name="SellerKM_ChuongTrinhKM" xml:space="preserve">
+    <value>Chương trình khuyến mãi</value>
+  </data>
+  <data name="SellerKM_SoLuongFormat" xml:space="preserve">
+    <value>{0} chương trình, {1} đang chạy</value>
+  </data>
+  <data name="SellerKM_ThemBtn" xml:space="preserve">
+    <value>Thêm chương trình</value>
+  </data>
+  <data name="SellerKM_ColChuongTrinh" xml:space="preserve">
+    <value>Chương trình</value>
+  </data>
+  <data name="SellerKM_ColMaGiamGia" xml:space="preserve">
+    <value>Mã giảm giá</value>
+  </data>
+  <data name="SellerKM_ColGiam" xml:space="preserve">
+    <value>Giảm</value>
+  </data>
+  <data name="SellerKM_ColToiDa" xml:space="preserve">
+    <value>Tối đa</value>
+  </data>
+  <data name="SellerKM_ColDonToiThieu" xml:space="preserve">
+    <value>Đơn tối thiểu</value>
+  </data>
+  <data name="SellerKM_ColThoiGian" xml:space="preserve">
+    <value>Thời gian</value>
+  </data>
+  <data name="SellerKM_ChuaCoChuongTrinh" xml:space="preserve">
+    <value>Chưa có chương trình khuyến mãi nào.</value>
+  </data>
+  <data name="SellerKM_DangChay" xml:space="preserve">
+    <value>Đang chạy</value>
+  </data>
+  <data name="SellerKM_DaTat" xml:space="preserve">
+    <value>Đã tắt</value>
+  </data>
+  <data name="SellerKM_NgoaiThoiGian" xml:space="preserve">
+    <value>Ngoài thời gian</value>
+  </data>
+  <data name="SellerKM_TatTitle" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="SellerKM_BatTitle" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="SellerKM_GhiChuMaGiamGiaFormat" xml:space="preserve">
+    <value>Mã giảm giá tạo ở đây chính là mã khách nhập tại trang {0}. Hệ thống tự kiểm tra hạn dùng và giá trị đơn tối thiểu.</value>
+  </data>
+  <data name="SellerKM_TenChuongTrinhLabel" xml:space="preserve">
+    <value>Tên chương trình</value>
+  </data>
+  <data name="SellerKM_TenKMPlaceholder" xml:space="preserve">
+    <value>Ví dụ: Chào bạn mới</value>
+  </data>
+  <data name="SellerKM_MaHint" xml:space="preserve">
+    <value>Chỉ chữ và số, không dấu, không khoảng trắng.</value>
+  </data>
+  <data name="SellerKM_PhanTramLabel" xml:space="preserve">
+    <value>Giảm (%)</value>
+  </data>
+  <data name="SellerKM_GiamToiDaLabel" xml:space="preserve">
+    <value>Giảm tối đa (đ)</value>
+  </data>
+  <data name="SellerKM_DonToiThieuLabel" xml:space="preserve">
+    <value>Đơn tối thiểu (đ)</value>
+  </data>
+  <data name="SellerKM_NgayBatDauLabel" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
+  </data>
+  <data name="SellerKM_NgayKetThucLabel" xml:space="preserve">
+    <value>Ngày kết thúc</value>
+  </data>
+  <data name="SellerKM_MoTaPlaceholder" xml:space="preserve">
+    <value>Mô tả hiển thị cho khách hàng</value>
+  </data>
+  <data name="SellerKM_KichHoatCheckbox" xml:space="preserve">
+    <value>Kích hoạt chương trình này</value>
+  </data>
+  <data name="SellerKM_CachHoatDongHeading" xml:space="preserve">
+    <value>Cách khuyến mãi hoạt động</value>
+  </data>
+  <data name="SellerKM_Buoc1" xml:space="preserve">
+    <value>Khách nhập mã ở trang giỏ hàng.</value>
+  </data>
+  <data name="SellerKM_Buoc2" xml:space="preserve">
+    <value>Hệ thống kiểm tra mã còn hiệu lực và đơn hàng có đạt giá trị tối thiểu không.</value>
+  </data>
+  <data name="SellerKM_Buoc3" xml:space="preserve">
+    <value>Tiền giảm = tạm tính × phần trăm giảm, nhưng không vượt quá "Giảm tối đa".</value>
+  </data>
+  <data name="SellerKM_Buoc4" xml:space="preserve">
+    <value>Số tiền giảm được lưu vào đơn hàng để phục vụ thống kê.</value>
+  </data>
+  <data name="SellerKM_CanhBaoDuyNhat" xml:space="preserve">
+    <value>Mỗi mã giảm giá phải là duy nhất trong hệ thống.</value>
+  </data>
+  <data name="SellerKM_ThemChuongTrinhHeading" xml:space="preserve">
+    <value>Thêm chương trình khuyến mãi</value>
+  </data>
+  <data name="SellerKM_LuuChuongTrinh" xml:space="preserve">
+    <value>Lưu chương trình</value>
+  </data>
+  <data name="SellerKM_SuaFormat" xml:space="preserve">
+    <value>Sửa: {0}</value>
+  </data>
+  <data name="SellerKM_XacNhanXoaHeading" xml:space="preserve">
+    <value>Xác nhận xóa chương trình</value>
+  </data>
+  <data name="SellerKM_KhongDungDuocMoTa" xml:space="preserve">
+    <value>Khách sẽ không dùng được mã này nữa sau khi xóa.</value>
+  </data>
+  <data name="SellerKM_GiamFormat" xml:space="preserve">
+    <value>Giảm {0}%</value>
+  </data>
+  <data name="SellerKM_ToiDaFormat" xml:space="preserve">
+    <value>Tối đa {0}</value>
+  </data>
+  <data name="SellerKM_HieuLucFormat" xml:space="preserve">
+    <value>Hiệu lực: {0} → {1}</value>
+  </data>
+  <data name="ThongKe_KyThongKe" xml:space="preserve">
+    <value>Kỳ thống kê</value>
+  </data>
+  <data name="ThongKe_30NgayGanNhat" xml:space="preserve">
+    <value>30 ngày gần nhất</value>
+  </data>
+  <data name="ThongKe_DoanhThuLabel" xml:space="preserve">
+    <value>Doanh thu (đơn hoàn thành)</value>
+  </data>
+  <data name="ThongKe_DonHangTrongKy" xml:space="preserve">
+    <value>Đơn hàng trong kỳ</value>
+  </data>
+  <data name="ThongKe_GiaTriTrungBinh" xml:space="preserve">
+    <value>Giá trị đơn trung bình</value>
+  </data>
+  <data name="ThongKe_KhachHangDangKy" xml:space="preserve">
+    <value>Khách hàng đã đăng ký</value>
+  </data>
+  <data name="ThongKe_DonChoXacNhan" xml:space="preserve">
+    <value>Đơn chờ xác nhận</value>
+  </data>
+  <data name="ThongKe_DonHoanThanh" xml:space="preserve">
+    <value>Đơn hoàn thành</value>
+  </data>
+  <data name="ThongKe_DonDaHuy" xml:space="preserve">
+    <value>Đơn đã hủy</value>
+  </data>
+  <data name="ThongKe_SanPhamTrongMenu" xml:space="preserve">
+    <value>Sản phẩm trong menu</value>
+  </data>
+  <data name="ThongKe_DoanhThuTheoNgay" xml:space="preserve">
+    <value>Doanh thu theo ngày</value>
+  </data>
+  <data name="ThongKe_ChuaCoDoanhThu" xml:space="preserve">
+    <value>Chưa có doanh thu trong kỳ này.</value>
+  </data>
+  <data name="ThongKe_ChartTooltipFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} đơn)</value>
+  </data>
+  <data name="ThongKe_ReChuot" xml:space="preserve">
+    <value>Rê chuột vào từng cột để xem doanh thu của ngày đó</value>
+  </data>
+  <data name="ThongKe_DoanhThuTheoLoai" xml:space="preserve">
+    <value>Doanh thu theo loại</value>
+  </data>
+  <data name="ThongKe_ChuaCoDuLieu" xml:space="preserve">
+    <value>Chưa có dữ liệu.</value>
+  </data>
+  <data name="ThongKe_DaBanPhanFormat" xml:space="preserve">
+    <value>Đã bán {0} phần</value>
+  </data>
+  <data name="ThongKe_Top5BanChay" xml:space="preserve">
+    <value>Top 5 sản phẩm bán chạy</value>
+  </data>
+  <data name="ThongKe_ColSLBan" xml:space="preserve">
+    <value>SL bán</value>
+  </data>
+  <data name="ThongKe_ColDoanhThu" xml:space="preserve">
+    <value>Doanh thu</value>
+  </data>
+  <data name="ThongKe_ChuaCoDuLieuBanHang" xml:space="preserve">
+    <value>Chưa có dữ liệu bán hàng.</value>
+  </data>
+  <data name="ThongKe_DonHangMoiNhat" xml:space="preserve">
+    <value>Đơn hàng mới nhất</value>
+  </data>
+  <data name="ThongKe_ColKhach" xml:space="preserve">
+    <value>Khách</value>
+  </data>
+</root>

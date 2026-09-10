@@ -2,7 +2,7 @@
 @model QL_MatHangAnUong.Models.KhuyenMai
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
-    ViewBag.Title = "Xóa khuyến mãi";
+    ViewBag.Title = Resources.Strings.SellerKM_XoaTitle;
 }
 
 <div class="sc-panel" style="max-width:620px;margin:0 auto">
@@ -11,19 +11,19 @@
              style="width:66px;height:66px;font-size:28px;background:#FFECF1;color:#C0345C">
             <i class="bi bi-exclamation-triangle"></i>
         </div>
-        <h4>Xác nhận xóa chương trình</h4>
-        <p class="sc-text-muted">Khách sẽ không dùng được mã này nữa sau khi xóa.</p>
+        <h4>@Resources.Strings.SellerKM_XacNhanXoaHeading</h4>
+        <p class="sc-text-muted">@Resources.Strings.SellerKM_KhongDungDuocMoTa</p>
     </div>
 
     <div class="p-3" style="background:var(--sc-primary-softer);border-radius:14px">
         <div class="fw-bold" style="font-size:17px">@Model.TenKM</div>
         <div class="mt-2">
             <span class="sc-chip">@Model.MaGiamGia.ToUpper()</span>
-            <span class="sc-chip">Giảm @Model.PhanTramGiam%</span>
-            <span class="sc-chip">Tối đa @DinhDang.Tien(Model.GiamToiDa)</span>
+            <span class="sc-chip">@(string.Format(Resources.Strings.SellerKM_GiamFormat, Model.PhanTramGiam))</span>
+            <span class="sc-chip">@(string.Format(Resources.Strings.SellerKM_ToiDaFormat, DinhDang.Tien(Model.GiamToiDa)))</span>
         </div>
         <div class="sc-text-muted small mt-2">
-            Hiệu lực: @DinhDang.Ngay(Model.NgayBatDau) → @DinhDang.Ngay(Model.NgayKetThuc)
+            @(string.Format(Resources.Strings.SellerKM_HieuLucFormat, DinhDang.Ngay(Model.NgayBatDau), DinhDang.Ngay(Model.NgayKetThuc)))
         </div>
     </div>
 
@@ -32,8 +32,8 @@
         {
             @Html.AntiForgeryToken()
             <input type="hidden" name="id" value="@Model.MaKM" />
-            <button type="submit" class="btn btn-sc btn-lg"><i class="bi bi-trash"></i> Xác nhận xóa</button>
+            <button type="submit" class="btn btn-sc btn-lg"><i class="bi bi-trash"></i> @Resources.Strings.Admin_XacNhanXoa</button>
         }
-        <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">Quay lại</a>
+        <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">@Resources.Strings.Admin_QuayLai</a>
     </div>
 </div>

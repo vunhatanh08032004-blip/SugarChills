@@ -1,7 +1,7 @@
 ﻿@using QL_MatHangAnUong.Helpers
 @model QL_MatHangAnUong.Models.ViewModels.TrangChuViewModel
 @{
-    ViewBag.Title = "Trang chủ";
+    ViewBag.Title = Resources.Strings.Common_TrangChu;
     var soSPTheoLoai = ViewBag.SoSanPhamTheoLoai as Dictionary<int, int> ?? new Dictionary<int, int>();
 }
 
@@ -12,21 +12,50 @@
         <span class="sc-blob sc-blob-2"></span>
         <div class="row align-items-center g-4 position-relative">
             <div class="col-lg-6">
-                <span class="sc-hero-tag"><i class="bi bi-stars"></i> MỚI MỖI NGÀY</span>
-                <h1>Ngọt vừa đủ,<br />mát vừa xinh.</h1>
+                <span class="sc-hero-tag"><i class="bi bi-stars"></i> @Resources.Strings.Home_MoiMoiNgay</span>
+                <h1>@Html.Raw(Resources.Strings.Home_HeroTitle)</h1>
                 <p class="mb-4">
-                    Trà sữa, trà trái cây, cà phê và bánh ngọt được pha chế trong ngày tại SugarChills.
-                    Đặt online, nhận hàng trong 30 phút.
+                    @Resources.Strings.Home_HeroMoTa
                 </p>
                 <a href="#danh-muc-yeu-thich" class="btn btn-sc btn-lg">
-                    <i class="bi bi-cup-straw"></i> Xem thực đơn
+                    <i class="bi bi-cup-straw"></i> @Resources.Strings.About_XemThucDon
                 </a>
-                <a href="#khuyen-mai" class="btn btn-sc-outline btn-lg ms-2">Ưu đãi hôm nay</a>
+                <a href="#khuyen-mai" class="btn btn-sc-outline btn-lg ms-2">@Resources.Strings.Home_UuDaiHomNay</a>
             </div>
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=1000&q=80"
-                     class="sc-hero-img" alt="SugarChills"
-                     onerror="this.onerror=null;this.src='https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills';" />
+                <!-- Banner ảnh tự động chuyển (Bootstrap Carousel) — tự chạy mỗi 4s, hoặc bấm mũi tên/chấm tròn để chuyển tay -->
+                <div id="heroCarousel" class="carousel slide sc-hero-carousel" data-bs-ride="carousel" data-bs-interval="4000">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Ảnh 1"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Ảnh 2"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Ảnh 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=1000&q=80"
+                                 class="sc-hero-img" alt="@Resources.Strings.Home_AltTraSua"
+                                 data-fallback="https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills" />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=80"
+                                 class="sc-hero-img" alt="@Resources.Strings.Home_AltCaPhe"
+                                 data-fallback="https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills" />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=1000&q=80"
+                                 class="sc-hero-img" alt="@Resources.Strings.Home_AltKemDaXay"
+                                 data-fallback="https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills" />
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                        <span class="sc-carousel-arrow"><i class="bi bi-chevron-left"></i></span>
+                        <span class="visually-hidden">@Resources.Strings.Home_AnhTruoc</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                        <span class="sc-carousel-arrow"><i class="bi bi-chevron-right"></i></span>
+                        <span class="visually-hidden">@Resources.Strings.Home_AnhSau</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -38,25 +67,25 @@
         <div class="col-6 col-lg-3">
             <div class="sc-feature">
                 <div class="sc-feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
-                <div><strong>Giao nhanh 30'</strong><div class="sc-text-muted small">Trong bán kính 5km</div></div>
+                <div><strong>@Resources.Strings.Home_GiaoNhanh</strong><div class="sc-text-muted small">@Resources.Strings.Home_GiaoNhanhMoTa</div></div>
             </div>
         </div>
         <div class="col-6 col-lg-3">
             <div class="sc-feature">
                 <div class="sc-feature-icon"><i class="bi bi-cup-hot-fill"></i></div>
-                <div><strong>Pha mỗi ngày</strong><div class="sc-text-muted small">Nguyên liệu tươi mới</div></div>
+                <div><strong>@Resources.Strings.Home_PhaMoiNgay</strong><div class="sc-text-muted small">@Resources.Strings.Home_PhaMoiNgayMoTa</div></div>
             </div>
         </div>
         <div class="col-6 col-lg-3">
             <div class="sc-feature">
                 <div class="sc-feature-icon"><i class="bi bi-truck"></i></div>
-                <div><strong>Freeship 150k</strong><div class="sc-text-muted small">Áp dụng toàn menu</div></div>
+                <div><strong>@Resources.Strings.Home_Freeship</strong><div class="sc-text-muted small">@Resources.Strings.Home_FreeshipMoTa</div></div>
             </div>
         </div>
         <div class="col-6 col-lg-3">
             <div class="sc-feature">
                 <div class="sc-feature-icon"><i class="bi bi-heart-fill"></i></div>
-                <div><strong>Tùy chọn theo ý</strong><div class="sc-text-muted small">Size, đường, đá, topping</div></div>
+                <div><strong>@Resources.Strings.Home_TuyChon</strong><div class="sc-text-muted small">@Resources.Strings.Home_TuyChonMoTa</div></div>
             </div>
         </div>
     </div>
@@ -66,10 +95,10 @@
 <section class="container sc-section" id="danh-muc-yeu-thich" style="scroll-margin-top:90px">
     <div class="sc-section-head">
         <div>
-            <h2>Danh mục yêu thích</h2>
-            <div class="sc-sub">Chọn nhanh nhóm món bạn đang thèm</div>
+            <h2>@Resources.Strings.Home_DanhMucYeuThich</h2>
+            <div class="sc-sub">@Resources.Strings.Home_ChonNhanh</div>
         </div>
-        <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-soft">Tất cả <i class="bi bi-arrow-right"></i></a>
+        <a href="@Url.Action("Index", "SanPham")" class="btn btn-sc-soft">@Resources.Strings.Common_TatCa <i class="bi bi-arrow-right"></i></a>
     </div>
 
     <div class="row g-3">
@@ -78,9 +107,9 @@
             <div class="col-6 col-md-4 col-lg-2">
                 <a href="@Url.Action("Index", "SanPham", new { maLoai = loai.MaLoai })" class="sc-cat">
                     <img src="@loai.HinhAnh" alt="@loai.TenLoai"
-                         onerror="this.onerror=null;this.src='https://placehold.co/200x200/FFE6EE/E8517F?text=SC';" />
+                         data-fallback="https://placehold.co/200x200/FFE6EE/E8517F?text=SC" />
                     <span>@loai.TenLoai</span>
-                    <small>@(soSPTheoLoai.ContainsKey(loai.MaLoai) ? soSPTheoLoai[loai.MaLoai] : 0) món</small>
+                    <small>@(string.Format(Resources.Strings.Home_SoMonCount, soSPTheoLoai.ContainsKey(loai.MaLoai) ? soSPTheoLoai[loai.MaLoai] : 0))</small>
                 </a>
             </div>
         }
@@ -91,11 +120,11 @@
 <section class="container sc-section pt-0" id="mon-noi-bat" style="scroll-margin-top:90px">
     <div class="sc-section-head">
         <div>
-            <h2>Món nổi bật</h2>
-            <div class="sc-sub">Được khách SugarChills gọi nhiều nhất</div>
+            <h2>@Resources.Strings.Home_MonNoiBat</h2>
+            <div class="sc-sub">@Resources.Strings.Home_MonNoiBatMoTa</div>
         </div>
         <a href="@Url.Action("Index", "SanPham", new { sapXep = "ban-chay", an = true })" class="btn btn-sc-soft">
-            Xem thêm <i class="bi bi-arrow-right"></i>
+            @Resources.Strings.Common_XemThem <i class="bi bi-arrow-right"></i>
         </a>
     </div>
 
@@ -113,8 +142,8 @@
 <section class="container sc-section pt-0" id="khuyen-mai" style="scroll-margin-top:90px">
     <div class="sc-section-head">
         <div>
-            <h2>Ưu đãi đang chạy</h2>
-            <div class="sc-sub">Nhập mã ở bước giỏ hàng để được giảm ngay</div>
+            <h2>@Resources.Strings.Home_UuDaiDangChay</h2>
+            <div class="sc-sub">@Resources.Strings.Home_UuDaiMoTa</div>
         </div>
         <a href="@Url.Action("KhuyenMai", "Home")" class="btn btn-sc-soft">
             Xem tất cả <i class="bi bi-arrow-right"></i>
@@ -133,8 +162,8 @@
                         <div class="fw-bold" style="color:var(--sc-brown)">@km.TenKM</div>
                         <div class="small sc-text-muted">@km.MoTa</div>
                         <div class="mt-2">
-                            <span class="sc-chip">Mã: @km.MaGiamGia.ToUpper()</span>
-                            <span class="small sc-text-muted">HSD @DinhDang.Ngay(km.NgayKetThuc)</span>
+                            <span class="sc-chip">@Resources.Strings.Home_Ma @km.MaGiamGia.ToUpper()</span>
+                            <span class="small sc-text-muted">@Resources.Strings.Home_HSD @DinhDang.Ngay(km.NgayKetThuc)</span>
                         </div>
                         <div class="small sc-text-muted mt-1">@km.TenLoaiGiam</div>
                     </div>
@@ -144,7 +173,7 @@
         @if (Model.KhuyenMais.Count == 0)
         {
             <div class="col-12">
-                <div class="sc-panel text-center sc-text-muted">Hiện chưa có chương trình khuyến mãi nào.</div>
+                <div class="sc-panel text-center sc-text-muted">@Resources.Strings.Home_ChuaCoKhuyenMai</div>
             </div>
         }
     </div>
@@ -156,8 +185,8 @@
     <section class="container sc-section pt-0" id="dang-giam-gia" style="scroll-margin-top:90px">
         <div class="sc-section-head">
             <div>
-                <h2>Đang giảm giá</h2>
-                <div class="sc-sub">Số lượng có hạn trong ngày</div>
+                <h2>@Resources.Strings.Home_DangGiamGia</h2>
+                <div class="sc-sub">@Resources.Strings.Home_DangGiamGiaMoTa</div>
             </div>
             <a href="@Url.Action("Index", "SanPham", new { sapXep = "giam-gia", an = true })" class="btn btn-sc-soft">
                 Xem tất cả <i class="bi bi-arrow-right"></i>
@@ -178,8 +207,8 @@
 <section class="container sc-section pt-0">
     <div class="sc-section-head">
         <div>
-            <h2>Món mới lên kệ</h2>
-            <div class="sc-sub">Vừa được bếp SugarChills thêm vào menu</div>
+            <h2>@Resources.Strings.Home_MonMoiLenKe</h2>
+            <div class="sc-sub">@Resources.Strings.Home_MonMoiMoTa</div>
         </div>
         <a href="@Url.Action("Index", "SanPham", new { sapXep = "moi", an = true })" class="btn btn-sc-soft">
             Xem tất cả <i class="bi bi-arrow-right"></i>
@@ -202,17 +231,15 @@
             <div class="col-lg-5">
                 <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80"
                      class="w-100" style="border-radius:var(--sc-radius);max-height:300px;object-fit:cover"
-                     alt="Không gian SugarChills"
-                     onerror="this.onerror=null;this.src='https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills';" />
+                     alt="@Resources.Strings.Home_AltKhongGianSC"
+                     data-fallback="https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills" />
             </div>
             <div class="col-lg-7">
-                <h2 class="mb-3">Một ngụm ngọt cho ngày dài</h2>
+                <h2 class="mb-3">@Resources.Strings.Home_MotNgum</h2>
                 <p class="sc-text-muted">
-                    SugarChills bắt đầu từ một quầy trà sữa nhỏ trước cổng trường, nơi tụi mình tin rằng
-                    một ly nước ngon có thể làm nhẹ cả buổi chiều. Mọi topping đều được nấu trong ngày,
-                    trà ủ mới mỗi 4 tiếng và bạn có thể chỉnh đường - đá theo đúng khẩu vị của mình.
+                    @Resources.Strings.Home_MoTaNgan
                 </p>
-                <a href="@Url.Action("GioiThieu", "Home")" class="btn btn-sc-outline">Tìm hiểu thêm</a>
+                <a href="@Url.Action("GioiThieu", "Home")" class="btn btn-sc-outline">@Resources.Strings.Home_TimHieuThem</a>
             </div>
         </div>
     </div>
