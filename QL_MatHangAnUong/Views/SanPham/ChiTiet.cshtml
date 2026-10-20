@@ -3,6 +3,9 @@
 @model QL_MatHangAnUong.Models.ViewModels.ChiTietSanPhamViewModel
 @{
     var sp = Model.SanPham;
+    int phanTramGiam = sp.Gia > 0 && sp.GiaBanThucTe < sp.Gia
+        ? (int)Math.Round((sp.Gia - sp.GiaBanThucTe) / sp.Gia * 100m)
+        : 0;
 }
 
 <div class="container">
@@ -29,9 +32,9 @@
             <div class="row g-4" id="khungTuyChon" data-gia-goc="@sp.GiaBanThucTe">
                 <div class="col-lg-5">
                     <div class="position-relative">
-                        @if (sp.PhanTramGiam > 0)
+                        @if (phanTramGiam > 0)
                         {
-                            <span class="sc-badge-sale" style="font-size:14px">-@sp.PhanTramGiam%</span>
+                            <span class="sc-badge-sale" style="font-size:14px">-@phanTramGiam%</span>
                         }
                         <img src="@sp.HinhAnh" class="sc-detail-img" alt="@sp.TenSP"
                              data-fallback="https://placehold.co/800x800/FFE6EE/E8517F?text=SugarChills" />
@@ -61,7 +64,7 @@
 
                     <div class="mb-3">
                         <span class="sc-price-lg">@DinhDang.Tien(sp.GiaBanThucTe)</span>
-                        @if (sp.PhanTramGiam > 0)
+                        @if (phanTramGiam > 0)
                         {
                             <span class="sc-price-old" style="font-size:18px">@DinhDang.Tien(sp.Gia)</span>
                         }
