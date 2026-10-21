@@ -1,8 +1,12 @@
-﻿@using QL_MatHangAnUong.Helpers
+@using QL_MatHangAnUong.Helpers
 @model QL_MatHangAnUong.Models.SanPham
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
     ViewBag.Title = Resources.Strings.SellerProd_ChiTietTitle;
+
+    int phanTramGiam = Model.Gia > 0 && Model.GiaBanThucTe < Model.Gia
+        ? (int)Math.Round((Model.Gia - Model.GiaBanThucTe) / Model.Gia * 100m)
+        : 0;
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -37,7 +41,7 @@
                             @if (Model.GiaKhuyenMai.HasValue && Model.GiaKhuyenMai > 0)
                             {
                                 <span class="fw-bold sc-text-primary">@DinhDang.Tien(Model.GiaKhuyenMai)</span>
-                                <span class="sc-badge badge-danger ms-2">-@Model.PhanTramGiam%</span>
+                                <span class="sc-badge badge-danger ms-2">-@phanTramGiam%</span>
                             }
                             else
                             {

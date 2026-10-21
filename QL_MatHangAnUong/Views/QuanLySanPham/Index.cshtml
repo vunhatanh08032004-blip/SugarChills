@@ -1,4 +1,4 @@
-﻿@using QL_MatHangAnUong.Helpers
+@using QL_MatHangAnUong.Helpers
 @using QL_MatHangAnUong.Models
 @model List<QL_MatHangAnUong.Models.SanPham>
 @{
@@ -88,7 +88,7 @@
                             <td>@(sp.LoaiSanPham != null ? sp.LoaiSanPham.TenLoai : "-")</td>
                             <td class="text-end">
                                 <div class="fw-bold sc-text-primary">@DinhDang.Tien(sp.GiaBanThucTe)</div>
-                                @if (sp.PhanTramGiam > 0)
+                                @if (sp.Gia > 0 && sp.GiaBanThucTe < sp.Gia)
                                 {
                                     <div class="sc-price-old" style="margin:0">@DinhDang.Tien(sp.Gia)</div>
                                 }

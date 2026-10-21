@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="963d3507afbe4c3088858530075936e7" Name="Diagram1">
+        <EntityTypeShape EntityType="QL_MatHangAnUongModel.ChiTietDonHang" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_MatHangAnUongModel.CuaHang" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_MatHangAnUongModel.DonHang" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_MatHangAnUongModel.KhuyenMai" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_MatHangAnUongModel.LoaiSanPham" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_MatHangAnUongModel.NguoiDung" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_MatHangAnUongModel.SanPham" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="QL_MatHangAnUongModel.FK_CT_DonHang" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_MatHangAnUongModel.FK_CT_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_MatHangAnUongModel.FK_DonHang_NguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_MatHangAnUongModel.FK_SanPham_Loai" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

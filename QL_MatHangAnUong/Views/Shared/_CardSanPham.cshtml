@@ -1,14 +1,19 @@
-﻿@using QL_MatHangAnUong.Helpers
+@using QL_MatHangAnUong.Helpers
 @model QL_MatHangAnUong.Models.SanPham
 @*
     Partial view dùng lại ở: trang chủ, danh sách sản phẩm, sản phẩm liên quan.
     Nhờ vậy chỉ cần sửa 1 chỗ là toàn bộ card sản phẩm trên web đổi theo.
 *@
+@{
+    int phanTramGiam = Model.Gia > 0 && Model.GiaBanThucTe < Model.Gia
+        ? (int)Math.Round((Model.Gia - Model.GiaBanThucTe) / Model.Gia * 100m)
+        : 0;
+}
 <div class="sc-product">
     <a href="@Url.Action("ChiTiet", "SanPham", new { id = Model.MaSP })" class="sc-product-img">
-        @if (Model.PhanTramGiam > 0)
+        @if (phanTramGiam > 0)
         {
-            <span class="sc-badge-sale">-@Model.PhanTramGiam%</span>
+            <span class="sc-badge-sale">-@phanTramGiam%</span>
         }
         @if (Model.NoiBat)
         {
@@ -32,7 +37,7 @@
         <div class="sc-product-foot">
             <div>
                 <span class="sc-price">@DinhDang.Tien(Model.GiaBanThucTe)</span>
-                @if (Model.PhanTramGiam > 0)
+                @if (phanTramGiam > 0)
                 {
                     <span class="sc-price-old">@DinhDang.Tien(Model.Gia)</span>
                 }
