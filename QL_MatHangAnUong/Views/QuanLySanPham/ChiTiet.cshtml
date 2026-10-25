@@ -4,8 +4,11 @@
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
     ViewBag.Title = Resources.Strings.SellerProd_ChiTietTitle;
 
-    int phanTramGiam = Model.Gia > 0 && Model.GiaBanThucTe < Model.Gia
-        ? (int)Math.Round((Model.Gia - Model.GiaBanThucTe) / Model.Gia * 100m)
+    // Giá bán thực tế tính thẳng từ cột Gia / GiaKhuyenMai của entity SanPham
+    decimal giaBan = (Model.GiaKhuyenMai.HasValue && Model.GiaKhuyenMai.Value > 0) ? Model.GiaKhuyenMai.Value : Model.Gia;
+
+    int phanTramGiam = Model.Gia > 0 && giaBan < Model.Gia
+        ? (int)Math.Round((Model.Gia - giaBan) / Model.Gia * 100m)
         : 0;
 }
 

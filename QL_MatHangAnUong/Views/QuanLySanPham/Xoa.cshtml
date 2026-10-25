@@ -3,6 +3,12 @@
 @{
     Layout = "~/Views/Shared/_LayoutSeller.cshtml";
     ViewBag.Title = Resources.Strings.SellerProd_XoaTitle;
+
+    // Giá bán thực tế tính thẳng từ cột Gia / GiaKhuyenMai của entity SanPham
+    decimal giaBan = (Model.GiaKhuyenMai.HasValue && Model.GiaKhuyenMai.Value > 0) ? Model.GiaKhuyenMai.Value : Model.Gia;
+
+    // Số dòng ChiTietDonHang đang tham chiếu sản phẩm (controller đếm từ Database)
+    int soDonLienQuan = ViewBag.SoDonLienQuan is int ? (int)ViewBag.SoDonLienQuan : 0;
 }
 
 <div class="sc-panel" style="max-width:640px;margin:0 auto">
@@ -22,7 +28,7 @@
             <div class="fw-bold" style="font-size:17px">@Model.TenSP</div>
             <div class="sc-text-muted small">
                 @(Model.LoaiSanPham != null ? Model.LoaiSanPham.TenLoai : "-") •
-                @DinhDang.Tien(Model.GiaBanThucTe) • @(string.Format(Resources.Strings.SellerProd_TonFormat, Model.SoLuongTon))
+                @DinhDang.Tien(giaBan) • @(string.Format(Resources.Strings.SellerProd_TonFormat, Model.SoLuongTon))
             </div>
         </div>
     </div>
@@ -32,12 +38,20 @@
         <span>@Html.Raw(string.Format(Resources.Strings.SellerProd_GoiYNgungBanFormat, "<strong>" + Resources.Strings.SellerProd_NgungBan + "</strong>"))</span>
     </div>
 
+    @if (soDonLienQuan > 0)
+    {
+        <div class="sc-alert sc-alert-warning mt-3">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span>Sản phẩm này đã xuất hiện trong <strong>@soDonLienQuan</strong> dòng chi tiết đơn hàng nên không thể xóa. Hãy chuyển sang trạng thái ngừng bán.</span>
+        </div>
+    }
+
     <div class="d-flex gap-2 mt-3">
         @using (Html.BeginForm("XacNhanXoa", "QuanLySanPham", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             <input type="hidden" name="id" value="@Model.MaSP" />
-            <button type="submit" class="btn btn-sc btn-lg"><i class="bi bi-trash"></i> @Resources.Strings.Admin_XacNhanXoa</button>
+            <button type="submit" class="btn btn-sc btn-lg" disabled="@(soDonLienQuan > 0 ? "disabled" : null)"><i class="bi bi-trash"></i> @Resources.Strings.Admin_XacNhanXoa</button>
         }
         <a href="@Url.Action("Index")" class="btn btn-sc-outline btn-lg">@Resources.Strings.Admin_QuayLai</a>
     </div>
