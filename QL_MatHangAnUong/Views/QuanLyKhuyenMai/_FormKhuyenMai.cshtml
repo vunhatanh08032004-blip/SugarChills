@@ -25,8 +25,8 @@
                     @Html.DropDownListFor(m => m.LoaiGiam,
                         new List<SelectListItem>
                         {
-                            new SelectListItem { Value = KhuyenMai.GiamTongTien, Text = "Giảm tổng tiền" },
-                            new SelectListItem { Value = KhuyenMai.GiamPhiGiaoHang, Text = "Giảm phí giao hàng (COD)" }
+                            new SelectListItem { Value = "TongTien", Text = "Giảm tổng tiền" },
+                            new SelectListItem { Value = "PhiGiaoHang", Text = "Giảm phí giao hàng (COD)" }
                         }, new { @class = "form-select" })
                     @Html.ValidationMessageFor(m => m.LoaiGiam)
                     <small class="sc-text-muted">"Giảm phí giao hàng" dùng cho mã kiểu Freeship.</small>
@@ -35,7 +35,7 @@
                 <div class="col-md-4">
                     <label class="form-label" for="PhanTramGiam">@Resources.Strings.SellerKM_PhanTramLabel</label>
                     <div class="input-group">
-                        @Html.TextBoxFor(m => m.PhanTramGiam, new { @class = "form-control", type = "number", min = 0, max = 100 })
+                        @Html.TextBoxFor(m => m.PhanTramGiam, new { @class = "form-control", type = "number", min = 1, max = 100 })
                         <span class="input-group-text">%</span>
                     </div>
                     @Html.ValidationMessageFor(m => m.PhanTramGiam)
