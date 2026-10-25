@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -10,34 +12,45 @@ using QL_MatHangAnUong.Helpers;
 namespace QL_MatHangAnUong.Controllers
 {
     /// <summary>
-    /// [NGƯỜI BÁN] Quản lý sản phẩm — rubric mục 6 (Thêm/Xóa/Sửa, hình + loại, radio + checkbox).
+    /// [NGƯỜI BÁN] Quản lý sản phẩm — làm việc trực tiếp với Database qua DbContext (biến db của BaseController).
     /// </summary>
     [KiemTraNguoiBan]
     public class QuanLySanPhamController : BaseController
     {
+        private new QL_MatHangAnUongEntities db = new QL_MatHangAnUongEntities();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) db.Dispose();
+            base.Dispose(disposing);
+        }
+
         // GET: /QuanLySanPham
         public ActionResult Index(string tuKhoa, int? maLoai, string trangThai)
         {
-            var ds = KhoDuLieu.LaySanPhams();
+            // Lọc ngay trên Database: các điều kiện được dịch thành câu SELECT ... WHERE
+            var q = db.SanPhams.Include(s => s.LoaiSanPham).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(tuKhoa))
             {
-                string tk = tuKhoa.Trim().ToLower();
-                ds = ds.Where(s => s.TenSP.ToLower().Contains(tk)).ToList();
+                string tk = tuKhoa.Trim();
+                q = q.Where(s => s.TenSP.Contains(tk));
             }
 
             if (maLoai.HasValue && maLoai.Value > 0)
-                ds = ds.Where(s => s.MaLoai == maLoai.Value).ToList();
+                q = q.Where(s => s.MaLoai == maLoai.Value);
 
             if (trangThai == "dang-ban")
-                ds = ds.Where(s => s.DangBan).ToList();
+                q = q.Where(s => s.DangBan);
             else if (trangThai == "ngung-ban")
-                ds = ds.Where(s => !s.DangBan).ToList();
+                q = q.Where(s => !s.DangBan);
+
+            var ds = q.OrderByDescending(s => s.NgayTao).ToList();
 
             ViewBag.TuKhoa = tuKhoa;
             ViewBag.MaLoai = maLoai;
             ViewBag.TrangThai = trangThai;
-            ViewBag.DanhSachLoai = KhoDuLieu.LayLoais();
+            ViewBag.DanhSachLoai = db.LoaiSanPhams.OrderBy(l => l.ThuTu).ToList();
             ViewBag.Title = Ngu.S("Seller_QuanLySanPham");
 
             return View(ds);
@@ -46,7 +59,7 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLySanPham/ChiTiet/5
         public ActionResult ChiTiet(int id)
         {
-            var sp = KhoDuLieu.LaySanPham(id);
+            var sp = db.SanPhams.Include(s => s.LoaiSanPham).FirstOrDefault(s => s.MaSP == id);
             if (sp == null) return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
 
             ViewBag.Title = Ngu.S("SellerProd_ChiTietTitle");
@@ -76,7 +89,20 @@ namespace QL_MatHangAnUong.Controllers
                 return View(sp);
             }
 
-            KhoDuLieu.ThemSanPham(sp);
+            // INSERT vào bảng SanPham
+            sp.TenSP = sp.TenSP.Trim();
+            sp.NgayTao = DateTime.Now;
+            sp.LuotBan = 0;
+            db.SanPhams.Add(sp);
+
+            if (!LuuThayDoi(out string loi))
+            {
+                ModelState.AddModelError("", loi);
+                NapDanhSachLoai(sp.MaLoai);
+                ViewBag.Title = Ngu.S("SellerProd_ThemTitle");
+                return View(sp);
+            }
+
             ThongBao(string.Format(Ngu.S("SellerProd_DaThemFormat"), sp.TenSP));
             return RedirectToAction("Index");
         }
@@ -84,7 +110,7 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLySanPham/Sua/5
         public ActionResult Sua(int id)
         {
-            var sp = KhoDuLieu.LaySanPham(id);
+            var sp = db.SanPhams.Find(id);
             if (sp == null) return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
 
             NapDanhSachLoai(sp.MaLoai);
@@ -107,18 +133,42 @@ namespace QL_MatHangAnUong.Controllers
                 return View(sp);
             }
 
-            if (!KhoDuLieu.CapNhatSanPham(sp))
+            // Lấy bản ghi hiện tại trong Database rồi chỉ cập nhật các cột được phép sửa
+            // (không đụng tới NgayTao, LuotBan)
+            var sanPham = db.SanPhams.Find(sp.MaSP);
+            if (sanPham == null)
                 return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySuaCanXoa"));
 
-            ThongBao(string.Format(Ngu.S("SellerProd_DaCapNhatFormat"), sp.TenSP));
+            sanPham.TenSP = sp.TenSP.Trim();
+            sanPham.MaLoai = sp.MaLoai;
+            sanPham.Gia = sp.Gia;
+            sanPham.GiaKhuyenMai = sp.GiaKhuyenMai;
+            sanPham.HinhAnh = sp.HinhAnh;
+            sanPham.MoTa = sp.MoTa;
+            sanPham.SoLuongTon = sp.SoLuongTon;
+            sanPham.DangBan = sp.DangBan;
+            sanPham.NoiBat = sp.NoiBat;
+
+            if (!LuuThayDoi(out string loi))
+            {
+                ModelState.AddModelError("", loi);
+                NapDanhSachLoai(sp.MaLoai);
+                ViewBag.Title = Ngu.S("SellerProd_SuaTitle");
+                return View(sp);
+            }
+
+            ThongBao(string.Format(Ngu.S("SellerProd_DaCapNhatFormat"), sanPham.TenSP));
             return RedirectToAction("Index");
         }
 
-        // GET: /QuanLySanPham/Xoa/5  — trang xác nhận trước khi xóa
+        // GET: /QuanLySanPham/Xoa/5 — trang xác nhận trước khi xóa
         public ActionResult Xoa(int id)
         {
-            var sp = KhoDuLieu.LaySanPham(id);
+            var sp = db.SanPhams.Include(s => s.LoaiSanPham).FirstOrDefault(s => s.MaSP == id);
             if (sp == null) return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
+
+            // Số dòng chi tiết đơn hàng đang tham chiếu tới sản phẩm (FK_CT_SanPham) — view dùng để cảnh báo/khóa nút xóa
+            ViewBag.SoDonLienQuan = db.ChiTietDonHangs.Count(ct => ct.MaSP == id);
 
             ViewBag.Title = Ngu.S("SellerProd_XoaTitle");
             return View(sp);
@@ -129,8 +179,25 @@ namespace QL_MatHangAnUong.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult XacNhanXoa(int id)
         {
-            string loi;
-            if (!KhoDuLieu.XoaSanPham(id, out loi))
+            var sp = db.SanPhams.Find(id);
+            if (sp == null)
+            {
+                ThongBao("Không tìm thấy sản phẩm.", "danger");
+                return RedirectToAction("Index");
+            }
+
+            // Sản phẩm đã nằm trong đơn hàng (FK_CT_SanPham) thì không được xóa
+            if (db.ChiTietDonHangs.Any(ct => ct.MaSP == id))
+            {
+                ThongBao(string.Format(
+                    "Không thể xóa \"{0}\" vì đã có trong đơn hàng. Hãy tắt trạng thái bán thay vì xóa.",
+                    sp.TenSP), "danger");
+                return RedirectToAction("Index");
+            }
+
+            db.SanPhams.Remove(sp);
+
+            if (!LuuThayDoi(out string loi))
             {
                 ThongBao(loi, "danger");
                 return RedirectToAction("Index");
@@ -140,27 +207,70 @@ namespace QL_MatHangAnUong.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: /QuanLySanPham/DoiNoiBat/5 — bật/tắt "nổi bật" ngay trên danh sách (nút sao)
+        // POST: /QuanLySanPham/DoiTrangThaiKinhDoanh/5 — bật/tắt "đang bán"
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DoiTrangThaiKinhDoanh(int id)
+        {
+            var sp = db.SanPhams.Find(id);
+            if (sp == null) return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
+
+            sp.DangBan = !sp.DangBan;
+
+            if (!LuuThayDoi(out string loi))
+                ThongBao(loi, "danger");
+
+            return QuayLaiDanhSach();
+        }
+
+        // POST: /QuanLySanPham/DoiNoiBat/5 — bật/tắt "nổi bật" (nút sao)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DoiNoiBat(int id)
         {
-            if (!KhoDuLieu.DoiTrangThaiNoiBat(id))
-                return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
+            var sp = db.SanPhams.Find(id);
+            if (sp == null) return HttpNotFound(Ngu.S("SellerProd_KhongTimThaySP"));
 
-            // Quay lại đúng trang danh sách (giữ nguyên tìm kiếm/lọc đang áp dụng)
-            return Redirect(Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index"));
+            sp.NoiBat = !sp.NoiBat;
+
+            if (!LuuThayDoi(out string loi))
+                ThongBao(loi, "danger");
+
+            return QuayLaiDanhSach();
         }
 
         #region Hàm phụ
 
-        /// <summary>Các phần mở rộng ảnh được phép tải lên.</summary>
         private static readonly string[] DuoiAnhChoPhep = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
         private const long DungLuongAnhToiDa = 5 * 1024 * 1024; // 5MB
 
+        /// <summary>Quay lại đúng trang danh sách (giữ nguyên tìm kiếm/lọc đang áp dụng).</summary>
+        private ActionResult QuayLaiDanhSach()
+        {
+            return Redirect(Request.UrlReferrer != null
+                ? Request.UrlReferrer.ToString()
+                : Url.Action("Index"));
+        }
+
+        /// <summary>SaveChanges có bắt lỗi khóa ngoại / ràng buộc của Database.</summary>
+        private bool LuuThayDoi(out string loi)
+        {
+            try
+            {
+                db.SaveChanges();
+                loi = null;
+                return true;
+            }
+            catch (DbUpdateException)
+            {
+                loi = "Không thể lưu vào cơ sở dữ liệu. Dữ liệu vi phạm ràng buộc hoặc đang được sử dụng ở nơi khác.";
+                return false;
+            }
+        }
+
         private void XuLyHinhAnh(SanPham sp, HttpPostedFileBase anhTaiLen, string chonAnh)
         {
-            if (chonAnh != "upload") return; // chế độ dán link: giữ nguyên sp.HinhAnh đã bind từ ô văn bản
+            if (chonAnh != "upload") return; // chế độ dán link: giữ nguyên sp.HinhAnh
 
             if (anhTaiLen == null || anhTaiLen.ContentLength <= 0)
             {
@@ -190,27 +300,44 @@ namespace QL_MatHangAnUong.Controllers
             sp.HinhAnh = "/Content/Uploads/SanPham/" + tenFile;
         }
 
+        /// <summary>Nạp danh sách loại từ bảng LoaiSanPham cho DropDownList ở form thêm/sửa.</summary>
         private void NapDanhSachLoai(int? maLoaiDangChon = null)
         {
-            ViewBag.DanhSachLoai = new SelectList(KhoDuLieu.LayLoais(), "MaLoai", "TenLoai", maLoaiDangChon);
+            var dsLoai = db.LoaiSanPhams.OrderBy(l => l.ThuTu).ToList();
+            ViewBag.DanhSachLoai = new SelectList(dsLoai, "MaLoai", "TenLoai", maLoaiDangChon);
         }
 
+        /// <summary>Kiểm tra dữ liệu và khóa ngoại trước khi INSERT/UPDATE (khớp các CHECK/UNIQUE/FK trong SQL).</summary>
         private void KiemTraNghiepVu(SanPham sp)
         {
-            if (sp.MaLoai <= 0 || KhoDuLieu.LayLoai(sp.MaLoai) == null)
+            // Khóa ngoại: loại sản phẩm phải tồn tại trong Database
+            if (sp.MaLoai <= 0 || !db.LoaiSanPhams.Any(l => l.MaLoai == sp.MaLoai))
                 ModelState.AddModelError("MaLoai", Ngu.S("SellerProd_ChonLoaiHopLe"));
 
+            if (string.IsNullOrWhiteSpace(sp.TenSP))
+                ModelState.AddModelError("TenSP", "Vui lòng nhập tên sản phẩm.");
+            else
+            {
+                string ten = sp.TenSP.Trim();
+                if (ten.Length > 150)
+                    ModelState.AddModelError("TenSP", "Tên sản phẩm tối đa 150 ký tự.");
+
+                // Cột TenSP có UNIQUE
+                if (db.SanPhams.Any(s => s.MaSP != sp.MaSP && s.TenSP == ten))
+                    ModelState.AddModelError("TenSP", Ngu.S("SellerProd_TrungTen"));
+            }
+
+            // CHECK (Gia BETWEEN 1000 AND 10000000)
+            if (sp.Gia < 1000 || sp.Gia > 10000000)
+                ModelState.AddModelError("Gia", "Giá bán phải từ 1.000đ đến 10.000.000đ.");
+
+            // CHECK (GiaKhuyenMai IS NULL OR = 0 OR < Gia)
             if (sp.GiaKhuyenMai.HasValue && sp.GiaKhuyenMai.Value > 0 && sp.GiaKhuyenMai.Value >= sp.Gia)
                 ModelState.AddModelError("GiaKhuyenMai", Ngu.S("SellerProd_GiaKMPhaiNhoHonGiaBan"));
 
-            if (!string.IsNullOrWhiteSpace(sp.TenSP))
-            {
-                bool trungTen = KhoDuLieu.LaySanPhams()
-                    .Any(s => s.MaSP != sp.MaSP &&
-                              s.TenSP.Trim().ToLower() == sp.TenSP.Trim().ToLower());
-                if (trungTen)
-                    ModelState.AddModelError("TenSP", Ngu.S("SellerProd_TrungTen"));
-            }
+            // CHECK (SoLuongTon >= 0)
+            if (sp.SoLuongTon < 0)
+                ModelState.AddModelError("SoLuongTon", "Số lượng tồn không được âm.");
         }
 
         #endregion
