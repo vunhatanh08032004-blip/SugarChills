@@ -36,7 +36,15 @@ namespace QL_MatHangAnUong.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Them(LoaiSanPham loai)
         {
+            if (loai == null)
+            {
+                loai = new LoaiSanPham();
+                ModelState.AddModelError("", "Dữ liệu loại sản phẩm không hợp lệ.");
+            }
+
+            loai.MaLoai = 0;
             KiemTraTrungTen(loai);
+            KiemTraDuLieu(loai);
 
             if (!ModelState.IsValid)
             {
@@ -44,6 +52,7 @@ namespace QL_MatHangAnUong.Controllers
                 return View(loai);
             }
 
+            loai.TenLoai = loai.TenLoai.Trim();
             KhoDuLieu.ThemLoai(loai);
             ThongBao(string.Format(Ngu.S("SellerLoai_DaThemFormat"), loai.TenLoai));
             return RedirectToAction("Index");
@@ -64,7 +73,14 @@ namespace QL_MatHangAnUong.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Sua(LoaiSanPham loai)
         {
+            if (loai == null)
+            {
+                loai = new LoaiSanPham();
+                ModelState.AddModelError("", "Dữ liệu loại sản phẩm không hợp lệ.");
+            }
+
             KiemTraTrungTen(loai);
+            KiemTraDuLieu(loai);
 
             if (!ModelState.IsValid)
             {
@@ -72,6 +88,7 @@ namespace QL_MatHangAnUong.Controllers
                 return View(loai);
             }
 
+            loai.TenLoai = loai.TenLoai.Trim();
             if (!KhoDuLieu.CapNhatLoai(loai))
                 return HttpNotFound(Ngu.S("SellerLoai_KhongTimThaySuaCanXoa"));
 
@@ -108,13 +125,31 @@ namespace QL_MatHangAnUong.Controllers
 
         private void KiemTraTrungTen(LoaiSanPham loai)
         {
+            if (loai == null) return;
             if (string.IsNullOrWhiteSpace(loai.TenLoai)) return;
 
-            bool trung = KhoDuLieu.LayLoais()
-                .Any(l => l.MaLoai != loai.MaLoai &&
-                          l.TenLoai.Trim().ToLower() == loai.TenLoai.Trim().ToLower());
+            string tenLoai = loai.TenLoai.Trim().ToLower();
+            bool trung = db.LoaiSanPhams.Any(l =>
+                l.MaLoai != loai.MaLoai && l.TenLoai.Trim().ToLower() == tenLoai);
 
             if (trung) ModelState.AddModelError("TenLoai", Ngu.S("SellerLoai_TrungTen"));
+        }
+
+        private void KiemTraDuLieu(LoaiSanPham loai)
+        {
+            if (loai == null) return;
+
+            if (string.IsNullOrWhiteSpace(loai.TenLoai))
+                ModelState.AddModelError("TenLoai", "Vui lòng nhập tên loại sản phẩm.");
+            else if (loai.TenLoai.Trim().Length > 100)
+                ModelState.AddModelError("TenLoai", "Tên loại sản phẩm không được vượt quá 100 ký tự.");
+
+            if (loai.MoTa != null && loai.MoTa.Length > 500)
+                ModelState.AddModelError("MoTa", "Mô tả loại sản phẩm không được vượt quá 500 ký tự.");
+            if (loai.HinhAnh != null && loai.HinhAnh.Length > 500)
+                ModelState.AddModelError("HinhAnh", "Đường dẫn hình ảnh không được vượt quá 500 ký tự.");
+            if (loai.ThuTu < 0)
+                ModelState.AddModelError("ThuTu", "Thứ tự phải là số không âm.");
         }
     }
 }
