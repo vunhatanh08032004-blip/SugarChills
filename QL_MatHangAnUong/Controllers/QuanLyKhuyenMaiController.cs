@@ -15,17 +15,10 @@ namespace QL_MatHangAnUong.Controllers
     [KiemTraNguoiBan]
     public class QuanLyKhuyenMaiController : BaseController
     {
-        private new QL_MatHangAnUongEntities db = new QL_MatHangAnUongEntities();
 
         // Giá trị cột LoaiGiam, khớp CHECK (LoaiGiam IN (N'TongTien', N'PhiGiaoHang')) của bảng KhuyenMai
         private const string LoaiTongTien = "TongTien";
         private const string LoaiPhiGiaoHang = "PhiGiaoHang";
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) db.Dispose();
-            base.Dispose(disposing);
-        }
 
         // GET: /QuanLyKhuyenMai
         public ActionResult Index()

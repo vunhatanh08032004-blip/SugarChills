@@ -17,13 +17,6 @@ namespace QL_MatHangAnUong.Controllers
     [KiemTraNguoiBan]
     public class QuanLySanPhamController : BaseController
     {
-        private new QL_MatHangAnUongEntities db = new QL_MatHangAnUongEntities();
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) db.Dispose();
-            base.Dispose(disposing);
-        }
 
         // GET: /QuanLySanPham
         public ActionResult Index(string tuKhoa, int? maLoai, string trangThai)
