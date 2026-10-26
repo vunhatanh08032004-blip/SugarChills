@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
@@ -24,6 +25,9 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Index()
         {
             var gio = GioHangHienTai;
+            var canhBao = LamMoiGioHang(gio);
+            if (canhBao.Count > 0)
+                ThongBao(string.Join(" ", canhBao.Distinct()), "warning");
 
             decimal phiGiao = (gio.Items.Count == 0 || gio.TamTinh >= MucMienPhiGiaoHang)
                               ? 0 : PhiGiaoHangMacDinh;
@@ -33,7 +37,7 @@ namespace QL_MatHangAnUong.Controllers
             ViewBag.KhuyenMaiGoiY = KhoDuLieu.LayKhuyenMaiConHieuLuc();
             ViewBag.TienGiam = tienGiam;
             ViewBag.PhiGiaoHang = phiGiao;
-            ViewBag.TongTien = gio.TamTinh + phiGiao - tienGiam;
+            ViewBag.TongTien = Math.Max(0, gio.TamTinh + phiGiao - tienGiam);
             ViewBag.MucMienPhiGiaoHang = MucMienPhiGiaoHang;
 
             return View(gio);
@@ -48,6 +52,25 @@ namespace QL_MatHangAnUong.Controllers
                                  string duong = "100%", string da = "100%",
                                  string[] toppings = null)
         {
+            if (maSP <= 0)
+            {
+                ThongBao(Ngu.S("Cart_SanPhamKhongTonTai"), "danger");
+                return RedirectToAction("Index", "SanPham");
+            }
+
+            if (soLuong < 1 || soLuong > 100)
+            {
+                ThongBao("Số lượng phải từ 1 đến 100.", "warning");
+                return RedirectToAction("Index", "SanPham");
+            }
+
+            var dsTopping = (toppings ?? new string[0]).Distinct().ToList();
+            if (!TuyChonHopLe(size, duong, da, dsTopping))
+            {
+                ThongBao("Tùy chọn sản phẩm không hợp lệ.", "warning");
+                return RedirectToAction("Index", "SanPham");
+            }
+
             var sp = KhoDuLieu.LaySanPham(maSP);
             if (sp == null || !sp.DangBan)
             {
@@ -55,31 +78,23 @@ namespace QL_MatHangAnUong.Controllers
                 return RedirectToAction("Index", "SanPham");
             }
 
-            if (soLuong < 1) soLuong = 1;
-            if (soLuong > 100) soLuong = 100;
-
-            var dsTopping = (toppings ?? new string[0])
-                            .Where(t => !string.IsNullOrWhiteSpace(t) && TuyChonSanPham.CacTopping.ContainsKey(t))
-                            .Distinct()
-                            .ToList();
-
-            var item = new GioHangItem
-            {
-                MaSP = sp.MaSP,
-                TenSP = sp.TenSP,
-                HinhAnh = sp.HinhAnh,
-                GiaGoc = sp.GiaBanThucTe,
-                DonGia = sp.GiaBanThucTe
-                         + TuyChonSanPham.PhuThuSize(size)
-                         + TuyChonSanPham.PhuThuTopping(dsTopping),
-                SoLuong = soLuong,
-                Size = size,
-                Duong = duong,
-                Da = da,
-                Toppings = dsTopping
-            };
-
             var gio = GioHangHienTai;
+            LamMoiGioHang(gio);
+            var item = TaoGioHangItem(sp, soLuong, size, duong, da, dsTopping);
+            var dongCungTuyChon = gio.Items.FirstOrDefault(i => i.Khoa == item.Khoa);
+            if (dongCungTuyChon != null && dongCungTuyChon.SoLuong + soLuong > 100)
+            {
+                ThongBao("Số lượng phải từ 1 đến 100.", "warning");
+                return RedirectToAction("Index", "SanPham");
+            }
+
+            string loiTonKho = KiemTraTonKho(gio, sp, soLuong, null);
+            if (loiTonKho != null)
+            {
+                ThongBao(loiTonKho, "warning");
+                return RedirectToAction("Index", "SanPham");
+            }
+
             gio.Them(item);
             PhienLamViec.LuuGioHang(Session, gio);
 
@@ -94,6 +109,15 @@ namespace QL_MatHangAnUong.Controllers
         [HttpPost]
         public ActionResult ThemNhanh(int maSP)
         {
+            if (maSP <= 0)
+            {
+                if (Request.IsAjaxRequest())
+                    return Json(new { thanhCong = false, thongBao = Ngu.S("Cart_SanPhamKhongConBan") });
+
+                ThongBao(Ngu.S("Cart_SanPhamKhongConBan"), "danger");
+                return RedirectToAction("Index", "SanPham");
+            }
+
             var sp = KhoDuLieu.LaySanPham(maSP);
             if (sp == null || !sp.DangBan)
             {
@@ -104,21 +128,30 @@ namespace QL_MatHangAnUong.Controllers
                 return RedirectToAction("Index", "SanPham");
             }
 
-            var item = new GioHangItem
-            {
-                MaSP = sp.MaSP,
-                TenSP = sp.TenSP,
-                HinhAnh = sp.HinhAnh,
-                GiaGoc = sp.GiaBanThucTe,
-                DonGia = sp.GiaBanThucTe + TuyChonSanPham.PhuThuSize("M"),
-                SoLuong = 1,
-                Size = "M",
-                Duong = "100%",
-                Da = "100%",
-                Toppings = new List<string>()
-            };
-
             var gio = GioHangHienTai;
+            LamMoiGioHang(gio);
+            var item = TaoGioHangItem(sp, 1, "M", "100%", "100%", new List<string>());
+            var dongCungTuyChon = gio.Items.FirstOrDefault(i => i.Khoa == item.Khoa);
+            if (dongCungTuyChon != null && dongCungTuyChon.SoLuong >= 100)
+            {
+                const string loiSoLuong = "Số lượng mỗi sản phẩm không được vượt quá 100.";
+                if (Request.IsAjaxRequest())
+                    return Json(new { thanhCong = false, thongBao = loiSoLuong });
+
+                ThongBao(loiSoLuong, "warning");
+                return RedirectToAction("Index", "SanPham");
+            }
+
+            string loiTonKho = KiemTraTonKho(gio, sp, 1, null);
+            if (loiTonKho != null)
+            {
+                if (Request.IsAjaxRequest())
+                    return Json(new { thanhCong = false, thongBao = loiTonKho });
+
+                ThongBao(loiTonKho, "warning");
+                return RedirectToAction("Index", "SanPham");
+            }
+
             gio.Them(item);
             PhienLamViec.LuuGioHang(Session, gio);
 
@@ -142,12 +175,38 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult CapNhat(string khoa, int soLuong)
         {
             var gio = GioHangHienTai;
+            var item = gio.Items.FirstOrDefault(i => i.Khoa == khoa);
+            if (item == null)
+                return TraVeLoiCapNhat(Ngu.S("Cart_SanPhamKhongTonTai"));
+
+            if (soLuong > 100)
+                return TraVeLoiCapNhat("Số lượng phải từ 1 đến 100.");
+
+            if (soLuong > 0)
+            {
+                var sp = item.MaSP > 0 ? KhoDuLieu.LaySanPham(item.MaSP) : null;
+                if (sp == null || !sp.DangBan)
+                    return TraVeLoiCapNhat(Ngu.S("Cart_SanPhamKhongTonTai"));
+
+                string loiTonKho = KiemTraTonKho(gio, sp, soLuong, item.Khoa);
+                if (loiTonKho != null)
+                    return TraVeLoiCapNhat(loiTonKho);
+
+                if (!TuyChonHopLe(item.Size, item.Duong, item.Da, item.Toppings))
+                    return TraVeLoiCapNhat("Tùy chọn sản phẩm không hợp lệ.");
+
+                item.TenSP = sp.TenSP;
+                item.HinhAnh = sp.HinhAnh;
+                item.GiaGoc = sp.GiaBanThucTe;
+                item.DonGia = TinhDonGia(sp.GiaBanThucTe, item.Size, item.Toppings);
+            }
+
             gio.CapNhatSoLuong(khoa, soLuong);
             PhienLamViec.LuuGioHang(Session, gio);
 
             if (Request.IsAjaxRequest())
             {
-                var item = gio.Items.FirstOrDefault(i => i.Khoa == khoa);
+                item = gio.Items.FirstOrDefault(i => i.Khoa == khoa);
                 return Json(new
                 {
                     thanhCong = true,
@@ -188,6 +247,7 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult ApDungMa(string maGiamGia)
         {
             var gio = GioHangHienTai;
+            LamMoiGioHang(gio);
             var km = KhoDuLieu.TimTheoMaGiamGia(maGiamGia);
 
             if (km == null)
@@ -230,6 +290,13 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult ThanhToan()
         {
             var gio = GioHangHienTai;
+            var canhBao = LamMoiGioHang(gio);
+            if (canhBao.Count > 0)
+            {
+                ThongBao(string.Join(" ", canhBao.Distinct()), "warning");
+                return RedirectToAction("Index");
+            }
+
             if (gio.Items.Count == 0)
             {
                 ThongBao(Ngu.S("Cart_GioHangDangTrongCanhBao"), "warning");
@@ -253,11 +320,24 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult ThanhToan(DatHangViewModel model)
         {
             var gio = GioHangHienTai;
+            var canhBao = LamMoiGioHang(gio);
             if (gio.Items.Count == 0)
             {
                 ThongBao(Ngu.S("Cart_GioHangDangTrong"), "warning");
                 return RedirectToAction("Index", "SanPham");
             }
+
+            if (model == null)
+            {
+                model = new DatHangViewModel();
+                ModelState.AddModelError("", "Thông tin đặt hàng không hợp lệ.");
+            }
+
+            if (canhBao.Count > 0)
+                ModelState.AddModelError("", string.Join(" ", canhBao.Distinct()));
+
+            if (model.HinhThucThanhToan != "COD" && model.HinhThucThanhToan != "QR")
+                ModelState.AddModelError("HinhThucThanhToan", "Hình thức thanh toán không hợp lệ.");
 
             if (!ModelState.IsValid)
             {
@@ -267,15 +347,11 @@ namespace QL_MatHangAnUong.Controllers
                 vmLoi.DiaChi = model.DiaChi;
                 vmLoi.GhiChu = model.GhiChu;
                 vmLoi.HinhThucThanhToan = model.HinhThucThanhToan;
+                ViewBag.Title = Ngu.S("Checkout_DatHang");
                 return View(vmLoi);
             }
 
             var nd = NguoiDungHienTai;
-            decimal tamTinh = gio.TamTinh;
-            decimal phiGiao = tamTinh >= MucMienPhiGiaoHang ? 0 : PhiGiaoHangMacDinh;
-            decimal tienGiam = TinhTienGiam(gio, phiGiao);
-            decimal tongTien = tamTinh + phiGiao - tienGiam;
-
             // QR: JS đã mô phỏng chờ 10s và báo thanh toán thành công -> đơn được đánh dấu đã thu đủ tiền ngay.
             // COD: chưa thu tiền, số tiền còn lại = tổng tiền, chỉ hết khi giao hàng xong.
             bool daThanhToanQR = model.HinhThucThanhToan == "QR" && model.DaThanhToanQR;
@@ -289,29 +365,25 @@ namespace QL_MatHangAnUong.Controllers
                 GhiChu = model.GhiChu,
                 HinhThucThanhToan = model.HinhThucThanhToan,
                 NgayDat = DateTime.Now,
-                TamTinh = tamTinh,
-                TienGiam = tienGiam,
-                PhiGiaoHang = phiGiao,
-                TongTien = tongTien,
                 MaGiamGiaApDung = gio.MaGiamGia,
                 TrangThai = DonHang.ChoXacNhan,
-                DaThanhToan = daThanhToanQR,
-                SoTienConLai = daThanhToanQR ? 0 : tongTien
+                DaThanhToan = daThanhToanQR
             };
 
-            foreach (var item in gio.Items)
+            string loiTaoDon;
+            if (!TaoDonHangVaTruKho(dh, gio.Items, out loiTaoDon))
             {
-                dh.ChiTietDonHangs.Add(new ChiTietDonHang
-                {
-                    MaSP = item.MaSP,
-                    TenSP = item.TenSP,
-                    SoLuong = item.SoLuong,
-                    DonGia = item.DonGia,
-                    TuyChon = item.MoTaTuyChon
-                });
+                ModelState.AddModelError("", loiTaoDon);
+                var vmLoi = TaoViewModelThanhToan(gio);
+                vmLoi.TenNguoiNhan = model.TenNguoiNhan;
+                vmLoi.DienThoai = model.DienThoai;
+                vmLoi.DiaChi = model.DiaChi;
+                vmLoi.GhiChu = model.GhiChu;
+                vmLoi.HinhThucThanhToan = model.HinhThucThanhToan;
+                vmLoi.DaThanhToanQR = model.DaThanhToanQR;
+                ViewBag.Title = Ngu.S("Checkout_DatHang");
+                return View(vmLoi);
             }
-
-            KhoDuLieu.ThemDonHang(dh);
 
             gio.XoaTatCa();
             PhienLamViec.LuuGioHang(Session, gio);
@@ -346,7 +418,7 @@ namespace QL_MatHangAnUong.Controllers
                 GioHang = gio,
                 TienGiam = tienGiam,
                 PhiGiaoHang = phiGiao,
-                TongTien = gio.TamTinh + phiGiao - tienGiam,
+                TongTien = Math.Max(0, gio.TamTinh + phiGiao - tienGiam),
                 HinhThucThanhToan = "COD"
             };
         }
@@ -356,9 +428,226 @@ namespace QL_MatHangAnUong.Controllers
             if (string.IsNullOrWhiteSpace(gio.MaGiamGia)) return 0;
 
             var km = KhoDuLieu.TimTheoMaGiamGia(gio.MaGiamGia);
-            if (km == null) return 0;
+            if (km == null || !km.ConHieuLuc || gio.TamTinh < km.DonToiThieu) return 0;
 
-            return km.TinhTienGiam(gio.TamTinh, phiGiaoHang);
+            return Math.Min(km.TinhTienGiam(gio.TamTinh, phiGiaoHang),
+                gio.TamTinh + phiGiaoHang);
+        }
+
+        private GioHangItem TaoGioHangItem(SanPham sp, int soLuong, string size, string duong,
+                                           string da, List<string> toppings)
+        {
+            return new GioHangItem
+            {
+                MaSP = sp.MaSP,
+                TenSP = sp.TenSP,
+                HinhAnh = sp.HinhAnh,
+                GiaGoc = sp.GiaBanThucTe,
+                DonGia = TinhDonGia(sp.GiaBanThucTe, size, toppings),
+                SoLuong = soLuong,
+                Size = size,
+                Duong = duong,
+                Da = da,
+                Toppings = toppings
+            };
+        }
+
+        private string KiemTraTonKho(GioHang gio, SanPham sp, int soLuongThem, string khoaBoQua)
+        {
+            long soLuongTrongGio = gio.Items
+                .Where(i => i.MaSP == sp.MaSP && i.Khoa != khoaBoQua)
+                .Sum(i => (long)i.SoLuong);
+            long soLuongYeuCau = soLuongTrongGio + soLuongThem;
+            if (soLuongYeuCau > sp.SoLuongTon)
+                return string.Format("Sản phẩm \"{0}\" chỉ còn {1} sản phẩm trong kho.", sp.TenSP, sp.SoLuongTon);
+            return null;
+        }
+
+        private List<string> LamMoiGioHang(GioHang gio)
+        {
+            var canhBao = new List<string>();
+            if (gio.Items.Count == 0) return canhBao;
+
+            var maSanPhams = gio.Items.Select(i => i.MaSP).Distinct().ToList();
+            var sanPhams = db.SanPhams.Where(s => maSanPhams.Contains(s.MaSP))
+                .ToDictionary(s => s.MaSP);
+            var soLuongTheoSanPham = gio.Items.GroupBy(i => i.MaSP)
+                .ToDictionary(g => g.Key, g => g.Sum(i => (long)i.SoLuong));
+
+            foreach (var item in gio.Items)
+            {
+                SanPham sp;
+                if (!sanPhams.TryGetValue(item.MaSP, out sp) || !sp.DangBan)
+                {
+                    item.GiaGoc = 0;
+                    item.DonGia = 0;
+                    canhBao.Add(Ngu.S("Cart_SanPhamKhongTonTai"));
+                    continue;
+                }
+
+                if (!TuyChonHopLe(item.Size, item.Duong, item.Da, item.Toppings))
+                {
+                    item.GiaGoc = 0;
+                    item.DonGia = 0;
+                    canhBao.Add("Tùy chọn sản phẩm không hợp lệ.");
+                    continue;
+                }
+
+                item.TenSP = sp.TenSP;
+                item.HinhAnh = sp.HinhAnh;
+                item.GiaGoc = sp.GiaBanThucTe;
+                item.DonGia = TinhDonGia(sp.GiaBanThucTe, item.Size, item.Toppings);
+            }
+
+            foreach (var entry in soLuongTheoSanPham)
+            {
+                SanPham sp;
+                if (sanPhams.TryGetValue(entry.Key, out sp) && sp.DangBan && entry.Value > sp.SoLuongTon)
+                    canhBao.Add(string.Format("Sản phẩm \"{0}\" chỉ còn {1} sản phẩm trong kho.", sp.TenSP, sp.SoLuongTon));
+            }
+
+            PhienLamViec.LuuGioHang(Session, gio);
+            return canhBao;
+        }
+
+        private ActionResult TraVeLoiCapNhat(string loi)
+        {
+            if (Request.IsAjaxRequest())
+                return Json(new { thanhCong = false, thongBao = loi });
+
+            ThongBao(loi, "warning");
+            return RedirectToAction("Index");
+        }
+
+        private bool TuyChonHopLe(string size, string duong, string da, IEnumerable<string> toppings)
+        {
+            return TuyChonSanPham.CacSize.Contains(size)
+                   && TuyChonSanPham.CacMucDuong.Contains(duong)
+                   && TuyChonSanPham.CacMucDa.Contains(da)
+                   && (toppings ?? Enumerable.Empty<string>())
+                       .All(t => !string.IsNullOrWhiteSpace(t)
+                                 && TuyChonSanPham.CacTopping.ContainsKey(t));
+        }
+
+        private decimal TinhDonGia(decimal giaGoc, string size, IEnumerable<string> toppings)
+        {
+            return giaGoc + TuyChonSanPham.PhuThuSize(size)
+                   + TuyChonSanPham.PhuThuTopping(toppings);
+        }
+
+        private bool TaoDonHangVaTruKho(DonHang dh, IList<GioHangItem> items, out string loi)
+        {
+            using (var transaction = db.Database.BeginTransaction(IsolationLevel.Serializable))
+            {
+                if (dh == null || items == null || items.Count == 0)
+                {
+                    loi = "Giỏ hàng đang trống hoặc dữ liệu đơn hàng không hợp lệ.";
+                    return false;
+                }
+
+                if (!dh.MaND.HasValue || !db.NguoiDungs.Any(n => n.MaND == dh.MaND.Value))
+                {
+                    loi = "Không tìm thấy tài khoản đặt hàng.";
+                    return false;
+                }
+
+                if (items.Any(i => i == null || i.MaSP <= 0 || i.SoLuong < 1 || i.SoLuong > 100
+                                   || !TuyChonHopLe(i.Size, i.Duong, i.Da, i.Toppings)))
+                {
+                    loi = "Số lượng hoặc tùy chọn sản phẩm không hợp lệ.";
+                    return false;
+                }
+
+                var soLuongTheoSanPham = items.GroupBy(i => i.MaSP)
+                    .ToDictionary(g => g.Key, g => g.Sum(i => (long)i.SoLuong));
+                var maSanPhams = soLuongTheoSanPham.Keys.ToList();
+                var sanPhams = db.SanPhams.Where(s => maSanPhams.Contains(s.MaSP))
+                    .ToDictionary(s => s.MaSP);
+
+                foreach (var entry in soLuongTheoSanPham)
+                {
+                    SanPham sp;
+                    if (!sanPhams.TryGetValue(entry.Key, out sp) || !sp.DangBan)
+                    {
+                        loi = "Sản phẩm không tồn tại hoặc đã ngừng bán.";
+                        return false;
+                    }
+
+                    if (entry.Value > sp.SoLuongTon)
+                    {
+                        loi = string.Format("Sản phẩm \"{0}\" chỉ còn {1} sản phẩm trong kho.",
+                            sp.TenSP, sp.SoLuongTon);
+                        return false;
+                    }
+                }
+
+                decimal tamTinh = 0;
+                dh.ChiTietDonHangs.Clear();
+                foreach (var item in items)
+                {
+                    var sp = sanPhams[item.MaSP];
+                    decimal donGia = TinhDonGia(sp.GiaBanThucTe, item.Size, item.Toppings);
+                    tamTinh += donGia * item.SoLuong;
+                    dh.ChiTietDonHangs.Add(new ChiTietDonHang
+                    {
+                        MaSP = sp.MaSP,
+                        TenSP = sp.TenSP,
+                        SoLuong = item.SoLuong,
+                        DonGia = donGia,
+                        TuyChon = item.MoTaTuyChon
+                    });
+                }
+
+                decimal phiGiaoHang = tamTinh >= MucMienPhiGiaoHang ? 0 : PhiGiaoHangMacDinh;
+                decimal tienGiam = 0;
+                string maGiamGia = string.IsNullOrWhiteSpace(dh.MaGiamGiaApDung)
+                    ? null
+                    : dh.MaGiamGiaApDung.Trim().ToUpper();
+
+                if (maGiamGia != null)
+                {
+                    var km = db.KhuyenMais.FirstOrDefault(k => k.MaGiamGia == maGiamGia);
+                    if (km == null)
+                    {
+                        loi = "Mã giảm giá không tồn tại.";
+                        return false;
+                    }
+                    if (!km.ConHieuLuc)
+                    {
+                        loi = "Mã giảm giá đã hết hạn hoặc chưa được kích hoạt.";
+                        return false;
+                    }
+                    if (tamTinh < km.DonToiThieu)
+                    {
+                        loi = string.Format("Mã {0} chỉ áp dụng cho đơn từ {1}.",
+                            km.MaGiamGia.ToUpper(), DinhDang.Tien(km.DonToiThieu));
+                        return false;
+                    }
+
+                    tienGiam = Math.Min(km.TinhTienGiam(tamTinh, phiGiaoHang),
+                        tamTinh + phiGiaoHang);
+                }
+
+                dh.TamTinh = tamTinh;
+                dh.PhiGiaoHang = phiGiaoHang;
+                dh.TienGiam = tienGiam;
+                dh.TongTien = Math.Max(0, tamTinh + phiGiaoHang - tienGiam);
+                dh.MaGiamGiaApDung = maGiamGia;
+                dh.SoTienConLai = dh.DaThanhToan ? 0 : dh.TongTien;
+
+                foreach (var entry in soLuongTheoSanPham)
+                {
+                    var sp = sanPhams[entry.Key];
+                    sp.SoLuongTon -= (int)entry.Value;
+                    sp.LuotBan += (int)entry.Value;
+                }
+
+                db.DonHangs.Add(dh);
+                db.SaveChanges();
+                transaction.Commit();
+                loi = null;
+                return true;
+            }
         }
 
         #endregion
