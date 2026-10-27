@@ -34,7 +34,12 @@ namespace QL_MatHangAnUong.Controllers
             decimal tienGiam = TinhTienGiam(gio, phiGiao);
 
             ViewBag.Title = Ngu.S("Common_GioHang");
-            ViewBag.KhuyenMaiGoiY = KhoDuLieu.LayKhuyenMaiConHieuLuc();
+            var thoiGianHienTai = DateTime.Now;
+            ViewBag.KhuyenMaiGoiY = db.KhuyenMais
+                .Where(k => k.KichHoat
+                         && k.NgayBatDau <= thoiGianHienTai
+                         && k.NgayKetThuc >= thoiGianHienTai)
+                .ToList();
             ViewBag.TienGiam = tienGiam;
             ViewBag.PhiGiaoHang = phiGiao;
             ViewBag.TongTien = Math.Max(0, gio.TamTinh + phiGiao - tienGiam);
@@ -71,7 +76,7 @@ namespace QL_MatHangAnUong.Controllers
                 return RedirectToAction("Index", "SanPham");
             }
 
-            var sp = KhoDuLieu.LaySanPham(maSP);
+            var sp = db.SanPhams.Find(maSP);
             if (sp == null || !sp.DangBan)
             {
                 ThongBao(Ngu.S("Cart_SanPhamKhongTonTai"), "danger");
@@ -118,7 +123,7 @@ namespace QL_MatHangAnUong.Controllers
                 return RedirectToAction("Index", "SanPham");
             }
 
-            var sp = KhoDuLieu.LaySanPham(maSP);
+            var sp = db.SanPhams.Find(maSP);
             if (sp == null || !sp.DangBan)
             {
                 if (Request.IsAjaxRequest())
@@ -184,7 +189,7 @@ namespace QL_MatHangAnUong.Controllers
 
             if (soLuong > 0)
             {
-                var sp = item.MaSP > 0 ? KhoDuLieu.LaySanPham(item.MaSP) : null;
+                var sp = item.MaSP > 0 ? db.SanPhams.Find(item.MaSP) : null;
                 if (sp == null || !sp.DangBan)
                     return TraVeLoiCapNhat(Ngu.S("Cart_SanPhamKhongTonTai"));
 
@@ -248,7 +253,8 @@ namespace QL_MatHangAnUong.Controllers
         {
             var gio = GioHangHienTai;
             LamMoiGioHang(gio);
-            var km = KhoDuLieu.TimTheoMaGiamGia(maGiamGia);
+            var ma = string.IsNullOrWhiteSpace(maGiamGia) ? null : maGiamGia.Trim().ToUpper();
+            var km = ma == null ? null : db.KhuyenMais.FirstOrDefault(k => k.MaGiamGia == ma);
 
             if (km == null)
             {
@@ -395,7 +401,7 @@ namespace QL_MatHangAnUong.Controllers
         [KiemTraDangNhap]
         public ActionResult DatHangThanhCong(int id)
         {
-            var dh = KhoDuLieu.LayDonHang(id);
+            var dh = db.DonHangs.Find(id);
             if (dh == null) return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
             var nd = NguoiDungHienTai;
@@ -427,7 +433,8 @@ namespace QL_MatHangAnUong.Controllers
         {
             if (string.IsNullOrWhiteSpace(gio.MaGiamGia)) return 0;
 
-            var km = KhoDuLieu.TimTheoMaGiamGia(gio.MaGiamGia);
+            var ma = gio.MaGiamGia.Trim().ToUpper();
+            var km = db.KhuyenMais.FirstOrDefault(k => k.MaGiamGia == ma);
             if (km == null || !km.ConHieuLuc || gio.TamTinh < km.DonToiThieu) return 0;
 
             return Math.Min(km.TinhTienGiam(gio.TamTinh, phiGiaoHang),
