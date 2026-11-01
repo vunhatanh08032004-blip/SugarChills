@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using QL_MatHangAnUong.Filters;
@@ -16,7 +17,7 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLyDonHang
         public ActionResult Index(string trangThai, string tuKhoa, DateTime? tuNgay, DateTime? denNgay)
         {
-            var ds = KhoDuLieu.LayDonHangs();
+            var ds = db.DonHangs.Include(d => d.NguoiDung).OrderByDescending(d => d.NgayDat).ToList();
 
             if (!string.IsNullOrWhiteSpace(trangThai) && trangThai != "Tất cả")
                 ds = ds.Where(d => d.TrangThai == trangThai).ToList();
@@ -36,11 +37,10 @@ namespace QL_MatHangAnUong.Controllers
                 ds = ds.Where(d => d.NgayDat.Date <= denNgay.Value.Date).ToList();
 
             // Số liệu nhanh hiển thị ở đầu trang
-            var tatCa = KhoDuLieu.LayDonHangs();
-            ViewBag.SoChoXacNhan = tatCa.Count(d => d.TrangThai == DonHang.ChoXacNhan);
-            ViewBag.SoDangGiao = tatCa.Count(d => d.TrangThai == DonHang.DangGiao);
-            ViewBag.SoHoanThanh = tatCa.Count(d => d.TrangThai == DonHang.HoanThanh);
-            ViewBag.SoDaHuy = tatCa.Count(d => d.TrangThai == DonHang.DaHuy);
+            ViewBag.SoChoXacNhan = db.DonHangs.Count(d => d.TrangThai == DonHang.ChoXacNhan);
+            ViewBag.SoDangGiao = db.DonHangs.Count(d => d.TrangThai == DonHang.DangGiao);
+            ViewBag.SoHoanThanh = db.DonHangs.Count(d => d.TrangThai == DonHang.HoanThanh);
+            ViewBag.SoDaHuy = db.DonHangs.Count(d => d.TrangThai == DonHang.DaHuy);
 
             ViewBag.TrangThaiDangChon = trangThai ?? "Tất cả";
             ViewBag.TuKhoa = tuKhoa;
@@ -54,7 +54,7 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLyDonHang/ChiTiet/1001
         public ActionResult ChiTiet(int id)
         {
-            var dh = KhoDuLieu.LayDonHang(id);
+            var dh = db.DonHangs.Include(d => d.NguoiDung).Include(d => d.ChiTietDonHangs).FirstOrDefault(d => d.MaDH == id);
             if (dh == null) return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
             ViewBag.Title = string.Format(Ngu.S("Order_DonFormat"), dh.MaDH);
@@ -66,7 +66,7 @@ namespace QL_MatHangAnUong.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CapNhatTrangThai(int id, string trangThai, string quayVe)
         {
-            var dh = KhoDuLieu.LayDonHang(id);
+            var dh = db.DonHangs.Find(id);
             if (dh == null) return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
             if (!DonHang.CacTrangThai.Contains(trangThai))
@@ -83,7 +83,8 @@ namespace QL_MatHangAnUong.Controllers
                 return RedirectToAction("ChiTiet", new { id = id });
             }
 
-            KhoDuLieu.CapNhatTrangThaiDonHang(id, trangThai);
+            dh.TrangThai = trangThai;
+            db.SaveChanges();
             ThongBao(string.Format(Ngu.S("SellerOrder_DaChuyenSangFormat"), id, trangThai));
 
             if (quayVe == "chitiet") return RedirectToAction("ChiTiet", new { id = id });

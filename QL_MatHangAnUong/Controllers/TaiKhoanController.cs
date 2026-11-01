@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using System;
+using System.Linq;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Helpers;
 using QL_MatHangAnUong.Models;
@@ -28,7 +30,7 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult DangKy(DangKyViewModel model)
         {
             // Kiểm tra trùng email — validation nghiệp vụ, Data Annotation không làm được
-            if (!string.IsNullOrWhiteSpace(model.Email) && KhoDuLieu.EmailDaTonTai(model.Email))
+            if (!string.IsNullOrWhiteSpace(model.Email) && db.NguoiDungs.Any(n => n.Email == model.Email))
                 ModelState.AddModelError("Email", Ngu.S("Auth_EmailDaTonTai"));
 
             if (!ModelState.IsValid)
@@ -44,9 +46,11 @@ namespace QL_MatHangAnUong.Controllers
                 MatKhau = model.MatKhau,          // Lưu ý: đồ án demo nên lưu thẳng.
                 DienThoai = model.DienThoai,      // Thực tế cần băm mật khẩu (SHA256 + salt).
                 DiaChi = model.DiaChi,
-                VaiTro = NguoiDung.RoleCustomer
+                VaiTro = NguoiDung.RoleCustomer,
+                NgayDangKy = DateTime.Now
             };
-            KhoDuLieu.ThemNguoiDung(nd);
+            db.NguoiDungs.Add(nd);
+            db.SaveChanges();
 
             // Đăng ký xong đăng nhập luôn cho tiện
             PhienLamViec.DangNhap(Session, nd);
@@ -75,7 +79,7 @@ namespace QL_MatHangAnUong.Controllers
 
             if (!ModelState.IsValid) return View(model);
 
-            var nd = KhoDuLieu.KiemTraDangNhap(model.Email, model.MatKhau);
+            var nd = db.NguoiDungs.FirstOrDefault(n => n.Email == model.Email && n.MatKhau == model.MatKhau);
             if (nd == null)
             {
                 ModelState.AddModelError("", Ngu.S("Auth_SaiTaiKhoanMatKhau"));
@@ -109,7 +113,8 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult ThongTin()
         {
             ViewBag.Title = Ngu.S("Header_TaiKhoanCuaToi");
-            ViewBag.DonHangs = KhoDuLieu.LayDonHangCuaKhach(NguoiDungHienTai.MaND);
+            var maND = NguoiDungHienTai.MaND;
+            ViewBag.DonHangs = db.DonHangs.Where(d => d.MaND == maND).OrderByDescending(d => d.NgayDat).ToList();
             return View(NguoiDungHienTai);
         }
         // GET: /TaiKhoan/CapNhatThongTin
@@ -143,11 +148,16 @@ namespace QL_MatHangAnUong.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            KhoDuLieu.CapNhatThongTinNguoiDung(model.MaND, model.HoTen, model.DienThoai, model.DiaChi);
+            var nd = db.NguoiDungs.Find(model.MaND);
+            if (nd == null) return RedirectToAction("DangNhap");
+            nd.HoTen = model.HoTen;
+            nd.DienThoai = model.DienThoai;
+            nd.DiaChi = model.DiaChi;
+            db.SaveChanges();
 
             // Đồng bộ lại Session để _Layout / trang Thông tin hiển thị dữ liệu mới ngay,
             // không cần đăng nhập lại.
-            var ndMoi = KhoDuLieu.LayNguoiDung(model.MaND);
+            var ndMoi = db.NguoiDungs.Find(model.MaND);
             PhienLamViec.DangNhap(Session, ndMoi);
 
             ThongBao("Cập nhật thông tin cá nhân thành công.");
@@ -173,7 +183,15 @@ namespace QL_MatHangAnUong.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            bool thanhCong = KhoDuLieu.DoiMatKhau(NguoiDungHienTai.MaND, model.MatKhauHienTai, model.MatKhauMoi);
+            var maND = NguoiDungHienTai.MaND;
+            var matKhauCu = model.MatKhauHienTai;
+            var nd = db.NguoiDungs.FirstOrDefault(n => n.MaND == maND && n.MatKhau == matKhauCu);
+            bool thanhCong = (nd != null);
+            if (thanhCong)
+            {
+                nd.MatKhau = model.MatKhauMoi;
+                db.SaveChanges();
+            }
             if (!thanhCong)
             {
                 ModelState.AddModelError("MatKhauHienTai", "Mật khẩu hiện tại không đúng.");
@@ -181,7 +199,7 @@ namespace QL_MatHangAnUong.Controllers
             }
 
             // Đồng bộ lại Session với mật khẩu mới
-            var ndMoi = KhoDuLieu.LayNguoiDung(NguoiDungHienTai.MaND);
+            var ndMoi = db.NguoiDungs.Find(NguoiDungHienTai.MaND);
             PhienLamViec.DangNhap(Session, ndMoi);
 
             ThongBao("Đổi mật khẩu thành công.");
