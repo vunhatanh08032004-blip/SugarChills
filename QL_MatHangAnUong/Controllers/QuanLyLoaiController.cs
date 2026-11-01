@@ -15,10 +15,9 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLyLoai
         public ActionResult Index()
         {
-            var ds = KhoDuLieu.LayLoais();
+            var ds = db.LoaiSanPhams.OrderBy(l => l.ThuTu).ToList();
 
-            // Số sản phẩm của mỗi loại để hiển thị ở bảng và cảnh báo khi xóa
-            ViewBag.SoSanPham = ds.ToDictionary(l => l.MaLoai, l => KhoDuLieu.DemSanPhamTheoLoai(l.MaLoai));
+            ViewBag.SoSanPham = ds.ToDictionary(l => l.MaLoai, l => db.SanPhams.Count(s => s.MaLoai == l.MaLoai));
             ViewBag.Title = Ngu.S("SellerLoai_Title");
 
             return View(ds);
@@ -28,7 +27,7 @@ namespace QL_MatHangAnUong.Controllers
         public ActionResult Them()
         {
             ViewBag.Title = Ngu.S("SellerLoai_ThemTitle");
-            return View(new LoaiSanPham { HienThi = true, ThuTu = KhoDuLieu.LayLoais().Count + 1 });
+            return View(new LoaiSanPham { HienThi = true, ThuTu = db.LoaiSanPhams.Count() + 1 });
         }
 
         // POST: /QuanLyLoai/Them
@@ -53,7 +52,8 @@ namespace QL_MatHangAnUong.Controllers
             }
 
             loai.TenLoai = loai.TenLoai.Trim();
-            KhoDuLieu.ThemLoai(loai);
+            db.LoaiSanPhams.Add(loai);
+            db.SaveChanges();
             ThongBao(string.Format(Ngu.S("SellerLoai_DaThemFormat"), loai.TenLoai));
             return RedirectToAction("Index");
         }
@@ -61,7 +61,7 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLyLoai/Sua/2
         public ActionResult Sua(int id)
         {
-            var loai = KhoDuLieu.LayLoai(id);
+            var loai = db.LoaiSanPhams.Find(id);
             if (loai == null) return HttpNotFound(Ngu.S("SellerLoai_KhongTimThay"));
 
             ViewBag.Title = Ngu.S("SellerLoai_SuaTitle");
@@ -89,8 +89,16 @@ namespace QL_MatHangAnUong.Controllers
             }
 
             loai.TenLoai = loai.TenLoai.Trim();
-            if (!KhoDuLieu.CapNhatLoai(loai))
+            var loaiTrongDb = db.LoaiSanPhams.Find(loai.MaLoai);
+            if (loaiTrongDb == null)
                 return HttpNotFound(Ngu.S("SellerLoai_KhongTimThaySuaCanXoa"));
+
+            loaiTrongDb.TenLoai = loai.TenLoai;
+            loaiTrongDb.MoTa = loai.MoTa;
+            loaiTrongDb.HinhAnh = loai.HinhAnh;
+            loaiTrongDb.HienThi = loai.HienThi;
+            loaiTrongDb.ThuTu = loai.ThuTu;
+            db.SaveChanges();
 
             ThongBao(string.Format(Ngu.S("SellerLoai_DaCapNhatFormat"), loai.TenLoai));
             return RedirectToAction("Index");
@@ -99,10 +107,10 @@ namespace QL_MatHangAnUong.Controllers
         // GET: /QuanLyLoai/Xoa/2
         public ActionResult Xoa(int id)
         {
-            var loai = KhoDuLieu.LayLoai(id);
+            var loai = db.LoaiSanPhams.Find(id);
             if (loai == null) return HttpNotFound(Ngu.S("SellerLoai_KhongTimThay"));
 
-            ViewBag.SoSanPham = KhoDuLieu.DemSanPhamTheoLoai(id);
+            ViewBag.SoSanPham = db.SanPhams.Count(s => s.MaLoai == id);
             ViewBag.Title = Ngu.S("SellerLoai_XoaTitle");
             return View(loai);
         }
@@ -112,13 +120,21 @@ namespace QL_MatHangAnUong.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult XacNhanXoa(int id)
         {
-            string loi;
-            if (!KhoDuLieu.XoaLoai(id, out loi))
+            var loai = db.LoaiSanPhams.Find(id);
+            if (loai == null)
             {
-                ThongBao(loi, "danger");
+                ThongBao("Không tìm thấy loại.", "danger");
                 return RedirectToAction("Index");
             }
 
+            if (db.SanPhams.Any(s => s.MaLoai == id))
+            {
+                ThongBao(string.Format("Không thể xóa loại \"{0}\" vì còn sản phẩm thuộc loại này.", loai.TenLoai), "danger");
+                return RedirectToAction("Index");
+            }
+
+            db.LoaiSanPhams.Remove(loai);
+            db.SaveChanges();
             ThongBao(Ngu.S("SellerLoai_DaXoa"), "info");
             return RedirectToAction("Index");
         }
