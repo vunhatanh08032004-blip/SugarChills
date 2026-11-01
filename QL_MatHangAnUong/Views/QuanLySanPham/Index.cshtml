@@ -73,6 +73,8 @@
                 {
                     foreach (var sp in Model)
                     {
+                        // Giá bán thực tế tính thẳng từ cột Gia / GiaKhuyenMai của entity SanPham
+                        decimal giaBan = (sp.GiaKhuyenMai.HasValue && sp.GiaKhuyenMai.Value > 0) ? sp.GiaKhuyenMai.Value : sp.Gia;
                         <tr>
                             <td class="fw-bold">SC@(sp.MaSP.ToString("D3"))</td>
                             <td>
@@ -87,21 +89,29 @@
                             </td>
                             <td>@(sp.LoaiSanPham != null ? sp.LoaiSanPham.TenLoai : "-")</td>
                             <td class="text-end">
-                                <div class="fw-bold sc-text-primary">@DinhDang.Tien(sp.GiaBanThucTe)</div>
-                                @if (sp.Gia > 0 && sp.GiaBanThucTe < sp.Gia)
+                                <div class="fw-bold sc-text-primary">@DinhDang.Tien(giaBan)</div>
+                                @if (sp.Gia > 0 && giaBan < sp.Gia)
                                 {
                                     <div class="sc-price-old" style="margin:0">@DinhDang.Tien(sp.Gia)</div>
                                 }
                             </td>
                             <td class="text-center">@sp.SoLuongTon</td>
                             <td class="text-center">
-                                @if (sp.DangBan)
+                                @* Bấm vào nhãn trạng thái để đổi trạng thái kinh doanh (POST DoiTrangThaiKinhDoanh) *@
+                                @using (Html.BeginForm("DoiTrangThaiKinhDoanh", "QuanLySanPham", new { id = sp.MaSP }, FormMethod.Post, new { style = "display:inline" }))
                                 {
-                                    <span class="sc-badge badge-success">@Resources.Strings.SellerProd_DangBan</span>
-                                }
-                                else
-                                {
-                                    <span class="sc-badge badge-muted">@Resources.Strings.SellerProd_NgungBan</span>
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-link p-0 border-0" style="text-decoration:none"
+                                            title="Bấm để đổi trạng thái kinh doanh">
+                                        @if (sp.DangBan)
+                                        {
+                                            <span class="sc-badge badge-success">@Resources.Strings.SellerProd_DangBan</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="sc-badge badge-muted">@Resources.Strings.SellerProd_NgungBan</span>
+                                        }
+                                    </button>
                                 }
                             </td>
                             <td class="text-center">
