@@ -1,9 +1,74 @@
 ﻿@model QL_MatHangAnUong.Models.ViewModels.DangNhapViewModel
 
+<style>
+    /* ── Divider "hoặc" ── */
+    .sc-or-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #b0a0a6;
+        font-size: 13px;
+        font-weight: 500;
+        margin: 20px 0;
+    }
+    .sc-or-divider::before,
+    .sc-or-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #ecdde3;
+    }
+    /* ── Nút mạng xã hội ── */
+    .sc-social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 11px 16px;
+        border-radius: 12px;
+        border: 1.5px solid #e0d0d6;
+        background: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        color: #4a3040;
+        cursor: pointer;
+        transition: border-color .2s, box-shadow .2s;
+        text-decoration: none;
+    }
+    .sc-social-btn:hover {
+        border-color: #e8517f;
+        box-shadow: 0 2px 8px rgba(232,81,127,.12);
+        color: #4a3040;
+        text-decoration: none;
+    }
+    .sc-social-btn svg { flex-shrink: 0; }
+    .sc-social-btn.fb { border-color: #c8d8f5; }
+    .sc-social-btn.fb:hover { border-color: #1877f2; box-shadow: 0 2px 8px rgba(24,119,242,.12); }
+    /* ── Ô mật khẩu có icon hiện/ẩn ── */
+    .sc-pass-wrap { position: relative; }
+    .sc-pass-wrap .form-control { padding-right: 44px; }
+    .sc-pass-toggle {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #b0a0a6;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+    }
+    .sc-pass-toggle:hover { color: #e8517f; }
+</style>
+
 <div class="container sc-auth-wrap">
     <div class="sc-auth-card w-100" style="max-width:920px;margin:0 auto">
         <div class="row g-0">
+            <!-- Cột trái: minh hoạ -->
             <div class="col-lg-5 sc-auth-side">
+                <div style="font-size:48px;margin-bottom:16px">🧋</div>
                 <h3>@Resources.Strings.Auth_ChaoMungTroLai</h3>
                 <p>@Resources.Strings.Auth_ChaoMungMoTa</p>
                 <div class="mt-4 small">
@@ -13,9 +78,11 @@
                 </div>
             </div>
 
+            <!-- Cột phải: form đăng nhập -->
             <div class="col-lg-7 p-4 p-lg-5">
                 <h4 class="mb-1">@Resources.Strings.Common_DangNhap</h4>
-                <p class="sc-text-muted small mb-4">@Resources.Strings.Auth_ChuaCoTaiKhoan
+                <p class="sc-text-muted small mb-4">
+                    @Resources.Strings.Auth_ChuaCoTaiKhoan
                     <a href="@Url.Action("DangKy", new { returnUrl = ViewBag.ReturnUrl })">@Resources.Strings.Auth_DangKyNgay</a>
                 </p>
 
@@ -25,28 +92,66 @@
                     @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
 
                     <div class="mb-3">
-                        <label class="form-label" for="Email">@Resources.Strings.Common_Email</label>
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "ban@email.com" })
+                        <label class="form-label" for="Email">
+                            <i class="bi bi-envelope me-1"></i>@Resources.Strings.Common_Email
+                        </label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "ban@email.com", autocomplete = "email" })
                         @Html.ValidationMessageFor(m => m.Email)
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="MatKhau">@Resources.Strings.Auth_MatKhau</label>
-                        @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "••••••" })
+                        <label class="form-label" for="MatKhau">
+                            <i class="bi bi-lock me-1"></i>@Resources.Strings.Auth_MatKhau
+                        </label>
+                        <div class="sc-pass-wrap">
+                            @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "••••••", id = "MatKhauInput", autocomplete = "current-password" })
+                            <button type="button" class="sc-pass-toggle" id="togglePass" title="Hiện/ẩn mật khẩu">
+                                <i class="bi bi-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
                         @Html.ValidationMessageFor(m => m.MatKhau)
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <label class="d-flex align-items-center gap-2 small">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <label class="d-flex align-items-center gap-2 small" style="cursor:pointer">
                             @Html.CheckBoxFor(m => m.GhiNho)
                             <span>@Resources.Strings.Auth_GhiNhoDangNhap</span>
                         </label>
-                        <a href="#" class="small">@Resources.Strings.Auth_QuenMatKhau</a>
+                        <a href="@Url.Action("QuenMatKhau", "TaiKhoan")" class="small" style="color:#e8517f">
+                            @Resources.Strings.Auth_QuenMatKhau
+                        </a>
                     </div>
 
-                    <button type="submit" class="btn btn-sc btn-lg w-100">@Resources.Strings.Common_DangNhap</button>
+                    <button type="submit" class="btn btn-sc btn-lg w-100">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>@Resources.Strings.Common_DangNhap
+                    </button>
                 }
 
+                <!-- Divider -->
+                <div class="sc-or-divider"><span>hoặc</span></div>
+
+                <!-- Nút đăng nhập mạng xã hội (UI hiển thị, chưa tích hợp OAuth) -->
+                <div class="d-flex flex-column gap-2">
+                    <button type="button" class="sc-social-btn" onclick="thongBaoOAuth()">
+                        <!-- Google logo SVG -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                        Đăng nhập với Google
+                    </button>
+                    <button type="button" class="sc-social-btn fb" onclick="thongBaoOAuth()">
+                        <!-- Facebook logo SVG -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.027 4.388 11.024 10.125 11.927v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796v8.437C19.612 23.097 24 18.1 24 12.073z" fill="#1877F2"/>
+                        </svg>
+                        Đăng nhập với Facebook
+                    </button>
+                </div>
+
+                <!-- Tài khoản demo -->
                 <div class="sc-alert sc-alert-info mt-4" style="font-size:13px">
                     <i class="bi bi-info-circle"></i>
                     <div>
@@ -63,4 +168,23 @@
 @section scripts {
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        // Hiện/ẩn mật khẩu
+        document.getElementById('togglePass').addEventListener('click', function () {
+            var inp = document.getElementById('MatKhauInput');
+            var icon = document.getElementById('eyeIcon');
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                icon.className = 'bi bi-eye-slash';
+            } else {
+                inp.type = 'password';
+                icon.className = 'bi bi-eye';
+            }
+        });
+
+        // Thông báo OAuth chưa tích hợp
+        function thongBaoOAuth() {
+            alert('Tính năng đăng nhập mạng xã hội đang phát triển. Vui lòng dùng email và mật khẩu.');
+        }
+    </script>
 }

@@ -206,6 +206,36 @@ namespace QL_MatHangAnUong.Controllers
             return RedirectToAction("ThongTin");
         }
 
+        // GET: /TaiKhoan/QuenMatKhau
+        public ActionResult QuenMatKhau()
+        {
+            if (NguoiDungHienTai != null) return RedirectToAction("Index", "Home");
+            ViewBag.Title = "Quên mật khẩu";
+            return View(new QuenMatKhauViewModel());
+        }
+
+        // POST: /TaiKhoan/QuenMatKhau
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult QuenMatKhau(QuenMatKhauViewModel model)
+        {
+            ViewBag.Title = "Quên mật khẩu";
+            if (!ModelState.IsValid) return View(model);
+
+            var nd = db.NguoiDungs.FirstOrDefault(n => n.Email == model.Email.Trim());
+            if (nd == null)
+            {
+                ModelState.AddModelError("Email", "Email này chưa được đăng ký trong hệ thống.");
+                return View(model);
+            }
+
+            nd.MatKhau = model.MatKhauMoi;
+            db.SaveChanges();
+
+            ThongBao("Đặt lại mật khẩu thành công! Vui lòng đăng nhập với mật khẩu mới.");
+            return RedirectToAction("DangNhap");
+        }
+
         // GET: /TaiKhoan/KhongCoQuyen
         public ActionResult KhongCoQuyen()
         {

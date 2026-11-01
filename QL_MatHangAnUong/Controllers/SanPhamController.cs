@@ -24,7 +24,8 @@ namespace QL_MatHangAnUong.Controllers
                                          decimal? giaTu, decimal? giaDen, string sapXep)
         {
             // Chỉ lấy sản phẩm đang kinh doanh
-            var q = db.SanPhams.Where(s => s.DangBan);
+            // Include LoaiSanPham để tránh ObjectDisposedException khi View truy cập navigation property
+            var q = db.SanPhams.Include(s => s.LoaiSanPham).Where(s => s.DangBan);
 
             if (!string.IsNullOrWhiteSpace(tuKhoa))
             {
@@ -66,6 +67,7 @@ namespace QL_MatHangAnUong.Controllers
         private List<SanPham> LaySanPhamLienQuan(int maSP, int maLoai, int soLuong)
         {
             return db.SanPhams
+                .Include(s => s.LoaiSanPham)
                 .Where(s => s.MaSP != maSP && s.MaLoai == maLoai && s.DangBan)
                 .OrderByDescending(s => s.LuotBan)
                 .Take(soLuong)
