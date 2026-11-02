@@ -1,0 +1,74 @@
+@model QL_MatHangAnUong.Models.ViewModels.QuenMatKhauViewModel
+@{
+    ViewBag.Title = "Quên mật khẩu";
+}
+
+<div class="container sc-auth-wrap">
+    <div class="sc-auth-card w-100" style="max-width:800px;margin:0 auto">
+        <div class="row g-0">
+            <div class="col-lg-5 sc-auth-side">
+                <div style="font-size:52px;margin-bottom:16px;opacity:.9">🔑</div>
+                <h3>Đặt lại mật khẩu</h3>
+                <p>Nhập email đã đăng ký và mật khẩu mới. Hệ thống sẽ cập nhật ngay lập tức.</p>
+                <div class="mt-4 small">
+                    <div class="mb-2"><i class="bi bi-shield-check"></i> Mật khẩu tối thiểu 6 ký tự</div>
+                    <div class="mb-2"><i class="bi bi-envelope-check"></i> Email phải khớp với tài khoản</div>
+                    <div><i class="bi bi-arrow-right-circle"></i> Đăng nhập ngay sau khi đặt lại</div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 p-4 p-lg-5">
+                <h4 class="mb-1">Quên mật khẩu?</h4>
+                <p class="sc-text-muted small mb-4">
+                    Nhập email và mật khẩu mới bên dưới. Đã nhớ lại?
+                    <a href="@Url.Action("DangNhap", "TaiKhoan")">Đăng nhập ngay</a>
+                </p>
+
+                @using (Html.BeginForm("QuenMatKhau", "TaiKhoan", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+
+                    <div class="mb-3">
+                        <label class="form-label" for="Email">
+                            <i class="bi bi-envelope me-1"></i>Email đăng ký
+                        </label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "ban@email.com", autocomplete = "email" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="MatKhauMoi">
+                            <i class="bi bi-lock me-1"></i>Mật khẩu mới
+                        </label>
+                        @Html.PasswordFor(m => m.MatKhauMoi, new { @class = "form-control", placeholder = "Ít nhất 6 ký tự" })
+                        @Html.ValidationMessageFor(m => m.MatKhauMoi)
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label" for="XacNhanMatKhau">
+                            <i class="bi bi-lock-fill me-1"></i>Xác nhận mật khẩu mới
+                        </label>
+                        @Html.PasswordFor(m => m.XacNhanMatKhau, new { @class = "form-control", placeholder = "Nhập lại mật khẩu mới" })
+                        @Html.ValidationMessageFor(m => m.XacNhanMatKhau)
+                    </div>
+
+                    <button type="submit" class="btn btn-sc btn-lg w-100">
+                        <i class="bi bi-arrow-clockwise me-1"></i> Đặt lại mật khẩu
+                    </button>
+                }
+
+                <div class="text-center mt-4">
+                    <a href="@Url.Action("DangNhap", "TaiKhoan")" class="small sc-text-muted">
+                        <i class="bi bi-arrow-left me-1"></i>Quay lại đăng nhập
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

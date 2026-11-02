@@ -54,7 +54,7 @@
     <div class="sc-table-head">
         <div>
             <h5>@Resources.Strings.SellerOrder_DanhSachDonHang</h5>
-            <small class="sc-text-muted">@(string.Format(Resources.Strings.SellerOrder_TimThayFormat, Model.Count))</small>
+            <small class="sc-text-muted">@(string.Format(Resources.Strings.SellerOrder_TimThayFormat, ViewBag.TongSoDong))</small>
         </div>
 
         <form method="get" action="@Url.Action("Index")" class="d-flex flex-wrap align-items-end gap-2">
@@ -158,4 +158,5 @@
             </tbody>
         </table>
     </div>
+    @Html.Partial("_PhanTrang")
 </div>

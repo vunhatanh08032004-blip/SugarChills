@@ -52,14 +52,14 @@
                         <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, sapXep = Model.SapXep })"
                            class="@(Model.MaLoai == null ? "active" : "")">
                             <span>@Resources.Strings.Common_TatCa</span>
-                            <span class="sc-count">@Model.TongSoSanPham</span>
+                            
                         </a>
                         @foreach (var loai in Model.DanhSachLoai)
                         {
                             <a href="@Url.Action("Index", new { tuKhoa = Model.TuKhoa, maLoai = loai.MaLoai, sapXep = Model.SapXep })"
                                class="@(Model.MaLoai == loai.MaLoai ? "active" : "")">
                                 <span>@loai.TenLoai</span>
-                                <span class="sc-count">@(soSPTheoLoai.ContainsKey(loai.MaLoai) ? soSPTheoLoai[loai.MaLoai] : 0)</span>
+                                
                             </a>
                         }
                     </div>

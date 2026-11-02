@@ -43,6 +43,9 @@
             <a class="sc-menu-item @active("QuanLyKhuyenMai")" href="@Url.Action("Index", "QuanLyKhuyenMai")">
                 <i class="bi bi-ticket-perforated"></i> @Resources.Strings.Seller_QuanLyKhuyenMai
             </a>
+            <a class="sc-menu-item @active("QuanLyLienLac")" href="@Url.Action("Index", "QuanLyLienLac")">
+                <i class="bi bi-chat-dots"></i> Tin nhắn khách hàng
+            </a>
 
             <div class="sc-sidebar-label">@Resources.Strings.Seller_DanhMuc</div>
             <a class="sc-menu-item @active("QuanLySanPham")" href="@Url.Action("Index", "QuanLySanPham")">
@@ -117,7 +120,7 @@
 
     <script src="~/Scripts/jquery-3.7.0.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <script src="~/Scripts/sugarchills.js"></script>
+    <script src="~/Scripts/sugarchills.js?v=20261102c"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

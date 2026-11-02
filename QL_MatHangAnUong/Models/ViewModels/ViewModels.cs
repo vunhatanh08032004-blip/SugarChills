@@ -108,7 +108,7 @@ namespace QL_MatHangAnUong.Models.ViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
-        [RegularExpression(@"^0\d{9}$", ErrorMessage = "Số điện thoại phải gồm 10 số và bắt đầu bằng 0")]
+        [RegularExpression(@"^0[235789]\d{8}$", ErrorMessage = "Số điện thoại không hợp lệ (10 số, đầu số 03, 05, 07, 08, 09 hoặc 02)")]
         [Display(Name = "Số điện thoại")]
         public string DienThoai { get; set; }
 
@@ -138,7 +138,7 @@ namespace QL_MatHangAnUong.Models.ViewModels
         public string TenNguoiNhan { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
-        [RegularExpression(@"^0\d{9}$", ErrorMessage = "Số điện thoại phải gồm 10 số và bắt đầu bằng 0")]
+        [RegularExpression(@"^0[235789]\d{8}$", ErrorMessage = "Số điện thoại không hợp lệ (10 số, đầu số 03, 05, 07, 08, 09 hoặc 02)")]
         [Display(Name = "Số điện thoại")]
         public string DienThoai { get; set; }
 

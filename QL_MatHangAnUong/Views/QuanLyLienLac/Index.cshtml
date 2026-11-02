@@ -1,0 +1,94 @@
+﻿@model List<QL_MatHangAnUong.Models.LienLac>
+@{
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    ViewBag.Title = "Tin nhắn khách hàng";
+    string loc = ViewBag.Loc as string ?? "tatca";
+    int tongSo = ViewBag.TongSo ?? 0;
+    int soChuaDoc = ViewBag.SoChuaDoc ?? 0;
+}
+
+<div class="sc-table-card">
+    <div class="sc-table-head">
+        <div>
+            <h5>Tin nhắn liên hệ</h5>
+            <small class="sc-text-muted">Tổng @tongSo tin — <strong class="sc-text-primary">@soChuaDoc chưa đọc</strong></small>
+        </div>
+        <div class="btn-group">
+            <a href="@Url.Action("Index", new { loc = "tatca" })" class="btn btn-sm @(loc == "tatca" ? "btn-sc" : "btn-sc-outline")">Tất cả</a>
+            <a href="@Url.Action("Index", new { loc = "chuadoc" })" class="btn btn-sm @(loc == "chuadoc" ? "btn-sc" : "btn-sc-outline")">Chưa đọc (@soChuaDoc)</a>
+            <a href="@Url.Action("Index", new { loc = "dadoc" })" class="btn btn-sm @(loc == "dadoc" ? "btn-sc" : "btn-sc-outline")">Đã đọc</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table sc-table align-middle">
+            <thead>
+                <tr>
+                    <th style="width:60px">#</th>
+                    <th>Khách hàng</th>
+                    <th>Nội dung</th>
+                    <th style="width:150px">Ngày gửi</th>
+                    <th class="text-center" style="width:110px">Trạng thái</th>
+                    <th class="text-end" style="width:150px">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr><td colspan="6" class="text-center py-5 sc-text-muted"><i class="bi bi-inbox"></i> Không có tin nhắn nào.</td></tr>
+                }
+                else
+                {
+                    foreach (var t in Model)
+                    {
+                        string tomTat = t.NoiDung.Length > 80 ? t.NoiDung.Substring(0, 80) + "…" : t.NoiDung;
+                        <tr class="@(t.DaDoc ? "" : "fw-semibold")">
+                            <td>@t.MaLienLac</td>
+                            <td>
+                                <div>@t.HoTen</div>
+                                <small class="sc-text-muted">
+                                    @if (!string.IsNullOrEmpty(t.SoDienThoai)) { <span><i class="bi bi-telephone"></i> @t.SoDienThoai</span> }
+                                    @if (!string.IsNullOrEmpty(t.Email)) { <span class="ms-2"><i class="bi bi-envelope"></i> @t.Email</span> }
+                                </small>
+                            </td>
+                            <td><a href="@Url.Action("ChiTiet", new { id = t.MaLienLac })" class="text-reset">@tomTat</a></td>
+                            <td><small>@t.NgayGui.ToString("dd/MM/yyyy HH:mm")</small></td>
+                            <td class="text-center">
+                                @if (t.DaDoc)
+                                {
+                                    <span class="sc-badge badge-muted">Đã đọc</span>
+                                }
+                                else
+                                {
+                                    <span class="sc-badge badge-info">Mới</span>
+                                }
+                            </td>
+                            <td class="text-end text-nowrap">
+                                <a href="@Url.Action("ChiTiet", new { id = t.MaLienLac })" class="btn btn-sm btn-sc-soft" title="Xem"><i class="bi bi-eye"></i></a>
+                                @using (Html.BeginForm("DanhDau", "QuanLyLienLac", FormMethod.Post, new { @class = "d-inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@t.MaLienLac" />
+                                    <input type="hidden" name="daDoc" value="@(t.DaDoc ? "false" : "true")" />
+                                    <input type="hidden" name="loc" value="@loc" />
+                                    <button type="submit" class="btn btn-sm btn-sc-soft" title="@(t.DaDoc ? "Đánh dấu chưa đọc" : "Đánh dấu đã đọc")">
+                                        <i class="bi @(t.DaDoc ? "bi-envelope" : "bi-envelope-open")"></i>
+                                    </button>
+                                }
+                                @using (Html.BeginForm("Xoa", "QuanLyLienLac", FormMethod.Post,
+                                    new { @class = "d-inline", onsubmit = "return confirm('Xóa tin nhắn này? Không thể khôi phục.');" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@t.MaLienLac" />
+                                    <input type="hidden" name="loc" value="@loc" />
+                                    <button type="submit" class="btn btn-sm btn-sc-outline" title="Xóa"><i class="bi bi-trash"></i></button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    @Html.Partial("_PhanTrang")
+</div>

@@ -55,30 +55,46 @@
                     @Resources.Strings.Contact_MoTaForm
                 </p>
 
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">@Resources.Strings.Contact_HoVaTen</label>
-                        <input type="text" class="form-control" placeholder="@Resources.Strings.Contact_HoTenPlaceholder" />
+                @if (ViewBag.Loi != null)
+                {
+                    <div class="sc-alert sc-alert-danger mb-3">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <span>@ViewBag.Loi</span>
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-label">@Resources.Strings.Contact_SoDienThoai</label>
-                        <input type="text" class="form-control" placeholder="09xxxxxxxx" />
+                }
+
+                @using (Html.BeginForm("LienHe", "Home", FormMethod.Post, new { id = "formLienHe" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="hoTen">@Resources.Strings.Contact_HoVaTen <span class="text-danger">*</span></label>
+                            <input type="text" id="hoTen" name="hoTen" class="form-control" maxlength="100" required
+                                   value="@ViewBag.HoTen" placeholder="@Resources.Strings.Contact_HoTenPlaceholder" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="soDienThoai">@Resources.Strings.Contact_SoDienThoai</label>
+                            <input type="tel" id="soDienThoai" name="soDienThoai" class="form-control" maxlength="11"
+                                   pattern="0[0-9]{9,10}" value="@ViewBag.SoDienThoai" placeholder="09xxxxxxxx" />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="email">@Resources.Strings.Common_Email</label>
+                            <input type="email" id="email" name="email" class="form-control" maxlength="150"
+                                   value="@ViewBag.Email" placeholder="ban@email.com" />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="noiDung">@Resources.Strings.Contact_NoiDung <span class="text-danger">*</span></label>
+                            <textarea id="noiDung" name="noiDung" class="form-control" rows="4" minlength="10" maxlength="2000" required
+                                      placeholder="@Resources.Strings.Contact_NoiDungPlaceholder">@ViewBag.NoiDung</textarea>
+                            <small class="sc-text-muted">C&#7847;n &#237;t nh&#7845;t s&#7889; &#273;i&#7879;n tho&#7841;i ho&#7863;c email &#273;&#7875; ch&#250;ng t&#244;i li&#234;n h&#7879; l&#7841;i.</small>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-sc btn-lg">
+                                <i class="bi bi-send"></i> @Resources.Strings.Contact_GuiLoiNhanBtn
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-12">
-                        <label class="form-label">@Resources.Strings.Common_Email</label>
-                        <input type="email" class="form-control" placeholder="ban@email.com" />
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">@Resources.Strings.Contact_NoiDung</label>
-                        <textarea class="form-control" rows="4" placeholder="@Resources.Strings.Contact_NoiDungPlaceholder"></textarea>
-                    </div>
-                    <div class="col-12">
-                        <button type="button" class="btn btn-sc btn-lg"
-                                onclick="alert('@Html.Raw(Resources.Strings.Contact_ThongBaoDemo)');">
-                            <i class="bi bi-send"></i> @Resources.Strings.Contact_GuiLoiNhanBtn
-                        </button>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>

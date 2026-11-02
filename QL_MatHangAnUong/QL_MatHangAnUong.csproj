@@ -165,22 +165,26 @@
     <Compile Include="Controllers\NgonNguController.cs" />
     <Compile Include="Controllers\QuanLyDonHangController.cs" />
     <Compile Include="Controllers\QuanLyKhuyenMaiController.cs" />
+    <Compile Include="Controllers\QuanLyLienLacController.cs" />
     <Compile Include="Controllers\QuanLyLoaiController.cs" />
     <Compile Include="Controllers\QuanLySanPhamController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Controllers\ThongKeController.cs" />
     <Compile Include="Filters\PhanQuyenAttribute.cs" />
+    <Compile Include="Helpers\DangNhapMangXaHoi.cs" />
     <Compile Include="Helpers\DinhDang.cs" />
     <Compile Include="Helpers\Ngu.cs" />
     <Compile Include="Helpers\PhienLamViec.cs" />
     <Compile Include="Models\ChiTietDonHang.cs">
       <DependentUpon>QL_MatHangAnUong.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CuaHangPartial.cs" />
     <Compile Include="Models\ChiTietDonHangPartial.cs" />
     <Compile Include="Models\DonHangPartial.cs" />
     <Compile Include="Models\GioHang.cs" />
     <Compile Include="Models\KhuyenMaiPartial.cs" />
+    <Compile Include="Models\LienLac.cs" />
     <Compile Include="Models\NguoiDungPartial.cs" />
     <Compile Include="Models\KhoDuLieu.cs" />
     <Compile Include="Models\SanPhamPartial.cs" />
@@ -243,6 +247,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_PhanTrang.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Content\sugarchills.css" />
     <Content Include="Scripts\sugarchills.js" />
@@ -261,6 +266,8 @@
     <Content Include="Views\QuanLyKhuyenMai\Them.cshtml" />
     <Content Include="Views\QuanLyKhuyenMai\Xoa.cshtml" />
     <Content Include="Views\QuanLyKhuyenMai\_FormKhuyenMai.cshtml" />
+    <Content Include="Views\QuanLyLienLac\Index.cshtml" />
+    <Content Include="Views\QuanLyLienLac\ChiTiet.cshtml" />
     <Content Include="Views\QuanLyLoai\Index.cshtml" />
     <Content Include="Views\QuanLyLoai\Sua.cshtml" />
     <Content Include="Views\QuanLyLoai\Them.cshtml" />

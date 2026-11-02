@@ -1,0 +1,71 @@
+﻿@*
+    Thanh phân trang dùng chung. Controller gọi PhanTrang(...) trong BaseController
+    để có ViewBag.TrangHienTai / TongSoTrang / TongSoDong / SoDongMoiTrang.
+    Link giữ nguyên mọi tham số lọc/tìm kiếm hiện có trên URL, chỉ thay "trang".
+*@
+@{
+    int trang = ViewBag.TrangHienTai ?? 1;
+    int tongSoTrang = ViewBag.TongSoTrang ?? 1;
+    int tongSoDong = ViewBag.TongSoDong ?? 0;
+    int soDong = ViewBag.SoDongMoiTrang ?? 10;
+
+    Func<int, string> linkTrang = p =>
+    {
+        var qs = System.Web.HttpUtility.ParseQueryString(Request.QueryString.ToString());
+        qs["trang"] = p.ToString();
+        return Request.Path + "?" + qs.ToString();
+    };
+
+    // Chỉ hiện các trang quanh trang hiện tại: 1 … 4 5 [6] 7 8 … 20
+    int tu = Math.Max(1, trang - 2);
+    int den = Math.Min(tongSoTrang, trang + 2);
+}
+
+@if (tongSoDong > 0)
+{
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 px-3 py-3">
+        <small class="sc-text-muted">
+            Hiển thị @((trang - 1) * soDong + 1)–@(Math.Min(trang * soDong, tongSoDong)) / @tongSoDong
+        </small>
+
+        @if (tongSoTrang > 1)
+        {
+            <nav aria-label="Phân trang">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item @(trang == 1 ? "disabled" : "")">
+                        <a class="page-link" href="@linkTrang(trang - 1)" aria-label="Trang trước"><i class="bi bi-chevron-left"></i></a>
+                    </li>
+
+                    @if (tu > 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="@linkTrang(1)">1</a></li>
+                        if (tu > 2)
+                        {
+                            <li class="page-item disabled"><span class="page-link">…</span></li>
+                        }
+                    }
+
+                    @for (int i = tu; i <= den; i++)
+                    {
+                        <li class="page-item @(i == trang ? "active" : "")">
+                            <a class="page-link" href="@linkTrang(i)">@i</a>
+                        </li>
+                    }
+
+                    @if (den < tongSoTrang)
+                    {
+                        if (den < tongSoTrang - 1)
+                        {
+                            <li class="page-item disabled"><span class="page-link">…</span></li>
+                        }
+                        <li class="page-item"><a class="page-link" href="@linkTrang(tongSoTrang)">@tongSoTrang</a></li>
+                    }
+
+                    <li class="page-item @(trang == tongSoTrang ? "disabled" : "")">
+                        <a class="page-link" href="@linkTrang(trang + 1)" aria-label="Trang sau"><i class="bi bi-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        }
+    </div>
+}

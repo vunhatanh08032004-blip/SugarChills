@@ -23,28 +23,40 @@
                 <a href="#khuyen-mai" class="btn btn-sc-outline btn-lg ms-2">@Resources.Strings.Home_UuDaiHomNay</a>
             </div>
             <div class="col-lg-6">
-                <!-- Banner ảnh tự động chuyển (Bootstrap Carousel) — tự chạy mỗi 4s, hoặc bấm mũi tên/chấm tròn để chuyển tay -->
-                <div id="heroCarousel" class="carousel slide sc-hero-carousel" data-bs-ride="carousel" data-bs-interval="4000">
+                <style>
+                    /* Khung banner 16:9 trùng tỉ lệ ảnh (ảnh đã được Unsplash cắt sẵn 1280x720) => hiện trọn ảnh */
+                    .sc-hero-carousel .sc-hero-img { aspect-ratio: 16 / 9; height: auto; max-height: none; width: 100%; object-fit: cover; display: block; }
+                    .sc-hero-carousel .carousel-inner { overflow: hidden; box-shadow: 0 12px 40px rgba(232,81,127,.18); }
+                    .sc-hero-carousel .carousel-indicators { justify-content: flex-end; margin-right: 16px; }
+                </style>
+                <!-- Banner ảnh tự chuyển (Bootstrap Carousel) — 4 ảnh ngang 16:9, tự chạy mỗi 4s -->
+                <div id="heroCarousel" class="carousel slide carousel-fade sc-hero-carousel" data-bs-ride="carousel" data-bs-interval="4000">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Ảnh 1"></button>
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Ảnh 2"></button>
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Ảnh 3"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="&#7842;nh 1"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="&#7842;nh 2"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="&#7842;nh 3"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="&#7842;nh 4"></button>
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=1000&q=80"
-                                 class="sc-hero-img" alt="@Resources.Strings.Home_AltTraSua"
-                                 data-fallback="https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills" />
+                            <img src="https://images.unsplash.com/photo-1741265805852-32186a6d0dd3?auto=format&fit=crop&crop=entropy&w=1280&h=720&q=80"
+                                 class="sc-hero-img" alt="Kh&#244;ng gian qu&#225;n SugarChills"
+                                 data-fallback="https://placehold.co/1280x720/FFE6EE/E8517F?text=SugarChills" />
                         </div>
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=80"
-                                 class="sc-hero-img" alt="@Resources.Strings.Home_AltCaPhe"
-                                 data-fallback="https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills" />
+                            <img src="https://images.unsplash.com/photo-1531264071041-3a69924b182d?auto=format&fit=crop&crop=entropy&w=1280&h=720&q=80"
+                                 class="sc-hero-img" alt="Ly tr&#224; chanh g&#7915;ng m&#225;t l&#7841;nh"
+                                 data-fallback="https://placehold.co/1280x720/FFE6EE/E8517F?text=SugarChills" />
                         </div>
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=1000&q=80"
-                                 class="sc-hero-img" alt="@Resources.Strings.Home_AltKemDaXay"
-                                 data-fallback="https://placehold.co/900x600/FFE6EE/E8517F?text=SugarChills" />
+                            <img src="https://images.unsplash.com/photo-1694339487658-0ef17dacae9b?auto=format&fit=crop&crop=entropy&w=1280&h=720&q=80"
+                                 class="sc-hero-img" alt="B&#224;n gh&#7871; c&#7841;nh c&#7917;a s&#7893;"
+                                 data-fallback="https://placehold.co/1280x720/FFE6EE/E8517F?text=SugarChills" />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&crop=entropy&w=1280&h=720&q=80"
+                                 class="sc-hero-img" alt="Ly c&#224; ph&#234;"
+                                 data-fallback="https://placehold.co/1280x720/FFE6EE/E8517F?text=SugarChills" />
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -244,3 +256,152 @@
         </div>
     </div>
 </section>
+
+@* ================= POPUP ƯU ĐÃI (hiện 1 lần mỗi phiên khi mở trang chủ) ================= *@
+@if (Model.KhuyenMais.Count > 0)
+{
+    var kmPopup = Model.KhuyenMais.First();
+    bool laFreeship = kmPopup.LoaiGiam == QL_MatHangAnUong.Models.KhuyenMai.GiamPhiGiaoHang;
+    decimal mucFreeship = QL_MatHangAnUong.Controllers.GioHangController.MucMienPhiGiaoHang;
+
+    // Cột 1: ưu đãi của mã
+    string nhan1 = laFreeship ? "Ph\u00ed ship" : "Gi\u1ea3m";
+    string so1 = (laFreeship && kmPopup.PhanTramGiam >= 100) ? "0\u0111" : kmPopup.PhanTramGiam + "%";
+    string phu1 = kmPopup.DonToiThieu > 0 ? "\u0110\u01a1n t\u1eeb " + DinhDang.Tien(kmPopup.DonToiThieu) : "M\u1ecdi \u0111\u01a1n h\u00e0ng";
+
+    // Cột 2: mã giảm tổng tiền -> nhắc chính sách freeship của quán; mã freeship -> mức giảm tối đa
+    string nhan2 = laFreeship ? "Gi\u1ea3m t\u1ed1i \u0111a" : "Freeship";
+    string so2 = laFreeship
+        ? (kmPopup.GiamToiDa > 0 ? (kmPopup.GiamToiDa / 1000m).ToString("0") + "K" : "100%")
+        : "0\u0111";
+    string phu2 = laFreeship ? "M\u1ed7i \u0111\u01a1n h\u00e0ng" : "\u0110\u01a1n t\u1eeb " + DinhDang.Tien(mucFreeship);
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <div class="modal fade" id="modalUuDai" tabindex="-1" aria-labelledby="tieuDeUuDai" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered sc-promo-dialog">
+            <div class="modal-content sc-promo">
+                <span class="sc-promo-glow"></span>
+                <span class="sc-promo-circle"></span>
+
+                <button type="button" class="sc-promo-close" data-bs-dismiss="modal" aria-label="&#272;&#243;ng">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+
+                <div class="sc-promo-badge">SUGARCHILLS SALE</div>
+                <h3 class="sc-promo-title" id="tieuDeUuDai">@kmPopup.TenKM</h3>
+
+                <div class="sc-promo-stats">
+                    <div class="sc-promo-stat">
+                        <div class="sc-promo-lbl">@nhan1</div>
+                        <div class="sc-promo-num">@so1</div>
+                        <div class="sc-promo-sub">@phu1</div>
+                    </div>
+                    <div class="sc-promo-divider"></div>
+                    <div class="sc-promo-stat">
+                        <div class="sc-promo-lbl">@nhan2</div>
+                        <div class="sc-promo-num">@so2</div>
+                        <div class="sc-promo-sub">@phu2</div>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(kmPopup.MoTa))
+                {
+                    <p class="sc-promo-desc">@kmPopup.MoTa</p>
+                }
+
+                <button type="button" class="sc-promo-code" data-ma="@kmPopup.MaGiamGia.ToUpper()" title="B&#7845;m &#273;&#7875; sao ch&#233;p m&#227;">
+                    Nh&#7853;p m&#227; <strong>@kmPopup.MaGiamGia.ToUpper()</strong> <i class="bi bi-copy"></i>
+                </button>
+
+                <a href="@Url.Action("KhuyenMai", "Home")" class="sc-promo-cta">XEM &#431;U &#272;&#195;I NGAY</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .sc-promo-dialog { max-width: 520px; padding: 0 12px; }
+        .sc-promo {
+            position: relative; overflow: hidden; border: 0; border-radius: 32px;
+            padding: 44px 40px 36px; text-align: center; color: #fff;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: linear-gradient(135deg, #ff7aa8 0%, #e8517f 42%, #f2766b 72%, #ffb36b 100%);
+            box-shadow: 0 24px 70px rgba(232, 81, 127, .45);
+            align-items: center;   /* .modal-content là flex dọc: không kéo giãn badge/nút mã */
+        }
+        .sc-promo-stats, .sc-promo-desc, .sc-promo-cta { align-self: stretch; }
+        /* Vệt sáng mềm góc trên trái + vòng tròn trang trí góc dưới phải */
+        .sc-promo-glow {
+            position: absolute; top: -90px; left: -90px; width: 260px; height: 260px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0) 70%); pointer-events: none;
+        }
+        .sc-promo-circle {
+            position: absolute; right: -70px; bottom: -80px; width: 240px; height: 240px; border-radius: 50%;
+            background: rgba(255, 236, 160, .35); pointer-events: none;
+        }
+        .sc-promo > *:not(span) { position: relative; z-index: 1; }
+        .sc-promo .sc-promo-close {
+            position: absolute; top: 18px; right: 18px; z-index: 2;
+            width: 44px; height: 44px; border-radius: 50%; border: 0;
+            background: rgba(255,255,255,.92); color: #2d1a24; font-size: 18px;
+            display: flex; align-items: center; justify-content: center; transition: transform .2s;
+        }
+        .sc-promo .sc-promo-close:hover { transform: rotate(90deg); }
+        .sc-promo-badge {
+            display: inline-block; padding: 7px 18px; border-radius: 999px;
+            background: rgba(255,255,255,.22); font-size: 13px; font-weight: 800; letter-spacing: .12em;
+        }
+        .sc-promo-title { font-family: inherit; font-size: 40px; font-weight: 900; margin: 16px 0 22px; line-height: 1.15; color: #fff; }
+        .sc-promo-stats { display: flex; align-items: stretch; justify-content: center; }
+        .sc-promo-stat { flex: 1; min-width: 0; }
+        .sc-promo-divider { width: 1px; background: rgba(255,255,255,.45); margin: 6px 8px; }
+        .sc-promo-lbl { font-size: 18px; font-weight: 700; opacity: .95; }
+        .sc-promo-num { font-size: 76px; font-weight: 900; line-height: 1.05; letter-spacing: -2px; }
+        .sc-promo-sub { font-size: 16px; font-weight: 700; opacity: .95; }
+        .sc-promo-desc { font-size: 17px; font-weight: 700; margin: 22px 8px 14px; line-height: 1.5; }
+        .sc-promo-code {
+            background: transparent; color: #fff; border: 2px dashed rgba(255,255,255,.75);
+            border-radius: 999px; padding: 6px 18px; font-size: 15px; font-weight: 600; margin-bottom: 18px;
+            transition: background .2s;
+        }
+        .sc-promo-code:hover { background: rgba(255,255,255,.15); }
+        .sc-promo-code strong { font-weight: 900; letter-spacing: .06em; }
+        .sc-promo-cta {
+            display: block; background: #fff; color: #e8517f; text-decoration: none;
+            font-size: 18px; font-weight: 800; letter-spacing: .02em;
+            padding: 16px; border-radius: 18px; transition: transform .2s, box-shadow .2s;
+        }
+        .sc-promo-cta:hover { color: #c2185b; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.15); }
+        @@media (max-width: 480px) {
+            .sc-promo { padding: 40px 22px 28px; }
+            .sc-promo-title { font-size: 30px; }
+            .sc-promo-num { font-size: 54px; }
+        }
+    </style>
+
+    <script>
+        // Bootstrap được nạp ở CUỐI _Layout (sau nội dung trang này)
+        // => phải đợi DOMContentLoaded thì biến "bootstrap" mới tồn tại.
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.getElementById('modalUuDai');
+            if (!el || !window.bootstrap) return;
+
+            // Bấm vào mã -> sao chép vào clipboard
+            var nutMa = el.querySelector('.sc-promo-code');
+            nutMa.addEventListener('click', function () {
+                var ma = nutMa.getAttribute('data-ma');
+                if (navigator.clipboard) navigator.clipboard.writeText(ma);
+                nutMa.innerHTML = '<i class="bi bi-check2"></i> \u0110\u00e3 sao ch\u00e9p <strong>' + ma + '</strong>';
+            });
+
+            var KEY = 'sc_promo_@(kmPopup.MaKM)';
+            try { if (sessionStorage.getItem(KEY)) return; } catch (e) { }   // đã xem trong phiên này
+
+            // Đợi màn hình loading (~1.65s) tắt rồi mới mở popup
+            setTimeout(function () {
+                bootstrap.Modal.getOrCreateInstance(el).show();
+                try { sessionStorage.setItem(KEY, '1'); } catch (e) { }
+            }, 1800);
+        });
+    </script>
+}

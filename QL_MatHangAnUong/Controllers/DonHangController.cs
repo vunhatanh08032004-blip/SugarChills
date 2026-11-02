@@ -16,7 +16,7 @@ namespace QL_MatHangAnUong.Controllers
     public class DonHangController : BaseController
     {
         // GET: /DonHang
-        public ActionResult Index(string trangThai)
+        public ActionResult Index(string trangThai, int trang = 1)
         {
             var maNd = NguoiDungHienTai.MaND;
 
@@ -32,7 +32,7 @@ namespace QL_MatHangAnUong.Controllers
 
             ViewBag.TrangThaiDangChon = trangThai ?? "Tất cả";
             ViewBag.Title = Ngu.S("Header_DonHangCuaToi");
-            return View(ds);
+            return View(PhanTrang(ds, trang, 5));   // 5 đơn / trang
         }
 
         // GET: /DonHang/ChiTiet/1001

@@ -3,6 +3,8 @@
 @model QL_MatHangAnUong.Models.ViewModels.ChiTietSanPhamViewModel
 @{
     var sp = Model.SanPham;
+    bool xemTruocNgungBan = ViewBag.XemTruocMonNgungBan == true;   // người bán xem trước món đang ẩn
+    bool coTheMua = sp.SoLuongTon > 0 && !xemTruocNgungBan;
     int phanTramGiam = sp.Gia > 0 && sp.GiaBanThucTe < sp.Gia
         ? (int)Math.Round((sp.Gia - sp.GiaBanThucTe) / sp.Gia * 100m)
         : 0;
@@ -22,9 +24,17 @@
         <span class="sc-text-primary fw-bold">@sp.TenSP</span>
     </div>
 
+    @if (xemTruocNgungBan)
+    {
+        <div class="sc-alert sc-alert-warning mb-3">
+            <i class="bi bi-eye-slash-fill"></i>
+            <span>Ch&#7871; &#273;&#7897; xem tr&#432;&#7899;c: m&#243;n n&#224;y &#273;ang <strong>ng&#7915;ng b&#225;n</strong> n&#234;n kh&#225;ch h&#224;ng kh&#244;ng nh&#236;n th&#7845;y. B&#7853;t &#8220;&#272;ang b&#225;n&#8221; trong trang qu&#7843;n tr&#7883; &#273;&#7875; hi&#7875;n th&#7883; tr&#234;n th&#7921;c &#273;&#417;n.</span>
+        </div>
+    }
+
     <!-- ============ THÔNG TIN SẢN PHẨM ============ -->
     <div class="sc-panel">
-        @using (Html.BeginForm("Them", "GioHang", FormMethod.Post))
+        @using (Html.BeginForm("Them", "GioHang", FormMethod.Post, new { id = "formThemVaoGio" }))
         {
             @Html.AntiForgeryToken()
             <input type="hidden" name="maSP" value="@sp.MaSP" />
@@ -161,7 +171,7 @@
                     </div>
 
                     <div class="d-flex gap-2 mt-3">
-                        <button type="submit" class="btn btn-sc btn-lg flex-fill" @(sp.SoLuongTon > 0 ? "" : "disabled")>
+                        <button type="submit" class="btn btn-sc btn-lg flex-fill" @(coTheMua ? "" : "disabled")>
                             <i class="bi bi-bag-plus"></i> @Resources.Strings.Detail_ThemVaoGio
                         </button>
                         <a href="@Url.Action("Index", "GioHang")" class="btn btn-sc-outline btn-lg">

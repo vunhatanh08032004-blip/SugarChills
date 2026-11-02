@@ -1,5 +1,7 @@
 using System;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using QL_MatHangAnUong.Models;
 using QL_MatHangAnUong.Models.ViewModels;
@@ -92,6 +94,60 @@ namespace QL_MatHangAnUong.Controllers
         {
             ViewBag.Title = Ngu.S("Common_LienHe");
             return View();
+        }
+
+        // POST: /Home/LienHe — lưu tin nhắn của khách vào bảng LienLacs
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LienHe(string hoTen, string soDienThoai, string email, string noiDung)
+        {
+            hoTen = (hoTen ?? "").Trim();
+            soDienThoai = (soDienThoai ?? "").Trim();
+            email = (email ?? "").Trim();
+            noiDung = (noiDung ?? "").Trim();
+
+            // ----- Validation -----
+            string loi = null;
+            if (hoTen.Length == 0) loi = "Vui lòng nhập họ và tên.";
+            else if (hoTen.Length > 100) loi = "Họ tên tối đa 100 ký tự.";
+            else if (soDienThoai.Length == 0 && email.Length == 0) loi = "Vui lòng để lại số điện thoại hoặc email để chúng tôi liên hệ lại.";
+            else if (soDienThoai.Length > 0 && !Regex.IsMatch(soDienThoai, @"^0\d{9,10}$")) loi = "Số điện thoại không hợp lệ (10–11 số, bắt đầu bằng 0).";
+            else if (email.Length > 0 && !Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) loi = "Email không đúng định dạng.";
+            else if (email.Length > 150) loi = "Email tối đa 150 ký tự.";
+            else if (noiDung.Length < 10) loi = "Nội dung cần ít nhất 10 ký tự.";
+            else if (noiDung.Length > 2000) loi = "Nội dung tối đa 2000 ký tự.";
+
+            if (loi != null)
+            {
+                // Giữ lại dữ liệu đã nhập để khách không phải gõ lại
+                ViewBag.Loi = loi;
+                ViewBag.HoTen = hoTen; ViewBag.SoDienThoai = soDienThoai;
+                ViewBag.Email = email; ViewBag.NoiDung = noiDung;
+                ViewBag.Title = Ngu.S("Common_LienHe");
+                return View();
+            }
+
+            try
+            {
+                // Câu SQL có tham số → an toàn trước SQL Injection
+                db.Database.ExecuteSqlCommand(
+                    "INSERT INTO LienLacs (HoTen, SoDienThoai, Email, NoiDung, NgayGui, DaDoc) " +
+                    "VALUES (@HoTen, @SoDienThoai, @Email, @NoiDung, GETDATE(), 0)",
+                    new SqlParameter("@HoTen", hoTen),
+                    new SqlParameter("@SoDienThoai", soDienThoai.Length > 0 ? (object)soDienThoai : DBNull.Value),
+                    new SqlParameter("@Email", email.Length > 0 ? (object)email : DBNull.Value),
+                    new SqlParameter("@NoiDung", noiDung));
+
+                ThongBao("Cảm ơn " + hoTen + "! Tin nhắn đã được gửi, SugarChills sẽ phản hồi sớm nhất có thể.");
+            }
+            catch (SqlException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("[LienHe] " + ex.Message);
+                ThongBao("Có lỗi khi gửi tin nhắn. Vui lòng thử lại sau hoặc gọi hotline 1900 6789.", "danger");
+            }
+
+            // Post/Redirect/Get: F5 không bị gửi trùng tin nhắn
+            return RedirectToAction("LienHe");
         }
     }
 }

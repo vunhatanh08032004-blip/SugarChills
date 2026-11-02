@@ -275,8 +275,19 @@ namespace QL_MatHangAnUong.Controllers
                 PhienLamViec.LuuGioHang(Session, gio);
                 decimal phiGiaoXemTruoc = (gio.Items.Count == 0 || gio.TamTinh >= MucMienPhiGiaoHang)
                                           ? 0 : PhiGiaoHangMacDinh;
-                ThongBao(string.Format(Ngu.S("Cart_ApDungThanhCongFormat"),
-                    km.MaGiamGia.ToUpper(), DinhDang.Tien(km.TinhTienGiam(gio.TamTinh, phiGiaoXemTruoc))));
+
+                // [CANH BAO] Ma mien phi ship nhung don hang da duoc freeship tu dong
+                if (km.LoaiGiam == KhuyenMai.GiamPhiGiaoHang && phiGiaoXemTruoc == 0)
+                {
+                    ThongBao(string.Format(
+                        "Mã {0} đã được áp dụng, nhưng đơn hàng của bạn đã được miễn phí giao hàng tự động (đơn từ {1}). Mã này không mang lại thêm ưu đãi!",
+                        km.MaGiamGia.ToUpper(), DinhDang.Tien(MucMienPhiGiaoHang)), "warning");
+                }
+                else
+                {
+                    ThongBao(string.Format(Ngu.S("Cart_ApDungThanhCongFormat"),
+                        km.MaGiamGia.ToUpper(), DinhDang.Tien(km.TinhTienGiam(gio.TamTinh, phiGiaoXemTruoc))));
+                }
             }
 
             return RedirectToAction("Index");

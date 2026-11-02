@@ -449,3 +449,6 @@ package-lock.yaml
 # Other possible junk
 *.cache
 *.tmp
+
+# Mã bí mật đăng nhập Google/Facebook (mỗi người tự tạo từ Secrets.config.example)
+Secrets.config
