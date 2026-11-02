@@ -4,8 +4,10 @@ namespace QL_MatHangAnUong.Models
 {
     public partial class KhuyenMai
     {
-        public const string GiamTongTien    = "tong_tien";
-        public const string GiamPhiGiaoHang = "phi_giao_hang";
+        // Phải trùng giá trị thật trong DB: CHECK (LoaiGiam IN (N'TongTien', N'PhiGiaoHang'))
+        // (trước đây ghi "tong_tien"/"phi_giao_hang" nên mã freeship bị tính như giảm tổng tiền)
+        public const string GiamTongTien    = "TongTien";
+        public const string GiamPhiGiaoHang = "PhiGiaoHang";
 
         /// <summary>Khuyến mãi còn trong thời hạn và được kích hoạt.</summary>
         public bool ConHieuLuc =>

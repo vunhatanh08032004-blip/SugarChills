@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using QL_MatHangAnUong.Filters;
 using QL_MatHangAnUong.Helpers;
 using QL_MatHangAnUong.Models;
@@ -128,7 +129,8 @@ namespace QL_MatHangAnUong.Controllers
             {
                 MaND = nd.MaND,
                 HoTen = nd.HoTen,
-                DienThoai = nd.DienThoai,
+                // Tài khoản tạo từ Google/Facebook đang mang SĐT tạm -> để trống cho khách tự nhập
+                DienThoai = nd.DienThoai == SoDienThoaiTam ? "" : nd.DienThoai,
                 DiaChi = nd.DiaChi
             };
             return View(model);
@@ -235,6 +237,148 @@ namespace QL_MatHangAnUong.Controllers
             ThongBao("Đặt lại mật khẩu thành công! Vui lòng đăng nhập với mật khẩu mới.");
             return RedirectToAction("DangNhap");
         }
+
+        // =====================================================================
+        //  ĐĂNG NHẬP BẰNG GOOGLE / FACEBOOK (OAuth 2.0)
+        //  Helper: Helpers/DangNhapMangXaHoi.cs — cấu hình key trong Web.config
+        // =====================================================================
+        private const string KeyOAuthState = "OAuthState";
+        private const string KeyOAuthReturnUrl = "OAuthReturnUrl";
+
+        /// <summary>Địa chỉ Google/Facebook gọi lại — phải khai báo y hệt trong trang quản lý ứng dụng.</summary>
+        private string UrlGoiLai(string action)
+        {
+            return Url.Action(action, "TaiKhoan", null, Request.Url.Scheme);
+        }
+
+        // GET: /TaiKhoan/DangNhapNgoai?nhaCungCap=google&returnUrl=/GioHang
+        public ActionResult DangNhapNgoai(string nhaCungCap, string returnUrl)
+        {
+            nhaCungCap = (nhaCungCap ?? "").ToLower();
+            if (nhaCungCap != "google" && nhaCungCap != "facebook")
+                return RedirectToAction("DangNhap");
+
+            if (!DangNhapMangXaHoi.DaCauHinh(nhaCungCap))
+            {
+                ThongBao("Chưa cấu hình đăng nhập " + (nhaCungCap == "google" ? "Google" : "Facebook")
+                       + ". Hãy điền Client ID / Secret trong Web.config (xem hướng dẫn trong file).", "warning");
+                return RedirectToAction("DangNhap", new { returnUrl });
+            }
+
+            // "state" ngẫu nhiên lưu trong Session để chống giả mạo yêu cầu (CSRF)
+            string state = Guid.NewGuid().ToString("N");
+            Session[KeyOAuthState] = state;
+            Session[KeyOAuthReturnUrl] = returnUrl;
+
+            string url = nhaCungCap == "google"
+                ? DangNhapMangXaHoi.TaoUrlGoogle(UrlGoiLai("GoogleCallback"), state)
+                : DangNhapMangXaHoi.TaoUrlFacebook(UrlGoiLai("FacebookCallback"), state);
+            return Redirect(url);
+        }
+
+        // GET: /TaiKhoan/GoogleCallback?code=...&state=...
+        public async Task<ActionResult> GoogleCallback(string code, string state, string error)
+        {
+            return await XuLyGoiLai("Google", code, state, error,
+                () => DangNhapMangXaHoi.LayThongTinGoogle(code, UrlGoiLai("GoogleCallback")));
+        }
+
+        // GET: /TaiKhoan/FacebookCallback?code=...&state=...
+        public async Task<ActionResult> FacebookCallback(string code, string state, string error)
+        {
+            return await XuLyGoiLai("Facebook", code, state, error,
+                () => DangNhapMangXaHoi.LayThongTinFacebook(code, UrlGoiLai("FacebookCallback")));
+        }
+
+        /// <summary>Kiểm tra state, lấy thông tin, tìm/tạo tài khoản rồi đăng nhập.</summary>
+        private async Task<ActionResult> XuLyGoiLai(string ten, string code, string state, string error,
+                                                    Func<Task<ThongTinMangXaHoi>> layThongTin)
+        {
+            string stateDaLuu = Session[KeyOAuthState] as string;
+            string returnUrl = Session[KeyOAuthReturnUrl] as string;
+            Session.Remove(KeyOAuthState);
+            Session.Remove(KeyOAuthReturnUrl);
+
+            // Người dùng bấm "Hủy" trên trang Google/Facebook
+            if (!string.IsNullOrEmpty(error) || string.IsNullOrEmpty(code))
+            {
+                ThongBao("Bạn đã hủy đăng nhập bằng " + ten + ".", "info");
+                return RedirectToAction("DangNhap", new { returnUrl });
+            }
+
+            if (string.IsNullOrEmpty(stateDaLuu) || stateDaLuu != state)
+            {
+                ThongBao("Phiên đăng nhập " + ten + " không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.", "danger");
+                return RedirectToAction("DangNhap", new { returnUrl });
+            }
+
+            ThongTinMangXaHoi tt;
+            try
+            {
+                tt = await layThongTin();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("[OAuth " + ten + "] " + ex);
+                ThongBao("Không kết nối được với " + ten + ". Vui lòng thử lại sau.", "danger");
+                return RedirectToAction("DangNhap", new { returnUrl });
+            }
+
+            // Facebook có thể không trả email (tài khoản đăng ký bằng SĐT) -> tạo email nội bộ theo ID
+            string email = !string.IsNullOrWhiteSpace(tt.Email) && tt.EmailDaXacMinh
+                ? tt.Email.Trim().ToLower()
+                : tt.NhaCungCap.ToLower() + "_" + tt.Id + "@sugarchills.local";
+
+            bool laTaiKhoanMoi = false;
+            var nd = db.NguoiDungs.FirstOrDefault(n => n.Email == email);
+            if (nd == null)
+            {
+                // Tạo tài khoản Khách hàng mới.
+                // Bảng NguoiDung bắt buộc có SĐT + mật khẩu: đặt SĐT tạm "0000000000" (đúng CHECK)
+                // và mật khẩu ngẫu nhiên; khách sẽ được yêu cầu cập nhật SĐT ngay sau đây.
+                string hoTen = string.IsNullOrWhiteSpace(tt.HoTen) ? email.Split('@')[0] : tt.HoTen.Trim();
+                nd = new NguoiDung
+                {
+                    HoTen = hoTen.Length > 100 ? hoTen.Substring(0, 100) : hoTen,
+                    Email = email,
+                    MatKhau = Guid.NewGuid().ToString("N").Substring(0, 16),
+                    DienThoai = SoDienThoaiTam,
+                    VaiTro = NguoiDung.RoleCustomer,
+                    NgayDangKy = DateTime.Now
+                };
+                try
+                {
+                    db.NguoiDungs.Add(nd);
+                    db.SaveChanges();
+                    laTaiKhoanMoi = true;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("[OAuth tạo tài khoản] " + ex);
+                    ThongBao("Không tạo được tài khoản từ " + ten + ". Vui lòng đăng ký bằng email.", "danger");
+                    return RedirectToAction("DangKy");
+                }
+            }
+
+            PhienLamViec.DangNhap(Session, nd);
+
+            if (laTaiKhoanMoi || nd.DienThoai == SoDienThoaiTam)
+            {
+                ThongBao("Chào " + nd.HoTen + "! Bạn đã đăng nhập bằng " + ten
+                       + ". Vui lòng cập nhật số điện thoại để đặt hàng và nhận hàng.", "warning");
+                return RedirectToAction("CapNhatThongTin");
+            }
+
+            ThongBao(string.Format(Ngu.S("Auth_XinChaoFormat"), nd.HoTen));
+            if (nd.VaiTro == NguoiDung.RoleSeller && string.IsNullOrEmpty(returnUrl))
+                return RedirectToAction("Index", "ThongKe");
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            return RedirectToAction("Index", "Home");
+        }
+
+        /// <summary>SĐT tạm cho tài khoản tạo từ Google/Facebook (thỏa CHECK 0 + 9 chữ số).</summary>
+        public const string SoDienThoaiTam = "0000000000";
 
         // GET: /TaiKhoan/KhongCoQuyen
         public ActionResult KhongCoQuyen()

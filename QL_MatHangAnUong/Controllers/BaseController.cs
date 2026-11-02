@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -56,6 +58,40 @@ namespace QL_MatHangAnUong.Controllers
         {
             TempData["ThongBao"] = noiDung;
             TempData["LoaiThongBao"] = loai;   // success | danger | warning | info
+        }
+
+        // ───── PHÂN TRANG DÙNG CHUNG ─────
+        // Đặt ViewBag.TrangHienTai / TongSoTrang / TongSoDong / SoDongMoiTrang
+        // để partial Views/Shared/_PhanTrang.cshtml vẽ thanh chuyển trang.
+
+        /// <summary>Phân trang ngay trong SQL (COUNT + OFFSET/FETCH). Truy vấn PHẢI có OrderBy.</summary>
+        protected List<T> PhanTrang<T>(IQueryable<T> truyVan, int trang, int soDongMoiTrang)
+        {
+            int tong = truyVan.Count();
+            trang = GhiThongTinTrang(tong, trang, soDongMoiTrang);
+            return truyVan.Skip((trang - 1) * soDongMoiTrang).Take(soDongMoiTrang).ToList();
+        }
+
+        /// <summary>Phân trang danh sách đã nằm trong bộ nhớ.</summary>
+        protected List<T> PhanTrang<T>(IEnumerable<T> danhSach, int trang, int soDongMoiTrang)
+        {
+            var ds = danhSach as IList<T> ?? danhSach.ToList();
+            trang = GhiThongTinTrang(ds.Count, trang, soDongMoiTrang);
+            return ds.Skip((trang - 1) * soDongMoiTrang).Take(soDongMoiTrang).ToList();
+        }
+
+        /// <summary>Chuẩn hóa số trang (1..tổng) và đưa thông tin sang View. Trả về trang hợp lệ.</summary>
+        private int GhiThongTinTrang(int tong, int trang, int soDongMoiTrang)
+        {
+            int tongSoTrang = Math.Max(1, (int)Math.Ceiling(tong / (double)soDongMoiTrang));
+            if (trang < 1) trang = 1;
+            if (trang > tongSoTrang) trang = tongSoTrang;
+
+            ViewBag.TrangHienTai = trang;
+            ViewBag.TongSoTrang = tongSoTrang;
+            ViewBag.TongSoDong = tong;
+            ViewBag.SoDongMoiTrang = soDongMoiTrang;
+            return trang;
         }
 
         /// Giải phóng DbContext khi request kết thúc.

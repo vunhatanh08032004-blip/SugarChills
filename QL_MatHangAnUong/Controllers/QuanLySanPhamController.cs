@@ -19,7 +19,7 @@ namespace QL_MatHangAnUong.Controllers
     {
 
         // GET: /QuanLySanPham
-        public ActionResult Index(string tuKhoa, int? maLoai, string trangThai)
+        public ActionResult Index(string tuKhoa, int? maLoai, string trangThai, int trang = 1)
         {
             // Lọc ngay trên Database: các điều kiện được dịch thành câu SELECT ... WHERE
             var q = db.SanPhams.Include(s => s.LoaiSanPham).AsQueryable();
@@ -38,7 +38,8 @@ namespace QL_MatHangAnUong.Controllers
             else if (trangThai == "ngung-ban")
                 q = q.Where(s => !s.DangBan);
 
-            var ds = q.OrderByDescending(s => s.NgayTao).ToList();
+            // 10 sản phẩm / trang, phân trang trong SQL
+            var ds = PhanTrang(q.OrderByDescending(s => s.NgayTao), trang, 10);
 
             ViewBag.TuKhoa = tuKhoa;
             ViewBag.MaLoai = maLoai;

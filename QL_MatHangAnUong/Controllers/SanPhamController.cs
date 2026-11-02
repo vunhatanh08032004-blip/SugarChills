@@ -133,7 +133,11 @@ namespace QL_MatHangAnUong.Controllers
             // Khi vào từ lối tắt trang chủ, menu trên cùng hiện "Trang chủ" đang chọn
             // thay vì "Thực đơn", vì đây không phải đang duyệt theo danh mục.
             ViewBag.TuTrangChu = !hienBoLoc;
-
+            // Đếm số sản phẩm đang bán theo từng loại để hiển thị sidebar
+            ViewBag.SoSanPhamTheoLoai = db.SanPhams
+                .Where(s => s.DangBan)
+                .GroupBy(s => s.MaLoai)
+                .ToDictionary(g => g.Key, g => g.Count());
             return View(model);
         }
 
@@ -148,8 +152,16 @@ namespace QL_MatHangAnUong.Controllers
 
             var maSPCanXem = id.Value;
             var sp = db.SanPhams.Include(s => s.LoaiSanPham).FirstOrDefault(s => s.MaSP == maSPCanXem);
-            if (sp == null || !sp.DangBan)
-                return HttpNotFound("Không tìm thấy sản phẩm bạn cần xem.");
+
+            // Người bán được XEM TRƯỚC cả món đang ngừng bán (nút "Xem trên website khách hàng" ở trang quản trị).
+            // Khách thì không thấy món ngừng bán -> quay về thực đơn kèm thông báo (thay vì trang lỗi 404 của IIS).
+            bool laNguoiBan = PhienLamViec.LaNguoiBan(Session);
+            if (sp == null || (!sp.DangBan && !laNguoiBan))
+            {
+                ThongBao("Món bạn tìm không tồn tại hoặc đã ngừng bán.", "warning");
+                return RedirectToAction("Index");
+            }
+            ViewBag.XemTruocMonNgungBan = !sp.DangBan;
 
             var model = new ChiTietSanPhamViewModel
             {

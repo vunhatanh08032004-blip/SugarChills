@@ -137,9 +137,6 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item @(controllerHienTai == "GioHang" ? "active" : "")">
-                            <a class="nav-link" href="@Url.Action("Index", "GioHang")">@Resources.Strings.Common_GioHang</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("GioiThieu", "Home")">@Resources.Strings.Common_GioiThieu</a>
                         </li>
@@ -170,7 +167,7 @@
     <!-- ============ THÔNG BÁO ============ -->
     @if (TempData["ThongBao"] != null)
     {
-        <div class="container mt-3">
+        <div class="container mt-3" id="scThongBaoTrang">
             <div class="sc-alert sc-alert-@(TempData["LoaiThongBao"] ?? "success")">
                 <i class="bi bi-info-circle-fill"></i>
                 <span>@TempData["ThongBao"]</span>
@@ -250,7 +247,166 @@
 
     <script src="~/Scripts/jquery-3.7.0.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <script src="~/Scripts/sugarchills.js"></script>
+    <script src="~/Scripts/sugarchills.js?v=20261102c"></script>
     @RenderSection("scripts", required: false)
+
+    <!-- ============ PAGE LOADER TRANSITION ============ -->
+    <div id="sc-page-loader">
+        <div class="sc-loader-card">
+            <div class="sc-loader-blob"></div>
+            <i class="bi bi-cup-straw sc-loader-icon"></i>
+            <span class="sc-loader-brand">SugarChills</span>
+            <div class="sc-loader-track">
+                <div class="sc-loader-fill" id="scLoaderFill"></div>
+            </div>
+        </div>
+    </div>
+    <style>
+        #sc-page-loader {
+            position: fixed; inset: 0;
+            background: #f8f2f5;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            transition: opacity .4s ease, visibility .4s ease;
+        }
+        #sc-page-loader.sc-gone { opacity: 0; visibility: hidden; pointer-events: none; }
+        .sc-loader-card {
+            background: #fff;
+            border-radius: 28px;
+            padding: 64px 96px;
+            text-align: center;
+            box-shadow: 0 12px 56px rgba(232,81,127,.18);
+            display: flex; flex-direction: column; align-items: center; gap: 16px;
+            min-width: 340px;
+            position: relative; overflow: hidden;
+        }
+        .sc-loader-blob {
+            position: absolute; top: -40px; right: -40px;
+            width: 150px; height: 150px;
+            background: rgba(168,213,162,.35);
+            border-radius: 50%;
+        }
+        .sc-loader-icon { font-size: 64px; color: #e8517f; position: relative; z-index: 1; }
+        .sc-loader-brand {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 26px; font-weight: 700;
+            color: #2d1a24; letter-spacing: .05em;
+            position: relative; z-index: 1;
+        }
+        .sc-loader-track {
+            width: 200px; height: 5px;
+            background: #f0e4ea; border-radius: 99px; overflow: hidden;
+            margin-top: 4px; position: relative; z-index: 1;
+        }
+        .sc-loader-fill {
+            height: 100%; width: 0;
+            background: linear-gradient(90deg, #e8517f, #a8d5a2);
+            border-radius: 99px;
+            transition: width 1.5s ease;
+        }
+        /* Nút "+" thêm nhanh: mờ khi đang gửi; số trên icon giỏ nảy lên khi thêm thành công */
+        .sc-add-btn.dang-xu-ly { opacity: .55; pointer-events: none; }
+        /* Giỏ hàng đang cập nhật nền: mờ nhẹ thay vì tải lại trang */
+        #khuVucGioHang { transition: opacity .15s ease; }
+        #khuVucGioHang.sc-dang-cap-nhat { opacity: .6; }
+        #formThemVaoGio button[type=submit].dang-xu-ly { opacity: .65; pointer-events: none; }
+        .sc-cart-badge.sc-nay { animation: scNay .45s ease; }
+        @@keyframes scNay { 0% { transform: scale(1); } 40% { transform: scale(1.45); } 100% { transform: scale(1); } }
+    </style>
+    <script>
+        /* =========================================================
+           PAGE LOADER — chỉ hiện khi trình duyệt THẬT SỰ chuyển trang.
+           Các trường hợp KHÔNG hiện (tránh kẹt loader):
+             - Form/link bị chặn bằng preventDefault (AJAX thêm giỏ, bấm Hủy ở confirm)
+             - Ctrl/Shift/Cmd + click, chuột giữa, target="_blank", download
+             - Link #, javascript:, mailto:, tel:, link ra trang web khác
+           Các cơ chế TỰ TẮT:
+             - DOMContentLoaded (không chờ ảnh tải xong)
+             - pageshow (Back/Forward lấy trang từ bfcache của trình duyệt)
+             - Hẹn giờ an toàn 8 giây nếu không có trang mới nào được mở
+           ========================================================= */
+        (function () {
+            var loader = document.getElementById('sc-page-loader');
+            var fill = document.getElementById('scLoaderFill');
+            if (!loader || !fill) return;
+
+            var hideTimer = null, safetyTimer = null;
+
+            function showLoader() {
+                clearTimeout(hideTimer);
+                clearTimeout(safetyTimer);
+                loader.classList.remove('sc-gone');
+                fill.style.transition = 'none';
+                fill.style.width = '0';
+                void fill.offsetWidth;                 // ép trình duyệt vẽ lại trước khi chạy animation
+                requestAnimationFrame(function () {
+                    fill.style.transition = 'width 1.5s ease';
+                    fill.style.width = '90%';
+                });
+                // An toàn: sau 8s mà vẫn chưa sang trang mới (tải file, lỗi mạng...) thì tự tắt
+                safetyTimer = setTimeout(function () { hideLoader(0); }, 8000);
+            }
+
+            function hideLoader(delay) {
+                clearTimeout(safetyTimer);
+                clearTimeout(hideTimer);
+                fill.style.transition = 'width .4s ease';
+                fill.style.width = '100%';
+                hideTimer = setTimeout(function () { loader.classList.add('sc-gone'); }, delay);
+            }
+
+            // Trang mới mở: thanh chạy từ 0% -> 100% trong 1.5s rồi mới ẩn loader
+            function chayThanhVaAn() {
+                clearTimeout(safetyTimer);
+                clearTimeout(hideTimer);
+                fill.style.transition = 'none';
+                fill.style.width = '0';
+                void fill.offsetWidth;                 // bắt trình duyệt ghi nhận mốc 0% trước
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        fill.style.transition = 'width 1.5s ease';
+                        fill.style.width = '100%';
+                    });
+                });
+                hideTimer = setTimeout(function () { loader.classList.add('sc-gone'); }, 1650);
+            }
+
+            // 1) Lần đầu mở trang: chạy thanh khi HTML sẵn sàng (không chờ ảnh tải xong)
+            if (document.readyState === 'loading')
+                document.addEventListener('DOMContentLoaded', chayThanhVaAn);
+            else
+                chayThanhVaAn();
+
+            // 2) Back/Forward: trang lấy từ bfcache không chạy lại DOMContentLoaded/load
+            window.addEventListener('pageshow', function (e) {
+                if (e.persisted) hideLoader(0);
+            });
+
+            // 3) Click link nội bộ
+            document.addEventListener('click', function (e) {
+                if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+                var a = e.target.closest ? e.target.closest('a[href]') : null;
+                if (!a) return;
+                if (a.target && a.target !== '_self') return;
+                if (a.hasAttribute('download') || a.hasAttribute('data-bs-toggle') || a.hasAttribute('data-no-loader')) return;
+
+                var h = a.getAttribute('href') || '';
+                if (!h || h.charAt(0) === '#' || /^(javascript|mailto|tel|sms):/i.test(h)) return;
+                if (a.origin && a.origin !== location.origin) return;                 // trang web khác
+                if (a.pathname === location.pathname && a.search === location.search && a.hash) return; // neo cùng trang
+
+                // Đợi các handler khác (jQuery...) chạy xong rồi mới quyết định
+                setTimeout(function () { if (!e.defaultPrevented) showLoader(); }, 0);
+            });
+
+            // 4) Gửi form: chỉ hiện nếu form không bị chặn (AJAX / bấm Hủy ở confirm)
+            document.addEventListener('submit', function (e) {
+                var f = e.target;
+                if (f.target && f.target !== '_self') return;
+                if (f.hasAttribute('data-no-loader')) return;
+                setTimeout(function () { if (!e.defaultPrevented) showLoader(); }, 0);
+            });
+        })();
+    </script>
 </body>
 </html>

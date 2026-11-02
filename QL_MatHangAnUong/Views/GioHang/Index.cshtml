@@ -9,7 +9,8 @@
     var goiY = ViewBag.KhuyenMaiGoiY as List<KhuyenMai> ?? new List<KhuyenMai>();
 }
 
-<div class="container pb-5">
+@* id="khuVucGioHang": JS gửi form nền rồi thay riêng vùng này => không tải lại cả trang *@
+<div class="container pb-5" id="khuVucGioHang">
     <div class="sc-breadcrumb">
         <a href="@Url.Action("Index", "Home")">@Resources.Strings.Common_TrangChu</a>
         <i class="bi bi-chevron-right" style="font-size:11px"></i>
@@ -125,13 +126,27 @@
                         <div class="mt-3">
                             @foreach (var km in goiY)
                             {
-                                using (Html.BeginForm("ApDungMa", "GioHang", FormMethod.Post, new { @class = "d-inline" }))
+                                bool laFreeshipMa = km.LoaiGiam == QL_MatHangAnUong.Models.KhuyenMai.GiamPhiGiaoHang;
+                                bool freeshipDaAp = laFreeshipMa && phiGiao == 0;
+                                using (Html.BeginForm("ApDungMa", "GioHang", FormMethod.Post, new { @class = "d-inline-flex align-items-center gap-1 me-1 mb-1" }))
                                 {
                                     <input type="hidden" name="maGiamGia" value="@km.MaGiamGia" />
-                                    <button type="submit" class="sc-chip sc-chip-btn" title="@km.MoTa">
+                                    <button type="submit" class="sc-chip sc-chip-btn"
+                                            style="@(freeshipDaAp ? "border-color:#fd7e14;color:#7c4700;background:#fff5ec;" : "")"
+                                            title="@(freeshipDaAp ? "\u0110\u01a1n h\u00e0ng \u0111\u00e3 \u0111\u01b0\u1ee3c mi\u1ec5n ph\u00ed ship t\u1ef1 \u0111\u1ed9ng" : km.MoTa)">
                                         <i class="bi bi-tag"></i> @km.MaGiamGia.ToUpper() — @(string.Format(Resources.Strings.Cart_GiamFormat, km.PhanTramGiam))
-                                        @(km.LoaiGiam == QL_MatHangAnUong.Models.KhuyenMai.GiamPhiGiaoHang ? "phí ship" : "")
+                                        @(laFreeshipMa ? "ph\u00ed ship" : "")
+                                        @if (freeshipDaAp)
+                                        {
+                                            <i class="bi bi-exclamation-triangle-fill ms-1" style="font-size:12px"></i>
+                                        }
                                     </button>
+                                }
+                                if (freeshipDaAp)
+                                {
+                                    <small class="text-warning d-block ms-1" style="font-size:11px">
+                                        <i class="bi bi-truck-front-fill"></i> &#272;&#227; freeship t&#7921; &#273;&#7897;ng
+                                    </small>
                                 }
                             }
                         </div>
@@ -141,13 +156,24 @@
                     }
                     else
                     {
-                        <div class="d-flex align-items-center gap-3">
+                        var kmDangDung = goiY.FirstOrDefault(k => k.MaGiamGia == Model.MaGiamGia);
+                        bool maFreeshipKhongCanThiet = kmDangDung != null
+                            && kmDangDung.LoaiGiam == QL_MatHangAnUong.Models.KhuyenMai.GiamPhiGiaoHang
+                            && phiGiao == 0;
+                        <div class="d-flex align-items-center gap-3 flex-wrap">
                             <span class="sc-chip"><i class="bi bi-check-circle"></i> @(string.Format(Resources.Strings.Cart_DangDungMaFormat, Model.MaGiamGia.ToUpper()))</span>
                             @using (Html.BeginForm("BoMa", "GioHang", FormMethod.Post))
                             {
                                 <button type="submit" class="btn btn-sm btn-sc-outline">@Resources.Strings.Cart_BoMa</button>
                             }
                         </div>
+                        if (maFreeshipKhongCanThiet)
+                        {
+                            <div class="alert alert-warning py-2 px-3 mt-2 small d-flex align-items-center gap-2 mb-0" style="border-radius:10px">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                <span>&#272;&#417;n h&#224;ng c&#7911;a b&#7841;n &#273;&#227; &#273;&#432;&#7907;c mi&#7877;n ph&#237; giao h&#224;ng t&#7921; &#273;&#7897;ng. M&#227; n&#224;y kh&#244;ng mang l&#7841;i th&#234;m &#432;u &#273;&#227;i!</span>
+                            </div>
+                        }
                     }
                 </div>
             </div>
