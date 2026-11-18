@@ -186,7 +186,6 @@
     <Compile Include="Models\KhuyenMaiPartial.cs" />
     <Compile Include="Models\LienLac.cs" />
     <Compile Include="Models\NguoiDungPartial.cs" />
-    <Compile Include="Models\KhoDuLieu.cs" />
     <Compile Include="Models\SanPhamPartial.cs" />
   </ItemGroup>
   <ItemGroup>

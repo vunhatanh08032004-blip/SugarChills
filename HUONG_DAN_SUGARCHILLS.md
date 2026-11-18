@@ -1,138 +1,187 @@
-# SugarChills — Hướng dẫn chạy & cấu trúc khung website
+# SugarChills — Hướng dẫn cài đặt & chạy dự án
 
-Dự án: **QL_MatHangAnUong** (ASP.NET Web Application .NET Framework 4.7.2, MVC 5, Razor, Bootstrap 5.2.3, jQuery 3.7).
-Giai đoạn hiện tại: **khung giao diện đầy đủ + logic nghiệp vụ, chạy bằng dữ liệu mẫu trong bộ nhớ (chưa cần SQL Server)**.
+Tài liệu này mô tả phiên bản hiện tại của dự án **QL_MatHangAnUong** (SugarChills). Chi tiết quy tắc nghiệp vụ và bảo mật xem thêm trong `README.md`.
 
 ---
 
-## 1. Cách chạy
+## 1. Giới thiệu project
 
-1. Giải nén thư mục ra ổ đĩa bất kỳ (ví dụ `D:\DoAn\SugarChills`).
-2. Mở `QL_MatHangAnUong.sln` bằng Visual Studio 2022.
-3. Chuột phải Solution → **Restore NuGet Packages** (hoặc cứ **Build**, VS sẽ tự tải). Lần đầu cần có mạng, chỉ mất vài giây vì máy bạn đã có sẵn các gói này trong cache NuGet.
-4. Bấm **F5**. Trang chủ SugarChills hiện ra, không cần cấu hình database.
+**SugarChills** là website bán đồ ăn/uống (trà sữa, cà phê, kem, bánh ngọt), làm cho đồ án môn **Lập trình Web**. Dự án có hai phía:
 
-### Tài khoản dùng thử
+* **Khách hàng:** xem thực đơn, tùy chọn món (size, đường, đá, topping), giỏ hàng, đặt hàng, theo dõi đơn, đánh giá sản phẩm.
+* **Người bán (Seller):** khu quản trị gồm sản phẩm, loại, đơn hàng, khuyến mãi, đánh giá, tin nhắn liên hệ và thống kê doanh thu.
+
+Dữ liệu lưu trong **SQL Server**, truy cập bằng **Entity Framework 6 (Database First)**.
+
+---
+
+## 2. Công nghệ sử dụng
+
+| Thành phần | Chi tiết |
+|---|---|
+| Nền tảng | ASP.NET MVC **5.2.9**, **.NET Framework 4.7.2**, Razor |
+| Truy cập dữ liệu | **Entity Framework 6.5.2**, Database First (`Models/QL_MatHangAnuong.edmx`) |
+| Cơ sở dữ liệu | SQL Server / SQL Server Express |
+| Giao diện | Bootstrap 5.2.3, jQuery 3.7.0, jQuery Validation, Bootstrap Icons, CSS riêng `Content/sugarchills.css` |
+| Đa ngôn ngữ | Việt / Anh (`App_GlobalResources/Strings.resx`, `Strings.en.resx`) |
+| Đăng nhập mạng xã hội | Google / Facebook (OAuth 2.0, gọi trực tiếp qua `Helpers/DangNhapMangXaHoi.cs`) |
+| Gửi email | Gmail SMTP (`Helpers/GuiMail.cs`) — dùng cho mã OTP quên mật khẩu |
+| IDE | Visual Studio 2022 (workload *ASP.NET and web development*) |
+
+---
+
+## 3. Tạo database từ script SQL
+
+1. Mở **SQL Server Management Studio (SSMS)** và kết nối vào SQL Server của máy bạn.
+2. Mở file **`QL_MatHangAnUong_ToanBo.sql`** (thư mục gốc repo) rồi bấm **Execute**.
+3. Script tự làm toàn bộ:
+   * tạo database `QL_MatHangAnUong` nếu chưa có;
+   * tạo các bảng `LoaiSanPham`, `SanPham`, `NguoiDung`, `KhuyenMai`, `DonHang`, `ChiTietDonHang`, `CuaHang`, `DanhGia`, `LienLacs`;
+   * nạp dữ liệu mẫu (loại, sản phẩm, tài khoản, khuyến mãi, cửa hàng, đơn hàng mẫu).
+
+> ⚠️ **Cảnh báo:** script **xóa và tạo lại** các bảng nghiệp vụ (kể cả `DanhGia`, `NguoiDung`, `DonHang`...) nên mọi dữ liệu đang có, như tài khoản hay đơn hàng tự tạo, sẽ mất. Riêng bảng `LienLacs` được giữ nguyên dữ liệu nếu đã tồn tại. Có thể chạy lại bao nhiêu lần tùy ý khi muốn đưa database về dữ liệu mẫu.
+
+`TaoBang_DanhGia.sql` và `TaoBang_LienLacs.sql` chỉ là các script rời đã được gộp sẵn vào `QL_MatHangAnUong_ToanBo.sql`, bình thường **không cần chạy**.
+
+---
+
+## 4. Cấu hình connection string và Secrets.config
+
+### 4.1. Connection string
+
+Nằm ở cuối file `QL_MatHangAnUong/Web.config`, tên **`QL_MatHangAnUongEntities`** (kiểu EF `System.Data.EntityClient`). Phần cần chú ý bên trong `provider connection string`:
+
+```
+data source=.\SQLEXPRESS;initial catalog=QL_MatHangAnUong;integrated security=True;trustservercertificate=True;MultipleActiveResultSets=True
+```
+
+* Mặc định dùng **SQL Express trên máy local** với đăng nhập Windows (`integrated security=True`).
+* Nếu dùng instance khác, sửa `data source=` cho khớp, ví dụ `(localdb)\MSSQLLocalDB` hoặc `TENMAY\SQLEXPRESS`.
+* **Giữ nguyên** phần `metadata=res://*/Models.QL_MatHangAnuong.csdl|...` (đường dẫn tới model EF) và `MultipleActiveResultSets=True`.
+
+### 4.2. Secrets.config (không bắt buộc)
+
+`Web.config` nạp thêm file `Secrets.config` qua `<appSettings file="Secrets.config">`. File này chứa khóa bí mật, đã bị git bỏ qua (**không commit**).
+
+1. Copy `QL_MatHangAnUong/Secrets.config.example` thành `QL_MatHangAnUong/Secrets.config`.
+2. Điền các khóa bạn cần:
+
+| Khóa | Dùng cho | Lấy ở đâu |
+|---|---|---|
+| `GoogleClientId`, `GoogleClientSecret` | Đăng nhập Google | console.cloud.google.com → APIs & Services → Credentials → OAuth client ID (Web application) |
+| `FacebookAppId`, `FacebookAppSecret` | Đăng nhập Facebook | developers.facebook.com → My Apps → Facebook Login |
+| `SmtpUser`, `SmtpPass` | Gửi mã OTP quên mật khẩu | `SmtpUser` là địa chỉ Gmail, `SmtpPass` là **App Password 16 ký tự** (bật xác minh 2 bước rồi tạo tại myaccount.google.com/apppasswords, **không** dùng mật khẩu Gmail thường) |
+
+3. Redirect URI cần đăng ký phía Google/Facebook (theo cổng IIS Express SSL mặc định của project là 44373):
+   * `https://localhost:44373/TaiKhoan/GoogleCallback`
+   * `https://localhost:44373/TaiKhoan/FacebookCallback`
+
+Không có `Secrets.config` hoặc để trống thì nút Google/Facebook và trang quên mật khẩu chỉ báo "chưa cấu hình"; phần còn lại vẫn chạy bình thường. **Xóa `Secrets.config` trước khi nén nộp bài.**
+
+---
+
+## 5. Build và chạy
+
+1. Mở `QL_MatHangAnUong.sln` bằng Visual Studio 2022.
+2. Chuột phải Solution → **Restore NuGet Packages** (cần có mạng ở lần đầu; thư mục `packages` không đi kèm file nén).
+3. **Build → Rebuild Solution**.
+4. Bấm **F5** (IIS Express, mặc định `https://localhost:44373/`).
+
+Build bằng dòng lệnh (tùy chọn):
+
+```
+nuget restore QL_MatHangAnUong.sln
+"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" QL_MatHangAnUong.sln /p:Configuration=Debug
+```
+
+Một số lỗi thường gặp:
+
+| Hiện tượng | Cách khắc phục |
+|---|---|
+| Không kết nối được SQL Server | Sửa `data source=` trong `Web.config`; kiểm tra service SQL Server đang chạy |
+| Thiếu `System.Web.Mvc`, `EntityFramework`... | Restore NuGet Packages rồi Rebuild |
+| `Invalid object name 'DanhGia'` (hoặc bảng khác) | Chưa chạy `QL_MatHangAnUong_ToanBo.sql` |
+| Vào `/QuanLy...` bị chuyển sang "Không có quyền" | Đăng nhập bằng tài khoản Seller |
+| Mở `.edmx` báo `TYPE_E_LIBNOTREGISTERED` | Repair/Update Visual Studio 2022 |
+
+---
+
+## 6. Tài khoản đăng nhập mẫu
 
 | Vai trò | Email | Mật khẩu | Vào được |
 |---|---|---|---|
-| Người bán (Seller) | `seller@sugarchills.vn` | `123456` | Toàn bộ khu quản trị |
-| Khách hàng (Customer) | `khach@gmail.com` | `123456` | Giỏ hàng, đặt hàng, đơn của tôi |
+| Người bán (Seller) | `seller@sugarchills.vn` | `123456` | Toàn bộ khu quản trị (`/QuanLy...`, `/ThongKe`) |
+| Khách hàng | `khach@gmail.com` | `123456` | Giỏ hàng, đặt hàng, đơn của tôi, đánh giá |
+| Khách hàng | `khoa.tran@gmail.com` | `123456` | như trên |
 
-Khách vãng lai (chưa đăng nhập) vẫn xem được trang chủ, thực đơn, chi tiết sản phẩm và thêm vào giỏ; chỉ khi bấm **Đặt hàng** mới bị yêu cầu đăng nhập.
+Khách vãng lai (chưa đăng nhập) vẫn xem được thực đơn và thêm vào giỏ; chỉ khi **đặt hàng** mới bị yêu cầu đăng nhập. Mã giảm giá mẫu: `SUGAR10`, `CHILL15` (freeship), `HAPPY20`.
 
-> Dữ liệu nằm trong RAM nên khi **restart project** thì sản phẩm/đơn hàng thêm mới sẽ trở lại như ban đầu. Đây là hành vi mong muốn ở giai đoạn dựng giao diện.
+> Mật khẩu hiện lưu **plain text** để đơn giản hóa đồ án — hệ thống thật cần băm (BCrypt/PBKDF2).
 
 ---
 
-## 2. Cấu trúc theo mô hình MVC
+## 7. Cấu trúc thư mục chính
 
 ```
-Models/
-  LoaiSanPham.cs, SanPham.cs, NguoiDung.cs,
-  DonHang.cs, ChiTietDonHang.cs, KhuyenMai.cs   → Entity (dùng lại được cho EF6)
-  GioHang.cs                                    → Giỏ hàng lưu trong Session + bảng phụ thu tùy chọn
-  KhoDuLieu.cs                                  → Kho dữ liệu tạm, sau này thay bằng DbContext
-  ViewModels/ViewModels.cs                      → ViewModel cho từng màn hình
-
-Controllers/
-  BaseController.cs        → Controller cha: nạp menu, số lượng giỏ, người dùng cho _Layout
-  HomeController.cs        → Trang chủ, giới thiệu, liên hệ
-  SanPhamController.cs     → Danh sách, tìm kiếm, lọc, chi tiết, sản phẩm liên quan
-  GioHangController.cs     → Giỏ hàng, mã giảm giá, đặt hàng
-  DonHangController.cs     → Đơn hàng phía khách
-  TaiKhoanController.cs    → Đăng ký, đăng nhập, đăng xuất
-  QuanLySanPhamController.cs / QuanLyLoaiController.cs
-  QuanLyDonHangController.cs / QuanLyKhuyenMaiController.cs
-  ThongKeController.cs     → Thống kê doanh thu (trang chủ khu quản trị)
-
-Filters/PhanQuyenAttribute.cs  → [KiemTraDangNhap] và [KiemTraNguoiBan]
-Helpers/PhienLamViec.cs        → Đọc/ghi Session (người dùng, giỏ hàng)
-Helpers/DinhDang.cs            → Định dạng tiền tệ, ngày giờ kiểu Việt Nam
-
-Views/Shared/_Layout.cshtml        → Layout khách hàng, menu 2 cấp
-Views/Shared/_LayoutSeller.cshtml  → Layout khu quản trị (sidebar)
-Views/Shared/_CardSanPham.cshtml   → Partial card sản phẩm dùng lại nhiều nơi
-
-Content/sugarchills.css   → Toàn bộ giao diện pastel hồng/kem
-Scripts/sugarchills.js    → Thêm giỏ AJAX, gợi ý tìm kiếm, tăng/giảm số lượng, tính giá theo tùy chọn
+QL_MatHangAnUong.sln
+QL_MatHangAnUong_ToanBo.sql        ← tạo database + dữ liệu mẫu
+QL_MatHangAnUong/
+├─ Controllers/
+│    BaseController (db, menu, giỏ hàng, culture, phân trang, thông báo)
+│    Phía khách : Home, SanPham, GioHang, DonHang, TaiKhoan, HoaDon, DanhGia, CuaHang, NgonNgu
+│    Khu quản trị: QuanLySanPham, QuanLyLoai, QuanLyDonHang, QuanLyKhuyenMai,
+│                  QuanLyDanhGia, QuanLyLienLac, ThongKe
+├─ Models/
+│    QL_MatHangAnuong.edmx (+ Context, entity do T4 sinh — không sửa tay)
+│    *Partial.cs (bổ sung thuộc tính/hàm cho entity), GioHang.cs (giỏ trong Session
+│    + bảng phụ thu tùy chọn); controller truy vấn EF trực tiếp qua `db`
+│    ViewModels/
+├─ Filters/       PhanQuyenAttribute.cs  → [KiemTraDangNhap], [KiemTraNguoiBan]
+├─ Helpers/       PhienLamViec (Session), DinhDang (tiền/ngày), Ngu (chuỗi đa ngôn ngữ trong .cs),
+│                 DangNhapMangXaHoi (Google/Facebook), GuiMail (SMTP)
+├─ Views/         theo từng controller + Shared/ (_Layout, _LayoutSeller, _CardSanPham, _PhanTrang)
+├─ App_GlobalResources/   Strings.resx (vi), Strings.en.resx
+├─ App_Start/     RouteConfig (một route mặc định {controller}/{action}/{id}), BundleConfig, FilterConfig
+├─ Content/       sugarchills.css, Images/ (ảnh mẫu), Uploads/SanPham/ (ảnh người bán tải lên)
+├─ Scripts/       sugarchills.js (giỏ AJAX, gợi ý tìm kiếm, tính giá theo tùy chọn), jQuery, Bootstrap
+├─ Web.config     connection string, appSettings (nạp Secrets.config)
+└─ Secrets.config.example
 ```
 
----
+Luồng xử lý: **Browser → Controller (kế thừa `BaseController`) → EF6 `QL_MatHangAnUongEntities` → SQL Server → View Razor**.
 
-## 3. Đối chiếu với thang điểm
+Ghi chú:
 
-| Mục rubric | Điểm | Nằm ở đâu |
-|---|---|---|
-| 1. Layout, menu 2 cấp, màu sắc | 0.75 | `_Layout.cshtml` (dropdown "Thực đơn" → các loại), `sugarchills.css` |
-| 2. Đăng ký / Đăng nhập / Tìm kiếm | 0.75 | `TaiKhoanController`, ô tìm kiếm ở header + `SanPham/Index` |
-| 3. DSSP: hiển thị, CSS hover, lọc theo loại | 1.0 | `SanPham/Index.cshtml`, `.sc-product:hover`, cột bộ lọc |
-| 4. Chi tiết SP: hiển thị, định dạng, bổ sung, SP liên quan | 1.0 | `SanPham/ChiTiet.cshtml` (tabs, tùy chọn, liên quan) |
-| 5. Giỏ hàng & đặt hàng (1, n, tùy chọn, hiệu chỉnh, lưu) | 1.5 | `GioHangController` + `GioHang/Index`, `ThanhToan`, `DatHangThanhCong` |
-| 6. Bảng sản phẩm: thêm/xóa/sửa, hình + loại, radio + checkbox | 1.0 | `QuanLySanPham/*`, `_FormSanPham.cshtml` |
-| 7. Đơn hàng, khuyến mãi, thống kê doanh thu | 1.5 | `QuanLyDonHang/*`, `QuanLyKhuyenMai/*`, `ThongKe/Index` |
-| 8. Bảng loại: thêm/xóa/sửa/hiển thị | 0.5 | `QuanLyLoai/*` |
-
-Các điểm dễ bị hỏi khi bảo vệ, đã xử lý sẵn:
-
-* **Tùy chọn khi chọn mua**: size (radio), mức đường, mức đá, topping (checkbox) — có cộng phụ thu và tính lại giá bằng jQuery.
-* **Hiệu chỉnh giỏ**: tăng/giảm/nhập số lượng, xóa từng dòng, xóa toàn bộ, nhập mã giảm giá.
-* **Validation**: Data Annotation + `ModelState.IsValid` + kiểm tra nghiệp vụ (trùng tên sản phẩm, trùng email, giá KM phải nhỏ hơn giá bán, ngày kết thúc ≥ ngày bắt đầu).
-* **Ràng buộc khóa ngoại**: không cho xóa loại đang có sản phẩm; cảnh báo khi xóa sản phẩm đang nằm trong đơn chưa xử lý xong.
-* **Phân quyền**: khách hàng gõ tay URL `/QuanLySanPham` sẽ bị đưa sang trang "Không có quyền truy cập".
+* Đăng nhập dùng **Session** (không dùng ASP.NET Identity); Google/Facebook chỉ để xác minh danh tính rồi cũng ghi vào Session.
+* CSS/JS nhúng trực tiếp bằng thẻ `<link>`/`<script>` trong layout, **không dùng bundling** (`BundleConfig` để trống).
+* Thêm/sửa bảng: sửa database bằng SQL rồi **Update Model from Database** trong `.edmx`; thêm hành vi riêng ở file `*Partial.cs`.
+* Controller/Model (.cs) lấy chuỗi đa ngôn ngữ bằng `Ngu.S("Key")`; View dùng `@Resources.Strings.Key`.
 
 ---
 
-## 4. Bước tiếp theo: nối Entity Framework 6 + SQL Server
+## 8. Các chức năng chính
 
-1. **Cài EF6**: Tools → NuGet Package Manager → Package Manager Console:
-   ```
-   Install-Package EntityFramework -Version 6.4.4
-   ```
-   (Project hiện tại chưa có EF trong `packages.config`.)
+### Khách hàng
 
-2. **Tạo `Models/FoodHubContext.cs`**:
-   ```csharp
-   public class FoodHubContext : DbContext
-   {
-       public FoodHubContext() : base("name=FoodHubConnection") { }
-       public DbSet<LoaiSanPham> LoaiSanPhams { get; set; }
-       public DbSet<SanPham> SanPhams { get; set; }
-       public DbSet<NguoiDung> NguoiDungs { get; set; }
-       public DbSet<DonHang> DonHangs { get; set; }
-       public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
-       public DbSet<KhuyenMai> KhuyenMais { get; set; }
-   }
-   ```
+* **Trang chủ, giới thiệu, khuyến mãi, hệ thống cửa hàng** (lọc theo tỉnh/quận), **liên hệ** (lưu vào bảng `LienLacs`), **đổi ngôn ngữ** Việt/Anh.
+* **Thực đơn:** tìm kiếm (có gợi ý), lọc theo loại, lọc khoảng giá, sắp xếp, phân trang; **chi tiết sản phẩm** với sản phẩm liên quan và đánh giá.
+* **Tài khoản:** đăng ký, đăng nhập (email hoặc Google/Facebook), xem/cập nhật thông tin, đổi mật khẩu, **quên mật khẩu bằng OTP gửi qua email**.
+* **Giỏ hàng** (lưu Session): chọn size (S/M/L), mức đường, mức đá, topping; thêm nhanh bằng AJAX; tăng/giảm/xóa; áp mã giảm giá.
+* **Đặt hàng:** thanh toán COD hoặc QR, tính phí giao hàng (freeship từ 150.000đ, ngược lại 15.000đ), trang đặt hàng thành công.
+* **Đơn hàng của tôi:** lọc theo trạng thái, xem chi tiết, tự hủy khi còn *Chờ xác nhận* (tồn kho được hoàn lại), **in hóa đơn**.
+* **Đánh giá sản phẩm:** chỉ khi đã có đơn *Hoàn thành* chứa món đó, mỗi món đánh giá một lần.
 
-3. **Thêm connection string** vào `Web.config`:
-   ```xml
-   <connectionStrings>
-     <add name="FoodHubConnection"
-          connectionString="Data Source=.\SQLEXPRESS;Initial Catalog=SugarChillsDB;Integrated Security=True;MultipleActiveResultSets=True"
-          providerName="System.Data.SqlClient" />
-   </connectionStrings>
-   ```
+### Người bán (Seller)
 
-4. **Thay ruột của `KhoDuLieu`** bằng truy vấn LINQ trên `FoodHubContext`. Toàn bộ Controller/View giữ nguyên vì chúng chỉ gọi các hàm của `KhoDuLieu`.
+* **Thống kê doanh thu** theo khoảng ngày (chỉ tính đơn *Hoàn thành*).
+* **Sản phẩm:** xem/tìm/lọc, thêm, sửa, xóa, bật/tắt kinh doanh, đánh dấu nổi bật, tải ảnh từ máy hoặc chọn ảnh có sẵn.
+* **Loại sản phẩm:** thêm, sửa, xóa (không xóa loại đang có sản phẩm).
+* **Đơn hàng:** lọc theo trạng thái/từ khóa/ngày, xem chi tiết, đổi trạng thái (Chờ xác nhận → Đã xác nhận → Đang giao → Hoàn thành, hoặc Đã hủy), in hóa đơn.
+* **Khuyến mãi:** thêm, sửa, xóa, bật/tắt mã giảm giá (giảm theo tổng tiền hoặc theo phí giao hàng).
+* **Đánh giá:** xem, lọc theo sao/từ khóa, xóa.
+* **Tin nhắn liên hệ:** xem, đánh dấu đã đọc/chưa đọc, xóa.
 
-   Lưu ý khi chuyển: `SanPham.GiaBanThucTe` và `PhanTramGiam` là `[NotMapped]` nên **không dùng trực tiếp trong câu LINQ gửi xuống SQL**. Hãy `ToList()` trước rồi mới lọc theo giá, hoặc lọc bằng biểu thức trên `Gia` / `GiaKhuyenMai`.
+### Phân quyền & bảo mật
 
-5. Mật khẩu hiện lưu dạng plain text cho dễ demo. Nếu muốn điểm cao hơn phần bảo mật, băm bằng SHA256 + salt trong `TaiKhoanController`.
-
----
-
-## 5. Ảnh sản phẩm
-
-Tất cả ảnh đang dùng link từ Unsplash và có `onerror` tự thay bằng ảnh placeholder màu hồng, nên giao diện không bao giờ bị vỡ dù link ảnh hỏng hoặc máy không có mạng.
-Muốn dùng ảnh riêng: thả ảnh vào `Content/images/` rồi sửa trường **Hình ảnh** của sản phẩm thành `/Content/images/ten-anh.jpg`.
-
----
-
-## 6. Ghi chú nhỏ
-
-* Project **không dùng bundling** (`Scripts.Render` / `Styles.Render`). File CSS/JS được nhúng thẳng bằng thẻ `<link>` và `<script>` trong `_Layout.cshtml` và `_LayoutSeller.cshtml`. Lý do: `Scripts.Render` thêm một lớp trung gian dễ ném `NullReferenceException` khi bundle không phân giải được, lại khó debug; nhúng trực tiếp thì thấy ngay đường dẫn trong View Source. Lớp `BundleConfig` vẫn giữ (rỗng) để mở rộng sau.
-* JS dùng `bootstrap.bundle.min.js` — bản đã kèm Popper, cần thiết để dropdown menu 2 cấp hoạt động.
-* Hai view cũ `About.cshtml` / `Contact.cshtml` của template đã bỏ, thay bằng `GioiThieu.cshtml` và `LienHe.cshtml`.
-* `Content/Site.css` chỉ còn vài dòng chỉnh sửa nhỏ, toàn bộ thiết kế nằm ở `Content/sugarchills.css`.
-* Thư mục `packages` không đi kèm trong file nén (dung lượng lớn); Visual Studio sẽ tự khôi phục ở bước 3 phần "Cách chạy".
+* Khu quản trị chỉ cho Seller; khách gõ tay URL `/QuanLy...` bị chuyển sang trang "Không có quyền".
+* Mọi form POST có chống CSRF; khách chỉ xem/hủy/in **đơn của chính mình**; `returnUrl` được kiểm tra chống open redirect.
