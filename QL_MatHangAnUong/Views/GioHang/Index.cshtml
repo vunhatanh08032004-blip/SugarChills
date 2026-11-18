@@ -68,6 +68,7 @@
                                         <td class="text-center">
                                             @using (Html.BeginForm("CapNhat", "GioHang", FormMethod.Post))
                                             {
+                                                @Html.AntiForgeryToken()
                                                 <input type="hidden" name="khoa" value="@item.Khoa" />
                                                 <div class="sc-qty">
                                                     <button type="button" data-buoc="giam">−</button>
@@ -84,6 +85,7 @@
                                             @using (Html.BeginForm("Xoa", "GioHang", FormMethod.Post,
                                                 new { @class = "can-xac-nhan", data_hoi = Resources.Strings.Cart_XoaMonNay }))
                                             {
+                                                @Html.AntiForgeryToken()
                                                 <input type="hidden" name="khoa" value="@item.Khoa" />
                                                 <button type="submit" class="btn btn-sm btn-sc-soft" title="@Resources.Strings.Common_Xoa">
                                                     <i class="bi bi-trash"></i>
@@ -104,6 +106,7 @@
                         @using (Html.BeginForm("XoaTatCa", "GioHang", FormMethod.Post,
                             new { @class = "can-xac-nhan", data_hoi = Resources.Strings.Cart_XoaToanBoXacNhan }))
                         {
+                            @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-sc-soft">
                                 <i class="bi bi-trash3"></i> @Resources.Strings.Cart_XoaToanBoGio
                             </button>
@@ -119,6 +122,7 @@
                     {
                         using (Html.BeginForm("ApDungMa", "GioHang", FormMethod.Post, new { @class = "d-flex gap-2" }))
                         {
+                            @Html.AntiForgeryToken()
                             <input type="text" name="maGiamGia" class="form-control" placeholder="@Resources.Strings.Cart_NhapMaPlaceholder" />
                             <button type="submit" class="btn btn-sc text-nowrap">@Resources.Strings.SanPham_ApDung</button>
                         }
@@ -130,6 +134,7 @@
                                 bool freeshipDaAp = laFreeshipMa && phiGiao == 0;
                                 using (Html.BeginForm("ApDungMa", "GioHang", FormMethod.Post, new { @class = "d-inline-flex align-items-center gap-1 me-1 mb-1" }))
                                 {
+                                    @Html.AntiForgeryToken()
                                     <input type="hidden" name="maGiamGia" value="@km.MaGiamGia" />
                                     <button type="submit" class="sc-chip sc-chip-btn"
                                             style="@(freeshipDaAp ? "border-color:#fd7e14;color:#7c4700;background:#fff5ec;" : "")"
@@ -164,6 +169,7 @@
                             <span class="sc-chip"><i class="bi bi-check-circle"></i> @(string.Format(Resources.Strings.Cart_DangDungMaFormat, Model.MaGiamGia.ToUpper()))</span>
                             @using (Html.BeginForm("BoMa", "GioHang", FormMethod.Post))
                             {
+                                @Html.AntiForgeryToken()
                                 <button type="submit" class="btn btn-sm btn-sc-outline">@Resources.Strings.Cart_BoMa</button>
                             }
                         </div>

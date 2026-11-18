@@ -17,6 +17,7 @@ namespace QL_MatHangAnUong.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NguoiDung()
         {
+            this.DanhGias = new HashSet<DanhGia>();
             this.DonHangs = new HashSet<DonHang>();
         }
     
@@ -29,6 +30,8 @@ namespace QL_MatHangAnUong.Models
         public string VaiTro { get; set; }
         public System.DateTime NgayDangKy { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhGia> DanhGias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
     }

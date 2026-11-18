@@ -208,31 +208,198 @@ namespace QL_MatHangAnUong.Controllers
             return RedirectToAction("ThongTin");
         }
 
+        // =====================================================================
+        //  QUÊN MẬT KHẨU BẰNG MÃ OTP QUA EMAIL
+        //  Bước 1: nhập email -> GuiMaOtp gửi mã 6 số (hiệu lực 5 phút)
+        //  Bước 2: nhập mã + mật khẩu mới -> QuenMatKhau (POST) kiểm tra rồi đổi mật khẩu
+        //  Mã OTP chỉ lưu trong Session (không cần thêm bảng/EDMX).
+        // =====================================================================
+        private const string SkEmail = "QMK_Email";
+        private const string SkMa = "QMK_Ma";
+        private const string SkHetHan = "QMK_HetHan";
+        private const string SkDaXacMinh = "QMK_DaXacMinh";   // đã nhập đúng OTP -> được đặt mật khẩu mới
+        private const string SkSai = "QMK_SoLanSai";
+        private const string SkSoLanGui = "QMK_SoLanGui";
+        private const string SkLanGuiCuoi = "QMK_LanGuiCuoi";
+        private const int OtpHieuLucPhut = 5;
+        private const int OtpToiDaSai = 5;
+        private const int OtpToiDaGui = 5;
+        private const int OtpCho = 60;   // giây giữa 2 lần gửi
+
+        private void XoaPhienOtp()
+        {
+            Session.Remove(SkEmail); Session.Remove(SkMa); Session.Remove(SkHetHan);
+            Session.Remove(SkSai); Session.Remove(SkSoLanGui); Session.Remove(SkLanGuiCuoi); Session.Remove(SkDaXacMinh);
+        }
+
         // GET: /TaiKhoan/QuenMatKhau
         public ActionResult QuenMatKhau()
         {
             if (NguoiDungHienTai != null) return RedirectToAction("Index", "Home");
             ViewBag.Title = "Quên mật khẩu";
-            return View(new QuenMatKhauViewModel());
+            string email = Session[SkEmail] as string;
+            ViewBag.Buoc = BuocHienTai();        // 1 = nhập email, 2 = nhập OTP, 3 = mật khẩu mới
+            return View(new QuenMatKhauViewModel { Email = email });
         }
 
-        // POST: /TaiKhoan/QuenMatKhau
+        private int BuocHienTai()
+        {
+            if (Session[SkEmail] == null) return 1;
+            return (Session[SkDaXacMinh] is bool && (bool)Session[SkDaXacMinh]) ? 3 : 2;
+        }
+
+        // GET: /TaiKhoan/DoiEmailQuenMatKhau — quay lại bước 1
+        public ActionResult DoiEmailQuenMatKhau()
+        {
+            XoaPhienOtp();
+            return RedirectToAction("QuenMatKhau");
+        }
+
+        // POST: /TaiKhoan/GuiMaOtp
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GuiMaOtp(string email)
+        {
+            if (NguoiDungHienTai != null) return RedirectToAction("Index", "Home");
+            email = (email ?? "").Trim();
+
+            if (email.Length == 0 || !new System.ComponentModel.DataAnnotations.EmailAddressAttribute().IsValid(email))
+            {
+                ThongBao("Vui lòng nhập email hợp lệ.", "danger");
+                return RedirectToAction("QuenMatKhau");
+            }
+
+            if (!GuiMail.DaCauHinh())
+            {
+                ThongBao("Chức năng gửi mã chưa được cấu hình (thiếu SmtpUser/SmtpPass trong Secrets.config).", "danger");
+                return RedirectToAction("QuenMatKhau");
+            }
+
+            int soLanGui = Session[SkSoLanGui] is int ? (int)Session[SkSoLanGui] : 0;
+            if (soLanGui >= OtpToiDaGui)
+            {
+                ThongBao("Bạn đã yêu cầu mã quá nhiều lần. Vui lòng thử lại sau.", "warning");
+                return RedirectToAction("QuenMatKhau");
+            }
+
+            var lanCuoi = Session[SkLanGuiCuoi] as DateTime?;
+            if (lanCuoi.HasValue)
+            {
+                double daQua = (DateTime.Now - lanCuoi.Value).TotalSeconds;
+                if (daQua < OtpCho)
+                {
+                    ThongBao("Vui lòng chờ " + (int)Math.Ceiling(OtpCho - daQua) + " giây rồi gửi lại mã.", "warning");
+                    return RedirectToAction("QuenMatKhau");
+                }
+            }
+
+            var nd = db.NguoiDungs.FirstOrDefault(n => n.Email == email);
+            string ma = null;
+            if (nd != null && nd.VaiTro != NguoiDung.RoleSeller)
+            {
+                using (var rng = System.Security.Cryptography.RandomNumberGenerator.Create())
+                {
+                    var b = new byte[4];
+                    rng.GetBytes(b);
+                    ma = (BitConverter.ToUInt32(b, 0) % 1000000).ToString("D6");
+                }
+                try
+                {
+                    GuiMail.Gui(nd.Email, "SugarChills - Mã xác nhận đặt lại mật khẩu",
+                        "<div style=\"font-family:Arial,sans-serif;font-size:15px;color:#333\">" +
+                        "<p>Xin chào <b>" + System.Net.WebUtility.HtmlEncode(nd.HoTen) + "</b>,</p>" +
+                        "<p>Mã xác nhận đặt lại mật khẩu của bạn là:</p>" +
+                        "<p style=\"font-size:30px;font-weight:bold;letter-spacing:6px;color:#e8517f\">" + ma + "</p>" +
+                        "<p>Mã có hiệu lực trong " + OtpHieuLucPhut + " phút. Nếu bạn không yêu cầu, hãy bỏ qua email này.</p></div>");
+                }
+                catch (Exception)
+                {
+                    ThongBao("Không gửi được email. Vui lòng kiểm tra cấu hình SMTP hoặc thử lại sau.", "danger");
+                    return RedirectToAction("QuenMatKhau");
+                }
+            }
+
+            // Luôn vào bước 2 và báo chung — không tiết lộ email có tồn tại hay không
+            Session[SkEmail] = email;
+            Session[SkMa] = ma;
+            Session[SkHetHan] = DateTime.Now.AddMinutes(OtpHieuLucPhut);
+            Session[SkSai] = 0;
+            Session[SkSoLanGui] = soLanGui + 1;
+            Session[SkLanGuiCuoi] = DateTime.Now;
+
+            ThongBao("Nếu email này đã đăng ký, mã OTP đã được gửi (hiệu lực " + OtpHieuLucPhut + " phút). Hãy kiểm tra cả hòm thư Spam.", "info");
+            return RedirectToAction("QuenMatKhau");
+        }
+
+        // POST: /TaiKhoan/XacNhanOtp — bước 2: chỉ kiểm tra mã OTP
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult XacNhanOtp(string otp)
+        {
+            ViewBag.Title = "Quên mật khẩu";
+            string emailPhien = Session[SkEmail] as string;
+            if (emailPhien == null) return RedirectToAction("QuenMatKhau");
+
+            var model = new QuenMatKhauViewModel { Email = emailPhien };
+            ViewBag.Buoc = 2;
+
+            string maPhien = Session[SkMa] as string;
+            var hetHan = Session[SkHetHan] as DateTime?;
+            int soSai = Session[SkSai] is int ? (int)Session[SkSai] : 0;
+            otp = (otp ?? "").Trim();
+
+            if (soSai >= OtpToiDaSai || !hetHan.HasValue || DateTime.Now > hetHan.Value)
+            {
+                ModelState.AddModelError("", "Mã OTP đã hết hạn hoặc nhập sai quá nhiều lần. Vui lòng bấm \"Đổi email / gửi lại mã\".");
+                return View("QuenMatKhau", model);
+            }
+            if (maPhien == null || otp != maPhien)
+            {
+                Session[SkSai] = soSai + 1;
+                ModelState.AddModelError("", "Mã OTP không đúng.");
+                return View("QuenMatKhau", model);
+            }
+
+            // OTP đúng -> mở bước 3, cho thêm 10 phút để đặt mật khẩu
+            Session[SkDaXacMinh] = true;
+            Session[SkMa] = null;
+            Session[SkHetHan] = DateTime.Now.AddMinutes(10);
+            return RedirectToAction("QuenMatKhau");
+        }
+
+        // POST: /TaiKhoan/QuenMatKhau — bước 3: đặt mật khẩu mới (chỉ khi đã xác minh OTP)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult QuenMatKhau(QuenMatKhauViewModel model)
         {
             ViewBag.Title = "Quên mật khẩu";
+            string emailPhien = Session[SkEmail] as string;
+            var hetHan = Session[SkHetHan] as DateTime?;
+            bool daXacMinh = Session[SkDaXacMinh] is bool && (bool)Session[SkDaXacMinh];
+
+            if (emailPhien == null || !daXacMinh || !hetHan.HasValue || DateTime.Now > hetHan.Value)
+            {
+                XoaPhienOtp();
+                ThongBao("Phiên xác minh đã hết hạn. Vui lòng yêu cầu mã mới.", "warning");
+                return RedirectToAction("QuenMatKhau");
+            }
+
+            model.Email = emailPhien;          // luôn dùng email đã xác minh, bỏ qua giá trị client gửi lên
+            ModelState.Remove("Email");
+            ViewBag.Buoc = 3;
             if (!ModelState.IsValid) return View(model);
 
-            var nd = db.NguoiDungs.FirstOrDefault(n => n.Email == model.Email.Trim());
-            if (nd == null)
+            var nd = db.NguoiDungs.FirstOrDefault(n => n.Email == emailPhien);
+            if (nd == null || nd.VaiTro == NguoiDung.RoleSeller)
             {
-                ModelState.AddModelError("Email", "Email này chưa được đăng ký trong hệ thống.");
-                return View(model);
+                XoaPhienOtp();
+                ThongBao("Không thể đặt lại mật khẩu cho tài khoản này.", "danger");
+                return RedirectToAction("QuenMatKhau");
             }
 
             nd.MatKhau = model.MatKhauMoi;
             db.SaveChanges();
+            XoaPhienOtp();
 
             ThongBao("Đặt lại mật khẩu thành công! Vui lòng đăng nhập với mật khẩu mới.");
             return RedirectToAction("DangNhap");

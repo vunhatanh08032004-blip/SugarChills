@@ -1,0 +1,125 @@
+﻿@using QL_MatHangAnUong.Helpers
+@model QL_MatHangAnUong.Controllers.DanhGiaKhungViewModel
+@*
+    Khung "Đánh giá sản phẩm" (child action DanhGia/Khung): thống kê sao, form gửi đánh giá, danh sách đánh giá.
+*@
+<style>
+    .sc-rate-input { position: relative; display: inline-flex; flex-direction: row-reverse; gap: 4px; }
+    .sc-rate-input input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .sc-rate-input label { font-size: 32px; line-height: 1; color: #d9c3cb; cursor: pointer; margin: 0; }
+    .sc-rate-input label:hover,
+    .sc-rate-input label:hover ~ label,
+    .sc-rate-input input:checked ~ label { color: #ffc107; }
+    .sc-bar { height: 8px; border-radius: 99px; background: #f3e4e9; overflow: hidden; }
+    .sc-bar > span { display: block; height: 100%; background: #ffc107; }
+    .sc-review + .sc-review { border-top: 1px dashed #f0d3dc; }
+</style>
+
+<div class="sc-panel mt-4" id="khungDanhGia">
+    <h4 class="mb-3"><i class="bi bi-chat-heart"></i> Đánh giá sản phẩm</h4>
+
+    <div class="row g-4 align-items-center mb-3">
+        <div class="col-md-4 text-center">
+            <div style="font-size:44px;font-weight:800;line-height:1">@(Model.Tong > 0 ? Model.TrungBinh.ToString("0.0") : "–")<span class="sc-text-muted" style="font-size:18px">/5</span></div>
+            <div class="text-warning my-1">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (Model.TrungBinh >= i - 0.25) { <i class="bi bi-star-fill"></i> }
+                    else if (Model.TrungBinh >= i - 0.75) { <i class="bi bi-star-half"></i> }
+                    else { <i class="bi bi-star"></i> }
+                }
+            </div>
+            <div class="sc-text-muted small">@Model.Tong lượt đánh giá</div>
+        </div>
+
+        <div class="col-md-8">
+            @for (int s = 5; s >= 1; s--)
+            {
+                int phanTram = Model.Tong > 0 ? (int)Math.Round(Model.PhanBo[s] * 100.0 / Model.Tong) : 0;
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="small" style="width:34px">@s <i class="bi bi-star-fill text-warning"></i></span>
+                    <div class="sc-bar flex-fill"><span style="width:@(phanTram)%"></span></div>
+                    <span class="small sc-text-muted" style="width:28px;text-align:right">@Model.PhanBo[s]</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <hr style="border-color:var(--sc-line)" />
+
+    @* ---- Form gửi đánh giá (chỉ hiện khi đủ điều kiện) ---- *@
+    @if (Model.DuocDanhGia)
+    {
+        using (Html.BeginForm("Gui", "DanhGia", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="maSP" value="@Model.MaSP" />
+
+            <div class="mb-3">
+                <div class="sc-option-title">Chọn số sao</div>
+                <div class="sc-rate-input">
+                    @for (int s = 5; s >= 1; s--)
+                    {
+                        <input type="radio" name="soSao" id="soSao@(s)" value="@s" required />
+                        <label for="soSao@(s)" title="@s sao"><i class="bi bi-star-fill"></i></label>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="sc-option-title">Nhận xét (không bắt buộc)</div>
+                <textarea name="noiDung" class="form-control" rows="3" maxlength="500"
+                          placeholder="Món này thế nào? Chia sẻ để mọi người chọn món dễ hơn nhé..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-sc"><i class="bi bi-send"></i> Gửi đánh giá</button>
+        }
+    }
+    else
+    {
+        <div class="sc-alert sc-alert-info mb-0">
+            <i class="bi bi-info-circle"></i>
+            <span>
+                @Model.LyDo
+                @if (Model.LyDo != null && Model.LyDo.StartsWith("Đăng nhập"))
+                {
+                    <a href="@Url.Action("DangNhap", "TaiKhoan", new { returnUrl = Request.RawUrl })" class="fw-bold">Đăng nhập ngay</a>
+                }
+            </span>
+        </div>
+    }
+
+    @* ---- Danh sách đánh giá ---- *@
+    @if (Model.Dong.Count > 0)
+    {
+        <div class="mt-4">
+            @foreach (var d in Model.Dong)
+            {
+                <div class="sc-review py-3">
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <strong>@d.HoTen</strong>
+                        @if (d.LaCuaToi)
+                        {
+                            <span class="sc-badge badge-primary">Của bạn</span>
+                        }
+                        <span class="text-warning">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <i class="bi @(i <= d.SoSao ? "bi-star-fill" : "bi-star")"></i>
+                            }
+                        </span>
+                        <span class="sc-text-muted small ms-auto">@DinhDang.NgayGio(d.NgayDanh)</span>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(d.NoiDung))
+                    {
+                        <div class="mt-1" style="white-space:pre-line">@d.NoiDung</div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="sc-text-muted text-center py-3">Chưa có đánh giá nào. Hãy là người đầu tiên!</div>
+    }
+</div>

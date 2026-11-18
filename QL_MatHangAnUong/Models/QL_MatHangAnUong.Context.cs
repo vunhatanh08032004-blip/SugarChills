@@ -27,8 +27,10 @@ namespace QL_MatHangAnUong.Models
     
         public virtual DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
         public virtual DbSet<CuaHang> CuaHangs { get; set; }
+        public virtual DbSet<DanhGia> DanhGias { get; set; }
         public virtual DbSet<DonHang> DonHangs { get; set; }
         public virtual DbSet<KhuyenMai> KhuyenMais { get; set; }
+        public virtual DbSet<LienLac> LienLacs { get; set; }
         public virtual DbSet<LoaiSanPham> LoaiSanPhams { get; set; }
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }

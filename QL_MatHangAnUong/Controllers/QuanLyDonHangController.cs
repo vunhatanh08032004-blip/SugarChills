@@ -116,6 +116,13 @@ namespace QL_MatHangAnUong.Controllers
                 }
             }
 
+            // [NGHIEP VU] Hoan thanh = da giao + da thu du tien (COD thu luc giao) -> danh dau da thanh toan
+            if (trangThai == DonHang.HoanThanh)
+            {
+                dh.DaThanhToan = true;
+                dh.SoTienConLai = 0;
+            }
+
             dh.TrangThai = trangThai;
             db.SaveChanges();
             ThongBao(string.Format(Ngu.S("SellerOrder_DaChuyenSangFormat"), id, trangThai));

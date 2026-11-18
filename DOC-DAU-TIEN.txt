@@ -1,33 +1,32 @@
 ================================================================
-  SugarChills - Website quan ly mat hang an uong (ASP.NET MVC 5)
+  SugarChills - Website ban do an/uong (ASP.NET MVC 5 + EF6 + SQL Server)
 ================================================================
 
-CACH CHAY (3 buoc):
+CACH CHAY (5 buoc):
 
-  1. Giai nen thu muc nay ra o dia bat ky.
-       Vi du: D:\DoAn\SugarChills
+  1. Giai nen thu muc ra o dia bat ky (vi du D:\DoAn\SugarChills).
 
-  2. Mo file  QL_MatHangAnUong.sln  bang Visual Studio 2022.
-       (Neu VS cua ban dung dinh dang moi, co the mo QL_MatHangAnUong.slnx)
+  2. Mo SSMS, chay file  QL_MatHangAnUong_ToanBo.sql
+     (tu tao database QL_MatHangAnUong + bang + du lieu mau; chay lai duoc).
 
-  3. Bam chuot phai vao Solution -> Restore NuGet Packages
-     (hoac cu Build -> Visual Studio se tu tai thu vien ve).
-     Sau do bam F5.
+  3. Mo QL_MatHangAnUong.sln bang Visual Studio 2022.
 
-     * Buoc restore chi mat vai giay vi may ban da co san cac goi nay
-       trong bo nho cache cua NuGet. Can co mang o lan restore dau tien.
+  4. Kiem tra connection string trong QL_MatHangAnUong\Web.config:
+       data source=.\SQLEXPRESS
+     Neu may ban dung instance khac (vd (localdb)\MSSQLLocalDB) thi sua cho khop.
+
+  5. Chuot phai Solution -> Restore NuGet Packages -> Rebuild -> F5.
 
 TAI KHOAN DUNG THU:
 
-  Nguoi ban (Seller):  seller@sugarchills.vn  /  123456
-  Khach hang        :  khach@gmail.com       /  123456
-
-  Khach chua dang nhap van xem duoc trang chu, thuc don, chi tiet san pham
-  va them vao gio hang. Chi khi dat hang moi bat buoc dang nhap.
+  Nguoi ban (Seller):  seller@sugarchills.vn   /  123456
+  Khach hang        :  khach@gmail.com        /  123456
+  Khach hang        :  khoa.tran@gmail.com    /  123456
 
 LUU Y:
 
-  - Du lieu dang luu trong bo nho (file Models/KhoDuLieu.cs), chua dung
-    SQL Server. Restart project thi du lieu tro lai nhu ban dau.
-  - Xem file HUONG_DAN_SUGARCHILLS.md de biet cau truc project, doi chieu
-    thang diem va cac buoc noi Entity Framework 6 + SQL Server.
+  - Dang nhap Google/Facebook la tuy chon: copy Secrets.config.example thanh
+    Secrets.config roi dien ma. XOA Secrets.config truoc khi nen nop bai.
+  - Quen mat khau dung ma OTP gui qua email: dien SmtpUser (Gmail) + SmtpPass
+    (App Password 16 ky tu) trong Secrets.config, xem Secrets.config.example.
+  - Xem README.md de biet chuc nang, cau truc va quy tac nghiep vu.

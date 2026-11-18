@@ -58,9 +58,7 @@
                     <h1 style="font-size:30px">@sp.TenSP</h1>
 
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <span class="text-warning">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
-                        </span>
+                        @Html.Action("Sao", "DanhGia", new { maSP = sp.MaSP })
                         <span class="sc-text-muted small">@(string.Format(Resources.Strings.Detail_DaBanFormat, sp.LuotBan))</span>
                         @if (sp.SoLuongTon > 0)
                         {
@@ -230,6 +228,9 @@
             </div>
         </div>
     </div>
+
+    <!-- ============ ĐÁNH GIÁ SẢN PHẨM ============ -->
+    @Html.Action("Khung", "DanhGia", new { maSP = sp.MaSP })
 
     <!-- ============ SẢN PHẨM LIÊN QUAN (rubric 4.4) ============ -->
     @if (Model.SanPhamLienQuan.Count > 0)

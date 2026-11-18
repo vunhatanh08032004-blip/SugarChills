@@ -39,8 +39,34 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label" for="DiaChi">@Resources.Strings.Checkout_DiaChiGiaoHang</label>
-                            @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control", placeholder = Resources.Strings.Checkout_DiaChiPlaceholder })
+                            <label class="form-label">@Resources.Strings.Checkout_DiaChiGiaoHang</label>
+
+                            @* DiaChi thật sự gửi lên server — được JS ghép từ Số nhà + Phường/Xã + Tỉnh/TP *@
+                            @Html.HiddenFor(m => m.DiaChi, new { id = "DiaChi" })
+
+                            <div id="khungChonDiaChi" class="row g-2">
+                                <div class="col-md-6">
+                                    <select id="selTinh" class="form-select" disabled>
+                                        <option value="">Tỉnh / Thành phố</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="selPhuong" class="form-select" disabled>
+                                        <option value="">Phường / Xã</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" id="txtSoNha" class="form-control" maxlength="120"
+                                           placeholder="Số nhà, tên đường (ví dụ: 12 Nguyễn Văn Bảo)" />
+                                </div>
+                            </div>
+
+                            @* Dự phòng khi không tải được API (mất mạng...): cho gõ tay như cũ *@
+                            <input type="text" id="txtDiaChiTuDo" class="form-control" maxlength="250" style="display:none"
+                                   placeholder="@Resources.Strings.Checkout_DiaChiPlaceholder" />
+
+                            <div class="small mt-2" id="xemTruocDiaChi" style="color:var(--sc-brown,#5a3a2e)"></div>
+                            <div class="small text-danger mt-1" id="loiDiaChi" style="display:none"></div>
                             @Html.ValidationMessageFor(m => m.DiaChi)
                         </div>
 
@@ -143,4 +169,67 @@
 @section scripts {
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+    // Chọn Tỉnh/TP -> Phường/Xã bằng API công khai provinces.open-api.vn (v2: đơn vị hành chính 2 cấp, 34 tỉnh/thành)
+    (function () {
+        var API = "https://provinces.open-api.vn/api/v2/";
+        var $dc = document.getElementById("DiaChi"),
+            selT = document.getElementById("selTinh"), selP = document.getElementById("selPhuong"),
+            soNha = document.getElementById("txtSoNha"), tuDo = document.getElementById("txtDiaChiTuDo"),
+            khung = document.getElementById("khungChonDiaChi"),
+            xem = document.getElementById("xemTruocDiaChi"), loi = document.getElementById("loiDiaChi");
+        var daChon = false;   // true khi khách bắt đầu tự chọn -> ghi đè địa chỉ đã lưu
+
+        function hienXemTruoc() { xem.innerHTML = $dc.value ? '<i class="bi bi-geo-alt-fill"></i> Giao tới: <b></b>' : ""; if ($dc.value) xem.querySelector("b").textContent = $dc.value; }
+        function ghep() {
+            var t = selT.selectedIndex > 0 ? selT.options[selT.selectedIndex].text : "";
+            var p = selP.selectedIndex > 0 ? selP.options[selP.selectedIndex].text : "";
+            var parts = [soNha.value.trim(), p, t].filter(function (x) { return x; });
+            if (parts.length) { $dc.value = parts.join(", "); daChon = true; }
+            hienXemTruoc();
+        }
+        function layJson(url) { return fetch(url).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }); }
+        function doDropdown(sel, ds, nhan) {
+            sel.innerHTML = "";
+            var o = document.createElement("option"); o.value = ""; o.textContent = nhan; sel.appendChild(o);
+            ds.forEach(function (x) { var op = document.createElement("option"); op.value = x.code; op.textContent = x.name; sel.appendChild(op); });
+            sel.disabled = ds.length === 0;
+        }
+        function dungTuDo() {   // API lỗi -> quay về ô gõ tay
+            khung.style.display = "none"; tuDo.style.display = ""; tuDo.value = $dc.value;
+            tuDo.addEventListener("input", function () { $dc.value = tuDo.value; hienXemTruoc(); });
+        }
+
+        hienXemTruoc();
+        layJson(API).then(function (ds) {
+            ds.sort(function (a, b) { return a.name.localeCompare(b.name, "vi"); });
+            doDropdown(selT, ds, "Tỉnh / Thành phố");
+        }).catch(dungTuDo);
+
+        selT.addEventListener("change", function () {
+            doDropdown(selP, [], "Phường / Xã");
+            if (selT.value) {
+                selP.innerHTML = '<option value="">Đang tải...</option>';
+                layJson(API + "p/" + selT.value + "?depth=2").then(function (p) {
+                    var ws = (p.wards || []).slice().sort(function (a, b) { return a.name.localeCompare(b.name, "vi"); });
+                    doDropdown(selP, ws, "Phường / Xã");
+                }).catch(function () { doDropdown(selP, [], "Không tải được — thử lại"); });
+            }
+            ghep();
+        });
+        selP.addEventListener("change", ghep);
+        soNha.addEventListener("input", ghep);
+
+        // Chặn gửi form nếu khách đang chọn dở (thiếu tỉnh / phường / số nhà)
+        document.querySelector("form[action*='ThanhToan']").addEventListener("submit", function (e) {
+            loi.style.display = "none";
+            if (daChon && khung.style.display !== "none") {
+                var thieu = !selT.value ? "Vui lòng chọn Tỉnh / Thành phố."
+                          : !selP.value ? "Vui lòng chọn Phường / Xã."
+                          : !soNha.value.trim() ? "Vui lòng nhập số nhà, tên đường." : "";
+                if (thieu) { e.preventDefault(); loi.textContent = thieu; loi.style.display = ""; }
+            }
+        });
+    })();
+    </script>
 }

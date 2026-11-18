@@ -112,6 +112,7 @@ namespace QL_MatHangAnUong.Controllers
         /// Hỗ trợ AJAX để không phải tải lại trang.
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ThemNhanh(int maSP)
         {
             if (maSP <= 0)
@@ -177,6 +178,7 @@ namespace QL_MatHangAnUong.Controllers
 
         /// <summary>Tăng/giảm/nhập lại số lượng một dòng trong giỏ.</summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CapNhat(string khoa, int soLuong)
         {
             var gio = GioHangHienTai;
@@ -226,6 +228,7 @@ namespace QL_MatHangAnUong.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Xoa(string khoa)
         {
             var gio = GioHangHienTai;
@@ -237,6 +240,7 @@ namespace QL_MatHangAnUong.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult XoaTatCa()
         {
             var gio = GioHangHienTai;
@@ -249,6 +253,7 @@ namespace QL_MatHangAnUong.Controllers
 
         /// <summary>Khách nhập mã giảm giá ở giỏ hàng (liên kết với chức năng Quản lý khuyến mãi).</summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ApDungMa(string maGiamGia)
         {
             var gio = GioHangHienTai;
@@ -294,6 +299,7 @@ namespace QL_MatHangAnUong.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult BoMa()
         {
             var gio = GioHangHienTai;

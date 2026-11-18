@@ -452,3 +452,7 @@ package-lock.yaml
 
 # Mã bí mật đăng nhập Google/Facebook (mỗi người tự tạo từ Secrets.config.example)
 Secrets.config
+
+# Khong push video nen va bao cao docx
+QL_MatHangAnUong/Content/dangky-bg.mp4
+BAO_CAO_PHAN_TICH_SOURCE_CODE_ASP_NET_MVC.docx

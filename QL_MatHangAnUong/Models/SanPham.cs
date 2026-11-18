@@ -18,6 +18,7 @@ namespace QL_MatHangAnUong.Models
         public SanPham()
         {
             this.ChiTietDonHangs = new HashSet<ChiTietDonHang>();
+            this.DanhGias = new HashSet<DanhGia>();
         }
     
         public int MaSP { get; set; }
@@ -35,6 +36,8 @@ namespace QL_MatHangAnUong.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhGia> DanhGias { get; set; }
         public virtual LoaiSanPham LoaiSanPham { get; set; }
     }
 }

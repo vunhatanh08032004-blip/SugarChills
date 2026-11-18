@@ -59,7 +59,7 @@ namespace QL_MatHangAnUong.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult HuyDon(int id)
         {
-            var dh = db.DonHangs.FirstOrDefault(d => d.MaDH == id);
+            var dh = db.DonHangs.Include("ChiTietDonHangs").FirstOrDefault(d => d.MaDH == id);
             if (dh == null)
                 return HttpNotFound(Ngu.S("Order_KhongTimThayDonHang"));
 
@@ -76,7 +76,15 @@ namespace QL_MatHangAnUong.Controllers
 
             // Cập nhật trạng thái sang "Đã hủy" và lưu xuống DB
             dh.TrangThai = DonHang.DaHuy;
-            db.Entry(dh).State = System.Data.Entity.EntityState.Modified;
+
+            // Hoàn lại tồn kho & lượt bán (đã bị trừ lúc đặt hàng)
+            foreach (var ct in dh.ChiTietDonHangs)
+            {
+                var sp = db.SanPhams.Find(ct.MaSP);
+                if (sp == null) continue;
+                sp.SoLuongTon += ct.SoLuong;
+                if (sp.LuotBan >= ct.SoLuong) sp.LuotBan -= ct.SoLuong;
+            }
             db.SaveChanges();
 
             ThongBao(string.Format(Ngu.S("Order_DaHuyDonFormat"), id), "info");

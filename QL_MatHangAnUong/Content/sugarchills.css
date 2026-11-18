@@ -969,6 +969,9 @@ a:hover {
     flex-direction: column;
     justify-content: center;
 }
+.sc-auth-side.has-video {
+    background: none !important;
+}
 
 .sc-auth-side h3 { color: #fff; font-size: 26px; }
 .sc-auth-side p { color: rgba(255, 255, 255, .9); }

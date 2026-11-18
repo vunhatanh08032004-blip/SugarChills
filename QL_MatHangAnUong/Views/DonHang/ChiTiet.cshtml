@@ -132,6 +132,10 @@
                     }
                 }
 
+                <a href="@Url.Action("In", "HoaDon", new { id = Model.MaDH, tuDongIn = true })" target="_blank" class="btn btn-sc-outline w-100 mt-2">
+                    <i class="bi bi-printer"></i> In hóa đơn
+                </a>
+
                 <a href="@Url.Action("Index", "DonHang")" class="btn btn-sc-soft w-100 mt-2">@Resources.Strings.Order_VeDanhSachDon</a>
             </div>
         </div>

@@ -1,4 +1,4 @@
-@model QL_MatHangAnUong.Models.ViewModels.DangNhapViewModel
+﻿@model QL_MatHangAnUong.Models.ViewModels.DangNhapViewModel
 
 <style>
     .sc-or-divider {
@@ -65,16 +65,23 @@
 <div class="container sc-auth-wrap">
     <div class="sc-auth-card w-100" style="max-width:920px;margin:0 auto">
         <div class="row g-0">
-            <div class="col-lg-5 sc-auth-side">
-                <div style="font-size:48px;margin-bottom:16px">
-                    <i class="bi bi-cup-straw" style="color:#fff;opacity:.9"></i>
-                </div>
-                <h3>@Resources.Strings.Auth_ChaoMungTroLai</h3>
-                <p>@Resources.Strings.Auth_ChaoMungMoTa</p>
-                <div class="mt-4 small">
-                    <div class="mb-2"><i class="bi bi-check-circle"></i> @Resources.Strings.Auth_LuuDiaChi</div>
-                    <div class="mb-2"><i class="bi bi-check-circle"></i> @Resources.Strings.Auth_TheoDoiTrangThai</div>
-                    <div><i class="bi bi-check-circle"></i> @Resources.Strings.Auth_NhanMaGiamGia</div>
+            <div class="col-lg-5 sc-auth-side has-video" style="position:relative;overflow:hidden">
+                <video autoplay muted loop playsinline
+                       style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0">
+                    <source src="@Url.Content("~/Content/dangky-bg.mp4")" type="video/mp4" />
+                </video>
+                <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,rgba(232,81,127,0.70) 0%,rgba(170,25,70,0.65) 100%);z-index:1"></div>
+                <div style="position:relative;z-index:2">
+                    <div style="font-size:48px;margin-bottom:16px">
+                        <i class="bi bi-cup-straw" style="color:#fff;opacity:.9"></i>
+                    </div>
+                    <h3>@Resources.Strings.Auth_ChaoMungTroLai</h3>
+                    <p>@Resources.Strings.Auth_ChaoMungMoTa</p>
+                    <div class="mt-4 small">
+                        <div class="mb-2"><i class="bi bi-check-circle"></i> @Resources.Strings.Auth_LuuDiaChi</div>
+                        <div class="mb-2"><i class="bi bi-check-circle"></i> @Resources.Strings.Auth_TheoDoiTrangThai</div>
+                        <div><i class="bi bi-check-circle"></i> @Resources.Strings.Auth_NhanMaGiamGia</div>
+                    </div>
                 </div>
             </div>
 
@@ -99,7 +106,7 @@
                             <i class="bi bi-lock me-1"></i>@Resources.Strings.Auth_MatKhau
                         </label>
                         <div class="sc-pass-wrap">
-                            @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;", id = "MatKhauInput", autocomplete = "current-password" })
+                            @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "Nhập mật khẩu", id = "MatKhauInput", autocomplete = "current-password" })
                             <button type="button" class="sc-pass-toggle" id="togglePass">
                                 <i class="bi bi-eye" id="eyeIcon"></i>
                             </button>

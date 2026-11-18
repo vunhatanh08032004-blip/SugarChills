@@ -1,0 +1,33 @@
+﻿@model QL_MatHangAnUong.Controllers.DanhGiaTomTat
+@*
+    Dòng sao cạnh tên món (child action DanhGia/Sao).
+    Mỗi ngôi sao: đầy (>= i - 0.25), nửa (>= i - 0.75), rỗng (còn lại).
+*@
+<span class="d-inline-flex align-items-center gap-2">
+    <span class="text-warning">
+        @for (int i = 1; i <= 5; i++)
+        {
+            if (Model.TrungBinh >= i - 0.25)
+            {
+                <i class="bi bi-star-fill"></i>
+            }
+            else if (Model.TrungBinh >= i - 0.75)
+            {
+                <i class="bi bi-star-half"></i>
+            }
+            else
+            {
+                <i class="bi bi-star"></i>
+            }
+        }
+    </span>
+    @if (Model.Tong > 0)
+    {
+        <span class="fw-bold small">@Model.TrungBinh.ToString("0.0")</span>
+        <a href="#khungDanhGia" class="sc-text-muted small">(@Model.Tong đánh giá)</a>
+    }
+    else
+    {
+        <a href="#khungDanhGia" class="sc-text-muted small">Chưa có đánh giá</a>
+    }
+</span>
